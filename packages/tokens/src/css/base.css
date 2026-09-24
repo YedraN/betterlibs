@@ -1,0 +1,89 @@
+/* Estilos base: tipografía, colores del documento, foco y movimiento. */
+html {
+  color-scheme: light dark;
+  font-family: var(--bl-font-family-sans);
+  font-size: 100%;
+  line-height: var(--bl-leading-normal);
+  color: var(--bl-color-text);
+  background-color: var(--bl-color-bg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-size: var(--bl-font-size-md);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--bl-font-family-display);
+  font-weight: var(--bl-font-weight-semibold);
+  line-height: var(--bl-leading-snug);
+  letter-spacing: var(--bl-tracking-tight);
+  text-wrap: balance;
+}
+
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--bl-color-accent-text);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--bl-font-family-mono);
+  font-size: 0.9em;
+}
+
+::selection {
+  background-color: var(--bl-color-accent-subtle-hover);
+  color: var(--bl-color-text);
+}
+
+/* Foco siempre visible con teclado, nunca con ratón. */
+:focus-visible {
+  outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+  outline-offset: var(--bl-focus-ring-offset);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respeta a quien pide menos movimiento: sin animaciones ni transiciones largas. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Deja espacio a las cabeceras fijas al saltar a un ancla. */
+:target {
+  scroll-margin-block-start: calc(var(--bl-control-height-lg) + var(--bl-space-8));
+}

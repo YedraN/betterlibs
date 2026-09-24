@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Introducción" />
+
+# Betterlibs UI
+
+Librería de componentes React para **webs corporativas y profesionales**: accesible por defecto,
+adaptable a cualquier marca y pensada para que tus páginas se entiendan a la primera.
+
+## Cómo usar este Storybook
+
+- **Tema**: cambia entre claro, oscuro y el del sistema desde la barra superior.
+- **Marca**: prueba varios temas generados con `createTheme()` para comprobar que todo se adapta.
+- **Accesibilidad**: la pestaña *Accessibility* ejecuta axe sobre cada historia.
+
+## Empezar
+
+```bash
+pnpm add @betterlibs/react @betterlibs/tokens
+```
+
+```tsx
+// En la raíz de tu app (layout.tsx, main.tsx…)
+import '@betterlibs/tokens/index.css'
+```
+
+`index.css` incluye tokens, reset y estilos base organizados en capas CSS
+(`@layer bl.tokens, bl.reset, bl.base, bl.components`). Tus estilos, sin capa, siempre ganan.
+
+## Tu marca
+
+```ts
+import { createTheme } from '@betterlibs/tokens'
+
+const theme = createTheme({ brand: '#0a5cff', radius: 'soft', fontSans: 'Inter, sans-serif' })
+// theme.css contiene las variables de tu marca con contraste WCAG AA verificado.
+```
+
+Prueba colores en **Theming → Generador de tema**.
+
+## Principios
+
+1. **Accesibilidad WCAG 2.2 AA** como mínimo.
+2. **Movimiento con intención** y respeto a `prefers-reduced-motion`.
+3. **Rendimiento**: sin runtime de estilos, tree-shaking por componente.
+4. **Contenido legible**: ~65 caracteres por línea, jerarquía clara.
+5. **Todos los estados**: hover, foco, deshabilitado, carga, error y vacío.

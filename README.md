@@ -36,7 +36,7 @@ pnpm test        # tests
 ## Roadmap
 
 - [x] **Fase 0** — Monorepo, tooling y CI
-- [ ] **Fase 1** — Tokens y theming
+- [x] **Fase 1** — Tokens y theming
 - [ ] **Fase 2** — Layout y componentes base
 - [ ] **Fase 3** — Formularios
 - [ ] **Fase 4** — Interactivos y overlays
@@ -48,3 +48,9 @@ pnpm test        # tests
 ## Contribuir
 
 Lee [CONTRIBUTING.md](CONTRIBUTING.md). Licencia [MIT](LICENSE).
+
+## Storybook
+
+```bash
+pnpm --filter @betterlibs/storybook dev   # http://localhost:6006
+```

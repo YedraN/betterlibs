@@ -1,22 +1,35 @@
 {
   "name": "betterlibs",
   "private": true,
-  "version": "0.0.0",
+  "description": "Librería de componentes React para webs corporativas y profesionales.",
+  "license": "MIT",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
+  "packageManager": "pnpm@12.4.1",
+  "engines": {
+    "node": ">=22"
   },
-  "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "react": "latest",
-    "react-dom": "latest"
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build && changeset publish",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "typescript": "~5.7.2",
-    "@types/react": "latest",
-    "@types/react-dom": "latest"
+    "@biomejs/biome": "2.5.14",
+    "@changesets/cli": "3.0.3",
+    "husky": "9.1.7",
+    "lint-staged": "17.5.1",
+    "turbo": "2.11.3",
+    "typescript": "6.0.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css,md}": "biome check --write --no-errors-on-unmatched"
   }
 }

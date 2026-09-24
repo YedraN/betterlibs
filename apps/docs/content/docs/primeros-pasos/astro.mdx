@@ -1,0 +1,60 @@
+---
+title: Astro
+description: Usa Betterlibs UI en webs corporativas construidas con Astro.
+---
+
+Astro encaja muy bien con webs corporativas: páginas estáticas, rápidas y con JavaScript solo donde
+hace falta. Los componentes de Betterlibs sin estado se renderizan como HTML puro.
+
+## 1. Integración de React
+
+```bash
+npx astro add react
+```
+
+## 2. Estilos globales
+
+```astro title="src/layouts/Base.astro"
+---
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+import { SkipLink } from '@betterlibs/react'
+const { title } = Astro.props
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SkipLink />
+    <slot />
+  </body>
+</html>
+```
+
+## 3. Componentes
+
+```astro title="src/pages/index.astro"
+---
+import Base from '../layouts/Base.astro'
+import { Button, Container, Heading, Section, Text } from '@betterlibs/react'
+---
+<Base title="Inicio">
+  <main id="main">
+    <Section>
+      <Container>
+        <Heading level={1}>Asesoría para pymes</Heading>
+        <Text variant="lead">Fiscal, laboral y contable, con un gestor que conoce tu negocio.</Text>
+        <Button asChild><a href="/contacto">Pide tu presupuesto</a></Button>
+      </Container>
+    </Section>
+  </main>
+</Base>
+```
+
+<Callout title="Interactividad">
+  Los componentes con estado (p. ej. `Avatar` con imagen de respaldo) necesitan una directiva de
+  hidratación como `client:visible` para funcionar en el navegador.
+</Callout>

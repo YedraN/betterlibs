@@ -1,0 +1,27 @@
+@layer bl.components {
+  .root {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: var(--_ratio, auto);
+    object-fit: cover;
+    border-radius: var(--_radius, 0);
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .root[data-fit="contain"] {
+    object-fit: contain;
+    background-color: transparent;
+  }
+
+  .figure {
+    display: grid;
+    gap: var(--bl-space-2);
+  }
+
+  .caption {
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+    color: var(--bl-color-text-muted);
+  }
+}

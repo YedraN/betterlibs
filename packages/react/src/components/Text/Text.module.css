@@ -1,0 +1,106 @@
+@layer bl.components {
+  .root {
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-relaxed);
+    color: var(--bl-color-text);
+    text-wrap: pretty;
+  }
+
+  .root[data-variant="lead"] {
+    font-size: var(--bl-font-size-xl);
+    line-height: var(--bl-leading-normal);
+    color: var(--bl-color-text-muted);
+    max-inline-size: var(--bl-container-prose);
+  }
+
+  .root[data-variant="eyebrow"] {
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+    letter-spacing: var(--bl-tracking-wide);
+    text-transform: uppercase;
+    color: var(--bl-color-accent-text);
+  }
+
+  .root[data-variant="caption"] {
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+    color: var(--bl-color-text-muted);
+  }
+
+  .root[data-variant="label"] {
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-medium);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .root[data-size="xs"] {
+    font-size: var(--bl-font-size-xs);
+  }
+  .root[data-size="sm"] {
+    font-size: var(--bl-font-size-sm);
+  }
+  .root[data-size="md"] {
+    font-size: var(--bl-font-size-md);
+  }
+  .root[data-size="lg"] {
+    font-size: var(--bl-font-size-lg);
+  }
+  .root[data-size="xl"] {
+    font-size: var(--bl-font-size-xl);
+  }
+
+  .root[data-tone="default"] {
+    color: var(--bl-color-text);
+  }
+  .root[data-tone="muted"] {
+    color: var(--bl-color-text-muted);
+  }
+  .root[data-tone="subtle"] {
+    color: var(--bl-color-text-subtle);
+  }
+  .root[data-tone="accent"] {
+    color: var(--bl-color-accent-text);
+  }
+  .root[data-tone="success"] {
+    color: var(--bl-color-success-text);
+  }
+  .root[data-tone="warning"] {
+    color: var(--bl-color-warning-text);
+  }
+  .root[data-tone="danger"] {
+    color: var(--bl-color-danger-text);
+  }
+
+  .root[data-weight="regular"] {
+    font-weight: var(--bl-font-weight-regular);
+  }
+  .root[data-weight="medium"] {
+    font-weight: var(--bl-font-weight-medium);
+  }
+  .root[data-weight="semibold"] {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+  .root[data-weight="bold"] {
+    font-weight: var(--bl-font-weight-bold);
+  }
+
+  .root[data-align="start"] {
+    text-align: start;
+  }
+  .root[data-align="center"] {
+    text-align: center;
+    margin-inline: auto;
+  }
+  .root[data-align="end"] {
+    text-align: end;
+  }
+
+  .root[data-clamp] {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--_lines);
+    line-clamp: var(--_lines);
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,81 @@
+---
+title: Next.js
+description: Configura Betterlibs UI con el App Router de Next.js.
+---
+
+Betterlibs UI es compatible con **React Server Components**: los componentes sin estado (layout,
+tipografía, botones, enlaces…) se renderizan en el servidor sin enviar JavaScript. Solo los
+interactivos llevan `'use client'`.
+
+## 1. Estilos globales
+
+```tsx title="app/layout.tsx"
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+import { SkipLink } from '@betterlibs/react'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="es">
+      <body>
+        <SkipLink />
+        {children}
+      </body>
+    </html>
+  )
+}
+```
+
+<Callout type="warn" title="Idioma">
+  Indica siempre el idioma en `<html lang="es">`: los lectores de pantalla lo usan para pronunciar bien.
+</Callout>
+
+## 2. Tipografía de marca con `next/font`
+
+```tsx title="app/layout.tsx"
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+
+// …
+<html lang="es" className={inter.variable}>
+```
+
+```css title="app/globals.css"
+:root {
+  --bl-font-family-sans: var(--font-inter), system-ui, sans-serif;
+  --bl-font-family-display: var(--font-inter), system-ui, sans-serif;
+}
+```
+
+## 3. Enlaces del router
+
+`Button` y `Link` aceptan `asChild` para usar `next/link` sin perder los estilos ni la semántica:
+
+```tsx
+import NextLink from 'next/link'
+import { Button, Link } from '@betterlibs/react'
+
+<Button asChild>
+  <NextLink href="/contacto">Hablar con un experto</NextLink>
+</Button>
+
+<Link asChild variant="standalone" arrow>
+  <NextLink href="/casos">Ver casos de éxito</NextLink>
+</Link>
+```
+
+## 4. Tema de marca
+
+Genera el tema en el servidor y añádelo al `<head>`: no hay parpadeo de color al cargar.
+
+```tsx title="app/layout.tsx"
+import { createTheme } from '@betterlibs/tokens'
+
+const theme = createTheme({ brand: '#0a5cff', radius: 'soft' })
+
+// dentro de <head>:
+<style>{theme.css}</style>
+```
+
+Más detalles en [Modo oscuro y tema de marca](/docs/fundamentos/modo-oscuro-y-marca).

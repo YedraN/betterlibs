@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite'
+import { generateScopedName } from '../../../packages/react/css-modules.js'
 
 const config: StorybookConfig = {
   stories: [
@@ -10,6 +11,10 @@ const config: StorybookConfig = {
   framework: '@storybook/react-vite',
   core: { disableTelemetry: true },
   docs: { defaultName: 'Documentación' },
+  viteFinal: (config) => ({
+    ...config,
+    css: { ...config.css, modules: { ...config.css?.modules, generateScopedName } },
+  }),
 }
 
 export default config

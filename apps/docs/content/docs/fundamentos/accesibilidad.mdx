@@ -1,0 +1,40 @@
+---
+title: Accesibilidad
+description: Nuestros compromisos y cómo mantenerlos en tu web.
+icon: Accessibility
+---
+
+Betterlibs UI apunta a **WCAG 2.2 nivel AA** como mínimo. La librería se encarga de mucho, pero el
+resultado final depende también del contenido y de cómo combines los componentes.
+
+## Lo que hace la librería
+
+| Área | Qué garantiza |
+| --- | --- |
+| Contraste | 42 pares verificados en claro y oscuro; `createTheme` valida tu marca |
+| Foco | Siempre visible con teclado (`:focus-visible`), con contraste 3:1 |
+| Teclado | Todos los controles son operables sin ratón |
+| Táctil | Controles de 44px de alto por defecto |
+| Movimiento | Respeta `prefers-reduced-motion` |
+| Semántica | Elementos HTML correctos: botones que actúan, enlaces que navegan |
+| Nombres | Botones de icono con `label` obligatorio; enlaces externos anunciados |
+| Tests | axe-core en los tests de cada componente |
+
+## Lo que depende de ti
+
+- **Idioma**: `<html lang="es">`.
+- **Estructura**: un `h1` por página, sin saltar niveles; `main`, `header`, `nav` y `footer`.
+- **Enlace de salto**: `<SkipLink />` al principio y `<main id="main">`.
+- **Texto alternativo**: describe lo que aporta la imagen; `alt=""` si es decorativa.
+- **Textos de enlaces y botones**: que se entiendan fuera de contexto («Descargar tarifas 2026»,
+  no «Aquí»).
+- **Color**: no lo uses como único medio para transmitir información.
+
+## Cómo comprobarlo
+
+1. **Solo teclado**: recorre la página con `Tab`, `Shift+Tab`, `Enter` y `Espacio`. ¿Ves siempre
+   dónde estás? ¿Llegas a todo?
+2. **Zoom al 200 %**: nada debe cortarse ni solaparse.
+3. **Lector de pantalla**: NVDA (Windows, gratuito) o VoiceOver (macOS/iOS). Navega por titulares
+   (`H`) y regiones.
+4. **Automático**: la pestaña *Accessibility* de Storybook o la extensión axe DevTools.

@@ -13,6 +13,11 @@ body {
   font-size: var(--bl-font-size-md);
 }
 
+/* Zonas con tema propio (p. ej. una sección oscura): el texto hereda el modo correcto. */
+[data-theme] {
+  color: var(--bl-color-text);
+}
+
 h1,
 h2,
 h3,

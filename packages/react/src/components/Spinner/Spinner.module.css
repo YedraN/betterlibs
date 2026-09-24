@@ -1,0 +1,50 @@
+@layer bl.components {
+  .root {
+    display: inline-flex;
+    flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    color: currentColor;
+  }
+
+  .root[data-size="sm"] {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+  .root[data-size="lg"] {
+    inline-size: 2rem;
+    block-size: 2rem;
+  }
+
+  .svg {
+    inline-size: 100%;
+    block-size: 100%;
+    animation: bl-spin 0.8s linear infinite;
+  }
+
+  .track {
+    stroke: currentColor;
+    opacity: 0.2;
+  }
+
+  .arc {
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 45;
+  }
+
+  /* Con movimiento reducido gira mucho más lento en lugar de detenerse del todo. */
+  @media (prefers-reduced-motion: reduce) {
+    .svg {
+      animation-duration: 2.4s !important;
+      animation-iteration-count: infinite !important;
+    }
+  }
+
+  @keyframes bl-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

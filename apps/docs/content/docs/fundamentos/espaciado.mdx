@@ -1,0 +1,33 @@
+---
+title: Espaciado
+description: Escala en base 4px y ritmo vertical de página.
+icon: Ruler
+---
+
+## Escala
+
+Base de **4px**. Las claves con decimales usan guion: `--bl-space-0-5` son 2px.
+
+<TokenTable group="space" />
+
+## Cómo elegir
+
+| Relación | Pasos | Ejemplo |
+| --- | --- | --- |
+| Dentro de un componente | `1`–`4` | Icono y texto de un botón |
+| Entre elementos de un grupo | `3`–`6` | Titular y entradilla |
+| Entre grupos | `8`–`16` | Cabecera de sección y rejilla |
+| Entre secciones | `section-sm/md/lg` | Bloques de la página (fluido) |
+
+<Callout title="Proximidad">
+  Lo que está relacionado va más cerca. Si todo tiene el mismo espacio, el ojo no sabe qué pertenece
+  a qué. Aumenta el espacio a medida que subes de nivel.
+</Callout>
+
+## Secciones
+
+`Section` aplica el espaciado vertical fluido: más compacto en móvil y más generoso en escritorio.
+
+```tsx
+<Section spacing="lg">…</Section>
+```

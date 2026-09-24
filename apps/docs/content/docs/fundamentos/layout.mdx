@@ -1,0 +1,56 @@
+---
+title: Layout y rejilla
+description: Contenedores, breakpoints y rejillas responsive mobile-first.
+icon: LayoutGrid
+---
+
+import { Box, Grid, Text } from '@betterlibs/react'
+
+## Breakpoints
+
+Mobile-first: el estilo base es para móvil y cada breakpoint **añade** cambios hacia arriba.
+
+| Nombre | Desde | Dispositivo típico |
+| --- | --- | --- |
+| `base` | 0px | Móvil |
+| `sm` | 640px | Móvil grande |
+| `md` | 768px | Tableta |
+| `lg` | 1024px | Portátil |
+| `xl` | 1280px | Escritorio |
+
+## Contenedores
+
+<TokenTable group="container" />
+
+`Container` centra el contenido con el ancho `xl` por defecto y un margen lateral fluido
+(`--bl-container-gutter`). Usa `size="prose"` para artículos y textos legales.
+
+## Rejilla
+
+Columnas por breakpoint:
+
+<Preview>
+  <Grid columns={{ base: 1, sm: 2, lg: 4 }} gap="4">
+    <Box padding="6" tone="accent" radius="md"><Text align="center">1</Text></Box>
+    <Box padding="6" tone="accent" radius="md"><Text align="center">2</Text></Box>
+    <Box padding="6" tone="accent" radius="md"><Text align="center">3</Text></Box>
+    <Box padding="6" tone="accent" radius="md"><Text align="center">4</Text></Box>
+  </Grid>
+</Preview>
+
+```tsx
+<Grid columns={{ base: 1, sm: 2, lg: 4 }} gap="4">…</Grid>
+```
+
+O deja que la rejilla calcule cuántas columnas caben con un ancho mínimo por elemento (ideal para
+logos o tarjetas de equipo):
+
+```tsx
+<Grid minItemWidth="14rem">…</Grid>
+```
+
+## Capas (z-index)
+
+Orden fijo para que menús, diálogos, avisos y tooltips nunca se tapen entre sí:
+
+<TokenTable group="z" />

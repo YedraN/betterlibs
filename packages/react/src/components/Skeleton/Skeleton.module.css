@@ -1,0 +1,52 @@
+@layer bl.components {
+  .root {
+    display: block;
+    inline-size: var(--_w, 100%);
+    block-size: var(--_h, 1em);
+    border-radius: var(--bl-radius-md);
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--bl-color-bg) 60%, transparent) 50%,
+        transparent 100%
+      )
+      var(--bl-color-bg-muted);
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: bl-shimmer 1.6s var(--bl-ease-standard) infinite;
+  }
+
+  .root[data-variant="text"] {
+    block-size: var(--_h, 0.9em);
+    margin-block: 0.25em;
+    border-radius: var(--bl-radius-sm);
+  }
+
+  .root[data-variant="circle"] {
+    inline-size: var(--_w, 2.5rem);
+    block-size: var(--_h, var(--_w, 2.5rem));
+    border-radius: var(--bl-radius-full);
+  }
+
+  .root[data-variant="rect"] {
+    block-size: var(--_h, 8rem);
+  }
+
+  .lines {
+    display: block;
+    inline-size: var(--_w, 100%);
+  }
+
+  .lines > .root:last-child:not(:first-child) {
+    inline-size: 70%;
+  }
+
+  @keyframes bl-shimmer {
+    from {
+      background-position: 150% 0;
+    }
+    to {
+      background-position: -50% 0;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+---
+title: Vite
+description: Configura Betterlibs UI en una aplicación React con Vite.
+---
+
+## 1. Estilos
+
+```tsx title="src/main.tsx"
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+import { App } from './App'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+## 2. Idioma y enlace de salto
+
+```html title="index.html"
+<html lang="es">
+```
+
+```tsx title="src/App.tsx"
+import { SkipLink } from '@betterlibs/react'
+
+export function App() {
+  return (
+    <>
+      <SkipLink />
+      <header>{/* navegación */}</header>
+      <main id="main">{/* contenido */}</main>
+    </>
+  )
+}
+```
+
+## 3. React Router
+
+```tsx
+import { Link as RouterLink } from 'react-router'
+import { Button } from '@betterlibs/react'
+
+<Button asChild variant="outline">
+  <RouterLink to="/servicios">Ver servicios</RouterLink>
+</Button>
+```
+
+## 4. Tema de marca
+
+```ts title="src/theme.ts"
+import { createTheme } from '@betterlibs/tokens'
+
+const theme = createTheme({ brand: '#0f766e' })
+
+const style = document.createElement('style')
+style.textContent = theme.css
+document.head.append(style)
+```
+
+<Callout title="Mejor en el build">
+  Si tu tema no cambia en tiempo de ejecución, genera el CSS en un script de build y guárdalo como
+  archivo `.css`: así llega con el primer render.
+</Callout>

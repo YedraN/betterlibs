@@ -1,0 +1,28 @@
+---
+title: Radios y sombras
+description: Forma y elevación de las superficies.
+icon: Square
+---
+
+## Radios
+
+<TokenTable group="radius" />
+
+Cambia el carácter de toda la interfaz con un preset de `createTheme`:
+
+| Preset | Carácter |
+| --- | --- |
+| `sharp` | Sobrio e institucional (banca, legal, industria) |
+| `soft` | Equilibrado, el valor por defecto |
+| `round` | Cercano y moderno (servicios, startups) |
+
+```ts
+createTheme({ radius: 'sharp' })
+```
+
+## Sombras
+
+Indican **elevación**: menús, diálogos, tarjetas flotantes. No las uses como decoración. En modo
+oscuro se oscurecen automáticamente para seguir siendo visibles.
+
+<TokenTable group="shadow" />

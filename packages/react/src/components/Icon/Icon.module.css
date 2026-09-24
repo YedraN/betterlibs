@@ -1,0 +1,61 @@
+@layer bl.components {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .root > svg {
+    inline-size: 1em;
+    block-size: 1em;
+  }
+
+  .root[data-size="xs"] {
+    font-size: 0.875rem;
+  }
+  .root[data-size="sm"] {
+    font-size: 1rem;
+  }
+  .root[data-size="lg"] {
+    font-size: 1.5rem;
+  }
+  .root[data-size="xl"] {
+    font-size: 2rem;
+  }
+
+  .root[data-tone="muted"] {
+    color: var(--bl-color-text-muted);
+  }
+  .root[data-tone="accent"] {
+    color: var(--bl-color-accent-text);
+  }
+  .root[data-tone="success"] {
+    color: var(--bl-color-success-text);
+  }
+  .root[data-tone="warning"] {
+    color: var(--bl-color-warning-text);
+  }
+  .root[data-tone="danger"] {
+    color: var(--bl-color-danger-text);
+  }
+  .root[data-tone="info"] {
+    color: var(--bl-color-info-text);
+  }
+
+  .root[data-contained] {
+    inline-size: 2.4em;
+    block-size: 2.4em;
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-accent-subtle);
+    color: var(--bl-color-accent-text);
+  }
+
+  .root[data-contained] > svg {
+    inline-size: 1.1em;
+    block-size: 1.1em;
+  }
+}

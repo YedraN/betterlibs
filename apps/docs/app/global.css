@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+/*
+ * Solo tokens y estilos de componentes: el reset y la base de Betterlibs no se cargan
+ * para no interferir con el tema de Fumadocs. Los ejemplos se renderizan dentro de
+ * <Preview>, que aplica el modo de color correcto con data-theme.
+ */
+@import "@betterlibs/tokens/tokens.css";
+@import "@betterlibs/react/styles.css";
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+@source "../components";

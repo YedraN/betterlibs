@@ -1,0 +1,46 @@
+---
+title: Iconografía
+description: 58 iconos de trazo, accesibles y tree-shakeable.
+icon: Shapes
+---
+
+```tsx
+import { ArrowRightIcon, MailIcon } from '@betterlibs/icons'
+
+<ArrowRightIcon />                       // decorativo
+<MailIcon title="Correo electrónico" />  // informativo
+```
+
+## Galería
+
+<IconGallery />
+
+## Accesibilidad
+
+- **Decorativos por defecto** (`aria-hidden`): lo normal es que acompañen a un texto que ya dice lo
+  mismo.
+- Si el icono aporta información que **no** está en el texto, pasa `title`.
+- Un botón con solo icono necesita nombre: usa `IconButton` con `label`.
+
+## Tamaño y color
+
+Miden `1em` y usan `currentColor`: heredan el tamaño y el color del texto que los rodea. Para
+tamaños y tonos del sistema, envuélvelos en `Icon`:
+
+```tsx
+import { Icon } from '@betterlibs/react'
+
+<Icon size="lg" tone="accent"><MailIcon /></Icon>
+<Icon contained><PhoneIcon /></Icon>
+```
+
+## Tus propios iconos
+
+```ts
+import { createIcon } from '@betterlibs/icons'
+
+export const LeafIcon = createIcon('Leaf', [
+  'M5 19c8 0 14-6 14-14-8 0-14 6-14 14z',
+  'M5 19 13 11',
+])
+```

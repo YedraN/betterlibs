@@ -37,7 +37,7 @@ pnpm test        # tests
 
 - [x] **Fase 0** — Monorepo, tooling y CI
 - [x] **Fase 1** — Tokens y theming
-- [ ] **Fase 2** — Layout y componentes base
+- [x] **Fase 2** — Layout y componentes base
 - [ ] **Fase 3** — Formularios
 - [ ] **Fase 4** — Interactivos y overlays
 - [ ] **Fase 5** — Navegación
@@ -53,4 +53,10 @@ Lee [CONTRIBUTING.md](CONTRIBUTING.md). Licencia [MIT](LICENSE).
 
 ```bash
 pnpm --filter @betterlibs/storybook dev   # http://localhost:6006
+```
+
+## Documentación
+
+```bash
+pnpm --filter @betterlibs/docs dev   # http://localhost:3000
 ```

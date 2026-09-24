@@ -1,0 +1,54 @@
+---
+title: Introducción
+description: Componentes React accesibles y adaptables a tu marca para webs corporativas y profesionales.
+icon: BookOpen
+---
+
+**Betterlibs UI** es una librería de componentes React para construir webs de empresa: la home,
+las páginas de servicios, el equipo, el blog o el formulario de contacto. Su objetivo es que cada
+página **se entienda a la primera** y **funcione para todo el mundo**, sin que tengas que ser
+experto en accesibilidad ni en diseño de sistemas.
+
+## Qué incluye
+
+<Cards>
+  <Card title="Tokens y temas" href="/docs/fundamentos/color">
+    Color, tipografía fluida, espaciado y movimiento como variables CSS. Modo oscuro y tema de marca con contraste verificado.
+  </Card>
+  <Card title="Componentes" href="/docs/componentes">
+    Layout, tipografía, botones, enlaces, avatares, etiquetas… con la misma API en todos.
+  </Card>
+  <Card title="Iconos" href="/docs/fundamentos/iconografia">
+    58 iconos de trazo pensados para webs corporativas, accesibles y tree-shakeable.
+  </Card>
+  <Card title="Storybook" href="http://localhost:6006">
+    Todos los componentes en vivo, con controles, tema claro/oscuro y auditoría de accesibilidad.
+  </Card>
+</Cards>
+
+## Principios
+
+1. **Accesibilidad WCAG 2.2 AA como mínimo.** Navegación completa con teclado, foco siempre visible,
+   contraste verificado automáticamente, objetivos táctiles de 44px y ARIA correcto.
+2. **Movimiento con intención.** Transiciones cortas que explican cambios; todo respeta
+   `prefers-reduced-motion`.
+3. **Rendimiento.** Sin CSS-in-JS en tiempo de ejecución, imágenes diferidas con espacio reservado y
+   tree-shaking por componente.
+4. **Contenido legible.** Líneas de ~65 caracteres, jerarquía tipográfica clara y espaciado generoso.
+5. **Todos los estados.** Hover, foco, activo, deshabilitado, carga, error, vacío y éxito.
+6. **Textos incluidos.** Etiquetas por defecto en español que puedes sobrescribir.
+7. **Mobile-first.** Todo se prueba de 320px a 1920px.
+8. **Predecible.** Mismas props (`variant`, `size`, `asChild`) y mismo comportamiento en todos los componentes.
+
+## Paquetes
+
+| Paquete | Para qué sirve |
+| --- | --- |
+| `@betterlibs/tokens` | Design tokens como variables CSS, reset, estilos base y `createTheme()` |
+| `@betterlibs/react` | Componentes React y sus estilos |
+| `@betterlibs/icons` | Iconos SVG como componentes React |
+
+<Callout title="Estado del proyecto">
+  Betterlibs UI está en desarrollo activo. Ya están disponibles los fundamentos, el layout y los
+  componentes base; formularios, overlays, navegación y bloques corporativos llegan en las próximas versiones.
+</Callout>

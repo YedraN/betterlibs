@@ -1,0 +1,27 @@
+@layer bl.components {
+  .root {
+    padding-block: var(--bl-section-md);
+    background-color: var(--bl-color-bg);
+    color: var(--bl-color-text);
+  }
+
+  .root[data-spacing="none"] {
+    padding-block: 0;
+  }
+  .root[data-spacing="sm"] {
+    padding-block: var(--bl-section-sm);
+  }
+  .root[data-spacing="lg"] {
+    padding-block: var(--bl-section-lg);
+  }
+
+  .root[data-tone="subtle"] {
+    background-color: var(--bl-color-bg-subtle);
+  }
+  .root[data-tone="muted"] {
+    background-color: var(--bl-color-bg-muted);
+  }
+  .root[data-tone="brand"] {
+    background-color: var(--bl-color-accent-subtle);
+  }
+}

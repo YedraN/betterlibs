@@ -1,0 +1,154 @@
+@layer bl.components {
+  .root {
+    --_height: var(--bl-control-height-md);
+    --_px: var(--bl-space-5);
+    --_bg: var(--bl-color-accent);
+    --_bg-hover: var(--bl-color-accent-hover);
+    --_bg-active: var(--bl-color-accent-active);
+    --_fg: var(--bl-color-on-accent);
+    --_border: transparent;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bl-space-2);
+    min-block-size: var(--_height);
+    padding-inline: var(--_px);
+    border: 1px solid var(--_border);
+    border-radius: var(--bl-radius-md);
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-family: inherit;
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color var(--bl-duration-fast) var(--bl-ease-standard),
+      border-color var(--bl-duration-fast) var(--bl-ease-standard),
+      color var(--bl-duration-fast) var(--bl-ease-standard),
+      transform var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .root:hover {
+    background-color: var(--_bg-hover);
+  }
+
+  .root:active:not(:disabled, [aria-disabled="true"]) {
+    background-color: var(--_bg-active);
+    transform: translateY(1px);
+  }
+
+  .root:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: var(--bl-focus-ring-offset);
+  }
+
+  /* Tamaños */
+  .root[data-size="sm"] {
+    --_height: var(--bl-control-height-sm);
+    --_px: var(--bl-space-3);
+    font-size: var(--bl-font-size-sm);
+  }
+  .root[data-size="lg"] {
+    --_height: var(--bl-control-height-lg);
+    --_px: var(--bl-space-6);
+    font-size: var(--bl-font-size-lg);
+  }
+
+  /* Variantes */
+  .root[data-variant="secondary"] {
+    --_bg: var(--bl-color-accent-subtle);
+    --_bg-hover: var(--bl-color-accent-subtle-hover);
+    --_bg-active: var(--bl-color-accent-subtle-hover);
+    --_fg: var(--bl-color-accent-text);
+  }
+  .root[data-variant="outline"] {
+    --_bg: transparent;
+    --_bg-hover: var(--bl-color-bg-subtle);
+    --_bg-active: var(--bl-color-bg-muted);
+    --_fg: var(--bl-color-text);
+    --_border: var(--bl-color-border-input);
+  }
+  .root[data-variant="ghost"] {
+    --_bg: transparent;
+    --_bg-hover: var(--bl-color-bg-muted);
+    --_bg-active: var(--bl-color-bg-muted);
+    --_fg: var(--bl-color-text);
+  }
+  .root[data-variant="danger"] {
+    --_bg: var(--bl-color-danger-solid);
+    --_bg-hover: var(--bl-color-danger-text);
+    --_bg-active: var(--bl-color-danger-text);
+    --_fg: var(--bl-color-on-danger);
+  }
+
+  .root[data-full-width] {
+    inline-size: 100%;
+  }
+
+  /* Deshabilitado: se ve apagado pero el texto sigue siendo legible. */
+  .root:disabled,
+  .root[aria-disabled="true"]:not([data-loading]) {
+    --_bg: var(--bl-color-bg-muted);
+    --_bg-hover: var(--bl-color-bg-muted);
+    --_fg: var(--bl-color-text-disabled);
+    --_border: transparent;
+    cursor: not-allowed;
+  }
+
+  .root[data-loading] {
+    cursor: progress;
+  }
+
+  .content {
+    display: inline-flex;
+    align-items: center;
+    gap: inherit;
+  }
+
+  .root[data-loading] .content {
+    visibility: hidden;
+  }
+
+  .loader {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    font-size: 1.15em;
+  }
+
+  .icon:last-child {
+    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .root:hover .icon:last-child:not(:first-child) {
+    transform: translateX(2px);
+  }
+
+  /* Solo icono (IconButton) */
+  .iconOnly {
+    --_px: 0;
+    inline-size: var(--_height);
+  }
+
+  .iconOnly .icon,
+  .iconOnly .content {
+    font-size: 1.25em;
+  }
+
+  .circle {
+    border-radius: var(--bl-radius-full);
+  }
+}

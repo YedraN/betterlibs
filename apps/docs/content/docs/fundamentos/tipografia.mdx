@@ -1,0 +1,46 @@
+---
+title: Tipografía
+description: Escala fluida, jerarquía clara y textos que se leen sin esfuerzo.
+icon: Type
+---
+
+## Escala fluida
+
+Los tamaños grandes crecen de forma continua entre **360px** y **1280px** de ancho con `clamp()`:
+no hay saltos entre breakpoints y todo usa `rem`, así que **respeta el zoom del usuario**.
+
+<TypeScale />
+
+## Pesos e interlineado
+
+<TokenTable group="weight" />
+
+<TokenTable group="leading" />
+
+- Titulares: `leading-tight` o `leading-snug`.
+- Párrafos: `leading-relaxed` para textos largos, `leading-normal` para interfaces.
+
+## Buenas prácticas
+
+- **Un solo `h1` por página** y sin saltarse niveles (h2 → h3, nunca h2 → h4). Usa la prop `size`
+  de `Heading` si necesitas otro aspecto.
+- **Líneas de ~65 caracteres** (`--bl-container-prose`). Las líneas muy largas cansan y hacen perder
+  el hilo.
+- **Párrafos cortos** y titulares que resuman: la mayoría de visitantes escanea antes de leer.
+- **Evita el texto justificado**: crea «ríos» de espacio que dificultan la lectura, sobre todo con
+  dislexia.
+- **No uses mayúsculas** en textos largos. Solo en antetítulos cortos (`Text variant="eyebrow"`).
+
+## Tu tipografía
+
+Por defecto se usa la fuente del sistema: carga instantánea y aspecto nativo. Para usar la de tu
+marca:
+
+```ts
+createTheme({ fontSans: "'Inter', system-ui, sans-serif", fontDisplay: "'Fraunces', serif" })
+```
+
+<Callout title="Rendimiento">
+  Carga solo los pesos que uses (normalmente 400 y 600) y usa `font-display: swap` para que el texto
+  se vea desde el primer momento.
+</Callout>

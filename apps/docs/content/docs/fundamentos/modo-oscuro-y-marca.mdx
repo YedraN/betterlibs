@@ -1,0 +1,74 @@
+---
+title: Modo oscuro y tema de marca
+description: Adapta la librería a tu identidad sin perder accesibilidad.
+icon: Paintbrush
+---
+
+import { Button, Section, Container, Heading, Text, Stack } from '@betterlibs/react'
+
+## Modo oscuro
+
+Es **automático**: sigue la preferencia del sistema operativo. Para forzar un modo, usa
+`data-theme` en `<html>` o en **cualquier elemento**:
+
+```html
+<html data-theme="dark">          <!-- toda la página -->
+<section data-theme="dark">       <!-- solo una sección -->
+```
+
+`Section` lo hace por ti con `tone="dark"` o `tone="light"`:
+
+<Preview padded={false}>
+  <Section tone="dark" spacing="sm" aria-label="Ejemplo de sección oscura">
+    <Container>
+      <Stack gap="4">
+        <Heading level={2} size="2xl">Una sección oscura en una página clara</Heading>
+        <Text tone="muted">Todo lo que hay dentro se adapta solo: texto, botones, bordes y foco.</Text>
+        <div><Button>Hablar con ventas</Button></div>
+      </Stack>
+    </Container>
+  </Section>
+</Preview>
+
+## Tema de marca
+
+`createTheme` parte de **un solo color** y genera todo lo demás:
+
+```ts
+import { createTheme } from '@betterlibs/tokens'
+
+const theme = createTheme({
+  brand: '#0a5cff',              // tu color principal
+  radius: 'soft',                // 'sharp' | 'soft' | 'round'
+  fontSans: "'Inter', sans-serif",
+})
+
+theme.css         // CSS listo para inyectar
+theme.accessible  // true si todo cumple WCAG AA
+theme.contrast    // informe detallado de cada par
+```
+
+Qué hace por dentro:
+
+1. Genera una escala de 11 tonos en **OKLCH** (perceptualmente uniforme) conservando tu color exacto.
+2. Elige, para modo claro y oscuro, los tonos de botón, enlace y foco que **cumplen el contraste**.
+3. Decide si el texto sobre tu color debe ser blanco u oscuro (una marca amarilla lleva texto oscuro).
+4. Si algo no cumple, lanza `ThemeContrastError` explicando qué y por qué. Desactívalo con
+   `strict: false` si prefieres revisar el informe tú.
+
+<Callout title="Pruébalo">
+  En Storybook, **Theming → Generador de tema** permite elegir un color y ver al momento la escala,
+  la vista previa y el informe de accesibilidad.
+</Callout>
+
+## Varias marcas en la misma web
+
+Usa `selector` para limitar el tema a una parte de la página:
+
+```ts
+const filial = createTheme({ brand: '#0f766e', selector: '[data-brand="filial"]' })
+```
+
+```html
+<div data-brand="filial">…</div>
+```

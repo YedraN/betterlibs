@@ -1,0 +1,41 @@
+@layer bl.components {
+  .root {
+    flex-shrink: 0;
+    background-color: var(--bl-color-border);
+  }
+
+  .root[data-orientation="horizontal"] {
+    block-size: 1px;
+    inline-size: 100%;
+    margin-block: var(--_spacing, 0);
+  }
+
+  .root[data-orientation="vertical"] {
+    inline-size: 1px;
+    align-self: stretch;
+    min-block-size: 1em;
+    margin-inline: var(--_spacing, 0);
+  }
+
+  .root[data-labelled] {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-3);
+    block-size: auto;
+    background: none;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .root[data-labelled]::before,
+  .root[data-labelled]::after {
+    content: "";
+    flex: 1;
+    block-size: 1px;
+    background-color: var(--bl-color-border);
+  }
+
+  .label {
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,21 @@
+@layer bl.components {
+  .root {
+    position: fixed;
+    z-index: var(--bl-z-tooltip);
+    inset-block-start: var(--bl-space-3);
+    inset-inline-start: var(--bl-space-3);
+    padding: var(--bl-space-3) var(--bl-space-4);
+    border-radius: var(--bl-radius-md);
+    background-color: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    font-weight: var(--bl-font-weight-semibold);
+    text-decoration: none;
+    box-shadow: var(--bl-shadow-lg);
+    transform: translateY(calc(-100% - var(--bl-space-6)));
+    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .root:focus-visible {
+    transform: none;
+  }
+}

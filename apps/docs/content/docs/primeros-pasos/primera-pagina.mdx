@@ -1,0 +1,114 @@
+---
+title: Tu primera página en 10 minutos
+description: Construye una sección de servicios completa, accesible y responsive.
+---
+
+import { BarChartIcon, ShieldCheckIcon, UsersIcon, ArrowRightIcon } from '@betterlibs/icons'
+import { Box, Button, ButtonGroup, Container, Grid, Heading, Icon, Section, Stack, Text } from '@betterlibs/react'
+
+Vamos a montar una sección típica de una web corporativa: antetítulo, titular, entradilla,
+tres ventajas y dos llamadas a la acción.
+
+<Preview padded={false}>
+  <Section aria-labelledby="demo-servicios" spacing="sm">
+    <Container>
+      <Stack gap="10">
+        <Stack gap="3" style={{ maxWidth: '40rem' }}>
+          <Text variant="eyebrow">Por qué elegirnos</Text>
+          <Heading id="demo-servicios" level={2} size="3xl">Crece con un equipo que conoce tu negocio</Heading>
+          <Text variant="lead">Tres compromisos que cumplimos con cada cliente desde el primer día.</Text>
+        </Stack>
+        <Grid columns={{ base: 1, md: 3 }}>
+          <Box padding="6" radius="lg" bordered>
+            <Stack gap="3">
+              <Icon contained size="lg"><UsersIcon /></Icon>
+              <Heading level={3} size="md">Equipo dedicado</Heading>
+              <Text tone="muted">Un interlocutor único que conoce tu empresa.</Text>
+            </Stack>
+          </Box>
+          <Box padding="6" radius="lg" bordered>
+            <Stack gap="3">
+              <Icon contained size="lg"><BarChartIcon /></Icon>
+              <Heading level={3} size="md">Resultados medibles</Heading>
+              <Text tone="muted">Informes mensuales con indicadores claros.</Text>
+            </Stack>
+          </Box>
+          <Box padding="6" radius="lg" bordered>
+            <Stack gap="3">
+              <Icon contained size="lg"><ShieldCheckIcon /></Icon>
+              <Heading level={3} size="md">Cumplimiento</Heading>
+              <Text tone="muted">Procesos alineados con el RGPD.</Text>
+            </Stack>
+          </Box>
+        </Grid>
+        <ButtonGroup stackBelow="sm" aria-label="Acciones">
+          <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
+          <Button variant="outline">Ver servicios</Button>
+        </ButtonGroup>
+      </Stack>
+    </Container>
+  </Section>
+</Preview>
+
+## 1. La sección y el contenedor
+
+`Section` da el ritmo vertical (fluido: menos espacio en móvil) y `Container` limita el ancho y
+añade margen lateral. Enlaza el título con `aria-labelledby` para que la sección aparezca como región
+navegable en lectores de pantalla.
+
+```tsx
+<Section aria-labelledby="servicios">
+  <Container>{/* … */}</Container>
+</Section>
+```
+
+## 2. La cabecera de la sección
+
+Antetítulo, titular y entradilla. Fíjate en que el **nivel** del titular (`level={2}`) va separado
+de su **tamaño** (`size="3xl"`): puedes ajustar el aspecto sin romper la estructura del documento.
+
+```tsx
+<Stack gap="3" style={{ maxWidth: '40rem' }}>
+  <Text variant="eyebrow">Por qué elegirnos</Text>
+  <Heading id="servicios" level={2} size="3xl">
+    Crece con un equipo que conoce tu negocio
+  </Heading>
+  <Text variant="lead">Tres compromisos que cumplimos con cada cliente.</Text>
+</Stack>
+```
+
+## 3. La rejilla de ventajas
+
+`Grid` es **mobile-first**: una columna en móvil y tres a partir de `md` (768px).
+
+```tsx
+<Grid columns={{ base: 1, md: 3 }}>
+  <Box padding="6" radius="lg" bordered>
+    <Stack gap="3">
+      <Icon contained size="lg"><UsersIcon /></Icon>
+      <Heading level={3} size="md">Equipo dedicado</Heading>
+      <Text tone="muted">Un interlocutor único que conoce tu empresa.</Text>
+    </Stack>
+  </Box>
+  {/* … */}
+</Grid>
+```
+
+## 4. Las llamadas a la acción
+
+Una acción principal y una secundaria. En móvil se apilan a ancho completo, más fáciles de pulsar.
+
+```tsx
+<ButtonGroup stackBelow="sm" aria-label="Acciones">
+  <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
+  <Button variant="outline">Ver servicios</Button>
+</ButtonGroup>
+```
+
+## Lo que ya tienes sin hacer nada
+
+- Contraste AA en claro y oscuro.
+- Foco visible al navegar con teclado.
+- Tamaños de texto fluidos y botones de 44px.
+- Iconos decorativos ocultos a lectores de pantalla.
+- Sin JavaScript en el cliente: todo esto se renderiza en el servidor.

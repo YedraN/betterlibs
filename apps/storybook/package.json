@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@betterlibs/icons": "workspace:*",
     "@betterlibs/react": "workspace:*",
     "@betterlibs/tokens": "workspace:*",
     "react": "19.3.0",

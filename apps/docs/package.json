@@ -1,0 +1,34 @@
+{
+  "name": "@betterlibs/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "typecheck": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@betterlibs/icons": "workspace:*",
+    "@betterlibs/react": "workspace:*",
+    "@betterlibs/tokens": "workspace:*",
+    "cn": "0.3.0",
+    "fumadocs-core": "16.15.14",
+    "fumadocs-mdx": "15.4.4",
+    "fumadocs-ui": "npm:@fumadocs/base-ui@16.15.14",
+    "lucide-react": "1.47.0",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/mdx": "2.0.14",
+    "@types/node": "26.6.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "postcss": "8.5.28",
+    "tailwindcss": "4.3.3"
+  }
+}

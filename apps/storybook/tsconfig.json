@@ -3,7 +3,9 @@
   "compilerOptions": {
     "noEmit": true,
     "declaration": false,
-    "declarationMap": false
+    "declarationMap": false,
+    "allowJs": true,
+    "types": ["vite/client"]
   },
-  "include": ["src", ".storybook"]
+  "include": ["src", ".storybook", "../../packages/react/src/**/*.stories.tsx"]
 }

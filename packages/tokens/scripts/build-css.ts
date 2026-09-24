@@ -35,6 +35,7 @@ const tokens = themeCss(
   ':root',
   { ...primitiveVars(), ...semanticVars('light') },
   semanticVars('dark'),
+  semanticVars('light'),
 )
 const reset = readFileSync(join(root, 'src/css/reset.css'), 'utf8')
 const base = readFileSync(join(root, 'src/css/base.css'), 'utf8')

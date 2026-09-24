@@ -1,0 +1,86 @@
+---
+title: Instalación
+description: Añade Betterlibs UI a tu proyecto en dos pasos.
+icon: Download
+---
+
+## Requisitos
+
+- React 19 o superior.
+- Un bundler que entienda importaciones de CSS (Next.js, Vite, Astro, Remix…).
+
+## 1. Instala los paquetes
+
+```bash tab="pnpm"
+pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+```
+
+```bash tab="npm"
+npm install @betterlibs/react @betterlibs/tokens @betterlibs/icons
+```
+
+```bash tab="yarn"
+yarn add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+```
+
+```bash tab="bun"
+bun add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+```
+
+`@betterlibs/icons` es opcional: los componentes funcionan con cualquier librería de iconos que use
+`1em` y `currentColor`.
+
+## 2. Importa los estilos una vez
+
+En el punto de entrada de tu app (el layout raíz en Next.js, `main.tsx` en Vite):
+
+```tsx
+import '@betterlibs/tokens/index.css' // tokens + reset + estilos base
+import '@betterlibs/react/styles.css' // estilos de los componentes
+```
+
+## 3. Usa los componentes
+
+```tsx
+import { Button, Container, Heading, Section, Text } from '@betterlibs/react'
+
+export function Hero() {
+  return (
+    <Section aria-labelledby="hero-title">
+      <Container>
+        <Heading id="hero-title" level={1}>Hacemos crecer tu empresa</Heading>
+        <Text variant="lead">Estrategia, tecnología y personas.</Text>
+        <Button>Solicitar propuesta</Button>
+      </Container>
+    </Section>
+  )
+}
+```
+
+## Cómo conviven con tus estilos
+
+Todo el CSS de Betterlibs vive en **capas CSS**:
+
+```css
+@layer bl.tokens, bl.reset, bl.base, bl.components;
+```
+
+Cualquier estilo tuyo que no esté en una capa **gana siempre**, sin importar el orden de importación
+ni la especificidad. No necesitas `!important` para personalizar nada.
+
+<Callout type="info" title="¿Usas Tailwind CSS?">
+  Tailwind v4 también usa capas. Importa Betterlibs **antes** que Tailwind para que las utilidades
+  tengan prioridad sobre los estilos de los componentes.
+</Callout>
+
+## Modo oscuro
+
+Funciona solo según la preferencia del sistema. Para forzarlo, añade `data-theme` a `<html>` o a
+cualquier elemento:
+
+```html
+<html data-theme="dark">
+```
+
+Continúa con la guía de tu framework: [Next.js](/docs/primeros-pasos/nextjs),
+[Vite](/docs/primeros-pasos/vite) o [Astro](/docs/primeros-pasos/astro).

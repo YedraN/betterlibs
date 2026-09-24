@@ -101,20 +101,38 @@ export function cssBlock(selector: string, vars: CssVars, indent = ''): string {
  */
 export function darkSelectors(scope = ':root') {
   if (scope === ':root') {
-    return { explicit: ':root[data-theme="dark"]', auto: ':root:not([data-theme="light"])' }
+    return {
+      explicit: ':root[data-theme="dark"], [data-theme="dark"]',
+      auto: ':root:not([data-theme="light"])',
+      nestedLight: '[data-theme="light"]',
+    }
   }
   return {
-    explicit: `[data-theme="dark"] ${scope}, ${scope}[data-theme="dark"]`,
+    explicit: `[data-theme="dark"] ${scope}, ${scope}[data-theme="dark"], ${scope} [data-theme="dark"]`,
     auto: `:root:not([data-theme="light"]) ${scope}:not([data-theme="light"])`,
+    nestedLight: `${scope}[data-theme="light"], ${scope} [data-theme="light"]`,
   }
 }
 
-export function themeCss(scope: string, lightVars: CssVars, darkVars: CssVars): string {
-  const { explicit, auto } = darkSelectors(scope)
+/**
+ * CSS de un tema completo. `data-theme="dark" | "light"` funciona en `<html>` y también
+ * en cualquier elemento anidado (p. ej. una sección oscura dentro de una página clara).
+ *
+ * @param nestedLightVars variables para re-aplicar el modo claro en elementos anidados
+ * (por defecto, las mismas que `lightVars`).
+ */
+export function themeCss(
+  scope: string,
+  lightVars: CssVars,
+  darkVars: CssVars,
+  nestedLightVars: CssVars = lightVars,
+): string {
+  const { explicit, auto, nestedLight } = darkSelectors(scope)
   return [
     cssBlock(scope, lightVars),
-    cssBlock(explicit, darkVars),
     `@media (prefers-color-scheme: dark) {\n${cssBlock(auto, darkVars, '  ')}\n}`,
+    cssBlock(explicit, darkVars),
+    cssBlock(nestedLight, nestedLightVars),
   ].join('\n\n')
 }
 

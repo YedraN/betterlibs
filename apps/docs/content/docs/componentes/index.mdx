@@ -1,0 +1,61 @@
+---
+title: Resumen de componentes
+description: Qué hay disponible y dónde verlo en vivo.
+icon: Component
+---
+
+import { ArrowRightIcon } from '@betterlibs/icons'
+import { Avatar, AvatarGroup, Badge, Button, ButtonGroup, Link, Spinner, Tag } from '@betterlibs/react'
+
+<Preview align="center">
+  <ButtonGroup>
+    <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
+    <Button variant="secondary">Secundario</Button>
+    <Button variant="outline">Contorno</Button>
+  </ButtonGroup>
+  <Badge tone="success" dot>Disponible</Badge>
+  <Tag>Consultoría</Tag>
+  <AvatarGroup max={3}>
+    <Avatar name="Ana Pérez" />
+    <Avatar name="Luis Martín" />
+    <Avatar name="Sara Gil" />
+    <Avatar name="Jorge Ramos" />
+  </AvatarGroup>
+  <Link href="#" variant="standalone" arrow>Ver casos de éxito</Link>
+  <Spinner />
+</Preview>
+
+Cada componente tiene su ficha en **Storybook** con ejemplos, controles para probar todas las
+props, documentación generada desde los tipos y auditoría de accesibilidad. Las páginas detalladas
+de cada componente en esta documentación llegarán con la versión 1.0.
+
+## Disponibles
+
+| Familia | Componentes |
+| --- | --- |
+| **Layout** | `Container`, `Section`, `Stack`, `Grid`, `Box`, `Divider`, `AspectRatio` |
+| **Tipografía** | `Heading`, `Text`, `Link` |
+| **Acciones** | `Button`, `IconButton`, `ButtonGroup` |
+| **Contenido** | `Badge`, `Tag`, `Avatar`, `AvatarGroup`, `Image`, `Icon` |
+| **Feedback** | `Spinner`, `Skeleton` |
+| **Accesibilidad** | `SkipLink`, `VisuallyHidden` |
+
+## Próximamente
+
+| Familia | Componentes |
+| --- | --- |
+| **Formularios** | `Field`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Form` |
+| **Interactivos** | `Dialog`, `Drawer`, `DropdownMenu`, `Popover`, `Tooltip`, `Tabs`, `Accordion`, `Toast`, `Carousel` |
+| **Navegación** | `Header`, `NavigationMenu`, `Footer`, `Breadcrumb`, `Pagination`, `AnnouncementBar` |
+| **Bloques** | `Hero`, `FeatureGrid`, `LogoCloud`, `Stats`, `Testimonials`, `Pricing`, `FAQ`, `CookieConsent`… |
+
+## Una API para todos
+
+| Prop | Qué hace |
+| --- | --- |
+| `variant` | Variante visual (`primary`, `outline`…) |
+| `size` | Tamaño (`sm`, `md`, `lg`) |
+| `tone` | Significado del color (`accent`, `success`, `danger`…) |
+| `asChild` | Aplica el componente sobre su hijo (p. ej. el `Link` de tu router) |
+| `as` | Cambia el elemento HTML en componentes de layout y texto |
+| `className`, `style`, `ref` | Siempre se pasan al elemento raíz |

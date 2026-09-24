@@ -1,0 +1,22 @@
+@layer bl.components {
+  .root {
+    position: relative;
+    aspect-ratio: var(--_ratio);
+    overflow: hidden;
+  }
+
+  .root > * {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .root > :is(img, video) {
+    object-fit: cover;
+  }
+
+  .root > iframe {
+    border: 0;
+  }
+}

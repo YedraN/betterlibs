@@ -1,0 +1,12 @@
+{
+  "title": "Documentación",
+  "pages": [
+    "index",
+    "---Primeros pasos---",
+    "...primeros-pasos",
+    "---Fundamentos---",
+    "...fundamentos",
+    "---Componentes---",
+    "...componentes"
+  ]
+}

@@ -1,0 +1,28 @@
+@layer bl.components {
+  .root {
+    padding: var(--_padding, 0);
+    border-radius: var(--_radius, 0);
+    box-shadow: var(--_shadow, none);
+    min-inline-size: 0;
+  }
+
+  .root[data-tone="default"] {
+    background-color: var(--bl-color-bg);
+  }
+  .root[data-tone="subtle"] {
+    background-color: var(--bl-color-bg-subtle);
+  }
+  .root[data-tone="muted"] {
+    background-color: var(--bl-color-bg-muted);
+  }
+  .root[data-tone="raised"] {
+    background-color: var(--bl-color-surface-raised);
+  }
+  .root[data-tone="accent"] {
+    background-color: var(--bl-color-accent-subtle);
+  }
+
+  .root[data-bordered] {
+    border: 1px solid var(--bl-color-border);
+  }
+}

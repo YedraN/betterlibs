@@ -1,0 +1,54 @@
+---
+title: Design tokens
+description: Las decisiones de diseño del sistema, como variables CSS.
+icon: Layers
+---
+
+Los **tokens** son las decisiones de diseño con nombre: el color de un enlace, el espacio entre
+secciones, la duración de una transición. Se publican como **variables CSS** con el prefijo `--bl-`
+y se usan igual en los componentes y en tus propios estilos.
+
+```css
+.mi-tarjeta {
+  padding: var(--bl-space-6);
+  border-radius: var(--bl-radius-lg);
+  background: var(--bl-color-surface-raised);
+  color: var(--bl-color-text);
+}
+```
+
+## Tres capas
+
+| Capa | Ejemplo | Quién la usa |
+| --- | --- | --- |
+| **Primitivos** | `--bl-color-brand-600`, `--bl-space-4` | Nadie directamente (salvo espaciado, tipografía y forma) |
+| **Semánticos** | `--bl-color-accent`, `--bl-color-text-muted` | Componentes y tus estilos |
+| **De componente** | variables internas `--_bg`, `--_height` | Solo el propio componente |
+
+<Callout type="warn" title="Usa siempre colores semánticos">
+  Escribe `var(--bl-color-accent)`, no `var(--bl-color-brand-600)`. Los semánticos cambian solos
+  con el modo oscuro y con el tema de marca; los primitivos no.
+</Callout>
+
+## Desde JavaScript
+
+Los mismos valores están disponibles como objetos TypeScript y en `tokens.json`:
+
+```ts
+import { breakpoint, space, light } from '@betterlibs/tokens'
+
+breakpoint.md // 768
+space['4']    // '1rem'
+light.accent  // 'brand.600'
+```
+
+Útil para media queries en JS (`matchMedia`) o para compartir tokens con herramientas de diseño.
+
+## Archivos CSS
+
+| Archivo | Contenido |
+| --- | --- |
+| `index.css` | Todo: tokens, reset y estilos base |
+| `tokens.css` | Solo las variables (si ya tienes tu propio reset) |
+| `reset.css` | Reset moderno y mínimo |
+| `base.css` | Tipografía del documento, foco visible, `prefers-reduced-motion` |

@@ -1,0 +1,60 @@
+---
+title: Color
+description: Escalas primitivas, tokens semánticos y contraste verificado.
+icon: Palette
+---
+
+El color de Betterlibs está pensado para webs de empresa: **un acento de marca** para acciones y
+enlaces, **neutros** sobrios para el texto y las superficies, y **colores de estado** solo para
+comunicar éxito, aviso, error o información.
+
+## Tokens semánticos
+
+Son los que debes usar. Cada uno describe una **intención** y tiene un valor para el modo claro y
+otro para el oscuro.
+
+### Fondos y superficies
+
+<SemanticColors filter="^(bg|surface|overlay)" />
+
+### Texto
+
+<SemanticColors filter="^text" />
+
+- `text` para el contenido principal, `text-muted` para descripciones y `text-subtle` para
+  metadatos poco importantes.
+- `text-disabled` no cumple contraste a propósito (WCAG exime a los controles deshabilitados): no
+  lo uses para texto que haya que leer.
+
+### Bordes
+
+<SemanticColors filter="^border" />
+
+`border` es decorativo (tarjetas, separadores). `border-input` cumple **3:1** para que los campos de
+formulario se distingan del fondo (WCAG 1.4.11).
+
+### Acento
+
+<SemanticColors filter="^(accent|on-accent|focus)" />
+
+### Estados
+
+<SemanticColors filter="^(success|warning|danger|info|on-)" />
+
+<Callout type="warn" title="Nunca solo color">
+  Un 8 % de los hombres tiene algún tipo de daltonismo. Acompaña siempre el color de estado con texto
+  o un icono: «✓ Enviado», no un simple borde verde.
+</Callout>
+
+## Contraste verificado
+
+Estos son todos los pares de color que usa la librería. **El build falla** si alguno no cumple
+WCAG 2.2 AA, y `createTheme()` hace la misma comprobación con tu color de marca.
+
+<ContrastReport />
+
+## Escalas primitivas
+
+Referencia de las escalas en bruto. La escala `brand` se regenera con tu color de marca.
+
+<ColorScales />

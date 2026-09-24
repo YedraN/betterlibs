@@ -1,0 +1,41 @@
+---
+title: Movimiento
+description: Transiciones cortas que explican, nunca decoran.
+icon: Wind
+---
+
+## Duraciones
+
+<TokenTable group="duration" />
+
+| Token | Úsalo para |
+| --- | --- |
+| `fast` | Hover, cambios de color |
+| `normal` | La mayoría de transiciones |
+| `slow` | Paneles, diálogos, menús que aparecen |
+| `slower` | Elementos grandes que recorren distancia |
+
+## Curvas
+
+<TokenTable group="ease" />
+
+- `enter` para lo que aparece (empieza rápido y frena).
+- `exit` para lo que se va (arranca despacio y acelera).
+- `standard` para cambios de estado.
+
+## Movimiento reducido
+
+Hay personas a las que el movimiento les produce mareo o distracción. Betterlibs respeta
+`prefers-reduced-motion`: con la preferencia activada, las animaciones y transiciones se reducen al
+mínimo en toda la página.
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  .mi-animacion { animation: aparecer var(--bl-duration-slow) var(--bl-ease-enter); }
+}
+```
+
+<Callout type="warn" title="Nada de movimiento automático">
+  Evita carruseles que avanzan solos, vídeos de fondo con mucho movimiento o elementos que parpadean.
+  Si algo se mueve más de 5 segundos, debe poder pausarse (WCAG 2.2.2).
+</Callout>

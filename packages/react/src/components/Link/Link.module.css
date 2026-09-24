@@ -1,0 +1,55 @@
+@layer bl.components {
+  .root {
+    color: var(--bl-color-accent-text);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    border-radius: var(--bl-radius-sm);
+    transition:
+      color var(--bl-duration-fast) var(--bl-ease-standard),
+      text-decoration-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .root:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .root[data-variant="standalone"] {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-1-5);
+    font-weight: var(--bl-font-weight-semibold);
+    text-decoration-line: none;
+  }
+
+  .root[data-variant="standalone"]:hover {
+    text-decoration-line: underline;
+  }
+
+  .root[data-variant="subtle"] {
+    color: inherit;
+    text-decoration-line: none;
+  }
+
+  .root[data-variant="subtle"]:hover {
+    color: var(--bl-color-accent-text);
+    text-decoration-line: underline;
+  }
+
+  .icon {
+    display: inline-block;
+    inline-size: 0.9em;
+    block-size: 0.9em;
+    margin-inline-start: 0.2em;
+    vertical-align: -0.1em;
+    flex-shrink: 0;
+  }
+
+  .arrow {
+    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .root:hover .arrow {
+    transform: translateX(3px);
+  }
+}

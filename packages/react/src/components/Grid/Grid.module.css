@@ -1,0 +1,47 @@
+@layer bl.components {
+  .root {
+    --_cols: var(--bl-grid-cols-base, 1);
+    display: grid;
+    grid-template-columns: repeat(var(--_cols), minmax(0, 1fr));
+    column-gap: var(--_gap);
+    row-gap: var(--_row-gap);
+  }
+
+  @media (min-width: 640px) {
+    .root[data-sm] {
+      --_cols: var(--bl-grid-cols-sm);
+    }
+  }
+  @media (min-width: 768px) {
+    .root[data-md] {
+      --_cols: var(--bl-grid-cols-md);
+    }
+  }
+  @media (min-width: 1024px) {
+    .root[data-lg] {
+      --_cols: var(--bl-grid-cols-lg);
+    }
+  }
+  @media (min-width: 1280px) {
+    .root[data-xl] {
+      --_cols: var(--bl-grid-cols-xl);
+    }
+  }
+
+  .root[data-auto] {
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--_min), 100%), 1fr));
+  }
+
+  .root[data-align="start"] {
+    align-items: start;
+  }
+  .root[data-align="center"] {
+    align-items: center;
+  }
+  .root[data-align="end"] {
+    align-items: end;
+  }
+  .root[data-align="stretch"] {
+    align-items: stretch;
+  }
+}

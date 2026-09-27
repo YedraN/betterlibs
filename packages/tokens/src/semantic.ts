@@ -117,6 +117,10 @@ export const contrastPairs: ContrastPair[] = [
     usage: 'Texto de acento en fondo de acento suave',
   },
   { fg: 'focus-ring', bg: 'bg', min: 3, usage: 'Anillo de foco' },
+  { fg: 'danger-text', bg: 'bg', min: 4.5, usage: 'Mensaje de error de un campo' },
+  { fg: 'success-text', bg: 'bg', min: 4.5, usage: 'Mensaje de éxito de un campo' },
+  { fg: 'danger-solid', bg: 'bg', min: 3, usage: 'Borde de campo con error' },
+  { fg: 'success-solid', bg: 'bg', min: 3, usage: 'Borde de campo validado' },
   ...statuses.flatMap((s) => [
     { fg: `${s}-text`, bg: `${s}-bg`, min: 4.5, usage: `Mensaje ${s}` },
     { fg: `on-${s}`, bg: `${s}-solid`, min: 4.5, usage: `Insignia ${s}` },

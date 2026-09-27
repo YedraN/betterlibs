@@ -1,0 +1,223 @@
+---
+title: Formulario de contacto accesible
+description: Paso a paso, de los campos a la confirmación, con validación, errores claros y RGPD.
+icon: Mail
+---
+
+El formulario de contacto es, muchas veces, **el objetivo de toda la web**. Cada campo confuso o
+cada error mal explicado es un cliente que se va. Vamos a montar este, que funciona con teclado,
+lector de pantalla y móvil. Prueba a enviarlo vacío:
+
+<Preview>
+  <ContactFormDemo />
+</Preview>
+
+## 1. Pide solo lo necesario
+
+Cada campo de más reduce los envíos. Antes de escribir código, decide qué datos necesitas de verdad
+para responder:
+
+| Campo | ¿Obligatorio? | Por qué |
+| --- | --- | --- |
+| Nombre | Sí | Para dirigirte a la persona |
+| Email | Sí | Para responder |
+| Tamaño de la empresa | Sí | Para asignar al equipo comercial adecuado |
+| Servicios | Sí | Para preparar la primera llamada |
+| Teléfono | Solo si elige «Por teléfono» | No lo pidas si no vas a llamar |
+| Mensaje | Sí | El contexto del proyecto |
+
+## 2. La estructura: `Form` y `Field`
+
+`Form` se encarga de la validación, los errores y el foco. Cada `Field` une la etiqueta, la ayuda y
+el error con su control. El `name` va en el `Field`: se pasa al control y sirve para encontrar su
+error.
+
+```tsx
+import { Button, Field, Form, Input } from '@betterlibs/react'
+
+export function ContactForm() {
+  return (
+    <Form aria-label="Formulario de contacto" onSubmit={handleSubmit}>
+      <Field label="Nombre" name="nombre" required>
+        <Input autoComplete="given-name" />
+      </Field>
+      <Field label="Email de trabajo" name="email" description="Te responderemos aquí." required>
+        <Input type="email" autoComplete="email" />
+      </Field>
+      <div>
+        <Button type="submit">Enviar mensaje</Button>
+      </div>
+    </Form>
+  )
+}
+```
+
+`Form` añade al principio la nota «Los campos marcados con * son obligatorios». Si casi todos lo
+son, es más claro marcar los opcionales: `<Form indicator="optional">`.
+
+## 3. Tipos y autocompletado
+
+`type` y `autoComplete` hacen que el móvil muestre el teclado correcto y que el navegador rellene
+los datos con un toque (WCAG 1.3.5):
+
+```tsx
+<Input autoComplete="given-name" />                 {/* Nombre */}
+<Input type="email" autoComplete="email" />         {/* Email */}
+<Input type="tel" autoComplete="tel" />             {/* Teléfono */}
+<Input autoComplete="organization" />               {/* Empresa */}
+```
+
+Pon **nombre y apellidos en la misma fila** solo a partir de tablet: en móvil, una columna.
+
+```tsx
+<Grid columns={{ base: 1, sm: 2 }} gap="5">
+  <Field label="Nombre" name="nombre" required>…</Field>
+  <Field label="Apellidos" name="apellidos">…</Field>
+</Grid>
+```
+
+## 4. Opciones: pocas, a la vista
+
+Para 2-6 opciones, los radios y las casillas son más rápidos que un desplegable: se ven todas sin
+abrir nada. Los grupos se anuncian con su pregunta al entrar en ellos.
+
+```tsx
+<CheckboxGroup label="¿Qué servicios te interesan?" name="servicios" required>
+  <Checkbox value="web" label="Diseño web" />
+  <Checkbox value="seo" label="Posicionamiento SEO" />
+</CheckboxGroup>
+
+<RadioGroup label="¿Cómo prefieres que te contactemos?" name="canal" defaultValue="email">
+  <Radio value="email" label="Por email" />
+  <Radio value="telefono" label="Por teléfono" />
+</RadioGroup>
+```
+
+Las casillas llegan como lista: `formData.getAll('servicios')`.
+
+## 5. Validación
+
+Las reglas nativas (`required`, `type="email"`, `minLength`…) ya producen mensajes claros en
+español. Para reglas que dependen de otros campos, usa `validate`:
+
+```tsx
+<Form
+  validate={(data) => ({
+    telefono:
+      data.get('canal') === 'telefono' && !data.get('telefono')
+        ? 'Introduce un teléfono para poder llamarte'
+        : undefined,
+  })}
+>
+```
+
+Al enviar con errores, `Form` cancela el envío, muestra cada error sobre su campo y un resumen al
+principio con enlaces, y lleva el foco al resumen. Los errores se revisan al salir de cada campo y
+desaparecen en cuanto se corrigen: sin mensajes rojos mientras se escribe.
+
+<Callout type="warn" title="Valida también en el servidor">
+  La validación del navegador es para ayudar a quien rellena el formulario, no para protegerte:
+  comprueba todos los datos de nuevo en el servidor.
+</Callout>
+
+## 6. Consentimiento (RGPD)
+
+Para tratar los datos necesitas informar y, si vas a enviar comunicaciones comerciales, pedir
+consentimiento expreso:
+
+- Una casilla **sin marcar por defecto** y separada para cada finalidad (responder la consulta,
+  recibir el boletín…).
+- Un enlace a la **política de privacidad** y, cerca del botón, la información básica: responsable,
+  finalidad, legitimación, destinatarios y derechos.
+
+```tsx
+<Checkbox
+  name="privacidad"
+  required
+  label={<>He leído y acepto la <a href="/privacidad">política de privacidad</a></>}
+/>
+<Checkbox name="boletin" label="Quiero recibir el boletín mensual (opcional)" />
+```
+
+## 7. Envío y confirmación
+
+Mientras se envía, el botón muestra `loading`: mantiene el foco y el ancho, y anuncia «Enviando…».
+Después, sustituye el formulario por un `Alert` con `role="status"` para que se anuncie la
+confirmación, y di **qué pasará ahora** («Te responderemos en 24 horas laborables»).
+
+```tsx
+const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+
+if (status === 'sent') {
+  return (
+    <Alert tone="success" title="Hemos recibido tu mensaje" role="status">
+      Te responderemos en un plazo de 24 horas laborables.
+    </Alert>
+  )
+}
+
+return (
+  <Form onSubmit={async (event) => {
+    event.preventDefault()
+    setStatus('sending')
+    await fetch('/api/contacto', { method: 'POST', body: new FormData(event.currentTarget) })
+    setStatus('sent')
+  }}>
+    …
+    <Button type="submit" loading={status === 'sending'} loadingLabel="Enviando…">
+      Enviar mensaje
+    </Button>
+  </Form>
+)
+```
+
+## 8. Errores del servidor
+
+Si tu API rechaza algún dato, devuelve los errores por `name` y pásalos a `errors`. Se muestran
+igual que los del navegador, con resumen y foco:
+
+```tsx
+const [errors, setErrors] = useState<FormErrors>()
+
+<Form errors={errors} onSubmit={async (event) => {
+  event.preventDefault()
+  const response = await fetch('/api/contacto', { method: 'POST', body: new FormData(event.currentTarget) })
+  if (response.status === 422) setErrors(await response.json())
+}}>
+```
+
+Para errores que no son de un campo concreto («No hemos podido enviar tu mensaje»), usa un
+`Alert tone="danger" role="alert"` sobre el formulario.
+
+## 9. Con Server Actions (Next.js)
+
+`Form` funciona con las acciones de React 19: si hay errores en el navegador, la acción no se
+ejecuta; si los hay en el servidor, la acción los devuelve.
+
+```tsx
+'use client'
+import { useActionState } from 'react'
+import { enviarContacto } from './actions' // 'use server' → devuelve { errors?, ok? }
+
+export function ContactForm() {
+  const [state, action, pending] = useActionState(enviarContacto, {})
+  if (state.ok) return <Alert tone="success" role="status" title="Hemos recibido tu mensaje" />
+  return (
+    <Form action={action} errors={state.errors}>
+      …
+      <Button type="submit" loading={pending}>Enviar mensaje</Button>
+    </Form>
+  )
+}
+```
+
+## Lista de comprobación
+
+- [ ] Cada campo tiene una etiqueta visible y concreta.
+- [ ] Solo se piden los datos necesarios; los opcionales están marcados.
+- [ ] `type` y `autoComplete` correctos en cada campo.
+- [ ] Los errores explican cómo corregirlos y hay un resumen enlazado.
+- [ ] El formulario se completa y envía solo con teclado.
+- [ ] Casillas de consentimiento sin marcar por defecto y enlace a la política de privacidad.
+- [ ] La confirmación se anuncia y dice qué pasará después.
+- [ ] Los datos se validan también en el servidor.

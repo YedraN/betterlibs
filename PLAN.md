@@ -3,8 +3,8 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-24 · **Última fase completada:** Fase 2 (commit `52642c7`)
-> **Siguiente paso:** Fase 3 — Formularios
+> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 3 — Formularios
+> **Siguiente paso:** Fase 4 — Interactivos y overlays
 
 ---
 
@@ -84,7 +84,7 @@ apps/
   movimiento, breakpoints, contenedores, z-index, alturas de control (md = 44px), foco.
 - Semánticos claro/oscuro (`--bl-color-bg`, `text-muted`, `border-input`, `accent`, `on-accent`,
   `accent-text`, `focus-ring`, estados `*-bg/-border/-text/-solid/on-*`).
-- 42 pares de contraste verificados en build (`contrastPairs` en `semantic.ts`).
+- 50 pares de contraste verificados en build (42 en la Fase 1 + 8 de formularios en la Fase 3) (`contrastPairs` en `semantic.ts`).
 - `createTheme({ brand, radius, fontSans, fontDisplay, fontMono, selector, strict })`:
   escala OKLCH conservando el color exacto, elige tonos accesibles, `ThemeContrastError`.
 - Reset + base (foco visible, reduced motion, `:target` scroll margin).
@@ -108,14 +108,33 @@ apps/
   modo oscuro y marca, accesibilidad); resumen de componentes. `<Preview>` sincroniza el modo
   oscuro de Fumadocs con `data-theme`.
 
-### ⏳ Fase 3 — Formularios (SIGUIENTE)
-- `Field` (label + ayuda + error enlazados con `aria-describedby`, indicador de obligatorio/opcional).
-- `Input` (tipos, prefijo/sufijo, iconos), `Textarea` (contador de caracteres), `Select` nativo
-  estilizado, `Checkbox`, `RadioGroup`, `Switch`, `FileInput`.
-- `Form` con patrón de **resumen de errores** que mueve el foco al primer campo inválido.
-- Estados: hover, foco, deshabilitado, solo lectura, error, éxito. Bordes con `--bl-color-border-input`.
-- Textos por defecto en español («(opcional)», «Este campo es obligatorio»…).
-- Guía en docs: «Formulario de contacto accesible». Stories + tests + axe.
+### ✅ Fase 3 — Formularios (2026-09-27)
+- **Field** (`'use client'`): etiqueta + ayuda + error/éxito enlazados (`htmlFor`, `aria-describedby`);
+  el error va **sobre el control** (patrón GOV.UK) con icono y prefijo oculto «Error:». `name` e `id`
+  se pasan al control por contexto; el control también registra su `name` para encontrar su error.
+  `indicator`: `required` (asterisco `aria-hidden`), `optional` («(opcional)») o `none`. `hideLabel`.
+- **useFieldControl** (exportado): conecta controles propios o de terceros con `Field`/`Form`.
+- **Controles:** `Input` (prefijo/sufijo decorativos, iconos, ver contraseña con `aria-pressed`,
+  clic en el marco enfoca), `Textarea` (contador + aviso por `aria-live` solo al 80 % y con debounce,
+  `autoResize` con `field-sizing`), `Select` nativo (`placeholder`, `options` con grupos),
+  `Checkbox` (`indeterminate`, error propio) + `CheckboxGroup`, `RadioGroup` + `Radio` (fieldset con
+  `role="radiogroup"`), `Switch` (`input role="switch"`), `FileInput` (input nativo transparente
+  sobre la zona: clic, arrastre y teclado; lista con tamaño y botón de quitar), `Fieldset`.
+  Variante `card` para casillas y radios.
+- **Form:** valida al enviar con la API nativa (`noValidate` + mensajes propios en español,
+  `messages` para cambiarlos) + `validate(data)`; `CheckboxGroup required` = al menos una. Con
+  errores cancela el envío (también las `action` de React 19), muestra `ErrorSummary` enlazado y
+  lleva el foco al resumen (`focusOnError="field"` para ir al campo). Revalida al salir del campo
+  (o al cambiar en casillas/radios/select/archivos). `errors` = errores del servidor, se ocultan al
+  modificar el campo. Nota automática «Los campos marcados con * son obligatorios».
+- **Alert** (info/success/warning/danger, `actions`, `onDismiss`) y **ErrorSummary** suelto.
+- Estilos compartidos en `Field/Control.module.css` (`bl-control-*`) y `Checkbox/Choice.module.css`
+  (`bl-choice-*`). Casillas y switches activados usan `accent-text` (contraste garantizado con
+  marcas claras). 8 pares de contraste nuevos (errores, éxito y bordes de estado).
+- **Docs:** página «Formularios» (componentes/formularios) y sección **Guías** con «Formulario de
+  contacto accesible» (demo interactiva `ContactFormDemo` en `components/docs`).
+- Stories: `Componentes/Formularios/{Field,Checkbox,Form}` y `Componentes/Feedback/Alert`.
+  Tests: `src/components/forms.test.tsx` (incluye axe con errores visibles).
 
 ### Fase 4 — Interactivos y overlays
 Dialog, Drawer, DropdownMenu, Popover, Tooltip, Tabs, Accordion, Toast, Carousel (con pausa, sin
@@ -176,6 +195,13 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
 - Docs: solo se importan `tokens.css` + `styles.css` (no reset/base) para no chocar con Fumadocs.
   Los ejemplos van dentro de `<Preview>`.
 - Nombres de iconos con sufijo `Icon` (`ArrowRightIcon`) para no chocar con componentes.
+- **Contexto = `'use client'`:** cualquier módulo que llame a `createContext` o use hooks necesita la
+  directiva (el barrel `index.ts` se importa desde Server Components).
+- **React 19.3:** `onChange` de `<form>` recibe `ChangeEvent<HTMLFormElement>`, no `FormEvent`.
+- **jsdom:** `ana@empresa` es un email válido según HTML; en tests usa algo sin `@`. No implementa
+  `scrollIntoView` ni `CSS.escape` (usar `?.()` y evitar `CSS.escape`).
+- **CSS Modules compartidos:** si un elemento lleva clases de dos módulos, el orden de import
+  decide la cascada (`.field { padding: 0 }` pisaba al `<textarea>`; por eso no lleva `.field`).
 
 ## 8. Comandos útiles
 

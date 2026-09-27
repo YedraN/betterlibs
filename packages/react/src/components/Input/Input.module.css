@@ -1,0 +1,33 @@
+@layer bl.components {
+  /* Botón de ver/ocultar contraseña dentro del campo. */
+  .toggle {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    margin-inline-end: calc(var(--bl-space-1) * -1);
+    padding: 0;
+    border: 0;
+    border-radius: var(--bl-radius-sm);
+    background: transparent;
+    color: var(--bl-color-text-muted);
+    font-size: 1.25em;
+    cursor: pointer;
+  }
+
+  .toggle:hover:not(:disabled) {
+    background-color: var(--bl-color-bg-muted);
+    color: var(--bl-color-text);
+  }
+
+  .toggle:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 0;
+  }
+
+  .toggle:disabled {
+    color: inherit;
+    cursor: not-allowed;
+  }
+}

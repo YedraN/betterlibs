@@ -1,0 +1,65 @@
+@layer bl.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1-5);
+    min-inline-size: 0;
+  }
+
+  .label {
+    align-self: flex-start;
+    color: var(--bl-color-text);
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .root[data-disabled] .label {
+    color: var(--bl-color-text-muted);
+  }
+
+  .indicator {
+    color: var(--bl-color-text-muted);
+    font-weight: var(--bl-font-weight-regular);
+  }
+
+  .indicator[data-required] {
+    color: var(--bl-color-danger-text);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .description {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .description > :where(p) {
+    margin: 0;
+  }
+
+  /* Error y éxito: siempre con icono y texto, nunca solo color. */
+  .message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-1-5);
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-medium);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .message[data-tone="error"] {
+    color: var(--bl-color-danger-text);
+  }
+
+  .message[data-tone="success"] {
+    color: var(--bl-color-success-text);
+  }
+
+  .messageIcon {
+    flex-shrink: 0;
+    inline-size: 1.125em;
+    block-size: 1.125em;
+    margin-block-start: calc((1lh - 1.125em) / 2);
+  }
+}

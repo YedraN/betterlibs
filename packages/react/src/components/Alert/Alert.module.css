@@ -1,0 +1,107 @@
+@layer bl.components {
+  .root {
+    --_bg: var(--bl-color-info-bg);
+    --_border: var(--bl-color-info-border);
+    --_accent: var(--bl-color-info-solid);
+    --_fg: var(--bl-color-info-text);
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-4);
+    border: 1px solid var(--_border);
+    border-inline-start: 4px solid var(--_accent);
+    border-radius: var(--bl-radius-md);
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .root[data-tone="success"] {
+    --_bg: var(--bl-color-success-bg);
+    --_border: var(--bl-color-success-border);
+    --_accent: var(--bl-color-success-solid);
+    --_fg: var(--bl-color-success-text);
+  }
+
+  .root[data-tone="warning"] {
+    --_bg: var(--bl-color-warning-bg);
+    --_border: var(--bl-color-warning-border);
+    --_accent: var(--bl-color-warning-solid);
+    --_fg: var(--bl-color-warning-text);
+  }
+
+  .root[data-tone="danger"] {
+    --_bg: var(--bl-color-danger-bg);
+    --_border: var(--bl-color-danger-border);
+    --_accent: var(--bl-color-danger-solid);
+    --_fg: var(--bl-color-danger-text);
+  }
+
+  .icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-block-start: calc((1lh - 1.25rem) / 2);
+    font-size: 1.25rem;
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    min-inline-size: 0;
+  }
+
+  .title {
+    margin: 0;
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .content > :where(p) {
+    margin: 0;
+  }
+
+  .content > :where(* + *) {
+    margin-block-start: var(--bl-space-2);
+  }
+
+  .content :where(a) {
+    color: inherit;
+    font-weight: var(--bl-font-weight-medium);
+    text-decoration: underline;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bl-space-3);
+    margin-block-start: var(--bl-space-2);
+  }
+
+  .dismiss {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    margin: calc(var(--bl-space-1) * -1);
+    padding: 0;
+    border: 0;
+    border-radius: var(--bl-radius-sm);
+    background: transparent;
+    color: inherit;
+    font-size: 1.125rem;
+    cursor: pointer;
+  }
+
+  .dismiss:hover {
+    background-color: color-mix(in oklch, currentColor 12%, transparent);
+  }
+
+  .dismiss:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 0;
+  }
+}

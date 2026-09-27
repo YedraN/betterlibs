@@ -1,0 +1,325 @@
+---
+title: Formularios
+description: Campos, opciones y validación accesible para formularios de contacto, presupuesto o registro.
+icon: TextCursorInput
+---
+
+import { GlobeIcon, SearchIcon } from '@betterlibs/icons'
+import {
+  Checkbox,
+  CheckboxGroup,
+  ErrorSummary,
+  Field,
+  Fieldset,
+  FileInput,
+  Grid,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+  Switch,
+  Textarea,
+} from '@betterlibs/react'
+
+Todos los controles son **elementos nativos** (`<input>`, `<select>`, `<textarea>`) con estilos
+propios: funcionan con el teclado, con el autocompletado del navegador, con lectores de pantalla y
+con formularios normales (sin JavaScript), y en móvil muestran el teclado adecuado.
+
+<Preview>
+  <Stack gap="6" style={{ maxWidth: '32rem' }}>
+    <Field label="Email de trabajo" description="Te responderemos aquí." required>
+      <Input type="email" autoComplete="email" placeholder="nombre@empresa.com" />
+    </Field>
+    <Field label="Sitio web" error="Introduce una dirección web válida, como https://empresa.com">
+      <Input type="url" iconStart={<GlobeIcon />} defaultValue="empresa" />
+    </Field>
+    <RadioGroup label="¿Cómo prefieres que te contactemos?" defaultValue="email" orientation="horizontal">
+      <Radio value="email" label="Por email" />
+      <Radio value="telefono" label="Por teléfono" />
+    </RadioGroup>
+    <Checkbox label="Quiero recibir el boletín mensual" />
+  </Stack>
+</Preview>
+
+## Piezas
+
+| Componente | Para qué |
+| --- | --- |
+| `Form` | Valida al enviar, muestra los errores y un resumen, y mueve el foco |
+| `Field` | Etiqueta + ayuda + error + control, enlazados para lectores de pantalla |
+| `Fieldset` | Agrupa campos relacionados bajo una leyenda («Datos de facturación») |
+| `Input` | Texto de una línea: email, teléfono, web, números, contraseñas, búsqueda |
+| `Textarea` | Texto largo, con contador de caracteres opcional |
+| `Select` | Desplegable nativo, para listas largas |
+| `Checkbox` / `CheckboxGroup` | Confirmaciones («Acepto…») y elegir varias opciones |
+| `RadioGroup` / `Radio` | Elegir una opción entre pocas, todas visibles |
+| `Switch` | Activar o desactivar algo con efecto inmediato |
+| `FileInput` | Adjuntar archivos, con zona para arrastrar |
+| `ErrorSummary` | Resumen de errores enlazado (lo usa `Form`) |
+| `Alert` | Mensajes destacados: «Hemos recibido tu mensaje» |
+
+## Field: etiqueta, ayuda y error
+
+`Field` genera los `id` y conecta la etiqueta (`htmlFor`) y los textos de ayuda y error
+(`aria-describedby`) con el control. Así, al llegar al campo, un lector de pantalla anuncia
+«Email de trabajo, obligatorio, editar texto, Te responderemos aquí».
+
+```tsx
+<Field label="Email de trabajo" name="email" description="Te responderemos aquí." required>
+  <Input type="email" autoComplete="email" />
+</Field>
+```
+
+<Preview>
+  <Grid columns={{ base: 1, md: 2 }} gap="6">
+    <Field label="Con error" error="Introduce un email válido, como nombre@empresa.com">
+      <Input type="email" defaultValue="nombre@empresa" />
+    </Field>
+    <Field label="Validado" success="Código de descuento aplicado">
+      <Input defaultValue="BIENVENIDA10" />
+    </Field>
+    <Field label="Solo lectura" readOnly>
+      <Input defaultValue="ES-4821" />
+    </Field>
+    <Field label="Deshabilitado" disabled>
+      <Input defaultValue="No editable" />
+    </Field>
+  </Grid>
+</Preview>
+
+- **La etiqueta siempre visible.** El `placeholder` desaparece al escribir y tiene poco contraste:
+  úsalo solo para ejemplos de formato. Si el contexto es evidente (un buscador), usa `hideLabel`.
+- **El error va sobre el control**, bajo la ayuda: se ve aunque el teclado del móvil tape la parte
+  inferior de la pantalla o se use zoom. Siempre lleva icono y texto (nunca solo color) y los
+  lectores de pantalla lo anuncian con el prefijo «Error:».
+- **Obligatorio u opcional.** Por defecto los obligatorios llevan un asterisco (y el `Form` explica
+  su significado). Si casi todo es obligatorio, usa `indicator="optional"`: se marcan con
+  «(opcional)» los pocos que no lo son.
+
+## Input
+
+Elige bien `type`, `autoComplete` e `inputMode`: el móvil muestra el teclado correcto y el
+navegador puede rellenar los datos.
+
+| Dato | Props recomendadas |
+| --- | --- |
+| Nombre | `autoComplete="given-name"` / `"family-name"` |
+| Email | `type="email" autoComplete="email"` |
+| Teléfono | `type="tel" autoComplete="tel"` |
+| Empresa | `autoComplete="organization"` |
+| Código postal | `autoComplete="postal-code" inputMode="numeric"` |
+| Web | `type="url" autoComplete="url"` |
+| Contraseña nueva | `type="password" autoComplete="new-password"` |
+
+<Preview>
+  <Stack gap="5" style={{ maxWidth: '28rem' }}>
+    <Field label="Presupuesto aproximado, en euros">
+      <Input type="number" inputMode="numeric" suffix="€" min={0} step={500} />
+    </Field>
+    <Field label="Teléfono">
+      <Input type="tel" autoComplete="tel" prefix="+34" />
+    </Field>
+    <Field label="Contraseña" description="Al menos 12 caracteres.">
+      <Input type="password" autoComplete="new-password" />
+    </Field>
+    <Field label="Buscar en el blog" hideLabel>
+      <Input type="search" iconStart={<SearchIcon />} placeholder="Buscar artículos" />
+    </Field>
+  </Stack>
+</Preview>
+
+- `prefix` y `suffix` son decorativos: incluye la unidad también en la etiqueta («Presupuesto,
+  en euros»).
+- En `type="password"` aparece un botón para ver la contraseña (`passwordToggle={false}` lo quita).
+- `size`: `sm`, `md` (44px, por defecto) o `lg`. En pantallas táctiles el texto nunca baja de
+  16px para que iOS no haga zoom.
+- `className` y `style` van al marco; `ref` y el resto de props, al `<input>`.
+
+## Textarea
+
+El número de filas sugiere cuánto escribir. Con `maxLength` y `showCount` aparece un contador; los
+lectores de pantalla oyen el límite al entrar y un aviso cuando quedan pocos caracteres (solo al
+dejar de escribir, para no interrumpir).
+
+<Preview>
+  <Field label="¿En qué podemos ayudarte?" description="Objetivos, plazos y cualquier detalle útil.">
+    <Textarea rows={4} maxLength={500} showCount />
+  </Field>
+</Preview>
+
+## Select
+
+Un `<select>` nativo: es lo más accesible y en móvil abre el selector del sistema. Con
+`placeholder` empieza vacío; si además es obligatorio, obliga a elegir una opción real.
+
+```tsx
+<Field label="Tamaño de la empresa" name="tamano" required>
+  <Select
+    placeholder="Selecciona una opción"
+    options={[
+      { value: '1-10', label: '1 a 10 personas' },
+      { value: '11-50', label: '11 a 50 personas' },
+    ]}
+  />
+</Field>
+```
+
+<Callout title="¿Select o RadioGroup?">
+  Con **menos de 5 opciones**, un `RadioGroup` es más rápido: se ven todas sin abrir nada. Con
+  muchas opciones (países, provincias), usa `Select`.
+</Callout>
+
+## Checkbox, RadioGroup y Switch
+
+| Usa | Cuando |
+| --- | --- |
+| `Checkbox` | Confirmar algo («Acepto la política de privacidad») o elegir varias opciones |
+| `RadioGroup` | Elegir **una** opción entre 2 y 6, todas visibles |
+| `Switch` | Activar algo con **efecto inmediato** (preferencias, cookies). Si el cambio se aplica al enviar, usa `Checkbox` |
+
+<Preview>
+  <Grid columns={{ base: 1, md: 2 }} gap="8">
+    <CheckboxGroup label="¿Qué servicios te interesan?" name="servicios" required>
+      <Checkbox value="web" label="Diseño web" />
+      <Checkbox value="seo" label="Posicionamiento SEO" defaultChecked />
+      <Checkbox value="ads" label="Campañas de pago" />
+    </CheckboxGroup>
+    <Stack gap="4">
+      <Switch label="Cookies analíticas" description="Nos ayudan a mejorar los contenidos." />
+      <Switch label="Cookies necesarias" defaultChecked disabled />
+    </Stack>
+  </Grid>
+  <div style={{ marginTop: 'var(--bl-space-8)' }}>
+    <RadioGroup label="Elige un plan" name="plan" defaultValue="pro" variant="card" orientation="horizontal">
+      <Radio value="basico" label="Básico" description="Web de hasta 5 páginas." />
+      <Radio value="pro" label="Profesional" description="Web, blog y SEO local." />
+      <Radio value="empresa" label="Empresa" description="Multidioma e integraciones." />
+    </RadioGroup>
+  </div>
+</Preview>
+
+- Los grupos son un `<fieldset>` con `<legend>`: la pregunta se anuncia al entrar en el grupo.
+- `CheckboxGroup required` exige al menos una opción (lo valida `Form`).
+- `variant="card"` convierte cada opción en una tarjeta clicable, útil para planes o tipos de
+  consulta.
+- `Checkbox` admite `indeterminate` para «Seleccionar todo».
+
+## FileInput
+
+Un `<input type="file">` nativo que ocupa toda la zona: se puede hacer clic, arrastrar archivos o
+usar el teclado. Muestra la lista de archivos con su tamaño y un botón para quitar cada uno.
+
+<Preview>
+  <Field label="Adjunta tu CV" description="PDF o DOCX, máximo 5 MB.">
+    <FileInput accept=".pdf,.docx" />
+  </Field>
+</Preview>
+
+Indica siempre en la ayuda los formatos y el tamaño máximo, y vuelve a comprobarlos en el servidor.
+
+## Form y validación
+
+`Form` usa la validación nativa del navegador (`required`, `type="email"`, `minLength`,
+`pattern`, `min`/`max`…) pero sustituye sus burbujas por mensajes propios, en español y orientados a
+la solución. Al enviar con errores:
+
+1. Cancela el envío.
+2. Muestra el error bajo la etiqueta de cada campo.
+3. Muestra un **resumen** al principio con un enlace a cada campo, y le lleva el foco (con
+   `focusOnError="field"` el foco va directamente al primer campo con error).
+4. Al salir de cada campo, lo revisa de nuevo y quita el error en cuanto se corrige.
+
+<Preview>
+  <ErrorSummary
+    errors={[
+      { label: 'Email', message: 'Introduce un email válido, como nombre@empresa.com' },
+      { label: 'Mensaje', message: 'Escribe al menos 20 caracteres' },
+    ]}
+  />
+</Preview>
+
+```tsx
+<Form
+  onSubmit={async (event) => {
+    event.preventDefault() // solo se llama si todo es válido
+    await enviar(new FormData(event.currentTarget))
+  }}
+  validate={(data) => ({
+    telefono:
+      data.get('canal') === 'telefono' && !data.get('telefono')
+        ? 'Introduce un teléfono para poder llamarte'
+        : undefined,
+  })}
+>
+  …
+</Form>
+```
+
+### Mensajes por defecto
+
+| Regla | Mensaje |
+| --- | --- |
+| `required` | «Este campo es obligatorio» (o «Introduce tu email», «Selecciona una opción», «Marca esta casilla para continuar»…) |
+| `type="email"` | «Introduce un email válido, como nombre@empresa.com» |
+| `type="url"` | «Introduce una dirección web válida, como https://empresa.com» |
+| `minLength` / `maxLength` | «Escribe al menos 20 caracteres» / «Escribe como máximo 500 caracteres» |
+| `pattern` | El `title` del campo o «El formato no es válido» |
+| `min` / `max` | «Introduce un valor igual o superior a 0» |
+
+Cámbialos con `messages`:
+
+```tsx
+<Form messages={{ valueMissing: () => 'Necesitamos este dato para responderte' }}>
+```
+
+### Errores del servidor
+
+Pasa los errores de tu API en `errors`, por `name`. Se muestran igual que los del navegador, con
+resumen y foco, y se ocultan en cuanto se modifica el campo.
+
+```tsx
+const [errors, setErrors] = useState<FormErrors>()
+
+<Form errors={errors} onSubmit={async (event) => {
+  event.preventDefault()
+  const response = await enviar(new FormData(event.currentTarget))
+  if (!response.ok) setErrors(await response.json()) // { email: 'Ya existe una cuenta con este email' }
+}}>
+```
+
+También funciona con las **acciones de React 19** (`<Form action={accion}>`): si hay errores, la
+acción no se ejecuta.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Pasa de un campo o grupo al siguiente |
+| `Espacio` | Marca o desmarca una casilla o un interruptor |
+| Flechas | Cambian la opción dentro de un `RadioGroup` |
+| `Enter` | Envía el formulario desde un campo de texto |
+
+- Etiquetas, ayudas y errores enlazados con `htmlFor` y `aria-describedby`; grupos con
+  `fieldset`/`legend`.
+- `aria-invalid` en los campos con error, que además tienen borde más grueso, icono y texto.
+- Bordes de campo con contraste 3:1 y mensajes de error y éxito 4,5:1, verificados en claro y
+  oscuro.
+- Objetivos táctiles de 44px en campos; toda la etiqueta de casillas y radios es clicable.
+
+## Textos que ayudan
+
+- **Etiquetas cortas y concretas**: «Email de trabajo», no «Introduce aquí tu dirección de correo
+  electrónico».
+- **Pide solo lo necesario.** Cada campo de más reduce los envíos.
+- **Errores que explican cómo corregir**: «Introduce un email, como nombre@empresa.com», no «Email
+  inválido».
+- **Botón con verbo y resultado**: «Enviar mensaje», «Solicitar presupuesto», no «Enviar» a secas
+  ni «Aceptar».
+
+<Callout title="Guía paso a paso">
+
+Monta un formulario completo en la guía
+[Formulario de contacto accesible](/docs/guias/formulario-de-contacto).
+
+</Callout>

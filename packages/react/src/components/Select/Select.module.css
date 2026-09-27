@@ -1,0 +1,45 @@
+@layer bl.components {
+  .root {
+    padding-inline: 0;
+    cursor: pointer;
+  }
+
+  .select {
+    appearance: none;
+    padding-inline: var(--_px) calc(var(--_px) + 1.5em);
+    cursor: inherit;
+    text-overflow: ellipsis;
+  }
+
+  /* Las opciones heredan colores del sistema; se fuerzan para el modo oscuro. */
+  .select option,
+  .select optgroup {
+    background-color: var(--bl-color-bg);
+    color: var(--bl-color-text);
+  }
+
+  .root[data-multiple] {
+    align-items: stretch;
+  }
+
+  .root[data-multiple] .select {
+    padding: var(--bl-space-1) var(--_px);
+  }
+
+  .chevron {
+    position: absolute;
+    inset-inline-end: var(--_px);
+    inline-size: 1.25em;
+    block-size: 1.25em;
+    color: var(--bl-color-text-muted);
+    pointer-events: none;
+  }
+
+  .root[data-disabled] {
+    cursor: not-allowed;
+  }
+
+  .root[data-disabled] .chevron {
+    color: inherit;
+  }
+}

@@ -1,0 +1,114 @@
+@layer bl.components {
+  .root {
+    --_track-w: 2.75rem;
+    --_track-h: 1.5rem;
+    --_gap: 3px;
+    --_thumb: calc(var(--_track-h) - var(--_gap) * 2);
+
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-3);
+    color: var(--bl-color-text);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .root[data-size="sm"] {
+    --_track-w: 2.25rem;
+    --_track-h: 1.25rem;
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .root[data-label-position="start"] {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .control {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    inline-size: var(--_track-w);
+    block-size: var(--_track-h);
+    margin-block-start: calc((1lh - var(--_track-h)) / 2);
+  }
+
+  /* El input es la pista: sin fondo propio, el color comunica el estado junto a la posición. */
+  .input {
+    appearance: none;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-border-input);
+    cursor: pointer;
+    transition: background-color var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .input:hover:not(:disabled) {
+    background-color: var(--bl-color-text-muted);
+  }
+
+  /* `accent-text` garantiza 3:1 con el fondo aunque la marca sea muy clara. */
+  .input:checked,
+  .input:checked:hover:not(:disabled) {
+    background-color: var(--bl-color-accent-text);
+  }
+
+  .input:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .thumb {
+    position: absolute;
+    inset-block-start: var(--_gap);
+    inset-inline-start: var(--_gap);
+    inline-size: var(--_thumb);
+    block-size: var(--_thumb);
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-bg);
+    box-shadow: var(--bl-shadow-sm);
+    pointer-events: none;
+    transition: inset-inline-start var(--bl-duration-normal) var(--bl-ease-emphasized);
+  }
+
+  .input:checked + .thumb {
+    inset-inline-start: calc(var(--_track-w) - var(--_thumb) - var(--_gap));
+  }
+
+  .input:disabled {
+    background-color: var(--bl-color-bg-muted);
+    box-shadow: inset 0 0 0 1px var(--bl-color-border-strong);
+    cursor: not-allowed;
+  }
+
+  .input:disabled:checked {
+    background-color: var(--bl-color-text-disabled);
+    box-shadow: none;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    min-inline-size: 0;
+  }
+
+  .label {
+    cursor: pointer;
+  }
+
+  .root[data-disabled] .label {
+    color: var(--bl-color-text-muted);
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .thumb,
+    .input {
+      transition: none;
+    }
+  }
+}

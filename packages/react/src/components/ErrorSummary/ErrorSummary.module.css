@@ -1,0 +1,76 @@
+@layer bl.components {
+  .root {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-5);
+    border: 1px solid var(--bl-color-danger-border);
+    border-inline-start: 4px solid var(--bl-color-danger-solid);
+    border-radius: var(--bl-radius-md);
+    background-color: var(--bl-color-danger-bg);
+    color: var(--bl-color-danger-text);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-normal);
+    scroll-margin-block: var(--bl-space-24);
+  }
+
+  /* Recibe el foco por programa tras enviar: el anillo se ve aunque se haya usado el ratón. */
+  .root:focus {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: var(--bl-focus-ring-offset);
+  }
+
+  .icon {
+    flex-shrink: 0;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--bl-space-2);
+    min-inline-size: 0;
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--bl-font-size-lg);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .description {
+    color: inherit;
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    margin: 0;
+    padding-inline-start: var(--bl-space-5);
+  }
+
+  .link {
+    color: inherit;
+    font-weight: var(--bl-font-weight-medium);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .link:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .link:focus-visible {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .label {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+}

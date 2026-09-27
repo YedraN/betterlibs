@@ -38,7 +38,7 @@ pnpm test        # tests
 - [x] **Fase 0** — Monorepo, tooling y CI
 - [x] **Fase 1** — Tokens y theming
 - [x] **Fase 2** — Layout y componentes base
-- [ ] **Fase 3** — Formularios
+- [x] **Fase 3** — Formularios
 - [ ] **Fase 4** — Interactivos y overlays
 - [ ] **Fase 5** — Navegación
 - [ ] **Fase 6** — Bloques corporativos

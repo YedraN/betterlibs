@@ -1,0 +1,18 @@
+@layer bl.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-6);
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .asterisk {
+    color: var(--bl-color-danger-text);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+}

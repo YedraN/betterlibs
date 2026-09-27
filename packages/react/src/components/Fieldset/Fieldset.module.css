@@ -1,0 +1,52 @@
+@layer bl.components {
+  .root {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .legend {
+    float: inline-start;
+    inline-size: 100%;
+    margin-block-end: var(--bl-space-2);
+    padding: 0;
+    color: var(--bl-color-text);
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  /* `float` saca la leyenda del borde del fieldset para poder maquetarla como texto normal. */
+  .legend + * {
+    clear: both;
+  }
+
+  .legend[data-size="lg"] {
+    margin-block-end: var(--bl-space-3);
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-xl);
+    letter-spacing: var(--bl-tracking-tight);
+  }
+
+  .root:disabled .legend {
+    color: var(--bl-color-text-muted);
+  }
+
+  .messages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1-5);
+    margin-block-end: var(--bl-space-3);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-5);
+  }
+
+  .legend[data-size="md"] ~ .content {
+    gap: var(--bl-space-3);
+  }
+}

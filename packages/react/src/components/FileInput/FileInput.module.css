@@ -1,0 +1,161 @@
+@layer bl.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-2);
+    inline-size: 100%;
+  }
+
+  /*
+   * El <input> nativo cubre toda la zona (transparente): el clic y el arrastre funcionan sin
+   * JavaScript y el foco llega al control real.
+   */
+  .zone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bl-space-2);
+    min-block-size: 7rem;
+    padding: var(--bl-space-5) var(--bl-space-4);
+    border: 1px dashed var(--bl-color-border-input);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-bg);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-normal);
+    text-align: center;
+    transition:
+      border-color var(--bl-duration-fast) var(--bl-ease-standard),
+      background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .input {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .zone:hover:not([data-disabled]),
+  .zone[data-dragging] {
+    border-color: var(--bl-color-accent);
+    background-color: var(--bl-color-accent-subtle);
+  }
+
+  .zone[data-dragging] {
+    border-style: solid;
+  }
+
+  .zone:has(.input:focus-visible) {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .zone[data-invalid] {
+    border: 2px solid var(--bl-color-danger-solid);
+  }
+
+  .zone[data-success] {
+    border-color: var(--bl-color-success-solid);
+  }
+
+  .zone[data-disabled] {
+    border-color: var(--bl-color-border);
+    background-color: var(--bl-color-bg-muted);
+    color: var(--bl-color-text-disabled);
+  }
+
+  .zone[data-disabled] .input {
+    cursor: not-allowed;
+  }
+
+  .icon {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    color: var(--bl-color-accent-text);
+  }
+
+  .button {
+    color: var(--bl-color-accent-text);
+    font-weight: var(--bl-font-weight-semibold);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .zone[data-disabled] .icon,
+  .zone[data-disabled] .button {
+    color: inherit;
+  }
+
+  .files {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .file {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-2) var(--bl-space-2) var(--bl-space-2) var(--bl-space-3);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-md);
+    background-color: var(--bl-color-bg-subtle);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .fileIcon {
+    flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    color: var(--bl-color-text-muted);
+  }
+
+  .fileName {
+    flex: 1;
+    min-inline-size: 0;
+    overflow: hidden;
+    color: var(--bl-color-text);
+    font-weight: var(--bl-font-weight-medium);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .fileSize {
+    flex-shrink: 0;
+    color: var(--bl-color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .remove {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--bl-radius-sm);
+    background: transparent;
+    color: var(--bl-color-text-muted);
+    font-size: 1.125rem;
+    cursor: pointer;
+  }
+
+  .remove:hover:not(:disabled) {
+    background-color: var(--bl-color-bg-muted);
+    color: var(--bl-color-text);
+  }
+
+  .remove:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 0;
+  }
+}

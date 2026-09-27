@@ -1,0 +1,48 @@
+@layer bl.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    inline-size: 100%;
+  }
+
+  /* El propio <textarea> es el marco (`.box`); aquí solo se ajusta lo que cambia. */
+  .textarea {
+    display: block;
+    margin: 0;
+    padding: var(--bl-space-2) var(--_px);
+    resize: vertical;
+  }
+
+  .textarea::placeholder {
+    color: var(--bl-color-text-subtle);
+    opacity: 1;
+  }
+
+  .textarea:disabled {
+    opacity: 1;
+    -webkit-text-fill-color: currentColor;
+  }
+
+  .textarea[data-resize="none"] {
+    resize: none;
+  }
+
+  .textarea[data-auto-resize] {
+    field-sizing: content;
+    min-block-size: calc(var(--_rows, 3) * 1lh + 2 * var(--bl-space-2) + 2px);
+    max-block-size: 24rem;
+  }
+
+  .count {
+    align-self: flex-end;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .count[data-limit] {
+    color: var(--bl-color-danger-text);
+    font-weight: var(--bl-font-weight-medium);
+  }
+}

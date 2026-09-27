@@ -1,0 +1,185 @@
+/* Estilos comunes de Checkbox y Radio (clases `bl-choice-*`). */
+@layer bl.components {
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-3);
+  }
+
+  .options[data-orientation="horizontal"] {
+    flex-flow: row wrap;
+    column-gap: var(--bl-space-6);
+  }
+
+  .options[data-variant="card"][data-orientation="horizontal"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--bl-space-3);
+  }
+
+  .root {
+    --_size: 1.25rem;
+
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-3);
+    color: var(--bl-color-text);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .control {
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    margin-block-start: calc((1lh - var(--_size)) / 2);
+  }
+
+  .input {
+    appearance: none;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    border: 2px solid var(--bl-color-border-input);
+    border-radius: var(--bl-radius-sm);
+    background-color: var(--bl-color-bg);
+    cursor: pointer;
+    transition:
+      background-color var(--bl-duration-fast) var(--bl-ease-standard),
+      border-color var(--bl-duration-fast) var(--bl-ease-standard),
+      box-shadow var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .input[type="radio"] {
+    border-radius: var(--bl-radius-full);
+  }
+
+  .input:hover:not(:disabled, :checked, :indeterminate) {
+    border-color: var(--bl-color-text-muted);
+  }
+
+  /*
+   * Relleno activado con `accent-text`: tiene contraste 4,5:1 con el fondo para cualquier marca
+   * (el acento puede ser muy claro, como un amarillo).
+   */
+  .input:checked,
+  .input:indeterminate {
+    border-color: var(--bl-color-accent-text);
+    background-color: var(--bl-color-accent-text);
+  }
+
+  /* Radio: punto central dibujado con una sombra interior del color de fondo. */
+  .input[type="radio"]:checked {
+    box-shadow: inset 0 0 0 3px var(--bl-color-bg);
+  }
+
+  .input:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .check,
+  .dash {
+    position: absolute;
+    inline-size: 0.875rem;
+    block-size: 0.875rem;
+    color: var(--bl-color-bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .input:checked:not(:indeterminate) ~ .check,
+  .input:indeterminate ~ .dash {
+    opacity: 1;
+  }
+
+  .root[data-invalid] .input:not(:checked, :indeterminate) {
+    border-color: var(--bl-color-danger-solid);
+  }
+
+  .input:disabled {
+    border-color: var(--bl-color-border-strong);
+    background-color: var(--bl-color-bg-muted);
+    cursor: not-allowed;
+  }
+
+  .input:disabled:checked,
+  .input:disabled:indeterminate {
+    border-color: var(--bl-color-text-disabled);
+    background-color: var(--bl-color-text-disabled);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    min-inline-size: 0;
+  }
+
+  .label {
+    cursor: pointer;
+  }
+
+  .root[data-disabled] .label {
+    color: var(--bl-color-text-muted);
+    cursor: not-allowed;
+  }
+
+  /* Variante tarjeta: toda la tarjeta es clicable gracias al ::after de la etiqueta. */
+  .root[data-variant="card"] {
+    padding: var(--bl-space-4);
+    border: 1px solid var(--bl-color-border-strong);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-bg);
+    transition:
+      border-color var(--bl-duration-fast) var(--bl-ease-standard),
+      background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .root[data-variant="card"] .label {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .root[data-variant="card"] .label::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .root[data-variant="card"]:hover:not([data-disabled]) {
+    border-color: var(--bl-color-text-muted);
+  }
+
+  .root[data-variant="card"]:has(.input:checked) {
+    border-color: var(--bl-color-accent-text);
+    background-color: var(--bl-color-accent-subtle);
+    box-shadow: inset 0 0 0 1px var(--bl-color-accent-text);
+  }
+
+  .root[data-variant="card"]:has(.input:checked) .input[type="radio"] {
+    box-shadow: inset 0 0 0 3px var(--bl-color-accent-subtle);
+  }
+
+  .root[data-variant="card"]:has(.input:focus-visible) {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .root[data-variant="card"] .input:focus-visible {
+    outline: none;
+  }
+
+  .root[data-variant="card"][data-invalid] {
+    border-color: var(--bl-color-danger-solid);
+  }
+
+  .root[data-variant="card"][data-disabled] {
+    background-color: var(--bl-color-bg-subtle);
+  }
+}

@@ -189,3 +189,29 @@ export const SunIcon = createIcon('Sun', [
   'm17.7 6.3 1.4-1.4',
 ])
 export const MoonIcon = createIcon('Moon', ['M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z'])
+
+// Redes sociales (versión de trazo, coherente con el resto del paquete)
+export const LinkedInIcon = createIcon('LinkedIn', [
+  { r: [3, 3, 18, 18, 3] },
+  'M8 11v5',
+  'M8 8v.01',
+  'M12 16v-5',
+  'M16 16v-3a2 2 0 0 0-4 0',
+])
+export const XIcon = createIcon('X', ['M4 4h4.5L20 20h-4.5z', 'm4 20 6.7-6.7', 'M13.3 10.7 20 4'])
+export const InstagramIcon = createIcon('Instagram', [
+  { r: [3, 3, 18, 18, 5] },
+  { c: [12, 12, 4] },
+  'M17.5 6.5v.01',
+])
+export const FacebookIcon = createIcon('Facebook', [
+  'M7 10v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3V3h-3a5 5 0 0 0-5 5v2z',
+])
+export const YouTubeIcon = createIcon('YouTube', [
+  'M2.5 8.5A4 4 0 0 1 6.3 4.6C8 4.5 10 4.4 12 4.4s4 .1 5.7.2a4 4 0 0 1 3.8 3.9 44 44 0 0 1 0 7 4 4 0 0 1-3.8 3.9c-1.7.1-3.7.2-5.7.2s-4-.1-5.7-.2a4 4 0 0 1-3.8-3.9 44 44 0 0 1 0-7z',
+  'm10 9 5 3-5 3z',
+])
+export const GitHubIcon = createIcon('GitHub', [
+  'M9 19c-3.5 1-4-1.5-5.5-2',
+  'M15 21v-3.2a2.8 2.8 0 0 0-.8-2.2c2.7-.3 5.3-1.3 5.3-5.8a4.5 4.5 0 0 0-1.2-3.1 4.2 4.2 0 0 0-.1-3.1s-1-.3-3.4 1.3a11.7 11.7 0 0 0-6 0C6.4 3.3 5.4 3.6 5.4 3.6a4.2 4.2 0 0 0-.1 3.1A4.5 4.5 0 0 0 4 9.8c0 4.5 2.6 5.5 5.3 5.8a2.8 2.8 0 0 0-.8 2.2V21',
+])

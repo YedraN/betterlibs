@@ -1,0 +1,140 @@
+@layer bl.components {
+  /*
+   * El cambio a menú móvil depende del ancho de la propia cabecera (container queries), no de la
+   * ventana: a ancho completo equivale a los breakpoints, y dentro de un contenedor estrecho
+   * también funciona.
+   */
+  .root {
+    container: bl-header / inline-size;
+    z-index: var(--bl-z-header);
+    border-block-end: 1px solid var(--bl-color-border);
+    background-color: var(--bl-color-bg);
+    color: var(--bl-color-text);
+    transition:
+      transform var(--bl-duration-slow) var(--bl-ease-emphasized),
+      box-shadow var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .root[data-sticky] {
+    position: sticky;
+    inset-block-start: 0;
+  }
+
+  .root[data-scrolled] {
+    box-shadow: var(--bl-shadow-sm);
+  }
+
+  .root[data-hidden] {
+    transform: translateY(-100%);
+    box-shadow: none;
+  }
+
+  /* La barra es el contenedor posicionado: los mega menús ocupan su ancho completo. */
+  .bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-6);
+    min-block-size: 4.5rem;
+  }
+
+  /*
+   * El margen automático empuja acciones y botón de menú al final. Con la navegación visible
+   * (`flex: 1`) no queda espacio libre y el margen es 0.
+   */
+  .brand {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    margin-inline-end: auto;
+  }
+
+  .brand :where(a) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-2);
+    color: inherit;
+    font-weight: var(--bl-font-weight-bold);
+    text-decoration: none;
+  }
+
+  .brand :where(a):focus-visible {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 4px;
+  }
+
+  .brand :where(img, svg) {
+    display: block;
+    block-size: 2rem;
+    inline-size: auto;
+  }
+
+  .desktopNav {
+    flex: 1;
+  }
+
+  .actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--bl-space-3);
+  }
+
+  .drawerActions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-3);
+    inline-size: 100%;
+  }
+
+  .drawerActions > * {
+    inline-size: 100%;
+  }
+
+  /* Cambio a menú móvil según `collapseBelow`. */
+  @container bl-header (max-width: 767.98px) {
+    .desktopNav,
+    .actions {
+      display: none;
+    }
+  }
+
+  @container bl-header (max-width: 1023.98px) {
+    .root:is([data-collapse="lg"], [data-collapse="xl"]) .desktopNav,
+    .root:is([data-collapse="lg"], [data-collapse="xl"]) .actions {
+      display: none;
+    }
+  }
+
+  @container bl-header (max-width: 1279.98px) {
+    .root[data-collapse="xl"] .desktopNav,
+    .root[data-collapse="xl"] .actions {
+      display: none;
+    }
+  }
+
+  @container bl-header (min-width: 768px) {
+    .root[data-collapse="md"] .menuButton {
+      display: none;
+    }
+  }
+
+  @container bl-header (min-width: 1024px) {
+    .root[data-collapse="lg"] .menuButton {
+      display: none;
+    }
+  }
+
+  @container bl-header (min-width: 1280px) {
+    .root[data-collapse="xl"] .menuButton {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+  }
+}

@@ -40,7 +40,7 @@ pnpm test        # tests
 - [x] **Fase 2** — Layout y componentes base
 - [x] **Fase 3** — Formularios
 - [x] **Fase 4** — Interactivos y overlays
-- [ ] **Fase 5** — Navegación
+- [x] **Fase 5** — Navegación
 - [ ] **Fase 6** — Bloques corporativos
 - [ ] **Fase 7** — Plantillas y documentación completa
 - [ ] **Fase 8** — Endurecimiento y release 1.0

@@ -1,0 +1,104 @@
+@layer bl.components {
+  .list,
+  .sublist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list > li {
+    border-block-end: 1px solid var(--bl-color-border);
+  }
+
+  .link,
+  .toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bl-space-3);
+    inline-size: 100%;
+    min-block-size: var(--bl-control-height-lg);
+    padding: var(--bl-space-2) 0;
+    border: 0;
+    background: transparent;
+    color: var(--bl-color-text);
+    font-family: inherit;
+    font-size: var(--bl-font-size-lg);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+    text-align: start;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .link[data-nested] {
+    min-block-size: var(--bl-control-height-md);
+    padding-inline-start: var(--bl-space-4);
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-medium);
+  }
+
+  .link:hover,
+  .toggle:hover {
+    color: var(--bl-color-accent-text);
+  }
+
+  .link:focus-visible,
+  .toggle:focus-visible {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Página actual: acento + barra lateral. */
+  .link[aria-current="page"] {
+    color: var(--bl-color-accent-text);
+    box-shadow: inset 3px 0 0 var(--bl-color-accent-text);
+    padding-inline-start: var(--bl-space-3);
+  }
+
+  .link[data-nested][aria-current="page"] {
+    padding-inline-start: var(--bl-space-4);
+  }
+
+  .toggle[data-current] {
+    color: var(--bl-color-accent-text);
+  }
+
+  .chevron {
+    flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    color: var(--bl-color-text-muted);
+    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .toggle[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .panel {
+    padding-block-end: var(--bl-space-3);
+  }
+
+  .group + .group,
+  .sublist + .group {
+    margin-block-start: var(--bl-space-3);
+  }
+
+  .groupTitle {
+    margin: 0;
+    padding: var(--bl-space-2) var(--bl-space-4) var(--bl-space-1);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-xs);
+    font-weight: var(--bl-font-weight-semibold);
+    letter-spacing: var(--bl-tracking-wide);
+    text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chevron {
+      transition: none;
+    }
+  }
+}

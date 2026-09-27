@@ -3,8 +3,8 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 4 — Interactivos y overlays
-> **Siguiente paso:** Fase 5 — Navegación
+> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 5 — Navegación
+> **Siguiente paso:** Fase 6 — Bloques corporativos
 
 ---
 
@@ -60,7 +60,7 @@ packages/
   tokens/     @betterlibs/tokens  → tokens TS → dist/{index,tokens,reset,base}.css + tokens.json
               src/primitives.ts, semantic.ts, color.ts (OKLCH, contraste), css.ts, create-theme.ts
               scripts/build-css.ts (Node ejecuta .ts nativo; falla si el tema no cumple WCAG AA)
-  icons/      @betterlibs/icons   → 58 iconos (createIcon), sufijo *Icon, build con tsc
+  icons/      @betterlibs/icons   → 64 iconos (createIcon), sufijo *Icon, build con tsc
   react/      @betterlibs/react   → src/components/<Nombre>/<Nombre>.tsx + .module.css (+ stories)
               src/utils/{cx,types}.ts · src/test/{setup,axe}.ts
               tests agrupados: src/components/{layout,base}.test.tsx
@@ -102,7 +102,7 @@ apps/
 - **Contenido:** Badge, Tag (enlazable/eliminable), Avatar + AvatarGroup (`'use client'`), Image,
   Icon. **Feedback/a11y:** Spinner, Skeleton, SkipLink, VisuallyHidden.
 - Tokens: `data-theme` funciona también en elementos anidados.
-- **Iconos:** 58 iconos (flechas, acciones, contacto, personas, estados, negocio, interfaz).
+- **Iconos:** 58 iconos (flechas, acciones, contacto, personas, estados, negocio, interfaz); 64 tras la Fase 5.
 - **Docs:** introducción; primeros pasos (instalación, Next.js, Vite, Astro, primera página);
   fundamentos (tokens, color, tipografía, espaciado, layout, forma, movimiento, iconografía,
   modo oscuro y marca, accesibilidad); resumen de componentes. `<Preview>` sincroniza el modo
@@ -166,10 +166,28 @@ apps/
   Stories: `Componentes/Overlays/Dialog`, `Contenido interactivo/{Tabs,Carousel}`,
   `Feedback/Toast`, `Navegación/Pagination`. Tests: `src/components/interactive.test.tsx`.
 
-### Fase 5 — Navegación
-Header (sticky, ocultar al hacer scroll opcional) con NavigationMenu/mega-menú y menú móvil
-accesible, Footer (columnas, legal, redes), AnnouncementBar. **Añadir iconos de redes sociales**
-(LinkedIn, X, Instagram, Facebook, YouTube, GitHub) al paquete de iconos.
+### ✅ Fase 5 — Navegación (2026-09-27)
+- `@radix-ui/react-navigation-menu` 1.2.22.
+- **Tipos de navegación** (`NavigationMenu/types.ts`): `NavItem` = `NavLink` (`label`, `href`,
+  `description`, `icon`, `current`) o `NavSection` (`links` = desplegable, `groups` = mega menú,
+  `featured`, `overview` = «Ver todo»). `isCurrentLink` normaliza barra final, query y ancla.
+- **NavigationMenu** (escritorio, Radix): desplegables junto al disparador y mega menús a todo el
+  ancho de la barra (se anula con `!important` el `position: relative` en línea que Radix pone al
+  `div` que envuelve la lista). Página actual con `aria-current` + barra inferior.
+- **MobileNav**: lista con secciones desplegables (`aria-expanded`); la sección actual empieza
+  abierta; `onNavigate` para cerrar el panel.
+- **Header**: `SkipLink` a `#main` incluido (`skipLink={false}` para quitarlo), logo, navegación,
+  `actions`, menú móvil en `Drawer` (se cierra al navegar), `sticky` (sombra al hacer scroll) y
+  `hideOnScroll` (no se oculta con el menú abierto ni con el foco dentro). El cambio a móvil usa
+  **container queries** sobre la propia cabecera (`collapseBelow`: md/lg/xl), no media queries.
+- **Footer** (sin estado): marca, `description`, columnas con `h2`, `SocialLinks`, bloque libre
+  (`children`), franja legal y `tone` subtle/default/dark (`data-theme`).
+- **SocialLinks** (sin estado) y **AnnouncementBar** (`role="region"` con nombre, tonos,
+  `dismissible` + `storageKey` en `localStorage`).
+- **Iconos:** LinkedIn, X, Instagram, Facebook, YouTube y GitHub en versión de trazo (64 en total).
+- **Docs:** página «Navegación» ampliada (Header con mega menú, AnnouncementBar, Footer,
+  SocialLinks) y nota de iconos de redes en «Iconografía». Stories en
+  `Componentes/Navegación/Header`. Tests: `src/components/navigation.test.tsx`.
 
 ### Fase 6 — Bloques corporativos
 Hero (centrado, split, con imagen/vídeo), FeatureGrid, LogoCloud, Stats, Testimonials, Pricing, CTA,
@@ -229,6 +247,10 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
   `*PointerCapture`. Los menús se abren con teclado en los tests (Tab + Enter). Con un `Dialog`
   abierto, pasa axe sobre el diálogo, no sobre `body` (Radix pone `aria-hidden` al resto).
 - **`matchMedia`** no existe en jsdom: `usePrefersReducedMotion` lo comprueba antes de usarlo.
+- **Stories:** cualquier `export` de un `*.stories.tsx` se toma como story; los datos de ejemplo
+  van en constantes sin exportar.
+- **Container queries:** una `@container` no puede estilar al propio contenedor, solo a sus
+  descendientes (por eso `Header` oculta `.desktopNav`/`.actions`/`.menuButton`, no `.root`).
 - **Tokens de espaciado:** no existe `--bl-space-2-5` (la escala es 0, 0-5, 1, 1-5, 2, 3, 4…).
 - **CSS Modules compartidos:** si un elemento lleva clases de dos módulos, el orden de import
   decide la cascada (`.field { padding: 0 }` pisaba al `<textarea>`; por eso no lleva `.field`).

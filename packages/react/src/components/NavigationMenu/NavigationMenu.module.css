@@ -1,0 +1,262 @@
+@layer bl.components {
+  .root {
+    min-inline-size: 0;
+  }
+
+  /*
+   * Radix envuelve la lista en un <div style="position: relative">. Se anula para que los mega
+   * menús se coloquen respecto a la barra de la cabecera y ocupen todo su ancho.
+   */
+  .root > div {
+    position: static !important;
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    position: relative;
+  }
+
+  .item[data-mega] {
+    position: static;
+  }
+
+  .trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-1);
+    min-block-size: var(--bl-control-height-md);
+    padding: 0 var(--bl-space-3);
+    border: 0;
+    border-radius: var(--bl-radius-md);
+    background: transparent;
+    color: var(--bl-color-text);
+    font-family: inherit;
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-medium);
+    line-height: var(--bl-leading-snug);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .trigger:hover,
+  .trigger[data-state="open"] {
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .trigger:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Página actual: color de acento y barra inferior (no solo color). */
+  .trigger[data-active],
+  .trigger[data-current] {
+    color: var(--bl-color-accent-text);
+  }
+
+  .trigger[data-active]::after,
+  .trigger[data-current]::after {
+    content: "";
+    position: absolute;
+    inset-inline: var(--bl-space-3);
+    inset-block-end: 0.25rem;
+    block-size: 2px;
+    border-radius: 2px;
+    background-color: currentColor;
+  }
+
+  .chevron {
+    inline-size: 1em;
+    block-size: 1em;
+    color: var(--bl-color-text-muted);
+    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .trigger[data-state="open"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Panel desplegable. */
+  .content {
+    position: absolute;
+    inset-block-start: calc(100% + var(--bl-space-2));
+    inset-inline-start: 0;
+    z-index: var(--bl-z-dropdown);
+    box-sizing: border-box;
+    inline-size: max-content;
+    min-inline-size: 16rem;
+    max-inline-size: min(26rem, calc(100vw - 2 * var(--bl-space-4)));
+    padding: var(--bl-space-2);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-shadow-lg);
+    color: var(--bl-color-text);
+  }
+
+  .content[data-mega] {
+    inset-block-start: 100%;
+    inset-inline: 0;
+    inline-size: auto;
+    max-inline-size: none;
+    padding: var(--bl-space-6);
+  }
+
+  .content[data-state="open"] {
+    animation: enter var(--bl-duration-normal) var(--bl-ease-enter);
+  }
+
+  .content[data-state="closed"] {
+    animation: exit var(--bl-duration-fast) var(--bl-ease-exit);
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-0-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .panelLink {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-3);
+    border-radius: var(--bl-radius-md);
+    color: var(--bl-color-text);
+    text-decoration: none;
+    transition: background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .panelLink:hover {
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .panelLink:focus-visible,
+  .overview:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: -2px;
+  }
+
+  .linkIcon {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    border-radius: var(--bl-radius-md);
+    background-color: var(--bl-color-accent-subtle);
+    color: var(--bl-color-accent-text);
+    font-size: 1.125rem;
+  }
+
+  .linkText {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-0-5);
+    min-inline-size: 0;
+  }
+
+  .linkLabel {
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .panelLink[data-active] .linkLabel {
+    color: var(--bl-color-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .linkDescription {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .mega {
+    display: flex;
+    gap: var(--bl-space-8);
+  }
+
+  .groups {
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: var(--bl-space-6);
+  }
+
+  .groupTitle {
+    margin: 0 0 var(--bl-space-2);
+    padding-inline: var(--bl-space-3);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-xs);
+    font-weight: var(--bl-font-weight-semibold);
+    letter-spacing: var(--bl-tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .featured {
+    flex: 0 0 18rem;
+    padding: var(--bl-space-5);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-bg-subtle);
+  }
+
+  .overviewRow {
+    margin-block-start: var(--bl-space-2);
+    padding-block-start: var(--bl-space-2);
+    border-block-start: 1px solid var(--bl-color-border);
+  }
+
+  .overview {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-2);
+    padding: var(--bl-space-2) var(--bl-space-3);
+    border-radius: var(--bl-radius-md);
+    color: var(--bl-color-accent-text);
+    font-weight: var(--bl-font-weight-semibold);
+    text-decoration: none;
+  }
+
+  .overview:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translateY(-0.25rem);
+    }
+  }
+
+  @keyframes exit {
+    to {
+      opacity: 0;
+      transform: translateY(-0.25rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state],
+    .chevron {
+      animation: none;
+      transition: none;
+    }
+  }
+}

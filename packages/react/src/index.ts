@@ -14,6 +14,10 @@ export {
   type AccordionProps,
 } from './components/Accordion/Accordion'
 export { Alert, type AlertProps, type AlertTone } from './components/Alert/Alert'
+export {
+  AnnouncementBar,
+  type AnnouncementBarProps,
+} from './components/AnnouncementBar/AnnouncementBar'
 export { AspectRatio, type AspectRatioProps } from './components/AspectRatio/AspectRatio'
 export {
   Avatar,
@@ -99,6 +103,12 @@ export { Field, type FieldProps } from './components/Field/Field'
 export { type FieldControlOptions, useFieldControl } from './components/Field/use-field-control'
 export { Fieldset, type FieldsetProps } from './components/Fieldset/Fieldset'
 export { FileInput, type FileInputProps, formatFileSize } from './components/FileInput/FileInput'
+export {
+  Footer,
+  type FooterColumn,
+  type FooterLink,
+  type FooterProps,
+} from './components/Footer/Footer'
 export { Form, type FormProps } from './components/Form/Form'
 export {
   defaultValidationMessages,
@@ -106,12 +116,19 @@ export {
   type ValidationMessages,
 } from './components/Form/validation'
 export { Grid, type GridOwnProps, type GridProps } from './components/Grid/Grid'
+export { Header, type HeaderProps } from './components/Header/Header'
 export { Heading, type HeadingProps, type HeadingSize } from './components/Heading/Heading'
 export { Icon, type IconProps } from './components/Icon/Icon'
 export { IconButton, type IconButtonProps } from './components/IconButton/IconButton'
 export { Image, type ImageProps } from './components/Image/Image'
 export { Input, type InputProps } from './components/Input/Input'
 export { Link, type LinkProps } from './components/Link/Link'
+export { MobileNav, type MobileNavProps } from './components/NavigationMenu/MobileNav'
+export {
+  NavigationMenu,
+  type NavigationMenuProps,
+} from './components/NavigationMenu/NavigationMenu'
+export type { NavGroup, NavItem, NavLink, NavSection } from './components/NavigationMenu/types'
 export {
   Pagination,
   type PaginationProps,
@@ -146,6 +163,12 @@ export {
 } from './components/Select/Select'
 export { Skeleton, type SkeletonProps } from './components/Skeleton/Skeleton'
 export { SkipLink, type SkipLinkProps } from './components/SkipLink/SkipLink'
+export {
+  type SocialLink,
+  SocialLinks,
+  type SocialLinksProps,
+  type SocialNetwork,
+} from './components/SocialLinks/SocialLinks'
 export { Spinner, type SpinnerProps } from './components/Spinner/Spinner'
 export { Stack, type StackOwnProps, type StackProps } from './components/Stack/Stack'
 export { Switch, type SwitchProps } from './components/Switch/Switch'

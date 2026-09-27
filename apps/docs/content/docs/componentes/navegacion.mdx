@@ -1,13 +1,203 @@
 ---
 title: Navegación
-description: Migas de pan y paginación para que se sepa dónde se está y cómo seguir.
+description: Cabecera con menú principal y móvil, pie, barra de anuncios, migas de pan y paginación.
 icon: Navigation
 ---
 
-import { Breadcrumb, Pagination, Stack } from '@betterlibs/react'
+import { BriefcaseIcon, CalendarIcon, FileTextIcon, ShieldCheckIcon } from '@betterlibs/icons'
+import {
+  AnnouncementBar,
+  Breadcrumb,
+  Button,
+  Footer,
+  Header,
+  Pagination,
+  SocialLinks,
+  Stack,
+  Text,
+} from '@betterlibs/react'
 
-Ambos componentes renderizan HTML sin estado: funcionan en Server Components y sin JavaScript.
-La cabecera, el menú principal y el pie llegan en la siguiente versión.
+La navegación es lo que más se repite en una web corporativa: tiene que ser predecible, rápida con
+teclado y cómoda en móvil. Todo lo de esta página usa landmarks (`header`, `nav`, `footer`) con
+nombre, así que los lectores de pantalla pueden saltar directamente a cada zona.
+
+## Header
+
+Cabecera con enlace para saltar al contenido, logo, navegación principal (enlaces, desplegables y
+mega menús), acciones y menú móvil en un panel lateral. Es fija al hacer scroll (`sticky`) y puede
+ocultarse al bajar y reaparecer al subir (`hideOnScroll`).
+
+<Preview padded={false}>
+  <div style={{ minHeight: '28rem' }}>
+    <Header
+      skipLink={false}
+      logo={<a href="#">Norte</a>}
+      currentHref="#auditoria"
+      navigation={[
+        {
+          label: 'Servicios',
+          groups: [
+            {
+              label: 'Empresas',
+              links: [
+                { label: 'Consultoría', href: '#consultoria', description: 'Plan de crecimiento a 3 años.', icon: <BriefcaseIcon /> },
+                { label: 'Auditoría', href: '#auditoria', description: 'Cuentas y cumplimiento.', icon: <ShieldCheckIcon /> },
+              ],
+            },
+            {
+              label: 'Personas',
+              links: [
+                { label: 'Asesoría fiscal', href: '#fiscal', description: 'Renta, patrimonio y herencias.', icon: <FileTextIcon /> },
+              ],
+            },
+          ],
+          overview: { label: 'Ver todos los servicios', href: '#servicios' },
+        },
+        {
+          label: 'Sectores',
+          links: [
+            { label: 'Industria', href: '#industria' },
+            { label: 'Salud', href: '#salud' },
+          ],
+        },
+        { label: 'Blog', href: '#blog' },
+      ]}
+      actions={<Button size="sm">Contacto</Button>}
+    />
+    <div style={{ padding: 'var(--bl-space-8)' }}>
+      <Text tone="muted">Abre «Servicios» para ver el mega menú. Estrecha la ventana para ver el menú móvil.</Text>
+    </div>
+  </div>
+</Preview>
+
+```tsx
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+const navigation: NavItem[] = [
+  {
+    label: 'Servicios',
+    groups: [
+      {
+        label: 'Empresas',
+        links: [
+          { label: 'Consultoría', href: '/servicios/consultoria', description: 'Plan a 3 años.' },
+          { label: 'Auditoría', href: '/servicios/auditoria' },
+        ],
+      },
+    ],
+    featured: <CasoDestacado />,
+    overview: { label: 'Ver todos los servicios', href: '/servicios' },
+  },
+  { label: 'Sectores', links: [{ label: 'Industria', href: '/sectores/industria' }] },
+  { label: 'Blog', href: '/blog' },
+]
+
+<Header
+  logo={<Link href="/"><img src="/logo.svg" alt="Norte Consultores, ir a la portada" /></Link>}
+  navigation={navigation}
+  currentHref={usePathname()}
+  linkAs={Link}
+  actions={<Button asChild size="sm"><Link href="/contacto">Contacto</Link></Button>}
+/>
+```
+
+- **Estructura (`NavItem`)**: un enlace (`{ label, href }`), un desplegable (`links`) o un mega menú
+  (`groups`, con `featured` para un bloque destacado). `overview` añade «Ver todo» al pie.
+- **Página actual**: con `currentHref`, el enlace lleva `aria-current="page"` y su sección se
+  marca (color y barra inferior, no solo color).
+- **Menú móvil**: por debajo de `collapseBelow` (`lg` por defecto) aparece el botón «Abrir menú»,
+  que abre un panel con foco atrapado. Las secciones son desplegables y la de la página actual
+  empieza abierta. El panel se cierra al elegir un enlace.
+- **Salto al contenido**: la cabecera incluye «Saltar al contenido principal» hacia `#main`. Pon
+  `id="main"` en tu `<main>` o cambia el destino con `skipLink`.
+- El cambio a menú móvil depende del **ancho de la cabecera** (container queries), no del de la
+  ventana: también funciona dentro de un contenedor estrecho.
+
+### Teclado
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Recorre logo, secciones, enlaces y acciones |
+| `Enter` / `Espacio` | Abre o cierra el desplegable de una sección |
+| `←` / `→` | Pasan de una sección a otra |
+| `Tab` (con el desplegable abierto) | Entra en los enlaces del panel |
+| `Escape` | Cierra el desplegable o el menú móvil y devuelve el foco |
+
+`NavigationMenu` y `MobileNav` también se exportan por separado si montas tu propia cabecera.
+
+## AnnouncementBar
+
+Franja sobre la cabecera para un anuncio breve: un evento, un lanzamiento, un cambio de horario.
+Con `storageKey`, el cierre se recuerda entre visitas (cambia la clave en cada anuncio nuevo).
+
+<Preview padded={false}>
+  <Stack gap="0">
+    <AnnouncementBar icon={<CalendarIcon />} action={<a href="#evento">Reserva tu plaza</a>} dismissible>
+      Jornada «Cierre fiscal 2026»: 12 de noviembre en Madrid.
+    </AnnouncementBar>
+    <AnnouncementBar tone="neutral">Del 1 al 31 de agosto atendemos de 8 a 15 h.</AnnouncementBar>
+  </Stack>
+</Preview>
+
+Un solo mensaje, corto y con un enlace como mucho. No lo uses para avisos legales ni para el aviso de
+cookies (ese llegará como bloque propio).
+
+## Footer
+
+Pie con marca, columnas de enlaces, redes sociales, un bloque libre (contacto, boletín) y la franja
+legal. Sin estado: funciona en Server Components.
+
+<Preview padded={false}>
+  <Footer
+    logo={<a href="#">Norte Consultores</a>}
+    description="Consultoría financiera para empresas que quieren crecer con orden."
+    social={[
+      { network: 'linkedin', href: '#' },
+      { network: 'x', href: '#' },
+      { network: 'youtube', href: '#' },
+    ]}
+    columns={[
+      { title: 'Servicios', links: [{ label: 'Consultoría', href: '#' }, { label: 'Auditoría', href: '#' }] },
+      { title: 'Empresa', links: [{ label: 'Sobre nosotros', href: '#' }, { label: 'Empleo', href: '#' }] },
+      { title: 'Recursos', links: [{ label: 'Blog', href: '#' }, { label: 'Preguntas frecuentes', href: '#' }] },
+    ]}
+    legal={[
+      { label: 'Aviso legal', href: '#' },
+      { label: 'Privacidad', href: '#' },
+      { label: 'Cookies', href: '#' },
+      { label: 'Accesibilidad', href: '#' },
+    ]}
+    copyright="© 2026 Norte Consultores S.L."
+  />
+</Preview>
+
+- `tone`: `subtle` (por defecto), `default` o `dark` (fuerza el modo oscuro dentro del pie).
+- Los títulos de columna son `h2` (`headingLevel` para cambiarlo) y cada grupo de enlaces es una
+  navegación con nombre («Pie de página», «Información legal»).
+- En España, enlaza siempre **aviso legal**, **privacidad** y **cookies**; y la **declaración de
+  accesibilidad** si estás obligado a tenerla.
+
+## SocialLinks
+
+Enlaces a redes con icono, nombre accesible («LinkedIn») y objetivo táctil de 44px. Redes incluidas:
+`linkedin`, `x`, `instagram`, `facebook`, `youtube`, `github` y `email`.
+
+<Preview>
+  <SocialLinks
+    links={[
+      { network: 'linkedin', href: '#' },
+      { network: 'x', href: '#' },
+      { network: 'instagram', href: '#' },
+      { network: 'facebook', href: '#' },
+      { network: 'youtube', href: '#' },
+      { network: 'github', href: '#' },
+    ]}
+  />
+</Preview>
+
+Con `newTab` se abren en otra pestaña y se anuncia («LinkedIn (se abre en una pestaña nueva)»). Los
+iconos son versiones de trazo; si una red exige su logotipo oficial, pásalo en `icon`.
 
 ## Breadcrumb
 
@@ -35,8 +225,6 @@ no es un enlace y lleva `aria-current="page"`.
 </Preview>
 
 ```tsx
-import Link from 'next/link'
-
 <Breadcrumb
   linkAs={Link}
   schemaBaseUrl="https://empresa.com"

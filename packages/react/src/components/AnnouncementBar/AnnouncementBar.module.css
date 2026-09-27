@@ -1,0 +1,110 @@
+@layer bl.components {
+  .root {
+    --_bg: var(--bl-color-accent);
+    --_fg: var(--bl-color-on-accent);
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--bl-space-2) var(--bl-space-12);
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+    text-align: center;
+  }
+
+  .root[data-tone="neutral"] {
+    --_bg: var(--bl-color-bg-muted);
+    --_fg: var(--bl-color-text);
+  }
+
+  .root[data-tone="dark"] {
+    --_bg: var(--bl-color-bg);
+    --_fg: var(--bl-color-text);
+  }
+
+  .root[data-tone="info"] {
+    --_bg: var(--bl-color-info-bg);
+    --_fg: var(--bl-color-info-text);
+  }
+
+  .root[data-tone="warning"] {
+    --_bg: var(--bl-color-warning-bg);
+    --_fg: var(--bl-color-warning-text);
+  }
+
+  .inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bl-space-2);
+    max-inline-size: var(--bl-container-xl);
+  }
+
+  .icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    font-size: 1.125rem;
+  }
+
+  .message {
+    margin: 0;
+  }
+
+  .action {
+    margin-inline-start: var(--bl-space-2);
+    font-weight: var(--bl-font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  /* Los enlaces heredan el color de la barra: el contraste lo garantiza el par del tono. */
+  .message :where(a) {
+    color: inherit;
+    font-weight: var(--bl-font-weight-semibold);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .message :where(a):focus-visible,
+  .dismiss:focus-visible {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .dismiss {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--bl-space-2);
+    display: inline-grid;
+    place-items: center;
+    inline-size: 2.25rem;
+    block-size: 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--bl-radius-md);
+    background: transparent;
+    color: inherit;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  .dismiss:hover {
+    background-color: color-mix(in oklch, currentColor 14%, transparent);
+  }
+
+  @media (max-width: 639px) {
+    .root {
+      justify-content: flex-start;
+      padding-inline-start: var(--bl-space-4);
+      text-align: start;
+    }
+
+    .inner {
+      justify-content: flex-start;
+    }
+  }
+}

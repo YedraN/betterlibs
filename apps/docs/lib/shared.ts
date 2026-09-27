@@ -4,6 +4,7 @@ export const appName = 'Betterlibs UI'
 export const docsRoute = '/docs'
 export const docsContentRoute = '/llms.mdx/docs'
 export const storybookUrl = process.env.NEXT_PUBLIC_STORYBOOK_URL ?? 'http://localhost:6006'
+export const playgroundUrl = process.env.NEXT_PUBLIC_PLAYGROUND_URL ?? 'http://localhost:5173'
 
 export const gitConfig = {
   user: 'YedraN',

@@ -1,0 +1,54 @@
+---
+title: ErrorSummary
+description: Resumen de errores enlazado al principio de un formulario (patrón GOV.UK).
+---
+
+import { ErrorSummary } from '@betterlibs/react'
+
+<Preview>
+  <ErrorSummary
+    errors={[
+      { label: 'Email', message: 'Introduce un email válido, como nombre@empresa.com' },
+      { label: 'Mensaje', message: 'Escribe al menos 20 caracteres' },
+    ]}
+  />
+</Preview>
+
+```tsx
+<ErrorSummary
+  errors={[
+    { id: 'email', label: 'Email', message: 'Introduce un email válido' },
+    { id: 'mensaje', label: 'Mensaje', message: 'Escribe al menos 20 caracteres' },
+  ]}
+/>
+```
+
+## Cuándo usarlo
+
+`Form` ya lo muestra y enfoca solo al enviar con errores. Úsalo suelto cuando el formulario se
+valida en el servidor y la página se recarga (sin JavaScript), o con tu propia librería de
+formularios.
+
+## Textos
+
+- Título que invita a actuar: «Revisa los siguientes campos» (`title`).
+- Un elemento por error, con el nombre del campo y un mensaje que explique cómo corregirlo.
+
+## Accesibilidad
+
+- Cada error es un enlace que lleva el foco al campo (con `id`) y lo centra en pantalla.
+- Recibe el foco programáticamente (`tabIndex={-1}`): al llegar, el lector de pantalla lee todo su
+  contenido. Si lo muestras tú, llévale el foco.
+
+## Props
+
+<PropsTable name="ErrorSummaryProps" />
+
+## Anatomía y CSS
+
+<CssReference module="ErrorSummary" />
+
+## Relacionados
+
+- [Form](/docs/componentes/formularios/form)
+- [Alert](/docs/componentes/feedback/alert)

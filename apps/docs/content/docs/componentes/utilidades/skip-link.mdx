@@ -1,0 +1,42 @@
+---
+title: SkipLink
+description: Enlace «Saltar al contenido principal» para usuarios de teclado.
+---
+
+import { SkipLink } from '@betterlibs/react'
+
+<Preview>
+  <p style={{ margin: 0 }}>Pulsa `Tab` dentro de este ejemplo para verlo:</p>
+  <div style={{ position: 'relative', minHeight: '4rem' }}>
+    <SkipLink href="#contenido-ejemplo" />
+  </div>
+</Preview>
+
+```tsx
+<body>
+  <SkipLink />       {/* primer elemento enfocable */}
+  <Header … />
+  <main id="main">…</main>
+</body>
+```
+
+## Cuándo usarlo
+
+En todas las páginas, como **primer elemento enfocable**: permite a quien navega con teclado
+saltarse la cabecera y el menú (WCAG 2.4.1). [`Header`](/docs/componentes/navegacion/header) ya
+lo incluye; úsalo suelto solo si montas tu propia cabecera.
+
+## Accesibilidad
+
+- Solo es visible al recibir el foco.
+- El destino debe existir: `<main id="main">` (o cambia `href`).
+- Si tu `<main>` no es enfocable, algunos navegadores no mueven el foco al saltar: añade
+  `tabIndex={-1}` al destino si lo notas.
+
+## Props
+
+<PropsTable name="SkipLinkProps" />
+
+## Anatomía y CSS
+
+<CssReference module="SkipLink" />

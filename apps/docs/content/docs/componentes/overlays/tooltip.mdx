@@ -1,0 +1,63 @@
+---
+title: Tooltip
+description: Etiqueta breve al pasar el ratón o enfocar con el teclado.
+---
+
+import { CopyIcon, DownloadIcon } from '@betterlibs/icons'
+import { IconButton, Tooltip } from '@betterlibs/react'
+
+<Preview align="center">
+  <Tooltip content="Descargar el dossier en PDF (2 MB)">
+    <IconButton label="Descargar dossier" variant="outline">
+      <DownloadIcon />
+    </IconButton>
+  </Tooltip>
+  <Tooltip content="Copiar enlace" side="bottom">
+    <IconButton label="Copiar enlace" variant="outline">
+      <CopyIcon />
+    </IconButton>
+  </Tooltip>
+</Preview>
+
+```tsx
+<Tooltip content="Descargar en PDF">
+  <IconButton label="Descargar"><DownloadIcon /></IconButton>
+</Tooltip>
+```
+
+## Cuándo usarlo
+
+Para hacer visible el nombre de un botón de icono o añadir una aclaración breve.
+
+**No aparece en pantallas táctiles**: nunca pongas ahí información imprescindible. Y solo texto: sin
+enlaces ni botones dentro (no se puede llegar a ellos).
+
+## Opciones
+
+- `content`: el texto; `side` y `align` para colocarlo.
+- `delay`: espera antes de mostrarse al pasar el ratón (300 ms). Al enfocar con el teclado aparece
+  al momento.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Al enfocar el elemento aparece el tooltip |
+| `Escape` | Lo oculta |
+
+- Se anuncia como descripción del elemento (`aria-describedby`).
+- Se puede pasar el ratón por encima sin que desaparezca (WCAG 1.4.13).
+- En un `IconButton`, el nombre accesible ya lo da `label`; el tooltip solo lo hace visible.
+
+## Props
+
+<PropsTable name="TooltipProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Tooltip" />
+
+## Relacionados
+
+- [IconButton](/docs/componentes/acciones/icon-button)
+- [Popover](/docs/componentes/overlays/popover)

@@ -1,0 +1,51 @@
+---
+title: Switch
+description: Interruptor para activar o desactivar algo con efecto inmediato.
+---
+
+import { Stack, Switch } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="5" style={{ maxWidth: '32rem' }}>
+    <Switch label="Cookies analíticas" description="Nos ayudan a entender qué contenidos son más útiles." labelPosition="start" />
+    <Switch label="Cookies necesarias" labelPosition="start" defaultChecked disabled />
+    <Switch label="Notificaciones por email" defaultChecked />
+    <Switch label="Modo compacto" size="sm" />
+  </Stack>
+</Preview>
+
+```tsx
+<Switch label="Notificaciones por email" checked={activas} onCheckedChange={setActivas} />
+```
+
+## Cuándo usarlo
+
+Para ajustes que se aplican **al momento**: preferencias, cookies, modo oscuro. Si el cambio solo
+se aplica al pulsar «Guardar» o «Enviar», usa un `Checkbox`: es lo que se espera en un formulario.
+
+## Textos
+
+Etiqueta que diga qué se activa («Recibir el boletín»), sin «Activar/Desactivar» delante: el
+estado ya lo dice el interruptor.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Espacio` | Activa o desactiva |
+
+Es un `<input type="checkbox" role="switch">`: se anuncia como «interruptor, activado» y funciona
+en formularios nativos. El estado se ve por la posición, no solo por el color.
+
+## Props
+
+<PropsTable name="SwitchProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Switch" />
+
+## Relacionados
+
+- [Checkbox](/docs/componentes/formularios/checkbox)
+- [CookieConsent](/docs/bloques/cookies)

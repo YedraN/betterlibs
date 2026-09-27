@@ -1,0 +1,54 @@
+---
+title: Grid
+description: Rejilla responsive para tarjetas, características, logos o equipos.
+---
+
+import { Box, Grid, Text } from '@betterlibs/react'
+
+<Preview>
+  <Grid columns={{ base: 1, sm: 2, lg: 4 }} gap="4">
+    <Box padding="5" radius="lg" bordered><Text>1</Text></Box>
+    <Box padding="5" radius="lg" bordered><Text>2</Text></Box>
+    <Box padding="5" radius="lg" bordered><Text>3</Text></Box>
+    <Box padding="5" radius="lg" bordered><Text>4</Text></Box>
+  </Grid>
+</Preview>
+
+```tsx
+// Columnas por breakpoint (mobile-first)
+<Grid columns={{ base: 1, md: 2, lg: 3 }}>…</Grid>
+
+// O que la rejilla calcule cuántas caben
+<Grid minItemWidth="16rem">…</Grid>
+```
+
+## Cuándo usarlo
+
+Para elementos del mismo tipo en filas y columnas: tarjetas de servicios, logos, equipo, artículos.
+Para una sola fila o columna, usa `Stack`.
+
+## Columnas
+
+- `columns`: un número fijo o un objeto por breakpoint (`base`, `sm`, `md`, `lg`, `xl`). `base`
+  aplica siempre y cada breakpoint sobrescribe hacia arriba.
+- `minItemWidth`: ancho mínimo de cada celda; la rejilla decide cuántas columnas caben (ignora
+  `columns`). Ideal cuando el número de elementos varía.
+- `gap` y `rowGap`: separación entre celdas.
+
+## Accesibilidad
+
+Si los elementos forman una lista, dilo: `<Grid as="ul" role="list">` con un `<li>` por celda.
+El lector de pantalla anunciará «lista, 6 elementos».
+
+## Props
+
+<PropsTable name="GridOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Grid" />
+
+## Relacionados
+
+- [Stack](/docs/componentes/layout/stack)
+- [Layout](/docs/fundamentos/layout)

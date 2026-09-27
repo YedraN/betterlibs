@@ -1,0 +1,54 @@
+---
+title: SectionHeader
+description: Antetítulo, título, entradilla y acciones con el ritmo tipográfico del sistema.
+---
+
+import { Button, SectionHeader } from '@betterlibs/react'
+
+<Preview>
+  <SectionHeader
+    eyebrow="Servicios"
+    title="Todo lo que tu empresa necesita"
+    description="Un equipo, cuatro especialidades y un mismo objetivo: que crezcas con orden."
+    actions={<Button variant="outline">Ver todos los servicios</Button>}
+  />
+</Preview>
+
+```tsx
+<SectionHeader
+  eyebrow="Servicios"
+  title="Todo lo que tu empresa necesita"
+  description="…"
+  align="center"
+  titleId="servicios"
+/>
+```
+
+## Cuándo usarlo
+
+Al principio de una sección propia. Todos los [bloques](/docs/bloques) lo usan por dentro con
+`eyebrow`, `title`, `description` y `actions`: si usas un bloque, no lo necesitas.
+
+## Textos
+
+- Antetítulo de 1-3 palabras: sitúa (**Servicios**, **Casos de éxito**).
+- Título: la idea principal o el beneficio.
+- Entradilla: una o dos frases; su ancho está limitado para que se lea bien.
+
+## Accesibilidad
+
+Usa `titleId` y enlázalo desde la sección con `aria-labelledby` para que la sección tenga nombre.
+`headingLevel` (2 por defecto) mantiene la jerarquía de la página.
+
+## Props
+
+<PropsTable name="SectionHeaderProps" />
+
+## Anatomía y CSS
+
+<CssReference module="SectionHeader" />
+
+## Relacionados
+
+- [Heading](/docs/componentes/tipografia/heading)
+- [Section](/docs/componentes/layout/section)

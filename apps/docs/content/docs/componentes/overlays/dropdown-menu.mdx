@@ -1,0 +1,84 @@
+---
+title: DropdownMenu
+description: Menú de acciones que se abre desde un botón, con submenús y opciones marcables.
+---
+
+import { CopyIcon, MailIcon, ShareIcon } from '@betterlibs/icons'
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@betterlibs/react'
+
+<Preview>
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>
+      <Button variant="outline" iconStart={<ShareIcon />}>Compartir</Button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent>
+      <DropdownMenuLabel>Compartir artículo</DropdownMenuLabel>
+      <DropdownMenuItem icon={<CopyIcon />} hint="Ctrl+C">Copiar enlace</DropdownMenuItem>
+      <DropdownMenuItem icon={<MailIcon />}>Enviar por email</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem tone="danger">Denunciar contenido</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+</Preview>
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger asChild><Button variant="outline">Compartir</Button></DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem onSelect={copiarEnlace}>Copiar enlace</DropdownMenuItem>
+    {/* Para navegar, un enlace real: */}
+    <DropdownMenuItem asChild><a href="/en" lang="en">English</a></DropdownMenuItem>
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>Redes sociales</DropdownMenuSubTrigger>
+      <DropdownMenuSubContent>…</DropdownMenuSubContent>
+    </DropdownMenuSub>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+## Cuándo usarlo
+
+Para agrupar **acciones** secundarias bajo un botón: compartir, cambiar de idioma, más opciones.
+Para la navegación principal de la web, usa [`NavigationMenu`](/docs/componentes/navegacion/navigation-menu);
+para elegir un valor en un formulario, `Select` o `RadioGroup`.
+
+## Piezas
+
+- `DropdownMenuItem`: opción con `icon`, `hint` (atajo o dato a la derecha), `tone="danger"` y
+  `asChild` para enlaces. `onSelect` se ejecuta con clic, Enter o Espacio.
+- `DropdownMenuCheckboxItem` y `DropdownMenuRadioGroup` + `DropdownMenuRadioItem`: opciones marcables.
+- `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuGroup`.
+- `DropdownMenuSub`, `DropdownMenuSubTrigger`, `DropdownMenuSubContent`: submenús.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Enter` / `Espacio` / `↓` | Abren el menú desde el botón |
+| `↑` `↓` / `Inicio` / `Fin` | Recorren las opciones |
+| Letra | Salta a la opción que empieza por ella |
+| `→` / `←` | Abren / cierran un submenú |
+| `Escape` | Cierra y devuelve el foco al botón |
+
+## Props
+
+<PropsTable name="DropdownMenuItemProps" />
+
+`DropdownMenuContent` acepta las props de Radix (`side`, `align`, `sideOffset`…).
+
+## Anatomía y CSS
+
+<CssReference module="DropdownMenu" />
+
+## Relacionados
+
+- [NavigationMenu](/docs/componentes/navegacion/navigation-menu)
+- [Popover](/docs/componentes/overlays/popover)

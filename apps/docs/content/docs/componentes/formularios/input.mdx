@@ -1,0 +1,75 @@
+---
+title: Input
+description: Campo de texto de una línea con prefijo, sufijo, iconos y ver contraseña.
+---
+
+import { SearchIcon } from '@betterlibs/icons'
+import { Field, Input, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="5" style={{ maxWidth: '28rem' }}>
+    <Field label="Presupuesto aproximado, en euros">
+      <Input type="number" inputMode="numeric" suffix="€" min={0} step={500} />
+    </Field>
+    <Field label="Teléfono">
+      <Input type="tel" autoComplete="tel" prefix="+34" />
+    </Field>
+    <Field label="Contraseña" description="Al menos 12 caracteres.">
+      <Input type="password" autoComplete="new-password" />
+    </Field>
+    <Field label="Buscar en el blog" hideLabel>
+      <Input type="search" iconStart={<SearchIcon />} placeholder="Buscar artículos" />
+    </Field>
+  </Stack>
+</Preview>
+
+```tsx
+<Field label="Email" name="email" required>
+  <Input type="email" autoComplete="email" />
+</Field>
+```
+
+## Tipo y autocompletado
+
+Elige bien `type`, `autoComplete` e `inputMode`: el móvil muestra el teclado correcto y el
+navegador rellena los datos con un toque (WCAG 1.3.5).
+
+| Dato | Props recomendadas |
+| --- | --- |
+| Nombre | `autoComplete="given-name"` / `"family-name"` |
+| Email | `type="email" autoComplete="email"` |
+| Teléfono | `type="tel" autoComplete="tel"` |
+| Empresa | `autoComplete="organization"` |
+| Código postal | `autoComplete="postal-code" inputMode="numeric"` |
+| Web | `type="url" autoComplete="url"` |
+| Contraseña nueva | `type="password" autoComplete="new-password"` |
+
+## Opciones
+
+- `prefix` y `suffix`: texto fijo decorativo («+34», «€»). Incluye la unidad también en la etiqueta.
+- `iconStart` e `iconEnd`: iconos decorativos.
+- `type="password"`: botón para ver la contraseña (`passwordToggle={false}` lo quita).
+- `size`: `sm`, `md` (44px) o `lg`. En pantallas táctiles el texto nunca baja de 16px (así iOS no
+  hace zoom).
+- `className` y `style` van al marco; `ref` y el resto de props, al `<input>`.
+
+## Accesibilidad
+
+- Dentro de un `Field` recibe etiqueta, ayuda y error automáticamente.
+- El botón de contraseña usa `aria-pressed` y el nombre «Mostrar contraseña».
+- Anillo de foco siempre visible al escribir (no solo con teclado).
+
+## Props
+
+<PropsTable name="InputProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Control" />
+
+<CssReference module="Input" />
+
+## Relacionados
+
+- [Field](/docs/componentes/formularios/field)
+- [Textarea](/docs/componentes/formularios/textarea)

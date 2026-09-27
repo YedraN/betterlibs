@@ -1,0 +1,67 @@
+---
+title: Section
+description: Bloque vertical de una página con ritmo de espaciado y fondo.
+---
+
+import { Container, Heading, Section, Stack, Text } from '@betterlibs/react'
+
+<Preview padded={false}>
+  <Section tone="subtle" spacing="sm" aria-labelledby="demo-seccion">
+    <Container>
+      <Stack gap="2">
+        <Heading id="demo-seccion" level={2} size="2xl">Nuestros servicios</Heading>
+        <Text tone="muted">Una sección con fondo sutil y espaciado pequeño.</Text>
+      </Stack>
+    </Container>
+  </Section>
+  <Section tone="dark" spacing="sm">
+    <Container>
+      <Text>Con `tone="dark"` todo lo de dentro pasa al modo oscuro.</Text>
+    </Container>
+  </Section>
+</Preview>
+
+```tsx
+<Section tone="subtle" aria-labelledby="servicios">
+  <Container>
+    <Heading id="servicios" level={2}>Nuestros servicios</Heading>
+  </Container>
+</Section>
+```
+
+## Cuándo usarlo
+
+Para cada bloque horizontal de una página: portada, servicios, testimonios, contacto… Los
+[bloques](/docs/bloques) ya lo usan por dentro.
+
+## Fondos y espaciado
+
+| `tone` | Resultado |
+| --- | --- |
+| `default` | Fondo de la página |
+| `subtle` / `muted` | Gris muy suave / suave: alterna con `default` para separar secciones sin líneas |
+| `brand` | Tono suave de la marca |
+| `dark` / `light` | Fuerzan un modo de color: los componentes de dentro se adaptan solos |
+
+`spacing` (`none`, `sm`, `md`, `lg`) es fluido: menos espacio en móvil, más en escritorio.
+
+## Accesibilidad
+
+Si la sección tiene título, enlázalo con `aria-labelledby`: la sección pasa a ser una **región**
+con nombre y los lectores de pantalla pueden saltar a ella. Sin título, es un bloque neutro.
+
+## Props
+
+Admite `as` (`section` por defecto) y cualquier atributo HTML.
+
+<PropsTable name="SectionOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Section" />
+
+## Relacionados
+
+- [Container](/docs/componentes/layout/container)
+- [SectionHeader](/docs/componentes/tipografia/section-header): antetítulo, título y entradilla.
+- [Modo oscuro y marca](/docs/fundamentos/modo-oscuro-y-marca)

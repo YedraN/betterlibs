@@ -1,0 +1,48 @@
+---
+title: Skeleton
+description: Silueta del contenido mientras carga, para evitar saltos y dar sensación de rapidez.
+---
+
+import { Skeleton, Stack } from '@betterlibs/react'
+
+<Preview>
+  <div aria-busy="true" style={{ maxWidth: '24rem' }}>
+    <Stack gap="4">
+      <Skeleton variant="rect" height="10rem" />
+      <Stack direction="row" gap="3" align="center">
+        <Skeleton variant="circle" width="2.5rem" height="2.5rem" />
+        <Skeleton width="40%" />
+      </Stack>
+      <Skeleton lines={3} />
+    </Stack>
+  </div>
+</Preview>
+
+```tsx
+<div aria-busy={cargando}>
+  {cargando ? <Skeleton lines={3} /> : <Articulo />}
+</div>
+```
+
+## Cuándo usarlo
+
+Cuando conoces la forma del contenido que va a llegar (tarjetas, una lista, un artículo): imita su
+tamaño para que la página no salte al cargar.
+
+## Accesibilidad
+
+Es **decorativo** (se oculta a lectores de pantalla). Marca el contenedor que carga con
+`aria-busy="true"` y, si la espera es larga, anuncia la carga con un `Spinner` o un texto oculto.
+La animación se detiene con «reducir movimiento».
+
+## Props
+
+<PropsTable name="SkeletonProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Skeleton" />
+
+## Relacionados
+
+- [Spinner](/docs/componentes/feedback/spinner)

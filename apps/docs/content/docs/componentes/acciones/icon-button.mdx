@@ -1,0 +1,55 @@
+---
+title: IconButton
+description: Botón compuesto solo por un icono, con nombre accesible obligatorio.
+---
+
+import { CloseIcon, DownloadIcon, MenuIcon, SearchIcon } from '@betterlibs/icons'
+import { IconButton } from '@betterlibs/react'
+
+<Preview align="center">
+  <IconButton label="Buscar"><SearchIcon /></IconButton>
+  <IconButton label="Abrir menú" variant="outline"><MenuIcon /></IconButton>
+  <IconButton label="Descargar" variant="primary" shape="circle"><DownloadIcon /></IconButton>
+  <IconButton label="Cerrar" size="sm"><CloseIcon /></IconButton>
+</Preview>
+
+```tsx
+<IconButton label="Cerrar aviso" onClick={cerrar}>
+  <CloseIcon />
+</IconButton>
+```
+
+## Cuándo usarlo
+
+Para acciones muy reconocibles por su icono (cerrar, buscar, menú) donde no cabe texto. Si el
+icono no es evidente, usa un `Button` con texto: la mayoría de iconos no se entienden solos.
+
+## Textos
+
+`label` es obligatorio y describe la **acción**, no el dibujo: «Cerrar menú», no «X»; «Descargar
+informe», no «Flecha». También aparece como tooltip nativo al pasar el ratón.
+
+## Accesibilidad
+
+- El `label` es el nombre accesible (`aria-label`).
+- Mide 44px en `md`, el objetivo táctil recomendado. En `sm` (36px) cumple el mínimo de WCAG 2.2
+  (24px).
+- Para mostrar un tooltip propio, envuélvelo en [`Tooltip`](/docs/componentes/overlays/tooltip).
+
+## Props
+
+Acepta las props de `Button` (salvo `iconStart`, `iconEnd` y `fullWidth`).
+
+<PropsTable name="IconButtonProps" />
+
+## Anatomía y CSS
+
+Usa los estilos de `Button` con las clases `iconOnly` y `circle`.
+
+<CssReference module="Button" />
+
+## Relacionados
+
+- [Button](/docs/componentes/acciones/button)
+- [Tooltip](/docs/componentes/overlays/tooltip)
+- [Iconografía](/docs/fundamentos/iconografia)

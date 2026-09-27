@@ -1,0 +1,73 @@
+---
+title: RadioGroup
+description: Grupo de opciones excluyentes, en lista o en tarjetas.
+---
+
+import { Radio, RadioGroup, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="8">
+    <RadioGroup label="¿Cómo prefieres que te contactemos?" name="canal" defaultValue="email" required>
+      <Radio value="email" label="Por email" />
+      <Radio value="telefono" label="Por teléfono" description="De lunes a viernes, de 9 a 18 h." />
+    </RadioGroup>
+    <RadioGroup label="Elige un plan" name="plan" defaultValue="pro" variant="card" orientation="horizontal">
+      <Radio value="basico" label="Básico" description="Web de hasta 5 páginas." />
+      <Radio value="pro" label="Profesional" description="Web, blog y SEO local." />
+      <Radio value="empresa" label="Empresa" description="Multidioma e integraciones." />
+    </RadioGroup>
+  </Stack>
+</Preview>
+
+```tsx
+<RadioGroup label="¿Cómo prefieres que te contactemos?" name="canal" defaultValue="email">
+  <Radio value="email" label="Por email" />
+  <Radio value="telefono" label="Por teléfono" />
+</RadioGroup>
+
+// Controlado
+<RadioGroup label="Plan" value={plan} onValueChange={setPlan}>…</RadioGroup>
+```
+
+## Cuándo usarlo
+
+Para elegir **una** opción entre 2 y 6, todas a la vista. Con más opciones, `Select`. Si la
+respuesta es sí/no y activa algo al momento, `Switch`.
+
+## Opciones
+
+- `variant="card"`: cada opción en una tarjeta clicable (planes, tipos de consulta).
+- `orientation="horizontal"` para pocas opciones cortas.
+- `required`: exige elegir una (validación nativa).
+
+## Textos
+
+La etiqueta del grupo es la **pregunta**; las opciones, respuestas cortas y paralelas. Si hay una
+opción recomendada, márcala por defecto con `defaultValue`.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Entra en el grupo (en la opción marcada) y sale de él |
+| `↑` `↓` `←` `→` | Cambian de opción |
+
+Es un `<fieldset>` con `role="radiogroup"`, `aria-required` y `aria-invalid`: la pregunta y el
+error se anuncian al entrar.
+
+## Props
+
+<PropsTable name="RadioGroupProps" />
+
+### Radio
+
+<PropsTable name="RadioProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Choice" />
+
+## Relacionados
+
+- [Checkbox](/docs/componentes/formularios/checkbox)
+- [Select](/docs/componentes/formularios/select)

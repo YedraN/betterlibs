@@ -1,4 +1,9 @@
 {
   "title": "Guías",
-  "pages": ["formulario-de-contacto"]
+  "pages": [
+    "formulario-de-contacto",
+    "sobrescribir-estilos",
+    "seo",
+    "[Cookies y RGPD](/docs/bloques/cookies)"
+  ]
 }

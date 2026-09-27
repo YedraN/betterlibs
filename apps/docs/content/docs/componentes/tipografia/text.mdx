@@ -1,0 +1,56 @@
+---
+title: Text
+description: Párrafos, entradillas, antetítulos, notas y etiquetas con los estilos del sistema.
+---
+
+import { Stack, Text } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="3" style={{ maxWidth: '36rem' }}>
+    <Text variant="eyebrow">Antetítulo</Text>
+    <Text variant="lead">Entradilla: un resumen breve bajo el titular, más grande y en tono secundario.</Text>
+    <Text>Párrafo normal (`body`), el texto base de la web.</Text>
+    <Text variant="caption">Pie de foto o nota.</Text>
+    <Text tone="success" weight="semibold">Texto con tono de éxito</Text>
+    <Text lines={2} style={{ maxWidth: '20rem' }}>Este texto largo se corta a dos líneas con puntos suspensivos porque no cabe en el espacio disponible de la tarjeta.</Text>
+  </Stack>
+</Preview>
+
+```tsx
+<Text variant="lead">Acompañamos a pymes en fiscalidad y estrategia.</Text>
+<Text as="span" size="sm" tone="muted">Actualizado hace 2 días</Text>
+```
+
+## Variantes
+
+| `variant` | Uso |
+| --- | --- |
+| `body` | Texto normal (por defecto) |
+| `lead` | Entradilla bajo un titular |
+| `eyebrow` | Antetítulo corto en mayúsculas («SERVICIOS») |
+| `caption` | Pies de foto y notas |
+| `label` | Etiquetas de datos y metadatos |
+
+`size`, `tone`, `weight` y `align` ajustan cada variante; `lines` corta el texto a N líneas.
+
+## Accesibilidad
+
+- El texto cortado con `lines` sigue entero en el DOM (los lectores de pantalla lo leen completo),
+  pero quien ve la pantalla no: no cortes información imprescindible.
+- `tone="subtle"` y `muted` cumplen contraste AA sobre los fondos del sistema; no los uses sobre
+  imágenes.
+
+## Props
+
+Renderiza un `<p>` por defecto; cámbialo con `as`.
+
+<PropsTable name="TextOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Text" />
+
+## Relacionados
+
+- [Heading](/docs/componentes/tipografia/heading)
+- [Prose](/docs/componentes/tipografia/prose): para contenido enriquecido.

@@ -1,0 +1,80 @@
+---
+title: Checkbox
+description: Casillas sueltas para confirmaciones y grupos para elegir varias opciones.
+---
+
+import { Checkbox, CheckboxGroup, Grid } from '@betterlibs/react'
+
+<Preview>
+  <Grid columns={{ base: 1, md: 2 }} gap="8">
+    <CheckboxGroup label="¿Qué servicios te interesan?" name="servicios" required>
+      <Checkbox value="web" label="Diseño web" />
+      <Checkbox value="seo" label="Posicionamiento SEO" defaultChecked />
+      <Checkbox value="ads" label="Campañas de pago" />
+    </CheckboxGroup>
+    <CheckboxGroup label="Módulos" name="modulos" variant="card">
+      <Checkbox value="soporte" label="Soporte prioritario" description="Respuesta en menos de 4 horas." />
+      <Checkbox value="formacion" label="Formación" description="Dos sesiones en remoto." defaultChecked />
+    </CheckboxGroup>
+  </Grid>
+  <div style={{ marginTop: 'var(--bl-space-6)' }}>
+    <Checkbox label="He leído y acepto la política de privacidad" required error="Acepta la política de privacidad para continuar" />
+  </div>
+</Preview>
+
+```tsx
+<Checkbox name="privacidad" required label={<>Acepto la <a href="/privacidad">política de privacidad</a></>} />
+
+<CheckboxGroup label="¿Qué servicios te interesan?" name="servicios" required>
+  <Checkbox value="web" label="Diseño web" />
+  <Checkbox value="seo" label="Posicionamiento SEO" />
+</CheckboxGroup>
+```
+
+## Cuándo usarlo
+
+- **Suelta**: confirmar algo («Acepto la política de privacidad», «Quiero recibir el boletín»).
+- **En grupo**: elegir varias opciones de una lista. Las marcadas llegan como lista
+  (`formData.getAll('servicios')`).
+
+Para una sola opción entre varias, `RadioGroup`. Para activar algo con efecto inmediato, `Switch`.
+
+## Opciones
+
+- `indeterminate`: estado mixto para «Seleccionar todo».
+- `variant="card"` (en el grupo o en cada casilla): opciones en tarjetas clicables.
+- `CheckboxGroup required`: exige al menos una (lo valida `Form`, que muestra «Selecciona al menos
+  una opción»); las casillas no llevan `required` individual.
+- `orientation="horizontal"` para pocas opciones cortas.
+
+## Textos
+
+- Casillas en positivo: «Quiero recibir el boletín», no «No quiero no recibir…».
+- **RGPD**: las casillas de consentimiento nunca van marcadas por defecto.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Espacio` | Marca o desmarca |
+| `Tab` | Pasa a la siguiente casilla |
+
+Toda la etiqueta es clicable. El grupo es un `<fieldset>` con `<legend>`: la pregunta se anuncia
+al entrar.
+
+## Props
+
+<PropsTable name="CheckboxProps" />
+
+### CheckboxGroup
+
+<PropsTable name="CheckboxGroupProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Choice" />
+
+## Relacionados
+
+- [RadioGroup](/docs/componentes/formularios/radio-group)
+- [Switch](/docs/componentes/formularios/switch)

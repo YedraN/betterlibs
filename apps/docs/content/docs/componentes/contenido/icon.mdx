@@ -1,0 +1,44 @@
+---
+title: Icon
+description: Contenedor de icono con tamaño, tono y fondo opcional del sistema.
+---
+
+import { BarChartIcon, CheckCircleIcon, ShieldCheckIcon, UsersIcon } from '@betterlibs/icons'
+import { Icon } from '@betterlibs/react'
+
+<Preview align="center">
+  <Icon><UsersIcon /></Icon>
+  <Icon size="lg" tone="accent"><BarChartIcon /></Icon>
+  <Icon size="lg" contained><ShieldCheckIcon /></Icon>
+  <Icon size="xl" tone="success" label="Verificado"><CheckCircleIcon /></Icon>
+</Preview>
+
+```tsx
+<Icon contained size="lg"><UsersIcon /></Icon>
+<Icon tone="success" label="Verificado"><CheckCircleIcon /></Icon>
+```
+
+## Cuándo usarlo
+
+Para dar tamaño y color de sistema a un icono de `@betterlibs/icons` (o de otra librería): en
+tarjetas de servicios (`contained`), listas de ventajas o mensajes de estado. Dentro de botones no
+hace falta: `Button` ya coloca sus iconos.
+
+## Accesibilidad
+
+- Sin `label`, el icono es **decorativo** (`aria-hidden`): lo normal cuando acompaña a un texto.
+- Con `label`, se anuncia como imagen con ese nombre: úsalo si el icono aporta información que no
+  está en el texto.
+
+## Props
+
+<PropsTable name="IconProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Icon" />
+
+## Relacionados
+
+- [Iconografía](/docs/fundamentos/iconografia)
+- [IconButton](/docs/componentes/acciones/icon-button)

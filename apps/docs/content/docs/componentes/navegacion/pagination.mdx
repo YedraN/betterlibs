@@ -1,0 +1,53 @@
+---
+title: Pagination
+description: Paginación de listados con enlaces o botones y resumen en móvil.
+---
+
+import { Pagination, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="8">
+    <Pagination page={5} totalPages={12} getHref={(page) => `#pagina-${page}`} />
+    <Pagination page={1} totalPages={3} getHref={(page) => `#pagina-${page}`} />
+  </Stack>
+</Preview>
+
+```tsx
+// Enlaces (recomendado): cada página tiene su URL, se puede compartir e indexar.
+<Pagination page={pagina} totalPages={total} getHref={(p) => `/blog?pagina=${p}`} linkAs={Link} />
+
+// Botones, si la lista se filtra en el cliente sin cambiar la URL.
+<Pagination page={pagina} totalPages={total} onPageChange={setPagina} />
+```
+
+## Cuándo usarlo
+
+Para listados largos (blog, noticias, casos de éxito). Siempre se ven la primera y la última página
+y las vecinas de la actual (`siblings`). En móvil se resume en «Página N de M» con Anterior y
+Siguiente.
+
+## Textos
+
+`previousLabel`, `nextLabel`, `pageLabel` («Página 3») y `summaryLabel` permiten cambiar los
+textos.
+
+## Accesibilidad
+
+- Es un `<nav>` con nombre («Paginación»); la página actual lleva `aria-current="page"` y un
+  relleno de color, no solo un cambio de texto.
+- Al cambiar de página **sin recargar**, lleva el foco al principio del listado (por ejemplo, a su
+  título con `tabIndex={-1}`): si no, quien usa teclado o lector de pantalla se queda abajo.
+- Sin estado: funciona en Server Components.
+
+## Props
+
+<PropsTable name="PaginationProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Pagination" />
+
+## Relacionados
+
+- [Breadcrumb](/docs/componentes/navegacion/breadcrumb)
+- [BlogGrid](/docs/bloques/blog)

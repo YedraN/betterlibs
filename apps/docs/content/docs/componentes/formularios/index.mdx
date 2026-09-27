@@ -1,0 +1,67 @@
+---
+title: Formularios
+description: Campos, opciones y validación accesible para formularios de contacto, presupuesto o registro.
+icon: TextCursorInput
+---
+
+import { GlobeIcon } from '@betterlibs/icons'
+import { Checkbox, Field, Input, Radio, RadioGroup, Stack } from '@betterlibs/react'
+
+Todos los controles son **elementos nativos** (`<input>`, `<select>`, `<textarea>`) con estilos
+propios: funcionan con el teclado, con el autocompletado del navegador, con lectores de pantalla y
+con formularios normales (sin JavaScript), y en móvil muestran el teclado adecuado.
+
+<Preview>
+  <Stack gap="6" style={{ maxWidth: '32rem' }}>
+    <Field label="Email de trabajo" description="Te responderemos aquí." required>
+      <Input type="email" autoComplete="email" placeholder="nombre@empresa.com" />
+    </Field>
+    <Field label="Sitio web" error="Introduce una dirección web válida, como https://empresa.com">
+      <Input type="url" iconStart={<GlobeIcon />} defaultValue="empresa" />
+    </Field>
+    <RadioGroup label="¿Cómo prefieres que te contactemos?" defaultValue="email" orientation="horizontal">
+      <Radio value="email" label="Por email" />
+      <Radio value="telefono" label="Por teléfono" />
+    </RadioGroup>
+    <Checkbox label="Quiero recibir el boletín mensual" />
+  </Stack>
+</Preview>
+
+## Piezas
+
+| Componente | Para qué |
+| --- | --- |
+| [`Form`](/docs/componentes/formularios/form) | Valida al enviar, muestra los errores y un resumen, y mueve el foco |
+| [`Field`](/docs/componentes/formularios/field) | Etiqueta + ayuda + error + control, enlazados para lectores de pantalla |
+| [`Fieldset`](/docs/componentes/formularios/fieldset) | Agrupa campos relacionados bajo una leyenda |
+| [`Input`](/docs/componentes/formularios/input) | Texto de una línea: email, teléfono, web, números, contraseñas |
+| [`Textarea`](/docs/componentes/formularios/textarea) | Texto largo, con contador opcional |
+| [`Select`](/docs/componentes/formularios/select) | Desplegable nativo, para listas largas |
+| [`Checkbox`](/docs/componentes/formularios/checkbox) | Confirmaciones y elegir varias opciones |
+| [`RadioGroup`](/docs/componentes/formularios/radio-group) | Elegir una opción entre pocas |
+| [`Switch`](/docs/componentes/formularios/switch) | Activar algo con efecto inmediato |
+| [`FileInput`](/docs/componentes/formularios/file-input) | Adjuntar archivos |
+| [`ErrorSummary`](/docs/componentes/formularios/error-summary) | Resumen de errores enlazado |
+
+## Cómo se comportan los errores
+
+1. `Form` valida **al enviar** (no mientras se escribe) con las reglas nativas (`required`,
+   `type="email"`, `minLength`…) y tu función `validate`.
+2. Cada error aparece **sobre el control**, con icono y texto, y el prefijo «Error:» para lectores
+   de pantalla.
+3. Un **resumen enlazado** al principio recibe el foco.
+4. Al salir de cada campo se revisa de nuevo: el error desaparece en cuanto se corrige.
+
+## Textos que ayudan
+
+- **Etiquetas cortas y concretas**: «Email de trabajo», no «Introduce aquí tu dirección».
+- **Pide solo lo necesario.** Cada campo de más reduce los envíos.
+- **Errores que explican cómo corregir**: «Introduce un email, como nombre@empresa.com».
+- **Botón con verbo y resultado**: «Enviar mensaje», «Solicitar presupuesto».
+
+<Callout title="Guía paso a paso">
+
+Monta un formulario completo en
+[Formulario de contacto accesible](/docs/guias/formulario-de-contacto).
+
+</Callout>

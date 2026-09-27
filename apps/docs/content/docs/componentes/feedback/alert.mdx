@@ -1,0 +1,62 @@
+---
+title: Alert
+description: Mensaje destacado dentro de la página (confirmaciones, avisos y errores).
+---
+
+import { Alert, Button, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="4">
+    <Alert tone="info" title="Horario de verano">Del 1 de julio al 31 de agosto atendemos de 8 a 15 h.</Alert>
+    <Alert tone="success" title="Hemos recibido tu mensaje">Te responderemos en 24 horas laborables.</Alert>
+    <Alert tone="warning" title="Mantenimiento programado">El área de clientes no estará disponible el sábado de 2 a 4 h.</Alert>
+    <Alert tone="danger" title="No hemos podido enviar tu mensaje" actions={<Button size="sm" variant="outline">Reintentar</Button>}>Revisa tu conexión e inténtalo de nuevo.</Alert>
+  </Stack>
+</Preview>
+
+```tsx
+<Alert tone="success" title="Hemos recibido tu mensaje" role="status">
+  Te responderemos en 24 horas laborables.
+</Alert>
+```
+
+## Cuándo usarlo
+
+- Confirmar el resultado de una acción en la misma página («Mensaje enviado»).
+- Avisos que afectan a todo el contenido (un cambio de horario, un problema del servicio).
+- Errores generales que no son de un campo concreto.
+
+**No lo uses** para errores de formulario (van junto al campo, con [`Field`](/docs/componentes/formularios/field)),
+para notificaciones que desaparecen solas ([`toast`](/docs/componentes/feedback/toast)) ni para un
+anuncio de toda la web ([`AnnouncementBar`](/docs/componentes/navegacion/announcement-bar)).
+
+## Tonos y opciones
+
+- `tone`: `info`, `success`, `warning`, `danger`, con el icono correspondiente (`icon` lo cambia;
+  `false` lo quita).
+- `actions`: botones o enlaces bajo el texto.
+- `onDismiss`: añade un botón «Cerrar aviso» (`dismissLabel`).
+
+## Textos
+
+Título corto que resume; texto que dice **qué ha pasado y qué hacer**: «No hemos podido enviar tu
+mensaje. Revisa tu conexión e inténtalo de nuevo».
+
+## Accesibilidad
+
+- El color siempre va con icono y texto.
+- Es estático: si aparece como respuesta a una acción, añade `role="status"` para que se anuncie
+  (o `role="alert"` si es un error urgente).
+
+## Props
+
+<PropsTable name="AlertProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Alert" />
+
+## Relacionados
+
+- [Toast](/docs/componentes/feedback/toast)
+- [ErrorSummary](/docs/componentes/formularios/error-summary)

@@ -1,0 +1,13 @@
+{
+  "title": "Navegación",
+  "pages": [
+    "index",
+    "header",
+    "navigation-menu",
+    "footer",
+    "announcement-bar",
+    "social-links",
+    "breadcrumb",
+    "pagination"
+  ]
+}

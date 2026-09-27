@@ -1,0 +1,56 @@
+---
+title: FileInput
+description: Selector de archivos con zona para arrastrar y lista de archivos elegidos.
+---
+
+import { Field, FileInput, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6" style={{ maxWidth: '32rem' }}>
+    <Field label="Adjunta tu CV" description="PDF o DOCX, máximo 5 MB.">
+      <FileInput accept=".pdf,.docx" />
+    </Field>
+    <Field label="Documentación del proyecto" indicator="optional">
+      <FileInput multiple />
+    </Field>
+  </Stack>
+</Preview>
+
+```tsx
+<Field label="Adjunta tu CV" name="cv" description="PDF o DOCX, máximo 5 MB." required>
+  <FileInput accept=".pdf,.docx" onFilesChange={(files) => console.log(files)} />
+</Field>
+```
+
+## Cuándo usarlo
+
+Para adjuntar archivos a un formulario (CV, documentación, fotos). Indica siempre en la ayuda los
+formatos y el tamaño máximo, y vuelve a comprobarlos en el servidor.
+
+## Cómo funciona
+
+Es un `<input type="file">` nativo que cubre toda la zona: se puede hacer clic, arrastrar archivos
+o usar el teclado, y funciona con formularios normales. Debajo aparece la lista de archivos con su
+tamaño («1,4 MB») y un botón para quitar cada uno.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Enter` / `Espacio` | Abre el selector de archivos |
+| `Tab` | Recorre los botones «Quitar …» de la lista |
+
+- Al elegir archivos se anuncia el resultado («Archivo seleccionado: cv.pdf»; `selectedLabel`).
+- Cada botón de quitar dice qué quita («Quitar cv.pdf»; `removeLabel`).
+
+## Props
+
+<PropsTable name="FileInputProps" />
+
+## Anatomía y CSS
+
+<CssReference module="FileInput" />
+
+## Relacionados
+
+- [Field](/docs/componentes/formularios/field)

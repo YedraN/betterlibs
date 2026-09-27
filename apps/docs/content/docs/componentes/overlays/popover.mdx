@@ -1,0 +1,76 @@
+---
+title: Popover
+description: Contenido flotante junto a un botón que no bloquea la página.
+---
+
+import { InfoIcon, MailIcon } from '@betterlibs/icons'
+import { Button, ButtonGroup, Field, Input, Popover, PopoverContent, PopoverTrigger, Stack, Text } from '@betterlibs/react'
+
+<Preview>
+  <ButtonGroup>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" iconStart={<InfoIcon />}>Horario de atención</Button>
+      </PopoverTrigger>
+      <PopoverContent title="Horario de atención">
+        <Text size="sm">De lunes a viernes, de 9 a 18 h. En agosto, de 8 a 15 h.</Text>
+      </PopoverContent>
+    </Popover>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" iconStart={<MailIcon />}>Suscribirse</Button>
+      </PopoverTrigger>
+      <PopoverContent title="Recibe el boletín" closeButton width="lg">
+        <Stack gap="3">
+          <Field label="Email">
+            <Input type="email" autoComplete="email" />
+          </Field>
+          <Button size="sm">Suscribirme</Button>
+        </Stack>
+      </PopoverContent>
+    </Popover>
+  </ButtonGroup>
+</Preview>
+
+```tsx
+<Popover>
+  <PopoverTrigger asChild><Button variant="outline">Horario</Button></PopoverTrigger>
+  <PopoverContent title="Horario de atención">L-V de 9 a 18 h.</PopoverContent>
+</Popover>
+```
+
+## Cuándo usarlo
+
+Para información ampliada o un pequeño formulario junto al botón que lo abre, sin interrumpir:
+horarios, opciones de compartir, una suscripción rápida. Si el contenido es largo o requiere
+atención, `Dialog`. Si es solo una etiqueta al pasar el ratón, `Tooltip`.
+
+## Opciones
+
+- `title`: título en negrita que además da nombre al popover.
+- `closeButton`: botón de cerrar (recomendado si hay controles dentro).
+- `width`: `sm`, `md`, `lg` o `auto`; `arrow={false}` quita la flecha.
+- `side`, `align` y `sideOffset` para colocarlo; se recoloca solo si no cabe.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Enter` / `Espacio` | Abre o cierra desde el botón |
+| `Tab` | Entra en el contenido |
+| `Escape` | Cierra y devuelve el foco al botón |
+
+## Props
+
+<PropsTable name="PopoverContentProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Popover" />
+
+<CssReference module="Floating" />
+
+## Relacionados
+
+- [Tooltip](/docs/componentes/overlays/tooltip)
+- [Dialog](/docs/componentes/overlays/dialog)

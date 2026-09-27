@@ -1,0 +1,65 @@
+---
+title: Container
+description: Centra el contenido con un ancho máximo y un margen lateral fluido.
+---
+
+import { Box, Container, Text } from '@betterlibs/react'
+
+<Preview padded={false}>
+  <div style={{ paddingBlock: 'var(--bl-space-6)', background: 'var(--bl-color-bg-subtle)' }}>
+    <Container size="md">
+      <Box padding="6" radius="lg" bordered tone="default">
+        <Text>Contenido dentro de un `Container` de tamaño `md` (48rem).</Text>
+      </Box>
+    </Container>
+  </div>
+</Preview>
+
+```tsx
+<Section>
+  <Container>…</Container>
+</Section>
+```
+
+## Cuándo usarlo
+
+- Dentro de cada `Section`, para que el contenido no se estire en pantallas grandes.
+- Con `size="prose"` (unos 65 caracteres por línea) para artículos y textos legales.
+
+**No lo anides**: un `Container` dentro de otro duplica los márgenes. Para limitar solo un bloque
+de texto, usa `style={{ maxWidth }}` o `Prose`.
+
+## Tamaños
+
+| `size` | Ancho máximo | Uso |
+| --- | --- | --- |
+| `sm` | 40rem | Formularios cortos, mensajes |
+| `md` | 48rem | Artículos con imágenes, FAQ |
+| `lg` | 64rem | Contenido con dos columnas |
+| `xl` | 80rem | **Por defecto**. Secciones de página |
+| `2xl` | 96rem | Galerías y rejillas amplias |
+| `prose` | ~65ch | Texto largo |
+| `full` | 100% | Solo margen lateral |
+
+`flush` quita el margen lateral, para contenido que ya gestiona su propio espacio (un carrusel a
+sangre, por ejemplo).
+
+## Accesibilidad
+
+El margen lateral es fluido y nunca baja de 16px, así el texto no toca el borde de la pantalla en
+móvil ni obliga a hacer scroll horizontal (WCAG 1.4.10, reflujo).
+
+## Props
+
+Admite `as` para cambiar el elemento (`div` por defecto) y cualquier atributo HTML.
+
+<PropsTable name="ContainerOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Container" />
+
+## Relacionados
+
+- [Section](/docs/componentes/layout/section): el bloque vertical que lo contiene.
+- [Layout](/docs/fundamentos/layout): contenedores, breakpoints y rejillas.

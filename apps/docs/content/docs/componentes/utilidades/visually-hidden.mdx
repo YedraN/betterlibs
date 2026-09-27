@@ -1,0 +1,44 @@
+---
+title: VisuallyHidden
+description: Oculta contenido a la vista pero lo mantiene para lectores de pantalla.
+---
+
+import { Link, Text, VisuallyHidden } from '@betterlibs/react'
+
+<Preview>
+  <Text>
+    <Link href="#" variant="standalone" arrow>
+      Leer más<VisuallyHidden> sobre la auditoría de cuentas</VisuallyHidden>
+    </Link>
+  </Text>
+</Preview>
+
+```tsx
+<a href="/auditoria">
+  Leer más<VisuallyHidden> sobre la auditoría de cuentas</VisuallyHidden>
+</a>
+```
+
+## Cuándo usarlo
+
+Para dar contexto que la vista ya da por otros medios pero un lector de pantalla necesita: el
+destino de un «Leer más», la unidad de una cifra, el título de una sección que visualmente se
+entiende por la maquetación.
+
+**No lo uses** para esconder texto de relleno para buscadores ni para contenido interactivo que no
+se vea (un botón invisible pero enfocable confunde a quien navega con teclado). Para eso existe
+`focusable`, que lo hace visible al recibir el foco (como `SkipLink`).
+
+## Props
+
+Admite `as` (`span` por defecto).
+
+<PropsTable name="VisuallyHiddenOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="VisuallyHidden" />
+
+## Relacionados
+
+- [SkipLink](/docs/componentes/utilidades/skip-link)

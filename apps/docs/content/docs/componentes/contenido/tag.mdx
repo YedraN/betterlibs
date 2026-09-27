@@ -1,0 +1,54 @@
+---
+title: Tag
+description: Etiqueta de categoría o palabra clave; puede ser enlace, filtro o eliminable.
+---
+
+import { Stack, Tag } from '@betterlibs/react'
+
+<Preview>
+  <Stack direction="row" gap="2" wrap>
+    <Tag>Consultoría</Tag>
+    <Tag asChild><a href="#fiscalidad">Fiscalidad</a></Tag>
+    <Tag selected>Filtro activo</Tag>
+    <Tag size="sm">Pequeña</Tag>
+  </Stack>
+</Preview>
+
+```tsx
+// Categoría enlazada
+<Tag asChild><a href="/blog/fiscalidad">Fiscalidad</a></Tag>
+
+// Filtro aplicado que se puede quitar
+<Tag onRemove={() => quitarFiltro('madrid')}>Madrid</Tag>
+
+// Filtro conmutable
+<Tag asChild selected={activo}>
+  <button type="button" aria-pressed={activo} onClick={alternar}>Industria</button>
+</Tag>
+```
+
+## Cuándo usarlo
+
+- Categorías y palabras clave de artículos o casos de éxito (enlazadas con `asChild`).
+- Filtros aplicados que se pueden quitar (`onRemove`) o conmutar (`selected` + `aria-pressed`).
+
+Para un estado que no se puede tocar, usa [`Badge`](/docs/componentes/contenido/badge).
+
+## Accesibilidad
+
+- Con `onRemove` aparece un botón que se anuncia como «Quitar» más el texto de la etiqueta
+  («Quitar Madrid»); cámbialo con `removeLabel`.
+- Un filtro conmutable necesita `aria-pressed`: el color de `selected` no basta para los lectores
+  de pantalla.
+
+## Props
+
+<PropsTable name="TagProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Tag" />
+
+## Relacionados
+
+- [Badge](/docs/componentes/contenido/badge)

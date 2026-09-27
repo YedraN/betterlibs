@@ -1,0 +1,46 @@
+---
+title: Plantillas
+description: Seis páginas completas de una web corporativa, listas para copiar y adaptar.
+icon: LayoutTemplate
+---
+
+El **playground** (`apps/playground`) es una web corporativa completa de una empresa ficticia,
+Norte Consultores, hecha solo con componentes y bloques de la librería. Úsala como punto de
+partida: copia la plantilla que necesites y cambia los textos y los datos.
+
+## Las plantillas
+
+| Plantilla | Ruta | Qué incluye |
+| --- | --- | --- |
+| Portada | `/` | `Hero` con prueba social, `LogoCloud`, `FeatureGrid`, `Stats`, `Testimonials`, `BlogGrid`, `CTA` |
+| Servicios | `/servicios` | Un bloque por servicio con ancla, `Timeline` de proceso, `Pricing` con periodo, `FAQ` con datos estructurados |
+| Sobre nosotros | `/sobre-nosotros` | `Hero` dividido, `Stats`, valores, historia (`Timeline`), `TeamGrid`, `CTA` oscuro |
+| Contacto | `/contacto` | `ContactSection` con formulario accesible completo, mapa bloqueado por `ConsentGate`, `FAQ` en columnas |
+| Blog | `/blog` y `/blog/:slug` | Listado con filtro por categoría y paginación; artículo con índice, `Prose`, compartir y relacionados |
+| Legal | `/aviso-legal` | Aviso legal, privacidad y cookies (LSSI y RGPD) con índice y tablas |
+
+Todas comparten el mismo esqueleto: `CookieConsent`, `AnnouncementBar`, `Header` con mega menú y
+menú móvil, `Footer` con enlace a «Configurar cookies» y `Toaster`.
+
+## Ejecutarlo
+
+```bash
+pnpm install
+pnpm build
+pnpm --filter @betterlibs/playground dev   # http://localhost:5173
+```
+
+## Qué merece la pena copiar
+
+- **Router y `linkAs`**: `src/site/router.tsx` muestra cómo pasar el enlace de tu router a
+  `Header`, `Footer`, `Breadcrumb`, `BlogGrid`… En Next.js, pasa `Link` de `next/link`.
+- **Foco al cambiar de página**: `App.tsx` lleva el foco al `h1` y vuelve arriba en cada
+  navegación, para que los lectores de pantalla anuncien la página nueva.
+- **Datos separados de la maquetación**: todo el contenido está en `src/site/data.tsx`; las
+  plantillas solo lo colocan.
+- **Formulario de contacto**: `templates/Contact.tsx`, con validación, errores y confirmación.
+
+<Callout title="En producción">
+  Las imágenes de ejemplo vienen de picsum.photos. Sustitúyelas por las tuyas, con textos
+  alternativos reales.
+</Callout>

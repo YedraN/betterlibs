@@ -14,6 +14,7 @@ export type DividerProps = Omit<ComponentPropsWithRef<'div'>, 'children'> & {
   /**
    * Si es `true` (por defecto), la línea es solo visual y se oculta a lectores de pantalla.
    * Usa `false` cuando separa grupos de contenido con significado distinto.
+   * @default true
    */
   decorative?: boolean
 }

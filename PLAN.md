@@ -3,8 +3,8 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 6 — Bloques corporativos
-> **Siguiente paso:** Fase 7 — Plantillas y documentación completa
+> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 7 — Plantillas y documentación
+> **Siguiente paso:** Fase 8 — Endurecimiento y release 1.0
 
 ---
 
@@ -68,7 +68,9 @@ packages/
               build: vite (lib, preserveModules) + tsc (solo .d.ts)
 apps/
   storybook/  stories de fundamentos y theming en src/; las de componentes viven en packages/react
-  docs/       Next.js + Fumadocs; contenido en content/docs/**; componentes MDX en components/docs
+  docs/       Next.js + Fumadocs; contenido en content/docs/**; componentes MDX en components/docs;
+              scripts/generate-api.ts → generated/api.json (props y CSS de la librería)
+  playground/ Vite: web de ejemplo con las 6 plantillas (Fase 7)
 ```
 
 ## 5. Estado por fases
@@ -222,14 +224,28 @@ apps/
   Cookies con guía RGPD y lista de comprobación). Demos cliente en `components/docs/blocks-demos.tsx`.
   Stories `Bloques/*`. Tests: `src/blocks/blocks.test.tsx` (incluye axe sobre una página completa).
 
-### Fase 7 — Plantillas y documentación completa
-- `apps/playground` (Vite) con 6 plantillas: home corporativa, servicios, sobre nosotros, contacto,
-  blog (listado + artículo), página legal.
-- **Página de docs por componente** con la plantilla: descripción + preview, cuándo usar / no usar,
-  anatomía, variantes, ejemplos, guía UX y de textos, accesibilidad (tabla de teclado), props
-  (tabla automática, p. ej. `fumadocs-typescript`) + variables CSS, relacionados.
-- Generador de tema en la web de docs, galería de bloques, guías (SEO, cookies RGPD,
-  sobrescribir estilos), changelog, roadmap, contribuir, FAQ.
+### ✅ Fase 7 — Plantillas y documentación completa (2026-09-27)
+- **`apps/playground`** (Vite + React 19, puerto 5173): web completa de «Norte Consultores» con
+  6 plantillas (`src/templates/`: Home, Services, About, Contact, Blog + Article, Legal) y 404.
+  Esqueleto común en `src/site/SiteLayout.tsx` (CookieConsent, AnnouncementBar, Header,
+  Footer, Toaster); datos en `src/site/data.tsx`; router mínimo con History API
+  (`src/site/router.tsx`, `RouterLink` para `linkAs`); al cambiar de ruta el foco va al `h1`.
+- **Prose** (componente nuevo): tipografía para contenido enriquecido con `:where()`.
+- **Referencia automática**: `apps/docs/scripts/generate-api.ts` (TypeScript compiler API) genera
+  `apps/docs/generated/api.json` (ignorado en git) antes de `dev`/`build`/`typecheck`: props
+  propias de cada `*Props` exportado (tipo escrito, alias expandidos, JSDoc, `@default`, archivo
+  de origen) y, por cada CSS Module, clases `bl-*` y tokens usados. Componentes MDX
+  `<PropsTable name hideBlockBase>` (sobre el `TypeTable` de Fumadocs) y `<CssReference module>`;
+  fallan en el build si el nombre no existe.
+- **Docs reestructuradas**: `componentes/{layout,tipografia,acciones,contenido,feedback,
+  formularios,overlays,interactivos,navegacion,utilidades}/` con **una página por componente**
+  (preview, cuándo usar, opciones, textos, accesibilidad con tabla de teclado, props, anatomía
+  y CSS, relacionados). Tablas de props en todos los bloques.
+- **Generador de tema** en `fundamentos/generador-de-tema` (`components/docs/theme-builder.tsx`,
+  con componentes reales, modo claro/oscuro, escala, informe de contraste y copiar código/CSS).
+- **Guías**: SEO y Sobrescribir estilos (+ enlace a Cookies y RGPD). **Recursos**: Plantillas,
+  Preguntas frecuentes, Roadmap, Novedades y Contribuir. Enlace «Plantillas» en la cabecera
+  (`NEXT_PUBLIC_PLAYGROUND_URL`, por defecto `http://localhost:5173`).
 
 ### Fase 8 — Endurecimiento y release 1.0
 Auditoría de accesibilidad (axe + NVDA + teclado), regresión visual (Storybook test-runner +
@@ -244,7 +260,7 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
 - [ ] Story con variantes/tamaños/estados (autodocs activado globalmente)
 - [ ] Test con Testing Library + `expectNoA11yViolations`
 - [ ] Exportado en `packages/react/src/index.ts`
-- [ ] (Fase 7) Página de documentación completa
+- [ ] Página de documentación (`componentes/<familia>/<nombre>.mdx`) con `<PropsTable>` y `<CssReference>`
 
 ## 7. Detalles prácticos y trampas conocidas
 
@@ -275,6 +291,11 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
   `*PointerCapture`. Los menús se abren con teclado en los tests (Tab + Enter). Con un `Dialog`
   abierto, pasa axe sobre el diálogo, no sobre `body` (Radix pone `aria-hidden` al resto).
 - **`matchMedia`** no existe en jsdom: `usePrefersReducedMotion` lo comprueba antes de usarlo.
+- **MDX:** `{algo}` en texto normal es una expresión JS (rompe el build): escríbelo como código o
+  reformula. Los valores del frontmatter con «: » rompen el YAML: evita los dos puntos o usa comillas.
+  Los ejemplos en MDX son Server Components: no pases funciones como props a componentes con
+  `'use client'` (sí a los que no lo tienen, como `Pagination`); para demos interactivas, crea un
+  componente cliente en `components/docs` y regístralo en `components/mdx.tsx`.
 - **Server Components y hooks:** un módulo sin `'use client'` que importa hooks de React
   (`useSyncExternalStore`…) se evalúa en el servidor si lo importa el barrel. Marca con
   `'use client'` los stores/hooks de cliente, y no uses `useId` en bloques sin estado.
@@ -294,6 +315,7 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
 pnpm install
 pnpm --filter @betterlibs/storybook dev   # http://localhost:6006
 pnpm --filter @betterlibs/docs dev        # http://localhost:3000
+pnpm --filter @betterlibs/playground dev  # http://localhost:5173
 pnpm --filter @betterlibs/react test
 pnpm changeset                            # al publicar cambios de paquetes
 ```

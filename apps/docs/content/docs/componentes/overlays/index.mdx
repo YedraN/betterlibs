@@ -1,0 +1,34 @@
+---
+title: Overlays
+description: Diálogos, paneles laterales, popovers, tooltips y menús sobre Radix Primitives.
+icon: Layers
+---
+
+Todos están construidos sobre [Radix Primitives](https://www.radix-ui.com/primitives) con estilos
+propios: gestión del foco, teclado, roles ARIA y cierre con Escape vienen resueltos. Las
+animaciones usan los tokens de movimiento y se desactivan con «reducir movimiento».
+
+## Cuál usar
+
+| Necesitas | Usa |
+| --- | --- |
+| Pedir una confirmación o un dato sin salir de la página | [`Dialog`](/docs/componentes/overlays/dialog) |
+| Filtros, carrito, detalle lateral o menú en móvil | [`Drawer`](/docs/componentes/overlays/drawer) |
+| Información ampliada o un mini formulario junto a un botón | [`Popover`](/docs/componentes/overlays/popover) |
+| Nombre visible para un botón de icono | [`Tooltip`](/docs/componentes/overlays/tooltip) |
+| Varias acciones desde un botón («Compartir», idioma) | [`DropdownMenu`](/docs/componentes/overlays/dropdown-menu) |
+| Confirmar una acción sin interrumpir («Guardado») | [`toast()`](/docs/componentes/feedback/toast) |
+
+| | Bloquea la página | Atrapa el foco | Se cierra al hacer clic fuera |
+| --- | --- | --- | --- |
+| Dialog / Drawer | Sí | Sí | Sí (y con Escape) |
+| Popover | No | No | Sí |
+| Tooltip | No | No | Al salir el ratón o el foco |
+| DropdownMenu | No | Mientras está abierto | Sí |
+
+## Overlays y temas
+
+Los overlays se montan al final de `<body>`. Si una zona de la página usa otro tema
+(`data-theme="dark"` o un `createTheme` con `selector`), envuélvela en
+[`PortalProvider`](/docs/componentes/utilidades/portal-provider) con un contenedor que tenga ese
+tema, para que los diálogos y menús abiertos desde ella lo hereden.

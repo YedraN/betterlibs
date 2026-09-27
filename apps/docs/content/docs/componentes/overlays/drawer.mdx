@@ -1,0 +1,80 @@
+---
+title: Drawer
+description: Panel lateral modal para filtros, carrito, detalles o navegación en móvil.
+---
+
+import { FilterIcon } from '@betterlibs/icons'
+import { Button, ButtonGroup, Checkbox, CheckboxGroup, Drawer, DrawerClose, DrawerContent, DrawerTrigger, Text } from '@betterlibs/react'
+
+<Preview>
+  <ButtonGroup>
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button variant="outline" iconStart={<FilterIcon />}>Filtros</Button>
+      </DrawerTrigger>
+      <DrawerContent
+        title="Filtrar casos de éxito"
+        footer={
+          <DrawerClose asChild>
+            <Button>Ver 12 resultados</Button>
+          </DrawerClose>
+        }
+      >
+        <CheckboxGroup label="Sector" name="sector">
+          <Checkbox value="industria" label="Industria" />
+          <Checkbox value="salud" label="Salud" />
+          <Checkbox value="retail" label="Retail" />
+        </CheckboxGroup>
+      </DrawerContent>
+    </Drawer>
+    <Drawer>
+      <DrawerTrigger asChild>
+        <Button variant="outline">Desde abajo</Button>
+      </DrawerTrigger>
+      <DrawerContent title="Compartir" side="bottom" size="sm">
+        <Text>Elige cómo quieres compartir este artículo.</Text>
+      </DrawerContent>
+    </Drawer>
+  </ButtonGroup>
+</Preview>
+
+```tsx
+<Drawer>
+  <DrawerTrigger asChild><Button variant="outline">Filtros</Button></DrawerTrigger>
+  <DrawerContent title="Filtros" side="right" footer={…}>…</DrawerContent>
+</Drawer>
+```
+
+## Cuándo usarlo
+
+Mismo comportamiento que `Dialog` (foco atrapado, scroll bloqueado, Escape), pero aparece desde un
+lado. Útil para contenido que acompaña a la página: filtros, un carrito, el detalle de un
+elemento o el menú móvil (lo usa `Header`).
+
+## Opciones
+
+- `side`: `right` (por defecto), `left`, `bottom` o `top`. Son lados físicos.
+- `size`: `sm` (20rem), `md` (28rem), `lg` (36rem) o `full`.
+- En móvil, `side="bottom"` es cómodo para acciones rápidas.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Recorren el panel (el foco no sale) |
+| `Escape` | Cierra y devuelve el foco |
+
+## Props
+
+<PropsTable name="DrawerContentProps" />
+
+## Anatomía y CSS
+
+Comparte estilos con `Dialog`:
+
+<CssReference module="Dialog" />
+
+## Relacionados
+
+- [Dialog](/docs/componentes/overlays/dialog)
+- [Header](/docs/componentes/navegacion/header)

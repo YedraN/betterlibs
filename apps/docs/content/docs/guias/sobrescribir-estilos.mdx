@@ -1,0 +1,83 @@
+---
+title: Sobrescribir estilos
+description: Cómo adaptar los componentes a tu diseño sin pelearte con la especificidad.
+icon: Paintbrush
+---
+
+Betterlibs UI está pensada para que **tus estilos siempre ganen**. Todo el CSS de la librería vive
+en capas (`@layer bl.tokens, bl.reset, bl.base, bl.components`) y cualquier estilo tuyo fuera de
+esas capas tiene prioridad, sea cual sea su especificidad.
+
+## 1. Primero, los tokens
+
+La mayoría de cambios de aspecto son cambios de tokens: color de marca, redondeo, tipografía,
+espaciado. Cámbialos una vez y se aplican a todos los componentes.
+
+```css
+:root {
+  --bl-radius-md: 0.25rem;               /* esquinas más rectas en toda la web */
+  --bl-font-family-display: 'Fraunces', serif;
+  --bl-control-height-md: 3rem;          /* campos y botones más altos */
+}
+```
+
+Para el color de marca, usa [`createTheme`](/docs/fundamentos/generador-de-tema): genera la escala
+completa y comprueba el contraste.
+
+## 2. Después, `className` y `style`
+
+Todos los componentes aceptan `className` y `style` en su elemento principal. Como tus clases no
+están en ninguna capa, ganan a las de la librería:
+
+```tsx
+<Button className="cta-grande">Solicitar propuesta</Button>
+```
+
+```css
+.cta-grande {
+  padding-inline: 2rem;
+  border-radius: 999px;
+}
+```
+
+Muchos componentes usan variables privadas (`--_…`) que puedes redefinir de forma local:
+
+```css
+.mi-boton { --_bg: #111; --_fg: #fff; }
+```
+
+## 3. Partes internas: clases estables
+
+Las clases de la librería son legibles y estables: `bl-{componente}-{parte}` (por ejemplo,
+`.bl-button-icon` o `.bl-field-label`). Cada página de componente lista las suyas en «Anatomía y
+CSS». Úsalas para retocar una parte concreta:
+
+```css
+.bl-field-label {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+```
+
+<Callout type="warn" title="Cambios de diseño, no de comportamiento">
+  Puedes cambiar colores, tamaños y espaciados con libertad. Evita quitar el anillo de foco, el
+  subrayado de los enlaces en texto o reducir el contraste: son parte de la accesibilidad.
+</Callout>
+
+## Con Tailwind CSS
+
+Las utilidades de Tailwind 4 también van en capas, y el orden de las capas lo decide la primera vez
+que aparecen. Lo más sencillo es importar Betterlibs **antes** que Tailwind. Si no puedes
+controlar el orden de los imports, decláralo explícitamente al principio de tu CSS:
+
+```css
+@layer theme, base, bl.tokens, bl.reset, bl.base, bl.components, components, utilities;
+@import 'tailwindcss';
+```
+
+Así `<Button className="rounded-full px-8">` funciona como esperas.
+
+## Modo oscuro por zonas
+
+`data-theme="dark"` (o `"light"`) funciona en cualquier elemento: todo lo de dentro se adapta. Los
+bloques y `Section` lo aplican con `tone="dark"`.

@@ -1,0 +1,94 @@
+---
+title: Dialog
+description: Ventana modal con foco atrapado, scroll bloqueado y pie de acciones.
+---
+
+import { Button, Dialog, DialogClose, DialogContent, DialogTrigger, Field, Input, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Solicitar una demo</Button>
+    </DialogTrigger>
+    <DialogContent
+      title="Solicitar una demo"
+      description="Te llamamos en 24 horas laborables."
+      footer={
+        <>
+          <DialogClose asChild>
+            <Button variant="outline">Cancelar</Button>
+          </DialogClose>
+          <DialogClose asChild>
+            <Button>Solicitar demo</Button>
+          </DialogClose>
+        </>
+      }
+    >
+      <Stack gap="5">
+        <Field label="Nombre" required>
+          <Input autoComplete="name" />
+        </Field>
+        <Field label="Email de trabajo" required>
+          <Input type="email" autoComplete="email" />
+        </Field>
+      </Stack>
+    </DialogContent>
+  </Dialog>
+</Preview>
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Solicitar una demo</Button>
+  </DialogTrigger>
+  <DialogContent
+    title="Solicitar una demo"
+    description="Te llamamos en 24 horas laborables."
+    footer={<Button type="submit" form="demo">Solicitar demo</Button>}
+  >
+    <Form id="demo">…</Form>
+  </DialogContent>
+</Dialog>
+```
+
+## Cuándo usarlo
+
+Para una tarea corta que requiere atención y no debe sacar al usuario de la página: confirmar una
+acción, un formulario breve. **Interrumpe**: no abras diálogos sin que el usuario lo pida (nada de
+ventanas al entrar en la web) y no los encadenes. Para contenido largo o navegación lateral,
+[`Drawer`](/docs/componentes/overlays/drawer).
+
+## Opciones
+
+- `title` (obligatorio) y `description`; `hideTitle` oculta el título a la vista.
+- `size`: `sm` (confirmaciones), `md`, `lg` (formularios), `xl`, `full`.
+- `footer`: acciones al pie; en móvil se apilan a todo el ancho.
+- Controlado con `open` y `onOpenChange` (por ejemplo, para cerrarlo al terminar un envío).
+- Confirmaciones destructivas: `role="alertdialog"` y botones que digan lo que hacen («Eliminar
+  cuenta», no «Sí»).
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Recorren el contenido del diálogo (el foco no sale) |
+| `Escape` | Cierra y devuelve el foco al botón que lo abrió |
+
+- El foco inicial va al primer campo del contenido; «Cerrar» está al final del orden de tabulación.
+- El resto de la página se oculta a los lectores de pantalla y no hace scroll mientras está abierto.
+
+## Props
+
+<PropsTable name="DialogContentProps" />
+
+`Dialog` acepta `open`, `defaultOpen`, `onOpenChange` y `modal` (de Radix). `DialogTrigger` y
+`DialogClose` se usan con `asChild`.
+
+## Anatomía y CSS
+
+<CssReference module="Dialog" />
+
+## Relacionados
+
+- [Drawer](/docs/componentes/overlays/drawer)
+- [Popover](/docs/componentes/overlays/popover)

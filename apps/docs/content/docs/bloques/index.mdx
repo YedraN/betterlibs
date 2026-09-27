@@ -23,16 +23,7 @@ la tipografía y la semántica ya resueltos. Les pasas datos y textos; ellos se 
 
 Todos los bloques de sección aceptan las mismas props para la cabecera y el aspecto:
 
-| Prop | Qué hace |
-| --- | --- |
-| `eyebrow`, `title`, `description` | Antetítulo, título y entradilla (con `SectionHeader`) |
-| `actions` | Botones o enlaces bajo la entradilla |
-| `align` | `start` o `center` |
-| `headingLevel` | Nivel del título (2 por defecto); los títulos internos usan el siguiente |
-| `tone` | Fondo: `default`, `subtle`, `muted`, `brand`, `dark`, `light` |
-| `spacing` | Espacio vertical: `sm`, `md`, `lg` |
-| `containerSize` | Ancho del contenido |
-| `id` | Ancla de la sección (`#servicios`); el título recibe `{id}-title` |
+<PropsTable name="BlockBaseProps" />
 
 Cada bloque con título es una **región con nombre** (`<section aria-labelledby>`): los lectores de
 pantalla la listan y permiten saltar a ella.

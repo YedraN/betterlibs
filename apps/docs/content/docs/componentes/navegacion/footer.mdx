@@ -1,0 +1,76 @@
+---
+title: Footer
+description: Pie del sitio con marca, columnas de enlaces, redes, contacto y franja legal.
+---
+
+import { Footer } from '@betterlibs/react'
+
+<Preview padded={false}>
+  <Footer
+    logo={<a href="#">Norte Consultores</a>}
+    description="Consultoría financiera para empresas que quieren crecer con orden."
+    social={[
+      { network: 'linkedin', href: '#' },
+      { network: 'x', href: '#' },
+      { network: 'youtube', href: '#' },
+    ]}
+    columns={[
+      { title: 'Servicios', links: [{ label: 'Consultoría', href: '#' }, { label: 'Auditoría', href: '#' }] },
+      { title: 'Empresa', links: [{ label: 'Sobre nosotros', href: '#' }, { label: 'Empleo', href: '#' }] },
+      { title: 'Recursos', links: [{ label: 'Blog', href: '#' }, { label: 'Preguntas frecuentes', href: '#' }] },
+    ]}
+    legal={[
+      { label: 'Aviso legal', href: '#' },
+      { label: 'Privacidad', href: '#' },
+      { label: 'Cookies', href: '#' },
+      { label: 'Accesibilidad', href: '#' },
+    ]}
+    copyright="© 2026 Norte Consultores S.L."
+  />
+</Preview>
+
+```tsx
+<Footer
+  logo={<Logo />}
+  description="Consultoría financiera desde 2006."
+  columns={[{ title: 'Servicios', links: [{ label: 'Auditoría', href: '/servicios/auditoria' }] }]}
+  social={[{ network: 'linkedin', href: 'https://linkedin.com/company/norte' }]}
+  legal={[{ label: 'Aviso legal', href: '/aviso-legal' }]}
+  copyright="© 2026 Norte Consultores S.L."
+  linkAs={Link}
+>
+  {/* Bloque libre: datos de contacto, boletín, «Configurar cookies»… */}
+</Footer>
+```
+
+## Cuándo usarlo
+
+Una vez por página, al final. En España, enlaza siempre **aviso legal**, **privacidad** y
+**cookies** (y la **declaración de accesibilidad** si estás obligado), más un enlace para cambiar
+la configuración de cookies (`cookieConsent.open()`).
+
+## Opciones
+
+- `tone`: `subtle` (por defecto), `default` o `dark` (fuerza el modo oscuro dentro del pie).
+- `children`: bloque libre junto a las columnas (contacto, boletín).
+- `headingLevel`: nivel de los títulos de columna (2 por defecto).
+
+## Accesibilidad
+
+- Es un `<footer>` (landmark «información de contenido»).
+- Las columnas forman una navegación con nombre («Pie de página») y los enlaces legales otra
+  («Información legal»); cámbialos con `navigationLabel` y `legalLabel`.
+- En pantallas táctiles los enlaces ganan alto para ser fáciles de pulsar.
+
+## Props
+
+<PropsTable name="FooterProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Footer" />
+
+## Relacionados
+
+- [SocialLinks](/docs/componentes/navegacion/social-links)
+- [Cookies (RGPD)](/docs/bloques/cookies)

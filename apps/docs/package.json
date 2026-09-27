@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build",
-    "dev": "next dev",
+    "generate": "node scripts/generate-api.ts",
+    "build": "node scripts/generate-api.ts && next build",
+    "dev": "node scripts/generate-api.ts && next dev",
     "start": "next start",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "node scripts/generate-api.ts && next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@betterlibs/icons": "workspace:*",

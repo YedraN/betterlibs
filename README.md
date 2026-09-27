@@ -42,7 +42,7 @@ pnpm test        # tests
 - [x] **Fase 4** — Interactivos y overlays
 - [x] **Fase 5** — Navegación
 - [x] **Fase 6** — Bloques corporativos
-- [ ] **Fase 7** — Plantillas y documentación completa
+- [x] **Fase 7** — Plantillas y documentación completa
 - [ ] **Fase 8** — Endurecimiento y release 1.0
 
 ## Contribuir
@@ -59,4 +59,12 @@ pnpm --filter @betterlibs/storybook dev   # http://localhost:6006
 
 ```bash
 pnpm --filter @betterlibs/docs dev   # http://localhost:3000
+```
+
+## Plantillas
+
+Web corporativa de ejemplo (portada, servicios, sobre nosotros, contacto, blog y página legal):
+
+```bash
+pnpm --filter @betterlibs/playground dev   # http://localhost:5173
 ```

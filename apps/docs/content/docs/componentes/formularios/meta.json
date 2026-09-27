@@ -1,0 +1,17 @@
+{
+  "title": "Formularios",
+  "pages": [
+    "index",
+    "form",
+    "field",
+    "fieldset",
+    "input",
+    "textarea",
+    "select",
+    "checkbox",
+    "radio-group",
+    "switch",
+    "file-input",
+    "error-summary"
+  ]
+}

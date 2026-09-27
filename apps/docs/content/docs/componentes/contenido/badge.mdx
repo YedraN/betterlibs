@@ -1,0 +1,54 @@
+---
+title: Badge
+description: Etiqueta breve de estado o categoría (Nuevo, Disponible, Beta).
+---
+
+import { StarIcon } from '@betterlibs/icons'
+import { Badge } from '@betterlibs/react'
+
+<Preview align="center">
+  <Badge tone="accent">Nuevo</Badge>
+  <Badge tone="success" dot>Disponible</Badge>
+  <Badge tone="warning">Plazas limitadas</Badge>
+  <Badge tone="danger" variant="solid">Agotado</Badge>
+  <Badge tone="info" icon={<StarIcon />}>Destacado</Badge>
+  <Badge variant="outline" size="sm">Beta</Badge>
+</Preview>
+
+```tsx
+<Badge tone="success" dot>Disponible</Badge>
+```
+
+## Cuándo usarlo
+
+Para un dato breve que acompaña a otro elemento: el estado de un plan, una novedad, una categoría.
+Si es interactivo (un filtro que se puede quitar, una categoría enlazada), usa
+[`Tag`](/docs/componentes/contenido/tag).
+
+## Variantes
+
+- `tone`: `neutral`, `accent`, `success`, `warning`, `danger` o `info`.
+- `variant`: `subtle` (por defecto), `solid` u `outline`.
+- `dot` añade un punto de estado; `icon`, un icono delante.
+
+## Textos
+
+Una o dos palabras. El color refuerza, pero el texto debe entenderse solo: «Agotado», no un punto
+rojo sin texto.
+
+## Accesibilidad
+
+Es texto normal: se lee donde está. Los tonos cumplen contraste AA en claro y oscuro. Si el
+estado cambia en vivo y es importante, anúncialo con una región `aria-live` aparte.
+
+## Props
+
+<PropsTable name="BadgeProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Badge" />
+
+## Relacionados
+
+- [Tag](/docs/componentes/contenido/tag)

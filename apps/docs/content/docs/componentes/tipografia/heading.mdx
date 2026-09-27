@@ -1,0 +1,55 @@
+---
+title: Heading
+description: Títulos con el nivel semántico y el tamaño visual separados.
+---
+
+import { Heading, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="3">
+    <Heading level={2} size="4xl">Titular de sección (h2, 4xl)</Heading>
+    <Heading level={3} size="xl">Subtítulo (h3, xl)</Heading>
+    <Heading level={4} size="md" tone="muted">Título pequeño (h4, md, muted)</Heading>
+  </Stack>
+</Preview>
+
+```tsx
+<Heading level={2} size="4xl">Crece con orden</Heading>
+```
+
+## Cuándo usarlo
+
+Para cualquier título de la página. La clave está en separar dos decisiones:
+
+- `level` (1-6) es la **estructura**: sigue el orden del documento, sin saltos (h1 → h2 → h3).
+- `size` es el **aspecto**: el tamaño que necesita el diseño en ese punto.
+
+Así puedes tener un `h2` pequeño en una barra lateral o un `h3` grande en una tarjeta destacada
+sin romper la jerarquía.
+
+## Textos
+
+- Un solo `h1` por página: el tema principal.
+- Titulares que informan: «Asesoría fiscal para pymes», no «Bienvenido».
+- Evita terminar en punto y no escribas todo en mayúsculas (se lee peor y algunos lectores de
+  pantalla lo deletrean).
+
+## Accesibilidad
+
+Los lectores de pantalla navegan por encabezados (tecla `H` en NVDA y JAWS): una estructura sin
+saltos es un índice de la página. Nunca uses un encabezado solo por su tamaño; para eso está
+`Text` con `size`.
+
+## Props
+
+<PropsTable name="HeadingProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Heading" />
+
+## Relacionados
+
+- [Text](/docs/componentes/tipografia/text)
+- [SectionHeader](/docs/componentes/tipografia/section-header)
+- [Tipografía](/docs/fundamentos/tipografia)

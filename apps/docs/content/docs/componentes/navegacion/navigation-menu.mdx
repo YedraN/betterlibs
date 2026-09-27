@@ -1,0 +1,71 @@
+---
+title: NavigationMenu
+description: Menú principal con desplegables y mega menús, y su versión para móvil (MobileNav).
+---
+
+import { MobileNav } from '@betterlibs/react'
+
+`NavigationMenu` es el menú de escritorio (Radix NavigationMenu) y `MobileNav`, la lista para móvil.
+`Header` combina los dos; úsalos por separado si montas tu propia cabecera.
+
+```tsx
+<NavigationMenu items={navigation} currentHref={pathname} linkAs={Link} />
+<MobileNav items={navigation} currentHref={pathname} linkAs={Link} onNavigate={cerrarPanel} />
+```
+
+## NavigationMenu
+
+- Enlaces directos, desplegables (`links`) y mega menús (`groups`, `featured`, `overview`).
+- Se abre al pasar el ratón o con Enter/Espacio; los desplegables aparecen junto a la sección y
+  los mega menús ocupan el ancho del contenedor posicionado más cercano (en `Header`, la barra).
+- La sección de la página actual se marca con color y una barra inferior (no solo color).
+
+<PropsTable name="NavigationMenuProps" />
+
+<CssReference module="NavigationMenu" />
+
+## MobileNav
+
+Lista vertical con secciones desplegables (botones con `aria-expanded`). La sección de la página
+actual empieza abierta y el enlace actual lleva una barra lateral.
+
+<Preview>
+  <div style={{ maxWidth: '22rem' }}>
+    <MobileNav
+      currentHref="#auditoria"
+      items={[
+        {
+          label: 'Servicios',
+          overview: { label: 'Ver todos los servicios', href: '#servicios' },
+          groups: [
+            { label: 'Empresas', links: [{ label: 'Consultoría', href: '#consultoria' }, { label: 'Auditoría', href: '#auditoria' }] },
+          ],
+        },
+        { label: 'Sobre nosotros', href: '#nosotros' },
+        { label: 'Blog', href: '#blog' },
+      ]}
+    />
+  </div>
+</Preview>
+
+<PropsTable name="MobileNavProps" />
+
+<CssReference module="MobileNav" />
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Recorre secciones y enlaces |
+| `Enter` / `Espacio` | Abre o cierra una sección |
+| `←` / `→` (escritorio) | Pasan de una sección a otra |
+| `Tab` (con un desplegable abierto) | Entra en sus enlaces |
+| `Escape` | Cierra el desplegable y devuelve el foco a la sección |
+
+Ambos son un `<nav>` con nombre («Principal»; cámbialo con `label`) y marcan la página actual con
+`aria-current="page"`.
+
+## Relacionados
+
+- [Header](/docs/componentes/navegacion/header)
+- [DropdownMenu](/docs/componentes/overlays/dropdown-menu): para menús de acciones.

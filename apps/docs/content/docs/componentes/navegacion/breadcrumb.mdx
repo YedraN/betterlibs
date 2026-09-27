@@ -1,0 +1,64 @@
+---
+title: Breadcrumb
+description: Migas de pan con la ruta hasta la página actual y datos estructurados.
+---
+
+import { Breadcrumb, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6">
+    <Breadcrumb items={[{ label: 'Inicio', href: '#' }, { label: 'Servicios', href: '#' }, { label: 'Consultoría fiscal' }]} />
+    <Breadcrumb
+      items={[
+        { label: 'Inicio', href: '#' },
+        { label: 'Blog', href: '#' },
+        { label: 'Fiscalidad', href: '#' },
+        { label: 'Novedades del IVA para autónomos en 2026' },
+      ]}
+    />
+  </Stack>
+</Preview>
+
+```tsx
+<Breadcrumb
+  linkAs={Link}
+  schemaBaseUrl="https://empresa.com"
+  items={[
+    { label: 'Inicio', href: '/' },
+    { label: 'Servicios', href: '/servicios' },
+    { label: 'Consultoría fiscal' },
+  ]}
+/>
+```
+
+## Cuándo usarlo
+
+En páginas interiores con jerarquía (servicios, blog, casos): muestran dónde se está y permiten
+subir de nivel. Colócalas al principio del contenido principal, antes del `h1`. En la portada no
+hacen falta.
+
+## Opciones
+
+- `linkAs`: el enlace de tu router.
+- `schemaBaseUrl`: añade los datos estructurados `BreadcrumbList` de schema.org (Google puede
+  mostrar la ruta en los resultados).
+- `separator`: separador decorativo (una flecha por defecto).
+
+## Accesibilidad
+
+- Es un `<nav>` con nombre («Ruta de navegación») y una lista ordenada.
+- La página actual no es un enlace y lleva `aria-current="page"`. Los separadores se ocultan a los
+  lectores de pantalla.
+
+## Props
+
+<PropsTable name="BreadcrumbProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Breadcrumb" />
+
+## Relacionados
+
+- [Pagination](/docs/componentes/navegacion/pagination)
+- [SEO](/docs/guias/seo)

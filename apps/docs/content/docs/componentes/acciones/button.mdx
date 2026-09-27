@@ -1,0 +1,87 @@
+---
+title: Button
+description: Botón para acciones, con variantes, tamaños, iconos y estado de carga.
+---
+
+import { ArrowRightIcon, DownloadIcon } from '@betterlibs/icons'
+import { Button, ButtonGroup } from '@betterlibs/react'
+
+<Preview align="center">
+  <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
+  <Button variant="secondary">Secundario</Button>
+  <Button variant="outline" iconStart={<DownloadIcon />}>Descargar dossier</Button>
+  <Button variant="ghost">Fantasma</Button>
+  <Button variant="danger">Eliminar</Button>
+</Preview>
+
+```tsx
+<Button onClick={enviar}>Enviar solicitud</Button>
+
+// Para navegar: un enlace con aspecto de botón
+<Button asChild><a href="/contacto">Hablar con un experto</a></Button>
+```
+
+## Cuándo usarlo
+
+Para **acciones**: enviar un formulario, abrir un diálogo, descargar, confirmar. Para ir a otra
+página usa un enlace; si debe parecer un botón (una llamada a la acción), `asChild` con el enlace
+dentro mantiene la semántica correcta.
+
+## Variantes
+
+| `variant` | Uso |
+| --- | --- |
+| `primary` | La acción principal. **Una por bloque** |
+| `secondary` | Acción importante pero secundaria |
+| `outline` | Alternativa a la principal («Ver precios» junto a «Solicitar demo») |
+| `ghost` | Acciones terciarias o en barras de herramientas |
+| `danger` | Acciones destructivas («Eliminar cuenta») |
+
+Tamaños: `sm`, `md` (44px, el mínimo recomendado para pantallas táctiles) y `lg`.
+
+<Preview align="center">
+  <Button size="sm">Pequeño</Button>
+  <Button>Mediano</Button>
+  <Button size="lg">Grande</Button>
+  <Button loading>Enviando</Button>
+  <Button disabled>Deshabilitado</Button>
+</Preview>
+
+## Estados
+
+- `loading`: muestra un spinner, anuncia «Cargando…» (cámbialo con `loadingLabel`), bloquea la
+  acción y **mantiene el foco y el ancho**. Úsalo al enviar formularios.
+- `disabled`: evítalo sin explicar por qué. Suele ser mejor dejar pulsar y mostrar qué falta
+  (el `Form` lo hace por ti).
+
+## Textos
+
+- Empieza por un verbo y di el resultado: «Descargar informe», «Solicitar presupuesto».
+- Nada de «Aceptar», «Enviar» a secas o «Haz clic aquí».
+- Cortos: 1-4 palabras.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Enter` / `Espacio` | Activa el botón |
+
+- `type="button"` por defecto (no envía formularios por accidente); usa `type="submit"` en
+  formularios.
+- Foco visible con anillo de contraste 3:1. Los botones con solo icono son `IconButton`.
+
+## Props
+
+Acepta todos los atributos de `<button>`.
+
+<PropsTable name="ButtonProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Button" />
+
+## Relacionados
+
+- [IconButton](/docs/componentes/acciones/icon-button)
+- [ButtonGroup](/docs/componentes/acciones/button-group)
+- [Link](/docs/componentes/tipografia/link)

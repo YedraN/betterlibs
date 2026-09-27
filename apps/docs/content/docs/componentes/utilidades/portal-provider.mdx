@@ -1,0 +1,51 @@
+---
+title: PortalProvider
+description: Cambia dónde se montan diálogos, menús, tooltips y notificaciones.
+---
+
+Los overlays (`Dialog`, `Drawer`, `Popover`, `Tooltip`, `DropdownMenu`, `Toaster`) se montan al
+final de `<body>` para que nada los recorte ni los tape. Pero entonces **no heredan** el tema de la
+zona donde se abrieron: un diálogo abierto desde una sección con `data-theme="dark"` saldría claro.
+
+`PortalProvider` indica otro contenedor para los overlays de su interior:
+
+```tsx
+'use client'
+import { PortalProvider } from '@betterlibs/react'
+import { useState } from 'react'
+
+function ZonaOscura({ children }) {
+  const [container, setContainer] = useState<HTMLElement | null>(null)
+  return (
+    <div data-theme="dark">
+      <PortalProvider container={container}>{children}</PortalProvider>
+      <div ref={setContainer} />
+    </div>
+  )
+}
+```
+
+## Cuándo usarlo
+
+- Secciones con otro modo de color (`data-theme`) o con otra marca (`createTheme` con `selector`).
+- Aplicaciones incrustadas en una página ajena (un widget) que deben mantener sus overlays dentro.
+
+Esta documentación lo usa en todos los ejemplos: los overlays siguen el modo claro u oscuro de la
+web.
+
+## Cuidado
+
+El contenedor no debe estar dentro de un elemento con `overflow: hidden`, `transform` o
+`filter`, o los overlays podrían recortarse o posicionarse mal. Un `div` al final de la zona
+temática (o en `<body>` con el mismo `data-theme`) funciona bien.
+
+## Props
+
+<PropsTable name="PortalProviderProps" />
+
+`usePortalContainer()` devuelve el contenedor actual (para tus propios portales).
+
+## Relacionados
+
+- [Overlays](/docs/componentes/overlays)
+- [Modo oscuro y marca](/docs/fundamentos/modo-oscuro-y-marca)

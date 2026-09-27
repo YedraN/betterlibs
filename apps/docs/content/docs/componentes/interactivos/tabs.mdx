@@ -1,0 +1,83 @@
+---
+title: Tabs
+description: Pestañas para alternar vistas relacionadas sin salir de la página.
+---
+
+import { BarChartIcon, BriefcaseIcon, ShieldCheckIcon } from '@betterlibs/icons'
+import { Stack, Tabs, TabsContent, TabsList, TabsTrigger, Text } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="10">
+    <Tabs defaultValue="consultoria">
+      <TabsList aria-label="Servicios">
+        <TabsTrigger value="consultoria" icon={<BriefcaseIcon />}>Consultoría</TabsTrigger>
+        <TabsTrigger value="auditoria" icon={<ShieldCheckIcon />}>Auditoría</TabsTrigger>
+        <TabsTrigger value="analitica" icon={<BarChartIcon />}>Analítica</TabsTrigger>
+      </TabsList>
+      <TabsContent value="consultoria"><Text tone="muted">Objetivos realistas y un plan a tres años.</Text></TabsContent>
+      <TabsContent value="auditoria"><Text tone="muted">Cuentas y procesos revisados.</Text></TabsContent>
+      <TabsContent value="analitica"><Text tone="muted">Cuadros de mando fáciles de leer.</Text></TabsContent>
+    </Tabs>
+    <Tabs defaultValue="mensual" variant="pill">
+      <TabsList aria-label="Facturación">
+        <TabsTrigger value="mensual">Mensual</TabsTrigger>
+        <TabsTrigger value="anual">Anual (-20 %)</TabsTrigger>
+      </TabsList>
+      <TabsContent value="mensual"><Text>Plan Profesional: 49 €/mes.</Text></TabsContent>
+      <TabsContent value="anual"><Text>Plan Profesional: 470 €/año.</Text></TabsContent>
+    </Tabs>
+  </Stack>
+</Preview>
+
+```tsx
+<Tabs defaultValue="consultoria">
+  <TabsList aria-label="Servicios">
+    <TabsTrigger value="consultoria">Consultoría</TabsTrigger>
+    <TabsTrigger value="auditoria">Auditoría</TabsTrigger>
+  </TabsList>
+  <TabsContent value="consultoria">…</TabsContent>
+  <TabsContent value="auditoria">…</TabsContent>
+</Tabs>
+```
+
+## Cuándo usarlo
+
+Para alternar vistas del mismo nivel que no hace falta ver a la vez: servicios, sedes, periodos.
+
+**No escondas en pestañas** contenido que se deba leer entero o comparar: lo que está en una
+pestaña oculta pasa desapercibido. Para preguntas frecuentes, `Accordion`.
+
+## Opciones
+
+- `variant`: `line` (subrayado, por defecto) o `pill` (botones sobre un fondo).
+- `orientation="vertical"` y `fullWidth` (pestañas a partes iguales).
+- `activationMode="manual"`: la pestaña se activa con Enter en vez de al moverse con las flechas
+  (útil si cada panel carga datos).
+- En móvil, la lista hace scroll horizontal si no cabe.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Entra en la pestaña activa; otro `Tab` pasa al panel |
+| `←` `→` (o `↑` `↓` en vertical) | Cambian de pestaña |
+| `Inicio` / `Fin` | Primera / última pestaña |
+
+Da un `aria-label` a `TabsList` que describa el conjunto. La pestaña activa se marca con color y
+subrayado (o fondo), no solo con color.
+
+## Props
+
+<PropsTable name="TabsProps" />
+
+### TabsTrigger
+
+<PropsTable name="TabsTriggerProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Tabs" />
+
+## Relacionados
+
+- [Accordion](/docs/componentes/interactivos/accordion)

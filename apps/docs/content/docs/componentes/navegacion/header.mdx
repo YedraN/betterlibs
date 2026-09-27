@@ -1,0 +1,101 @@
+---
+title: Header
+description: Cabecera del sitio con salto al contenido, menú principal, acciones y menú móvil.
+---
+
+import { BriefcaseIcon, FileTextIcon, ShieldCheckIcon } from '@betterlibs/icons'
+import { Button, Header, Text } from '@betterlibs/react'
+
+<Preview padded={false}>
+  <div style={{ minHeight: '28rem' }}>
+    <Header
+      skipLink={false}
+      logo={<a href="#">Norte</a>}
+      currentHref="#auditoria"
+      navigation={[
+        {
+          label: 'Servicios',
+          groups: [
+            {
+              label: 'Empresas',
+              links: [
+                { label: 'Consultoría', href: '#consultoria', description: 'Plan de crecimiento a 3 años.', icon: <BriefcaseIcon /> },
+                { label: 'Auditoría', href: '#auditoria', description: 'Cuentas y cumplimiento.', icon: <ShieldCheckIcon /> },
+              ],
+            },
+            {
+              label: 'Personas',
+              links: [{ label: 'Asesoría fiscal', href: '#fiscal', description: 'Renta y patrimonio.', icon: <FileTextIcon /> }],
+            },
+          ],
+          overview: { label: 'Ver todos los servicios', href: '#servicios' },
+        },
+        { label: 'Sectores', links: [{ label: 'Industria', href: '#industria' }, { label: 'Salud', href: '#salud' }] },
+        { label: 'Blog', href: '#blog' },
+      ]}
+      actions={<Button size="sm">Contacto</Button>}
+    />
+    <div style={{ padding: 'var(--bl-space-8)' }}>
+      <Text tone="muted">Abre «Servicios» para ver el mega menú. Estrecha la ventana para ver el menú móvil.</Text>
+    </div>
+  </div>
+</Preview>
+
+```tsx
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+<Header
+  logo={<Link href="/"><img src="/logo.svg" alt="Norte Consultores, ir a la portada" /></Link>}
+  navigation={navigation}
+  currentHref={usePathname()}
+  linkAs={Link}
+  actions={<Button asChild size="sm"><Link href="/contacto">Contacto</Link></Button>}
+/>
+```
+
+## Cuándo usarlo
+
+Una vez por página, al principio. Incluye todo lo que suele necesitar la cabecera de una web
+corporativa; si necesitas otra estructura, monta la tuya con `NavigationMenu` y `MobileNav`.
+
+## Comportamiento
+
+- **Salto al contenido**: incluye «Saltar al contenido principal» hacia `#main` (pon
+  `id="main"` en tu `<main>` o cambia el destino con `skipLink`; `false` lo quita).
+- **Fija arriba** (`sticky`, por defecto) con sombra al hacer scroll. Con `hideOnScroll` se oculta
+  al bajar y reaparece al subir; nunca con el menú abierto ni con el foco dentro.
+- **Menú móvil**: por debajo de `collapseBelow` (`lg`) aparece «Abrir menú», que abre un
+  [`Drawer`](/docs/componentes/overlays/drawer) con `MobileNav` y las acciones. Se cierra al elegir un enlace.
+- El cambio a móvil depende del **ancho de la cabecera** (container queries), no del de la
+  ventana: también funciona dentro de un contenedor estrecho.
+
+## Textos
+
+- Pocas secciones (5-7) con nombres de una o dos palabras que el usuario entienda: «Servicios»,
+  no «Soluciones 360».
+- Una sola acción destacada a la derecha («Contacto», «Solicitar propuesta»).
+- El logo enlaza a la portada y su `alt` nombra la empresa: «Norte Consultores, ir a la portada».
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` (al cargar) | Primero aparece «Saltar al contenido principal» |
+| `Enter` / `Espacio` | Abren o cierran el desplegable de una sección |
+| `←` / `→` | Pasan de una sección a otra |
+| `Escape` | Cierra el desplegable o el menú móvil y devuelve el foco |
+
+## Props
+
+<PropsTable name="HeaderProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Header" />
+
+## Relacionados
+
+- [NavigationMenu](/docs/componentes/navegacion/navigation-menu)
+- [AnnouncementBar](/docs/componentes/navegacion/announcement-bar)
+- [SkipLink](/docs/componentes/utilidades/skip-link)

@@ -1,0 +1,80 @@
+---
+title: Carousel
+description: Carrusel accesible sobre scroll nativo, sin autoplay por defecto.
+---
+
+import { Box, Carousel, Stack, Text } from '@betterlibs/react'
+
+<Preview>
+  <Carousel label="Testimonios de clientes" slidesPerView={{ base: 1, md: 2 }}>
+    <Box padding="6" radius="lg" bordered style={{ height: '100%' }}>
+      <Stack gap="3">
+        <Text variant="lead">«Redujimos a la mitad el tiempo de cierre mensual.»</Text>
+        <Text size="sm" tone="muted">Ana Pérez, directora financiera</Text>
+      </Stack>
+    </Box>
+    <Box padding="6" radius="lg" bordered style={{ height: '100%' }}>
+      <Stack gap="3">
+        <Text variant="lead">«Un equipo que entiende el negocio, no solo la tecnología.»</Text>
+        <Text size="sm" tone="muted">Luis Martín, CEO</Text>
+      </Stack>
+    </Box>
+    <Box padding="6" radius="lg" bordered style={{ height: '100%' }}>
+      <Stack gap="3">
+        <Text variant="lead">«Las solicitudes de contacto crecieron un 40 %.»</Text>
+        <Text size="sm" tone="muted">Sara Gil, marketing</Text>
+      </Stack>
+    </Box>
+    <Box padding="6" radius="lg" bordered style={{ height: '100%' }}>
+      <Stack gap="3">
+        <Text variant="lead">«Plazos cumplidos y comunicación clara.»</Text>
+        <Text size="sm" tone="muted">Marta León, COO</Text>
+      </Stack>
+    </Box>
+  </Carousel>
+</Preview>
+
+```tsx
+<Carousel label="Testimonios de clientes" slidesPerView={{ base: 1, md: 2, lg: 3 }}>
+  {testimonios.map((t) => <Testimonio key={t.id} {...t} />)}
+</Carousel>
+```
+
+## Cuándo usarlo
+
+Para contenido **secundario** en fila: logos, testimonios, una galería. Lo que va después de la
+primera diapositiva lo ve muy poca gente: no escondas ahí nada importante. Si caben todos los
+elementos, una `Grid` es mejor.
+
+## Opciones
+
+- `slidesPerView`: número o valores por breakpoint; `gap` entre diapositivas.
+- `loop`: al final, «Siguiente» vuelve al principio.
+- `showIndicators`: puntos de posición (o «3 / 12» si hay más de 10 posiciones).
+- `autoplay` (ms): **desactivado por defecto**. Si lo activas hay botón de pausa, se detiene al
+  pasar el ratón y al entrar con el teclado, y no arranca con «reducir movimiento» (WCAG 2.2.2).
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Tab` | Pausa (si hay autoplay), indicadores, Anterior/Siguiente y el contenido |
+| `Enter` / `Espacio` | Activan el control enfocado |
+
+- Patrón WAI-ARIA: región «carrusel» con nombre (`label`) y diapositivas «1 de 5».
+- Los controles van antes de las diapositivas en el orden del DOM.
+- Los cambios que pide el usuario se anuncian; los del autoplay, no.
+- Funciona con deslizamiento táctil y trackpad (scroll nativo con `scroll-snap`).
+
+## Props
+
+<PropsTable name="CarouselProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Carousel" />
+
+## Relacionados
+
+- [Testimonials](/docs/bloques/confianza)
+- [Grid](/docs/componentes/layout/grid)

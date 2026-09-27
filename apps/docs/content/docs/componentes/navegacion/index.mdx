@@ -1,0 +1,42 @@
+---
+title: Navegación
+description: Cabecera con menú principal y móvil, pie, barra de anuncios, migas de pan y paginación.
+icon: Navigation
+---
+
+La navegación es lo que más se repite en una web corporativa: tiene que ser predecible, rápida con
+teclado y cómoda en móvil. Todos estos componentes usan landmarks (`header`, `nav`, `footer`) con
+nombre, así que los lectores de pantalla pueden saltar directamente a cada zona.
+
+| Componente | Para qué |
+| --- | --- |
+| [`Header`](/docs/componentes/navegacion/header) | Cabecera del sitio: logo, menú principal, acciones y menú móvil |
+| [`NavigationMenu`](/docs/componentes/navegacion/navigation-menu) | Menú principal con desplegables y mega menús (y `MobileNav`) |
+| [`Footer`](/docs/componentes/navegacion/footer) | Pie con columnas, redes y enlaces legales |
+| [`AnnouncementBar`](/docs/componentes/navegacion/announcement-bar) | Anuncio breve sobre la cabecera |
+| [`SocialLinks`](/docs/componentes/navegacion/social-links) | Enlaces a redes sociales |
+| [`Breadcrumb`](/docs/componentes/navegacion/breadcrumb) | Migas de pan con datos estructurados |
+| [`Pagination`](/docs/componentes/navegacion/pagination) | Paginación de listados |
+
+## Estructura de navegación
+
+`Header`, `NavigationMenu` y `MobileNav` comparten el mismo tipo de datos (`NavItem`):
+
+```tsx
+const navigation: NavItem[] = [
+  // Enlace directo
+  { label: 'Blog', href: '/blog' },
+  // Desplegable simple
+  { label: 'Sectores', links: [{ label: 'Industria', href: '/sectores/industria' }] },
+  // Mega menú: columnas con título, bloque destacado y «Ver todo»
+  {
+    label: 'Servicios',
+    groups: [{ label: 'Empresas', links: [{ label: 'Auditoría', href: '/servicios/auditoria', description: 'Cuentas y cumplimiento.' }] }],
+    featured: <CasoDestacado />,
+    overview: { label: 'Ver todos los servicios', href: '/servicios' },
+  },
+]
+```
+
+Con `currentHref` (la URL actual), el enlace de la página y su sección se marcan con
+`aria-current="page"`. Con `linkAs` usan el enlace de tu router.

@@ -1,0 +1,58 @@
+---
+title: ButtonGroup
+description: Agrupa botones relacionados con separación uniforme, unidos o apilados en móvil.
+---
+
+import { Button, ButtonGroup, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6">
+    <ButtonGroup>
+      <Button>Solicitar demo</Button>
+      <Button variant="outline">Ver precios</Button>
+    </ButtonGroup>
+    <ButtonGroup attached aria-label="Vista">
+      <Button variant="outline">Lista</Button>
+      <Button variant="outline">Cuadrícula</Button>
+      <Button variant="outline">Mapa</Button>
+    </ButtonGroup>
+    <ButtonGroup stackBelow="md">
+      <Button size="lg">Se apilan en móvil</Button>
+      <Button size="lg" variant="outline">stackBelow="md"</Button>
+    </ButtonGroup>
+  </Stack>
+</Preview>
+
+```tsx
+<ButtonGroup stackBelow="sm" aria-label="Acciones del hero">
+  <Button>Solicitar demo</Button>
+  <Button variant="outline">Ver precios</Button>
+</ButtonGroup>
+```
+
+## Cuándo usarlo
+
+Para acciones relacionadas que van juntas: la principal y su alternativa, o un conjunto de
+opciones de la misma barra.
+
+- `attached`: los botones se unen en un solo control (opciones de vista, filtros).
+- `stackBelow`: por debajo del breakpoint se apilan a todo el ancho, cómodo en móvil.
+- `align`: `start`, `center` o `end`.
+
+## Accesibilidad
+
+Si el grupo necesita contexto, dale un `aria-label` («Vista», «Acciones del artículo»): pasa a ser
+un `role="group"` con nombre. El orden del código es el orden de tabulación: la acción principal,
+primero.
+
+## Props
+
+<PropsTable name="ButtonGroupProps" />
+
+## Anatomía y CSS
+
+<CssReference module="ButtonGroup" />
+
+## Relacionados
+
+- [Button](/docs/componentes/acciones/button)

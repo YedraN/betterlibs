@@ -1,0 +1,55 @@
+---
+title: Preguntas frecuentes
+description: Dudas habituales sobre instalación, estilos, accesibilidad y frameworks.
+icon: CircleHelp
+---
+
+## ¿Funciona con Next.js, Astro o Vite?
+
+Sí. Solo necesita React 19. Los componentes sin estado funcionan como Server Components y los que
+tienen estado llevan `'use client'`. Mira [Next.js](/docs/primeros-pasos/nextjs),
+[Vite](/docs/primeros-pasos/vite) y [Astro](/docs/primeros-pasos/astro).
+
+## ¿Necesito Tailwind?
+
+No. Los estilos son CSS Modules y variables CSS, sin runtime. Si ya usas Tailwind, conviven sin
+problemas: consulta [Sobrescribir estilos](/docs/guias/sobrescribir-estilos#con-tailwind-css).
+
+## ¿Cómo pongo los colores de mi marca?
+
+Con [`createTheme`](/docs/fundamentos/generador-de-tema): genera toda la escala a partir de un solo
+color y comprueba el contraste en claro y oscuro.
+
+## Mis estilos no se aplican
+
+Todo el CSS de la librería va en capas (`@layer`), así que cualquier estilo tuyo fuera de capas
+gana. Si usas otra librería que también usa capas (Tailwind), el orden de las capas importa: mira
+[Sobrescribir estilos](/docs/guias/sobrescribir-estilos).
+
+## ¿Es accesible de verdad?
+
+Está diseñada para WCAG 2.2 AA: contraste verificado en el build, foco visible, teclado completo,
+roles ARIA correctos y tests con axe en cada componente. Aun así, la accesibilidad final depende
+también de tus textos, imágenes y estructura: revisa [Accesibilidad](/docs/fundamentos/accesibilidad).
+
+## ¿Puedo usarla en un proyecto comercial?
+
+Sí, con licencia MIT.
+
+## ¿Hay versión en inglés?
+
+Los textos por defecto (etiquetas, avisos, mensajes de error) están en español y **todos** se
+pueden cambiar por props (`closeLabel`, `loadingLabel`, `messages`…). La documentación está en
+español.
+
+## ¿El aviso de cookies me hace cumplir el RGPD?
+
+Cubre los requisitos de diseño de la guía de la AEPD (rechazar tan fácil como aceptar,
+configuración por categorías, nada premarcado, decisión reversible). Cargar los scripts solo tras el
+consentimiento y redactar la política de cookies dependen de ti. Mira
+[Cookies (RGPD)](/docs/bloques/cookies).
+
+## ¿Dónde veo los componentes en vivo?
+
+En esta documentación, en Storybook (con controles para todas las props) y en las
+[plantillas](/docs/recursos/plantillas).

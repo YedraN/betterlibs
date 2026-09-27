@@ -1,0 +1,64 @@
+---
+title: Generador de tema
+description: Elige el color de tu marca y obtén un tema completo, accesible en claro y oscuro.
+icon: Palette
+---
+
+Elige el color de tu marca, el redondeo y la tipografía. `createTheme()` genera la escala completa
+en OKLCH, escoge automáticamente los tonos que cumplen WCAG AA para botones, enlaces, foco y
+estados, y te avisa si algo no llega. La vista previa usa los componentes reales.
+
+<Preview>
+  <ThemeBuilder />
+</Preview>
+
+## Usar el tema en tu web
+
+`createTheme()` devuelve el CSS listo para usar. Genéralo una vez (en el servidor o en el build) e
+inyéctalo después de los estilos de la librería:
+
+```tsx
+// app/layout.tsx
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+import { createTheme } from '@betterlibs/tokens'
+
+const theme = createTheme({ brand: '#0f766e', radius: 'round', fontSans: 'var(--font-inter)' })
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="es">
+      <head>
+        <style>{theme.css}</style>
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
+También puedes copiar el CSS generado desde el botón «Copiar CSS generado» y guardarlo como un
+archivo `.css` más.
+
+## Varias marcas en la misma página
+
+Con `selector`, el tema solo se aplica dentro de ese selector:
+
+```tsx
+const filial = createTheme({ brand: '#e11d48', selector: '[data-brand="filial"]' })
+
+<section data-brand="filial">…</section>
+```
+
+## Si el contraste no llega
+
+Con `strict: true` (por defecto) `createTheme` lanza `ThemeContrastError` si algún par no cumple
+WCAG AA: así un color de marca demasiado claro no llega a producción sin que lo sepas. Suele
+bastar con oscurecer o saturar un poco el color. Con `strict: false` recibes el informe
+(`theme.contrast`) y decides tú.
+
+## Relacionados
+
+- [Modo oscuro y marca](/docs/fundamentos/modo-oscuro-y-marca)
+- [Color](/docs/fundamentos/color)
+- [Sobrescribir estilos](/docs/guias/sobrescribir-estilos)

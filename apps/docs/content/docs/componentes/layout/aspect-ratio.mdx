@@ -1,0 +1,42 @@
+---
+title: AspectRatio
+description: Mantiene una proporción fija (16:9, 4:3, 1:1) para vídeos, mapas e imágenes.
+---
+
+import { AspectRatio } from '@betterlibs/react'
+
+<Preview>
+  <div style={{ maxWidth: '28rem' }}>
+    <AspectRatio ratio={16 / 9} style={{ background: 'var(--bl-color-bg-muted)', borderRadius: 'var(--bl-radius-lg)' }}>
+      <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>16 : 9</div>
+    </AspectRatio>
+  </div>
+</Preview>
+
+```tsx
+<AspectRatio ratio={16 / 9}>
+  <iframe src="https://www.youtube-nocookie.com/embed/ID" title="Presentación de la empresa" />
+</AspectRatio>
+```
+
+## Cuándo usarlo
+
+Para reservar el hueco de un contenido antes de que cargue (vídeos, mapas, iframes) y evitar que
+la página «salte» (CLS). Para imágenes, `Image` ya tiene la prop `ratio`.
+
+## Accesibilidad
+
+Los `iframe` necesitan un `title` que describa su contenido. Si el contenido es de terceros e
+instala cookies, envuélvelo en [`ConsentGate`](/docs/bloques/cookies).
+
+## Props
+
+<PropsTable name="AspectRatioProps" />
+
+## Anatomía y CSS
+
+<CssReference module="AspectRatio" />
+
+## Relacionados
+
+- [Image](/docs/componentes/contenido/image)

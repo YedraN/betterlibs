@@ -1,0 +1,53 @@
+---
+title: Fieldset
+description: Agrupa campos relacionados bajo una leyenda (fieldset + legend).
+---
+
+import { Field, Fieldset, Grid, Input } from '@betterlibs/react'
+
+<Preview>
+  <Fieldset legend="Datos de facturación" legendSize="lg" description="Aparecerán en la factura." style={{ maxWidth: '36rem' }}>
+    <Field label="Razón social" required>
+      <Input autoComplete="organization" />
+    </Field>
+    <Grid columns={{ base: 1, sm: 2 }} gap="5">
+      <Field label="CIF / NIF" required>
+        <Input />
+      </Field>
+      <Field label="Código postal" required>
+        <Input autoComplete="postal-code" inputMode="numeric" htmlSize={5} />
+      </Field>
+    </Grid>
+  </Fieldset>
+</Preview>
+
+```tsx
+<Fieldset legend="Datos de facturación" legendSize="lg">…</Fieldset>
+```
+
+## Cuándo usarlo
+
+- Para dividir un formulario largo en partes («Datos de contacto», «Datos de la empresa») con
+  `legendSize="lg"`.
+- Para agrupar campos que forman una sola respuesta (una dirección, una fecha en tres campos).
+
+Para grupos de casillas o radios, usa `CheckboxGroup` y `RadioGroup`, que ya son un `Fieldset`.
+
+## Accesibilidad
+
+La leyenda se anuncia al entrar en el grupo. `disabled` deshabilita de golpe todos los controles
+del grupo (comportamiento nativo). `error` muestra un error común a todo el grupo.
+
+## Props
+
+<PropsTable name="FieldsetProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Fieldset" />
+
+## Relacionados
+
+- [Field](/docs/componentes/formularios/field)
+- [CheckboxGroup](/docs/componentes/formularios/checkbox)
+- [RadioGroup](/docs/componentes/formularios/radio-group)

@@ -1,0 +1,59 @@
+---
+title: SocialLinks
+description: Enlaces a redes sociales con icono y nombre accesible.
+---
+
+import { SocialLinks, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="4">
+    <SocialLinks
+      links={[
+        { network: 'linkedin', href: '#' },
+        { network: 'x', href: '#' },
+        { network: 'instagram', href: '#' },
+        { network: 'facebook', href: '#' },
+        { network: 'youtube', href: '#' },
+        { network: 'github', href: '#' },
+        { network: 'email', href: 'mailto:hola@norte.example' },
+      ]}
+    />
+    <SocialLinks size="sm" links={[{ network: 'linkedin', href: '#' }, { network: 'x', href: '#' }]} />
+  </Stack>
+</Preview>
+
+```tsx
+<SocialLinks
+  links={[
+    { network: 'linkedin', href: 'https://linkedin.com/company/norte' },
+    { network: 'youtube', href: 'https://youtube.com/@norte' },
+  ]}
+  newTab
+/>
+```
+
+## Cuándo usarlo
+
+En el pie, en la ficha de una persona del equipo o al final de un artículo. Redes incluidas:
+`linkedin`, `x`, `instagram`, `facebook`, `youtube`, `github` y `email`.
+
+## Accesibilidad
+
+- Cada enlace se nombra con la red («LinkedIn») o con `label` (en `TeamGrid`: «Ana Pérez en
+  LinkedIn»). El icono es decorativo.
+- Con `newTab` se abren en otra pestaña y se anuncia («… (se abre en una pestaña nueva)»).
+- Objetivo táctil de 44px (`md`) o 36px (`sm`).
+- Los iconos son versiones de trazo; si una red exige su logotipo oficial, pásalo en `icon`.
+
+## Props
+
+<PropsTable name="SocialLinksProps" />
+
+## Anatomía y CSS
+
+<CssReference module="SocialLinks" />
+
+## Relacionados
+
+- [Footer](/docs/componentes/navegacion/footer)
+- [Iconografía](/docs/fundamentos/iconografia)

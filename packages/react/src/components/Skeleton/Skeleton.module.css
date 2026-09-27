@@ -49,4 +49,10 @@
       background-position: -50% 0;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      animation: none;
+    }
+  }
 }

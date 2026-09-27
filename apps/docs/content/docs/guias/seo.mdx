@@ -1,0 +1,75 @@
+---
+title: SEO
+description: Buenas prácticas de posicionamiento para webs corporativas con Betterlibs UI.
+icon: Search
+---
+
+Una web accesible ya tiene medio SEO hecho: estructura clara, textos descriptivos y buen
+rendimiento son lo que buscan tanto los lectores de pantalla como los buscadores. Esto es lo que
+aporta la librería y lo que depende de ti.
+
+## Lo que ya hace la librería
+
+| Qué | Cómo |
+| --- | --- |
+| Estructura de encabezados | Un `h1` en `Hero`; los bloques usan `h2` y sus elementos `h3` |
+| Secciones con nombre | Cada bloque con título es una región (`aria-labelledby`) |
+| Datos estructurados | `Breadcrumb` (`BreadcrumbList`) y `FAQ` (`FAQPage`) generan JSON-LD |
+| Enlaces rastreables | `Pagination` genera enlaces reales; las tarjetas usan un `<a>` en el título |
+| Rendimiento | Sin runtime de estilos, CSS en capas, imágenes con `loading="lazy"` y proporción fija (sin saltos de diseño) |
+| Server Components | La mayoría de componentes y bloques se renderizan en el servidor |
+
+## Lo que depende de ti
+
+### Títulos y descripciones
+
+Cada página necesita un `<title>` único (50-60 caracteres) y una meta descripción (120-155) que
+resuma el contenido y anime a hacer clic. En Next.js:
+
+```tsx
+export const metadata = {
+  title: 'Asesoría fiscal para pymes en Madrid · Norte Consultores',
+  description: 'Impuestos al día y sin sorpresas. Planificación fiscal para pymes y autónomos.',
+}
+```
+
+### Un tema por página
+
+Una página por servicio, con su propio `h1` y URL descriptiva (`/servicios/asesoria-fiscal`, no
+`/servicio?id=3`). Las migas de pan con `schemaBaseUrl` ayudan a Google a entender la jerarquía.
+
+### Imágenes
+
+- `alt` descriptivo en imágenes con información; `alt=""` en las decorativas.
+- Tamaño adecuado y formatos modernos (AVIF/WebP). `Image` con `priority` para la imagen principal:
+  mejora el LCP.
+
+### Datos de la empresa
+
+Añade el marcado `Organization` o `LocalBusiness` en el layout (nombre, logo, dirección,
+teléfono). Coincide con lo que muestra tu `Footer` y tu `ContactSection`.
+
+```tsx
+<script type="application/ld+json">{JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Norte Consultores',
+  telephone: '+34 910 000 000',
+  address: { '@type': 'PostalAddress', streetAddress: 'Paseo de la Castellana 100', addressLocality: 'Madrid', postalCode: '28046', addressCountry: 'ES' },
+})}</script>
+```
+
+### Idioma
+
+`<html lang="es">` y, si hay versiones en otros idiomas, `hreflang` entre ellas.
+
+## Lista de comprobación
+
+- [ ] `<title>` y meta descripción únicos en cada página.
+- [ ] Un solo `h1` por página y encabezados sin saltos.
+- [ ] URLs cortas y descriptivas.
+- [ ] Imágenes con `alt` y tamaño adecuado; la principal con `priority`.
+- [ ] Migas de pan con `schemaBaseUrl` en páginas interiores.
+- [ ] Datos estructurados de la empresa en el layout.
+- [ ] `sitemap.xml` y `robots.txt`.
+- [ ] Lighthouse ≥ 95 en rendimiento, accesibilidad y SEO.

@@ -1,0 +1,62 @@
+---
+title: Prose
+description: Estilos tipográficos para contenido enriquecido (artículos, textos legales, Markdown, CMS).
+---
+
+import { Prose } from '@betterlibs/react'
+
+<Preview>
+  <Prose>
+    <h2>Qué cambia en 2026</h2>
+    <p>La principal novedad es la ampliación del régimen de franquicia. Si tienes dudas, <a href="#">escríbenos</a>.</p>
+    <ul>
+      <li>Nuevo umbral de facturación.</li>
+      <li>Plazos de presentación unificados.</li>
+    </ul>
+    <blockquote><p>Un calendario fiscal claro evita la mayoría de recargos.</p></blockquote>
+    <p>Usa <code>Prose</code> cuando no controlas cada elemento.</p>
+  </Prose>
+</Preview>
+
+```tsx
+// HTML de un CMS
+<Prose as="article" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+// Markdown/MDX
+<Prose size="lg"><Contenido /></Prose>
+```
+
+## Cuándo usarlo
+
+Cuando el contenido llega ya escrito y no puedes poner un componente en cada elemento: artículos
+del blog, páginas legales, fichas de producto desde un CMS, Markdown. Para maquetar una página,
+usa los componentes (`Heading`, `Text`, `Stack`…).
+
+## Qué incluye
+
+Titulares (`h2`-`h4`), párrafos, enlaces, listas, citas, tablas (con scroll horizontal si no
+caben), código, imágenes con pie, separadores y `<mark>`. El ancho se limita a unos 65 caracteres
+por línea y `size="lg"` agranda el texto para lecturas largas.
+
+Todos los estilos usan `:where()`: tienen especificidad cero y cualquier clase tuya los sobrescribe.
+
+## Accesibilidad
+
+- Revisa que el contenido empiece por `h2` si la página ya tiene su `h1`.
+- Los enlaces están siempre subrayados y los titulares tienen `scroll-margin` para no quedar
+  tapados por una cabecera fija al saltar a un ancla.
+
+## Props
+
+Admite `as` (`div` por defecto) y cualquier atributo HTML.
+
+<PropsTable name="ProseOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Prose" />
+
+## Relacionados
+
+- [Text](/docs/componentes/tipografia/text)
+- [Blog](/docs/bloques/blog)

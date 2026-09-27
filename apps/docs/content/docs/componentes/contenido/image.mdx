@@ -1,0 +1,51 @@
+---
+title: Image
+description: Imagen con proporción fija, radio, pie de foto y carga diferida por defecto.
+---
+
+import { Grid, Image } from '@betterlibs/react'
+
+<Preview>
+  <Grid columns={{ base: 1, md: 2 }} gap="6">
+    <Image src="https://picsum.photos/seed/oficina/800/600" alt="Sala de reuniones de la oficina de Madrid" ratio={4 / 3} radius="xl" />
+    <Image src="https://picsum.photos/seed/equipo/800/600" alt="" ratio={16 / 9} radius="lg" caption="Equipo de auditoría, 2026." />
+  </Grid>
+</Preview>
+
+```tsx
+<Image src="/oficina.jpg" alt="Sala de reuniones de la oficina de Madrid" ratio={4 / 3} />
+
+// Imagen principal de la página: sin carga diferida y con prioridad
+<Image src="/hero.jpg" alt="…" priority />
+```
+
+## Cuándo usarlo
+
+Para cualquier imagen de contenido. `ratio` reserva el hueco antes de cargar (sin saltos de
+diseño) y `fit` elige entre recortar (`cover`) o encajar (`contain`, para logos). Si usas
+`next/image` u otro componente de tu framework, pásalo como hijo de `AspectRatio`.
+
+## Textos
+
+`alt` es obligatorio:
+
+- Describe lo que **aporta** la imagen en su contexto: «Gráfico: las ventas crecen un 20 % en 2026».
+- Si es decorativa o su contenido ya está en el texto, `alt=""`.
+- No empieces por «Imagen de…»: los lectores de pantalla ya dicen que es una imagen.
+
+## Accesibilidad
+
+`loading="lazy"` y `decoding="async"` por defecto; `priority` los desactiva para la imagen
+principal. Con `caption`, la imagen se envuelve en `<figure>` con `<figcaption>`.
+
+## Props
+
+<PropsTable name="ImageProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Image" />
+
+## Relacionados
+
+- [AspectRatio](/docs/componentes/layout/aspect-ratio)

@@ -1,0 +1,83 @@
+---
+title: Accordion
+description: Secciones desplegables, ideales para preguntas frecuentes.
+---
+
+import { Accordion, AccordionItem, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="10">
+    <Accordion defaultValue="plazos">
+      <AccordionItem value="plazos" title="¿Cuánto tarda un proyecto web?">
+        Entre 4 y 8 semanas, según el número de páginas y funcionalidades.
+      </AccordionItem>
+      <AccordionItem value="precio" title="¿Cómo se calcula el presupuesto?">
+        Por fases cerradas: sabrás el coste total antes de empezar.
+      </AccordionItem>
+      <AccordionItem value="mantenimiento" title="¿Incluye mantenimiento?">
+        El primer año sí: actualizaciones, copias de seguridad y soporte por email.
+      </AccordionItem>
+    </Accordion>
+    <Accordion type="multiple" variant="separated">
+      <AccordionItem value="a" title="Variante separated">Cada elemento en su tarjeta.</AccordionItem>
+      <AccordionItem value="b" title="type=multiple">Se pueden abrir varios a la vez.</AccordionItem>
+    </Accordion>
+  </Stack>
+</Preview>
+
+```tsx
+<Accordion headingLevel={3}>
+  <AccordionItem value="plazos" title="¿Cuánto tarda un proyecto web?">
+    Entre 4 y 8 semanas.
+  </AccordionItem>
+</Accordion>
+```
+
+## Cuándo usarlo
+
+Para contenido que no todos necesitan leer: preguntas frecuentes, condiciones, detalles de un
+servicio. Si todo el contenido es importante, muéstralo abierto (o usa el bloque
+[`FAQ`](/docs/bloques/conversion) en `variant="columns"`).
+
+## Opciones
+
+- Por defecto, una sola sección abierta que se puede cerrar (`type="single"` + `collapsible`);
+  `type="multiple"` permite varias.
+- `variant`: `default` (separadores), `bordered` (marco) o `separated` (tarjetas).
+- `headingLevel`: nivel del encabezado de cada pregunta (3 por defecto).
+- `icon` en cada `AccordionItem`.
+
+## Textos
+
+Preguntas tal como las haría el cliente («¿Hay permanencia?») y respuestas que empiezan por la
+respuesta («No. Los planes son mensuales…»).
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `Enter` / `Espacio` | Abren o cierran la sección |
+| `↑` / `↓` | Pasan de una pregunta a otra |
+| `Inicio` / `Fin` | Primera / última pregunta |
+
+Cada pregunta es un encabezado con un botón (`aria-expanded`): aparece en la lista de encabezados
+de los lectores de pantalla. Ajusta `headingLevel` a la jerarquía de la página.
+
+## Props
+
+<PropsTable name="AccordionProps" />
+
+### AccordionItem
+
+<PropsTable name="AccordionItemProps" />
+
+`Accordion` acepta además `value`, `defaultValue`, `onValueChange` y `collapsible` de Radix.
+
+## Anatomía y CSS
+
+<CssReference module="Accordion" />
+
+## Relacionados
+
+- [FAQ](/docs/bloques/conversion)
+- [Tabs](/docs/componentes/interactivos/tabs)

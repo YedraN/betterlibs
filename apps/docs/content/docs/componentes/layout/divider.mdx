@@ -1,0 +1,44 @@
+---
+title: Divider
+description: Línea para separar grupos de contenido, con texto opcional.
+---
+
+import { Divider, Stack, Text } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="4">
+    <Text>Contenido de arriba</Text>
+    <Divider />
+    <Divider label="o continúa con" />
+    <Stack direction="row" gap="4" align="center">
+      <Text>Izquierda</Text>
+      <Divider orientation="vertical" style={{ height: '1.5rem' }} />
+      <Text>Derecha</Text>
+    </Stack>
+  </Stack>
+</Preview>
+
+```tsx
+<Divider />
+<Divider label="o continúa con" />
+<Divider orientation="vertical" />
+```
+
+## Cuándo usarlo
+
+Para separar grupos de contenido cuando el espacio en blanco no basta. En páginas, prefiere
+alternar fondos de `Section`: separa sin añadir ruido visual.
+
+## Accesibilidad
+
+Por defecto es **decorativo**: se oculta a los lectores de pantalla, porque casi siempre la
+estructura (encabezados, listas) ya separa el contenido. Usa `decorative={false}` cuando la línea
+separa grupos con significado distinto: pasa a ser un `separator` anunciado.
+
+## Props
+
+<PropsTable name="DividerProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Divider" />

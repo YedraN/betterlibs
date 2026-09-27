@@ -1,0 +1,61 @@
+---
+title: Link
+description: Enlaces en línea, sueltos o discretos, con aviso de pestaña nueva.
+---
+
+import { Link, Stack, Text } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="4">
+    <Text>Un <Link href="#">enlace en línea</Link> dentro de un párrafo, siempre subrayado.</Text>
+    <Link href="#" variant="standalone" arrow>Ver todos los casos de éxito</Link>
+    <Link href="https://www.aepd.es" target="_blank">Agencia Española de Protección de Datos</Link>
+    <Link href="#" variant="subtle">Enlace discreto (pie de página)</Link>
+  </Stack>
+</Preview>
+
+```tsx
+<Link href="/casos" variant="standalone" arrow>Ver todos los casos de éxito</Link>
+
+// Con el enlace de tu router
+<Link asChild><NextLink href="/servicios">Servicios</NextLink></Link>
+```
+
+## Cuándo usarlo
+
+Para **navegar** a otra página o sección. Si el elemento **hace** algo (enviar, abrir, borrar), es
+un [`Button`](/docs/componentes/acciones/button). Y si un botón debe llevar a otra página, usa
+`<Button asChild>` con un enlace dentro.
+
+## Variantes
+
+| `variant` | Uso |
+| --- | --- |
+| `inline` | Dentro de un párrafo. Siempre subrayado: el color solo no basta (WCAG 1.4.1) |
+| `standalone` | Enlace suelto («Ver todos…»), ideal con `arrow` |
+| `subtle` | Navegación secundaria: hereda el color del texto |
+
+## Textos
+
+- El texto debe describir el destino por sí solo: «Descargar el informe anual (PDF, 2 MB)», nunca
+  «haz clic aquí» ni «más información».
+- Indica el formato y el tamaño de los archivos.
+
+## Accesibilidad
+
+- Con `target="_blank"` (o `external`), el enlace añade `rel="noopener noreferrer"`, un icono y el
+  aviso «(se abre en una pestaña nueva)» para lectores de pantalla.
+- Foco visible con anillo de 3:1 de contraste.
+
+## Props
+
+<PropsTable name="LinkProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Link" />
+
+## Relacionados
+
+- [Button](/docs/componentes/acciones/button)
+- [Breadcrumb](/docs/componentes/navegacion/breadcrumb)

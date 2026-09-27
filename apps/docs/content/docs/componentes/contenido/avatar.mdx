@@ -1,0 +1,57 @@
+---
+title: Avatar
+description: Foto o iniciales de una persona u organización, y grupos de avatares.
+---
+
+import { Avatar, AvatarGroup, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6">
+    <Stack direction="row" gap="3" align="center">
+      <Avatar name="Ana Pérez" size="xs" />
+      <Avatar name="Ana Pérez" size="sm" />
+      <Avatar name="Ana Pérez" />
+      <Avatar name="Ana Pérez" size="lg" src="https://picsum.photos/seed/ana/200/200" />
+      <Avatar name="Norte Industrial" size="xl" shape="square" />
+    </Stack>
+    <AvatarGroup max={3}>
+      <Avatar name="Ana Pérez" />
+      <Avatar name="Luis Martín" />
+      <Avatar name="Sara Gil" />
+      <Avatar name="Jorge Ramos" />
+      <Avatar name="Marta León" />
+    </AvatarGroup>
+  </Stack>
+</Preview>
+
+```tsx
+<Avatar src="/equipo/ana.jpg" name="Ana Pérez" />
+<AvatarGroup max={3}>{personas.map((p) => <Avatar key={p.id} name={p.nombre} />)}</AvatarGroup>
+```
+
+## Cuándo usarlo
+
+Para identificar a personas (autores, equipo, testimonios) u organizaciones (`shape="square"`).
+Si la foto falla o no existe, se muestran las iniciales de `name`.
+
+## Accesibilidad
+
+- El texto alternativo es `name` por defecto. Si el nombre ya aparece al lado (lo habitual), usa
+  `alt=""` para que no se lea dos veces.
+- `AvatarGroup` resume los que no caben como «+2» y lo anuncia como «y 2 más» (`moreLabel`).
+
+## Props
+
+<PropsTable name="AvatarProps" />
+
+### AvatarGroup
+
+<PropsTable name="AvatarGroupProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Avatar" />
+
+## Relacionados
+
+- [TeamGrid](/docs/bloques/confianza)

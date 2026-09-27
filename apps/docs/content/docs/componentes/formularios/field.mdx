@@ -1,0 +1,85 @@
+---
+title: Field
+description: Etiqueta, ayuda y error enlazados con su control.
+---
+
+import { Field, Grid, Input } from '@betterlibs/react'
+
+<Preview>
+  <Grid columns={{ base: 1, md: 2 }} gap="6">
+    <Field label="Email de trabajo" description="Te responderemos aquí." required>
+      <Input type="email" autoComplete="email" />
+    </Field>
+    <Field label="Con error" error="Introduce un email válido, como nombre@empresa.com">
+      <Input type="email" defaultValue="nombre@empresa" />
+    </Field>
+    <Field label="Validado" success="Código de descuento aplicado">
+      <Input defaultValue="BIENVENIDA10" />
+    </Field>
+    <Field label="Empresa" indicator="optional">
+      <Input autoComplete="organization" />
+    </Field>
+  </Grid>
+</Preview>
+
+```tsx
+<Field label="Email de trabajo" name="email" description="Te responderemos aquí." required>
+  <Input type="email" autoComplete="email" />
+</Field>
+```
+
+## Cuándo usarlo
+
+Siempre que haya un `Input`, `Textarea`, `Select` o `FileInput`: genera los `id` y conecta la
+etiqueta (`htmlFor`) y los textos de ayuda y error (`aria-describedby`). Un lector de pantalla
+anuncia «Email de trabajo, obligatorio, editar texto, Te responderemos aquí».
+
+Casillas, radios e interruptores llevan su propia etiqueta; sus grupos usan `CheckboxGroup` y
+`RadioGroup`.
+
+## Decisiones de diseño
+
+- **La etiqueta, siempre visible.** El `placeholder` desaparece al escribir y tiene poco contraste:
+  úsalo solo para ejemplos de formato. Si el contexto es evidente (un buscador), `hideLabel`.
+- **El error va sobre el control**, bajo la ayuda: se ve aunque el teclado del móvil tape la parte
+  inferior de la pantalla o se use zoom.
+- **Obligatorio u opcional**: asterisco en los obligatorios (por defecto) o «(opcional)» en los
+  opcionales con `indicator="optional"`.
+
+## Controles propios
+
+Para integrar un control propio o de terceros (un selector de fechas), usa `useFieldControl`: te
+da `id`, `name`, `required`, `aria-describedby` y `aria-invalid` del `Field` que lo rodea.
+
+```tsx
+function DatePicker(props) {
+  const { controlProps } = useFieldControl(props)
+  return <ThirdPartyDatePicker {...props} {...controlProps} />
+}
+```
+
+## Accesibilidad
+
+- `name` en el `Field` se pasa al control y sirve para encontrar su error dentro de un `Form`.
+- Los errores llevan el prefijo oculto «Error:» y un icono: nunca solo color.
+
+## Props
+
+<PropsTable name="FieldProps" />
+
+### useFieldControl
+
+<PropsTable name="FieldControlOptions" />
+
+## Anatomía y CSS
+
+<CssReference module="Field" />
+
+Los controles de texto comparten además las clases de `Control`:
+
+<CssReference module="Control" />
+
+## Relacionados
+
+- [Form](/docs/componentes/formularios/form)
+- [Fieldset](/docs/componentes/formularios/fieldset)

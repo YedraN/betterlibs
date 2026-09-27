@@ -1,0 +1,70 @@
+---
+title: Toast
+description: Notificaciones breves que no interrumpen, con toast() y un Toaster.
+---
+
+<Preview>
+  <ToastDemo />
+</Preview>
+
+```tsx
+// app/layout.tsx: una sola vez
+import { Toaster } from '@betterlibs/react'
+<Toaster position="bottom-right" />
+
+// En cualquier componente de cliente
+import { toast } from '@betterlibs/react'
+
+toast.success('Cambios guardados')
+toast.error('No hemos podido enviar tu mensaje', { description: 'Inténtalo de nuevo.' })
+toast({ title: 'Artículo archivado', action: { label: 'Deshacer', onClick: restaurar } })
+const id = toast('Subiendo archivo…')
+toast.dismiss(id)
+```
+
+## Cuándo usarlo
+
+Para confirmar acciones que no cambian la página («Enlace copiado», «Cambios guardados») o avisar
+de algo que ocurre en segundo plano.
+
+**No lo uses** para errores de formulario (van junto al campo) ni para información que haya que
+leer con calma: desaparece sola. En esos casos, [`Alert`](/docs/componentes/feedback/alert).
+
+## Opciones
+
+- `toast()`, `toast.info/success/warning/error()`, `toast.dismiss(id?)`.
+- `duration` (6 s por defecto en el `Toaster`); con `action` no se cierran solas.
+- `id` propio para actualizar una notificación («Subiendo…» → «Subido»).
+- Máximo 4 visibles: la más antigua se cierra al llegar otra.
+
+## Accesibilidad
+
+| Tecla | Acción |
+| --- | --- |
+| `F8` | Lleva el foco a las notificaciones |
+| `Tab` | Recorre sus botones |
+| `Escape` | Cierra la notificación enfocada |
+
+- Se anuncian a los lectores de pantalla; las de error, de forma inmediata.
+- Se pausan al pasar el ratón, al enfocarlas o si la ventana pierde el foco, y se descartan
+  deslizando.
+- La acción debe poder hacerse también desde otro sitio: `altText` explica dónde para quien no llega
+  a tiempo.
+
+## Props
+
+### Toaster
+
+<PropsTable name="ToasterProps" />
+
+### Opciones de toast()
+
+<PropsTable name="ToastOptions" />
+
+## Anatomía y CSS
+
+<CssReference module="Toast" />
+
+## Relacionados
+
+- [Alert](/docs/componentes/feedback/alert)

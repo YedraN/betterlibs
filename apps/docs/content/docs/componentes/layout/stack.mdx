@@ -1,0 +1,60 @@
+---
+title: Stack
+description: Apila elementos en vertical u horizontal con una separación del sistema.
+---
+
+import { Badge, Button, Stack, Text } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6">
+    <Stack gap="2">
+      <Text weight="semibold">Vertical (por defecto)</Text>
+      <Text tone="muted">Cada elemento, debajo del anterior.</Text>
+    </Stack>
+    <Stack direction="row" gap="2" align="center" wrap>
+      <Badge tone="success">Horizontal</Badge>
+      <Badge>con</Badge>
+      <Badge>wrap</Badge>
+    </Stack>
+    <Stack direction="row" gap="3" stackBelow="sm">
+      <Button>Se apila en móvil</Button>
+      <Button variant="outline">stackBelow="sm"</Button>
+    </Stack>
+  </Stack>
+</Preview>
+
+```tsx
+<Stack direction="row" gap="3" align="center" stackBelow="md">…</Stack>
+```
+
+## Cuándo usarlo
+
+Para colocar elementos seguidos (titular + texto + botones, un icono junto a un texto) con una
+separación consistente, sin márgenes sueltos. Para rejillas de tarjetas, usa `Grid`.
+
+## Opciones
+
+- `gap`: un paso de la escala de espaciado (`'4'` = 16px por defecto).
+- `direction`: `column` o `row`; `wrap` permite saltar de línea en horizontal.
+- `stackBelow`: en horizontal, pasa a vertical por debajo de ese breakpoint.
+- `align` y `justify`: alineación en cada eje.
+
+## Accesibilidad
+
+`Stack` solo cambia el aspecto: el orden de lectura es el del código. No uses `order` ni
+`flex-direction: row-reverse` para reordenar contenido con significado.
+
+## Props
+
+Admite `as` (`div` por defecto): usa `as="ul"` para listas, por ejemplo.
+
+<PropsTable name="StackOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Stack" />
+
+## Relacionados
+
+- [Grid](/docs/componentes/layout/grid)
+- [Espaciado](/docs/fundamentos/espaciado)

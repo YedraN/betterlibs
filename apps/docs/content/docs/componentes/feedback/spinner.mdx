@@ -1,0 +1,42 @@
+---
+title: Spinner
+description: Indicador de carga para esperas cortas de duración desconocida.
+---
+
+import { Spinner } from '@betterlibs/react'
+
+<Preview align="center">
+  <Spinner size="sm" />
+  <Spinner />
+  <Spinner size="lg" label="Cargando artículos…" />
+</Preview>
+
+```tsx
+<Spinner label="Cargando artículos…" />
+```
+
+## Cuándo usarlo
+
+Para esperas breves (menos de unos segundos) en las que no sabes cuánto falta. Para contenido que
+tarda más y cuya forma conoces (una lista de tarjetas), un [`Skeleton`](/docs/componentes/feedback/skeleton)
+da mejor sensación. Dentro de un botón, usa `Button loading`.
+
+## Accesibilidad
+
+- Se anuncia como `role="status"` con el texto de `label` («Cargando…» por defecto).
+- Si otro elemento ya anuncia la carga (un botón con `aria-busy`), usa `decorative` para no
+  duplicar el anuncio.
+- Con «reducir movimiento», gira más despacio.
+
+## Props
+
+<PropsTable name="SpinnerProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Spinner" />
+
+## Relacionados
+
+- [Skeleton](/docs/componentes/feedback/skeleton)
+- [Button](/docs/componentes/acciones/button) (`loading`)

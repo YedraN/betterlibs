@@ -1,0 +1,179 @@
+/* Tipografía para contenido enriquecido. `:where()` mantiene la especificidad baja: tus estilos ganan. */
+@layer bl.components {
+  .root {
+    max-inline-size: var(--bl-container-prose);
+    color: var(--bl-color-text);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-relaxed);
+    overflow-wrap: break-word;
+  }
+
+  .root[data-size="lg"] {
+    font-size: var(--bl-font-size-lg);
+  }
+
+  .root > :where(:first-child) {
+    margin-block-start: 0;
+  }
+
+  .root > :where(:last-child) {
+    margin-block-end: 0;
+  }
+
+  .root :where(p, ul, ol, dl, blockquote, pre, table, figure, hr) {
+    margin-block: 0 1.25em;
+  }
+
+  .root :where(h2, h3, h4) {
+    margin-block: 2em 0.6em;
+    color: var(--bl-color-text);
+    font-family: var(--bl-font-family-display);
+    font-weight: var(--bl-font-weight-semibold);
+    letter-spacing: var(--bl-tracking-tight);
+    line-height: var(--bl-leading-snug);
+    text-wrap: balance;
+    scroll-margin-block-start: var(--bl-space-24);
+  }
+
+  .root :where(h2) {
+    font-size: var(--bl-font-size-2xl);
+  }
+
+  .root :where(h3) {
+    font-size: var(--bl-font-size-xl);
+  }
+
+  .root :where(h4) {
+    font-size: var(--bl-font-size-lg);
+  }
+
+  .root :where(h2 + *, h3 + *, h4 + *) {
+    margin-block-start: 0;
+  }
+
+  .root :where(a) {
+    color: var(--bl-color-accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .root :where(a:hover) {
+    text-decoration-thickness: 2px;
+  }
+
+  .root :where(a:focus-visible) {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .root :where(strong, b) {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .root :where(ul, ol) {
+    padding-inline-start: 1.5em;
+  }
+
+  .root :where(li + li) {
+    margin-block-start: 0.4em;
+  }
+
+  .root :where(li)::marker {
+    color: var(--bl-color-text-muted);
+  }
+
+  .root :where(dt) {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .root :where(dd) {
+    margin: 0 0 0.75em;
+    color: var(--bl-color-text-muted);
+  }
+
+  .root :where(blockquote) {
+    margin-inline: 0;
+    padding-inline-start: 1.25em;
+    border-inline-start: 3px solid var(--bl-color-accent-text);
+    color: var(--bl-color-text);
+    font-size: 1.125em;
+    font-style: italic;
+  }
+
+  .root :where(hr) {
+    block-size: 1px;
+    margin-block: 2.5em;
+    border: 0;
+    background-color: var(--bl-color-border);
+  }
+
+  .root :where(img, video) {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--bl-radius-lg);
+  }
+
+  .root :where(figure) {
+    margin-inline: 0;
+  }
+
+  .root :where(figcaption) {
+    margin-block-start: 0.6em;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .root :where(code) {
+    padding: 0.1em 0.35em;
+    border-radius: var(--bl-radius-sm);
+    background-color: var(--bl-color-bg-muted);
+    font-family: var(--bl-font-family-mono);
+    font-size: 0.875em;
+  }
+
+  .root :where(pre) {
+    overflow-x: auto;
+    padding: 1em 1.25em;
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-bg-inverse);
+    color: var(--bl-color-text-inverse);
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .root :where(pre code) {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  /* Tablas con scroll propio en móvil: envuélvelas en un div si son anchas. */
+  .root :where(table) {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .root :where(th, td) {
+    padding: 0.6em 0.9em;
+    border-block-end: 1px solid var(--bl-color-border);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  .root :where(th) {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .root :where(mark) {
+    padding: 0 0.15em;
+    border-radius: 2px;
+    background-color: var(--bl-color-warning-bg);
+    color: var(--bl-color-warning-text);
+  }
+}

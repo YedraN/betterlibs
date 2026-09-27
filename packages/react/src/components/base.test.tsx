@@ -12,6 +12,7 @@ import { Icon } from './Icon/Icon'
 import { IconButton } from './IconButton/IconButton'
 import { Image } from './Image/Image'
 import { Link } from './Link/Link'
+import { Prose } from './Prose/Prose'
 import { Skeleton } from './Skeleton/Skeleton'
 import { SkipLink } from './SkipLink/SkipLink'
 import { Spinner } from './Spinner/Spinner'
@@ -192,6 +193,23 @@ describe('Accesibilidad de componentes base', () => {
         </main>
       </div>,
     )
+    await expectNoA11yViolations(container)
+  })
+})
+
+describe('Prose', () => {
+  it('aplica los estilos de texto enriquecido al elemento elegido', async () => {
+    const { container } = render(
+      <Prose as="article" size="lg">
+        <h2>Qué cambia</h2>
+        <p>
+          Texto con un <a href="/contacto">enlace</a>.
+        </p>
+      </Prose>,
+    )
+    const article = container.querySelector('article')
+    expect(article?.getAttribute('data-size')).toBe('lg')
+    expect(screen.getByRole('heading', { level: 2 })).toBeTruthy()
     await expectNoA11yViolations(container)
   })
 })

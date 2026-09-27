@@ -1,0 +1,69 @@
+---
+title: Select
+description: Desplegable nativo con estilos del sistema, marcador y grupos de opciones.
+---
+
+import { Field, Select, Stack } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6" style={{ maxWidth: '28rem' }}>
+    <Field label="Tamaño de la empresa" required>
+      <Select
+        placeholder="Selecciona una opción"
+        options={[
+          { value: '1-10', label: '1 a 10 personas' },
+          { value: '11-50', label: '11 a 50 personas' },
+          { value: '51+', label: 'Más de 50 personas' },
+        ]}
+      />
+    </Field>
+    <Field label="Oficina más cercana">
+      <Select
+        defaultValue="mad"
+        options={[
+          { label: 'España', options: [{ value: 'mad', label: 'Madrid' }, { value: 'bcn', label: 'Barcelona' }] },
+          { label: 'Portugal', options: [{ value: 'lis', label: 'Lisboa' }] },
+        ]}
+      />
+    </Field>
+  </Stack>
+</Preview>
+
+```tsx
+<Field label="Tamaño de la empresa" name="tamano" required>
+  <Select placeholder="Selecciona una opción" options={opciones} />
+</Field>
+```
+
+## Cuándo usarlo
+
+Para elegir una opción de una lista larga (provincias, sectores). Es un `<select>` nativo: lo más
+accesible y, en móvil, abre el selector del sistema.
+
+<Callout title="¿Select o RadioGroup?">
+  Con **menos de 5 opciones**, un `RadioGroup` es más rápido: se ven todas sin abrir nada.
+</Callout>
+
+## Opciones
+
+- `placeholder`: primera opción vacía. Si el campo es obligatorio, no se puede volver a elegir y la
+  validación exige una opción real.
+- `options`: opciones como datos (con grupos `{ label, options }`), o `<option>` como hijos.
+- `multiple` y `htmlSize` para listas de selección múltiple (poco recomendables: usa casillas).
+
+## Accesibilidad
+
+Teclado y lectores de pantalla nativos. Dentro de un `Field` recibe etiqueta, ayuda y error.
+
+## Props
+
+<PropsTable name="SelectProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Select" />
+
+## Relacionados
+
+- [RadioGroup](/docs/componentes/formularios/radio-group)
+- [Field](/docs/componentes/formularios/field)

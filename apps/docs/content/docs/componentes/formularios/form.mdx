@@ -1,0 +1,104 @@
+---
+title: Form
+description: Formulario con validación accesible, resumen de errores y gestión del foco.
+---
+
+import { ErrorSummary } from '@betterlibs/react'
+
+<Preview>
+  <ContactFormDemo />
+</Preview>
+
+```tsx
+<Form
+  onSubmit={async (event) => {
+    event.preventDefault() // solo se llama si todo es válido
+    await enviar(new FormData(event.currentTarget))
+  }}
+  validate={(data) => ({
+    telefono:
+      data.get('canal') === 'telefono' && !data.get('telefono')
+        ? 'Introduce un teléfono para poder llamarte'
+        : undefined,
+  })}
+>
+  <Field label="Email" name="email" required>
+    <Input type="email" autoComplete="email" />
+  </Field>
+  <Button type="submit">Enviar</Button>
+</Form>
+```
+
+## Cómo funciona
+
+Usa la validación nativa del navegador (`required`, `type="email"`, `minLength`, `pattern`,
+`min`/`max`…) pero sustituye sus burbujas por mensajes propios, en español y orientados a la
+solución. Al enviar con errores:
+
+1. Cancela el envío (también el de las `action` de React 19).
+2. Muestra el error de cada campo sobre su control.
+3. Muestra un **resumen** con un enlace a cada campo y le lleva el foco (`focusOnError="field"`
+   para ir directamente al primer campo con error).
+4. Revisa de nuevo cada campo al salir de él y quita el error en cuanto se corrige.
+
+<Preview>
+  <ErrorSummary
+    errors={[
+      { label: 'Email', message: 'Introduce un email válido, como nombre@empresa.com' },
+      { label: 'Mensaje', message: 'Escribe al menos 20 caracteres' },
+    ]}
+  />
+</Preview>
+
+## Mensajes
+
+| Regla | Mensaje por defecto |
+| --- | --- |
+| `required` | «Este campo es obligatorio» (o «Introduce tu email», «Selecciona una opción», «Marca esta casilla para continuar»…) |
+| `type="email"` | «Introduce un email válido, como nombre@empresa.com» |
+| `type="url"` | «Introduce una dirección web válida, como https://empresa.com» |
+| `minLength` / `maxLength` | «Escribe al menos 20 caracteres» / «Escribe como máximo 500 caracteres» |
+| `pattern` | El `title` del campo o «El formato no es válido» |
+| `min` / `max` | «Introduce un valor igual o superior a 0» |
+| `CheckboxGroup required` | «Selecciona al menos una opción» |
+
+Cámbialos con `messages`: `messages={{ valueMissing: () => 'Necesitamos este dato' }}`.
+
+## Errores del servidor
+
+Pasa los errores de tu API en `errors`, por `name`. Se muestran igual que los del navegador (con
+resumen y foco) y se ocultan en cuanto se modifica el campo.
+
+```tsx
+const [errors, setErrors] = useState<FormErrors>()
+<Form errors={errors} onSubmit={…}>
+```
+
+Con Server Actions: `<Form action={accion} errors={state.errors}>`; si hay errores en el navegador,
+la acción no se ejecuta.
+
+## Marca de obligatorios
+
+`indicator="required"` (por defecto) marca los obligatorios con un asterisco y añade la nota «Los
+campos marcados con * son obligatorios». Si casi todo es obligatorio, `indicator="optional"`
+marca los pocos opcionales con «(opcional)».
+
+## Accesibilidad
+
+- `noValidate` por defecto: sin burbujas del navegador, que no se pueden leer con zoom ni traducir.
+- El resumen es lo primero que se lee tras enviar y cada enlace lleva el foco al campo.
+- `aria-invalid` y `aria-describedby` en cada control con error.
+
+## Props
+
+<PropsTable name="FormProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Form" />
+
+## Relacionados
+
+- [Field](/docs/componentes/formularios/field)
+- [ErrorSummary](/docs/componentes/formularios/error-summary)
+- [Formulario de contacto accesible](/docs/guias/formulario-de-contacto)

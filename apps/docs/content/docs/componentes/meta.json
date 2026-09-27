@@ -1,4 +1,16 @@
 {
   "title": "Componentes",
-  "pages": ["index", "formularios", "interactivos", "navegacion"]
+  "pages": [
+    "index",
+    "layout",
+    "tipografia",
+    "acciones",
+    "contenido",
+    "feedback",
+    "formularios",
+    "overlays",
+    "interactivos",
+    "navegacion",
+    "utilidades"
+  ]
 }

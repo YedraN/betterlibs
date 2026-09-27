@@ -1,0 +1,54 @@
+---
+title: Textarea
+description: Texto de varias líneas con contador de caracteres y altura automática opcionales.
+---
+
+import { Field, Stack, Textarea } from '@betterlibs/react'
+
+<Preview>
+  <Stack gap="6" style={{ maxWidth: '32rem' }}>
+    <Field label="¿En qué podemos ayudarte?" description="Objetivos, plazos y cualquier detalle útil.">
+      <Textarea rows={4} maxLength={500} showCount />
+    </Field>
+    <Field label="Comentarios" indicator="optional" description="Crece con el contenido.">
+      <Textarea autoResize rows={2} />
+    </Field>
+  </Stack>
+</Preview>
+
+```tsx
+<Field label="Mensaje" name="mensaje" required>
+  <Textarea rows={5} minLength={20} maxLength={1000} showCount />
+</Field>
+```
+
+## Cuándo usarlo
+
+Para respuestas de más de una frase: un mensaje, una descripción. El número de filas (`rows`)
+sugiere cuánto escribir: ajústalo a la respuesta esperada.
+
+## Opciones
+
+- `showCount` + `maxLength`: contador «120/500» que se vuelve rojo al llegar al límite.
+- `autoResize`: crece con el contenido (en navegadores con `field-sizing`).
+- `resize`: `vertical` (por defecto) o `none`.
+
+## Accesibilidad
+
+- Con contador, los lectores de pantalla oyen el límite al entrar («Máximo 500 caracteres») y un
+  aviso cuando queda poco margen, **solo al dejar de escribir** para no interrumpir
+  (`remainingLabel`, `maxLengthLabel`).
+- Dentro de un `Field` recibe etiqueta, ayuda y error.
+
+## Props
+
+<PropsTable name="TextareaProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Textarea" />
+
+## Relacionados
+
+- [Input](/docs/componentes/formularios/input)
+- [Field](/docs/componentes/formularios/field)

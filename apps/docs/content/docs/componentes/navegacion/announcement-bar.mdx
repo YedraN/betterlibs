@@ -1,0 +1,56 @@
+---
+title: AnnouncementBar
+description: Franja sobre la cabecera para un anuncio breve, con cierre recordado.
+---
+
+import { CalendarIcon } from '@betterlibs/icons'
+import { AnnouncementBar, Stack } from '@betterlibs/react'
+
+<Preview padded={false}>
+  <Stack gap="0">
+    <AnnouncementBar icon={<CalendarIcon />} action={<a href="#evento">Reserva tu plaza</a>} dismissible>
+      Jornada «Cierre fiscal 2026»: 12 de noviembre en Madrid.
+    </AnnouncementBar>
+    <AnnouncementBar tone="neutral">Del 1 al 31 de agosto atendemos de 8 a 15 h.</AnnouncementBar>
+    <AnnouncementBar tone="warning">El área de clientes no estará disponible el sábado de 2 a 4 h.</AnnouncementBar>
+  </Stack>
+</Preview>
+
+```tsx
+<AnnouncementBar
+  dismissible
+  storageKey="aviso-jornada-2026" // cambia la clave en cada anuncio nuevo
+  action={<a href="/eventos/cierre-fiscal">Reserva tu plaza</a>}
+>
+  Jornada «Cierre fiscal 2026»: 12 de noviembre en Madrid.
+</AnnouncementBar>
+```
+
+## Cuándo usarlo
+
+Para un anuncio breve de toda la web: un evento, un lanzamiento, un cambio de horario. Un solo
+mensaje, corto y con un enlace como mucho. No lo uses para avisos legales ni para el aviso de
+cookies ([`CookieConsent`](/docs/bloques/cookies)).
+
+## Opciones
+
+- `tone`: `brand` (por defecto), `neutral`, `dark`, `info` o `warning`.
+- `dismissible` + `storageKey`: el cierre se recuerda en `localStorage` entre visitas.
+
+## Accesibilidad
+
+Es una región con nombre («Anuncio»; `label`) que se encuentra al navegar por regiones, sin
+interrumpir con anuncios automáticos. El botón de cerrar se llama «Cerrar anuncio».
+
+## Props
+
+<PropsTable name="AnnouncementBarProps" />
+
+## Anatomía y CSS
+
+<CssReference module="AnnouncementBar" />
+
+## Relacionados
+
+- [Header](/docs/componentes/navegacion/header)
+- [Alert](/docs/componentes/feedback/alert)

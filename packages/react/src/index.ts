@@ -199,6 +199,7 @@ export {
   type PortalProviderProps,
   usePortalContainer,
 } from './components/Portal/Portal'
+export { Prose, type ProseOwnProps, type ProseProps } from './components/Prose/Prose'
 export {
   Radio,
   RadioGroup,

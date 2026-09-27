@@ -1,0 +1,62 @@
+---
+title: Contribuir
+description: Cómo proponer cambios, desarrollar en local y qué se revisa en cada componente.
+icon: GitPullRequest
+---
+
+¡Gracias por querer mejorar Betterlibs UI! Estas son las reglas del proyecto.
+
+## En local
+
+Requisitos: Node ≥ 22 y pnpm 12.
+
+```bash
+pnpm install
+pnpm build                                  # compila tokens, iconos y componentes
+pnpm --filter @betterlibs/storybook dev     # http://localhost:6006
+pnpm --filter @betterlibs/docs dev          # http://localhost:3000
+pnpm --filter @betterlibs/playground dev    # http://localhost:5173
+```
+
+Antes de abrir una pull request:
+
+```bash
+pnpm check      # lint y formato (Biome)
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+## Estructura
+
+| Carpeta | Contenido |
+| --- | --- |
+| `packages/tokens` | Tokens, temas y `createTheme` |
+| `packages/icons` | Iconos SVG |
+| `packages/react/src/components` | Componentes (`Nombre/Nombre.tsx` + `.module.css`, stories y tests) |
+| `packages/react/src/blocks` | Bloques de sección |
+| `apps/docs` | Esta documentación (Next.js + Fumadocs) |
+| `apps/storybook` | Storybook |
+| `apps/playground` | Plantillas de ejemplo |
+
+## Definition of Done de un componente
+
+- [ ] Props tipadas con JSDoc en español (con `@default`): alimentan la tabla de props de la
+  documentación.
+- [ ] CSS Module dentro de `@layer bl.components`, solo con tokens `var(--bl-*)` y propiedades
+  lógicas (`inline-size`, `margin-inline`…).
+- [ ] Todos los estados: hover, `focus-visible`, activo, deshabilitado, carga, error.
+- [ ] Respeta `prefers-reduced-motion`.
+- [ ] Story con variantes, tamaños y estados.
+- [ ] Test con Testing Library y `expectNoA11yViolations` (axe).
+- [ ] Exportado en `packages/react/src/index.ts`.
+- [ ] Página de documentación: uso, ejemplos, textos, accesibilidad (tabla de teclado),
+  `<PropsTable>` y `<CssReference>`.
+- [ ] Un changeset (`pnpm changeset`) si cambia un paquete publicado.
+
+## Estilo del código
+
+- TypeScript estricto; Biome se encarga del formato (comillas simples, sin punto y coma, 100
+  columnas).
+- Textos por defecto en español y siempre sobrescribibles por props.
+- Commits en español con prefijo (`feat:`, `fix:`, `docs:`, `chore:`).

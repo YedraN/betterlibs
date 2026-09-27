@@ -1,0 +1,47 @@
+---
+title: Box
+description: Contenedor genérico con relleno, fondo, borde, radio y sombra del sistema.
+---
+
+import { Box, Grid, Text } from '@betterlibs/react'
+
+<Preview>
+  <Grid columns={{ base: 1, md: 3 }} gap="4">
+    <Box padding="6" radius="lg" bordered><Text>Con borde</Text></Box>
+    <Box padding="6" radius="lg" tone="subtle"><Text>Fondo sutil</Text></Box>
+    <Box padding="6" radius="lg" tone="raised" shadow="md"><Text>Elevada</Text></Box>
+  </Grid>
+</Preview>
+
+```tsx
+<Box padding="6" radius="lg" bordered>…</Box>
+```
+
+## Cuándo usarlo
+
+Para agrupar contenido en una caja (una tarjeta sencilla, un panel destacado) sin escribir CSS.
+Si necesitas algo más específico (una tarjeta de artículo, de precio…), mira los
+[bloques](/docs/bloques): ya resuelven la semántica.
+
+## Opciones
+
+- `padding`: paso de la escala de espaciado.
+- `tone`: `default`, `subtle`, `muted`, `raised` o `accent`.
+- `radius`, `bordered` y `shadow`.
+
+## Accesibilidad
+
+`Box` es un `div` sin significado. Si el contenido es una tarjeta con título, usa un encabezado
+dentro y, si es independiente (un artículo, un plan), `as="article"`.
+
+## Props
+
+<PropsTable name="BoxOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Box" />
+
+## Relacionados
+
+- [Forma](/docs/fundamentos/forma): radios y sombras.

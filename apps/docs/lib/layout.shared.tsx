@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared'
-import { appName, gitConfig, storybookUrl } from './shared'
+import { appName, gitConfig, playgroundUrl, storybookUrl } from './shared'
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -18,6 +18,7 @@ export function baseOptions(): BaseLayoutProps {
     },
     links: [
       { text: 'Documentación', url: '/docs', active: 'nested-url' },
+      { text: 'Plantillas', url: playgroundUrl, external: true },
       { text: 'Storybook', url: storybookUrl, external: true },
     ],
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,

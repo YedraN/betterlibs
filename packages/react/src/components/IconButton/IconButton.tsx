@@ -16,6 +16,8 @@ export type IconButtonProps = Omit<
   children: ReactNode
   /** @default 'square' */
   shape?: 'square' | 'circle'
+  /** Jerarquía visual. @default 'ghost' */
+  variant?: ButtonProps['variant']
 }
 
 /** Botón compuesto solo por un icono. Requiere `label` para que sea accesible. */

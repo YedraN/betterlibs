@@ -39,7 +39,7 @@ pnpm test        # tests
 - [x] **Fase 1** — Tokens y theming
 - [x] **Fase 2** — Layout y componentes base
 - [x] **Fase 3** — Formularios
-- [ ] **Fase 4** — Interactivos y overlays
+- [x] **Fase 4** — Interactivos y overlays
 - [ ] **Fase 5** — Navegación
 - [ ] **Fase 6** — Bloques corporativos
 - [ ] **Fase 7** — Plantillas y documentación completa

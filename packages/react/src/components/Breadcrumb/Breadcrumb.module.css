@@ -1,0 +1,65 @@
+@layer bl.components {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--bl-space-1) var(--bl-space-2);
+    margin: 0;
+    padding: 0;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-normal);
+    list-style: none;
+  }
+
+  .item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-2);
+    min-inline-size: 0;
+  }
+
+  .link {
+    color: var(--bl-color-text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--bl-color-border-strong);
+    text-underline-offset: 0.2em;
+    transition: color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .link:hover {
+    color: var(--bl-color-text);
+    text-decoration-color: currentColor;
+  }
+
+  .link:focus-visible {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .current {
+    overflow: hidden;
+    color: var(--bl-color-text);
+    font-weight: var(--bl-font-weight-medium);
+    text-overflow: ellipsis;
+  }
+
+  .separator {
+    display: inline-flex;
+    color: var(--bl-color-text-subtle);
+    font-size: 0.875em;
+  }
+
+  .separator :where(svg) {
+    inline-size: 1em;
+    block-size: 1em;
+  }
+
+  /* Un poco más de alto táctil en móvil sin cambiar el aspecto. */
+  @media (pointer: coarse) {
+    .link {
+      padding-block: var(--bl-space-2);
+    }
+  }
+}

@@ -1,0 +1,80 @@
+---
+title: Navegación
+description: Migas de pan y paginación para que se sepa dónde se está y cómo seguir.
+icon: Navigation
+---
+
+import { Breadcrumb, Pagination, Stack } from '@betterlibs/react'
+
+Ambos componentes renderizan HTML sin estado: funcionan en Server Components y sin JavaScript.
+La cabecera, el menú principal y el pie llegan en la siguiente versión.
+
+## Breadcrumb
+
+Muestra la ruta desde la portada hasta la página actual y permite subir de nivel. La página actual
+no es un enlace y lleva `aria-current="page"`.
+
+<Preview>
+  <Stack gap="6">
+    <Breadcrumb
+      items={[
+        { label: 'Inicio', href: '#' },
+        { label: 'Servicios', href: '#' },
+        { label: 'Consultoría fiscal' },
+      ]}
+    />
+    <Breadcrumb
+      items={[
+        { label: 'Inicio', href: '#' },
+        { label: 'Blog', href: '#' },
+        { label: 'Fiscalidad', href: '#' },
+        { label: 'Novedades del IVA para autónomos en 2026' },
+      ]}
+    />
+  </Stack>
+</Preview>
+
+```tsx
+import Link from 'next/link'
+
+<Breadcrumb
+  linkAs={Link}
+  schemaBaseUrl="https://empresa.com"
+  items={[
+    { label: 'Inicio', href: '/' },
+    { label: 'Servicios', href: '/servicios' },
+    { label: 'Consultoría fiscal' },
+  ]}
+/>
+```
+
+- `linkAs` usa el enlace de tu router (`Link` de Next.js, de React Router…).
+- Con `schemaBaseUrl` se añaden los datos estructurados `BreadcrumbList` de schema.org: Google puede
+  mostrar la ruta en los resultados de búsqueda.
+- Colócalas al principio del contenido principal, antes del `h1`. En la portada no hacen falta.
+
+## Pagination
+
+Para listados largos (blog, noticias, casos de éxito). Siempre se ven la primera y la última
+página y las vecinas de la actual. En móvil se resume en «Página N de M» con Anterior y Siguiente.
+
+<Preview>
+  <Stack gap="8">
+    <Pagination page={5} totalPages={12} getHref={(page) => `#pagina-${page}`} />
+    <Pagination page={1} totalPages={3} getHref={(page) => `#pagina-${page}`} />
+  </Stack>
+</Preview>
+
+```tsx
+// Enlaces (recomendado): cada página tiene su URL, se puede compartir e indexar.
+<Pagination page={pagina} totalPages={total} getHref={(p) => `/blog?pagina=${p}`} linkAs={Link} />
+
+// Botones, si la lista se filtra en el cliente sin cambiar la URL.
+<Pagination page={pagina} totalPages={total} onPageChange={setPagina} />
+```
+
+- La página actual lleva `aria-current="page"` y un relleno de color (no solo cambio de texto).
+- Cada número se anuncia como «Página 3»; los textos se cambian con `pageLabel`,
+  `previousLabel`, `nextLabel` y `summaryLabel`.
+- Al cambiar de página sin recargar, lleva el foco al principio del listado (por ejemplo, a su
+  título con `tabIndex={-1}`) para que quien usa teclado o lector de pantalla no se quede abajo.

@@ -1,0 +1,117 @@
+@layer bl.components {
+  .root {
+    --_per-view: var(--bl-carousel-per-view-base, 1);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-4);
+    min-inline-size: 0;
+  }
+
+  @media (min-width: 640px) {
+    .root[data-sm] {
+      --_per-view: var(--bl-carousel-per-view-sm);
+    }
+  }
+  @media (min-width: 768px) {
+    .root[data-md] {
+      --_per-view: var(--bl-carousel-per-view-md);
+    }
+  }
+  @media (min-width: 1024px) {
+    .root[data-lg] {
+      --_per-view: var(--bl-carousel-per-view-lg);
+    }
+  }
+  @media (min-width: 1280px) {
+    .root[data-xl] {
+      --_per-view: var(--bl-carousel-per-view-xl);
+    }
+  }
+
+  /* Los controles van antes que las diapositivas en el DOM (patrón WAI-ARIA) y arriba en pantalla. */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-4);
+  }
+
+  .arrows {
+    display: flex;
+    gap: var(--bl-space-2);
+    margin-inline-start: auto;
+  }
+
+  .indicators {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Punto de 10px dentro de un objetivo táctil de 24px (WCAG 2.5.8). */
+  .indicator {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--bl-radius-full);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .indicator::before {
+    content: "";
+    inline-size: 0.625rem;
+    block-size: 0.625rem;
+    border: 2px solid var(--bl-color-border-input);
+    border-radius: var(--bl-radius-full);
+    transition:
+      background-color var(--bl-duration-fast) var(--bl-ease-standard),
+      inline-size var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .indicator:hover::before {
+    border-color: var(--bl-color-text-muted);
+  }
+
+  .indicator[aria-current="true"]::before {
+    inline-size: 1.25rem;
+    border-color: var(--bl-color-accent-text);
+    background-color: var(--bl-color-accent-text);
+  }
+
+  .indicator:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 0;
+  }
+
+  .counter {
+    margin: 0;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .viewport {
+    position: relative;
+    display: grid;
+    grid-auto-columns: calc((100% - (var(--_per-view) - 1) * var(--_gap)) / var(--_per-view));
+    grid-auto-flow: column;
+    gap: var(--_gap);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slide {
+    min-inline-size: 0;
+    scroll-snap-align: start;
+  }
+}

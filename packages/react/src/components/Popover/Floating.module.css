@@ -1,0 +1,72 @@
+/* Contenido flotante común (Popover, DropdownMenu, Tooltip): superficie, sombra y animación. */
+@layer bl.components {
+  .content {
+    --_from-x: 0;
+    --_from-y: 0;
+
+    z-index: var(--bl-z-popover);
+    box-sizing: border-box;
+    max-inline-size: calc(100vw - 2 * var(--bl-space-4));
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-shadow-lg);
+    color: var(--bl-color-text);
+    font-family: var(--bl-font-family-sans);
+    font-size: var(--bl-font-size-md);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .content[data-side="top"] {
+    --_from-y: 0.25rem;
+  }
+  .content[data-side="bottom"] {
+    --_from-y: -0.25rem;
+  }
+  .content[data-side="left"] {
+    --_from-x: 0.25rem;
+  }
+  .content[data-side="right"] {
+    --_from-x: -0.25rem;
+  }
+
+  .content[data-state="open"],
+  .content[data-state="delayed-open"],
+  .content[data-state="instant-open"] {
+    animation: enter var(--bl-duration-normal) var(--bl-ease-enter);
+  }
+
+  .content[data-state="closed"] {
+    animation: exit var(--bl-duration-fast) var(--bl-ease-exit);
+  }
+
+  .content:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .arrow {
+    fill: var(--bl-color-surface-raised);
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translate(var(--_from-x), var(--_from-y)) scale(0.97);
+    }
+  }
+
+  @keyframes exit {
+    to {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+
+  /* Sin animación: Radix desmonta al instante si no hay `animation-name`. */
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state] {
+      animation: none;
+    }
+  }
+}

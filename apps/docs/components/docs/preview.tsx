@@ -1,5 +1,6 @@
 'use client'
 
+import { PortalProvider } from '@betterlibs/react'
 import { type ReactNode, useEffect, useState } from 'react'
 
 /** Sigue el modo de color de Fumadocs (clase `dark` en `<html>`). */
@@ -17,6 +18,27 @@ function useDocsTheme() {
 }
 
 /**
+ * Contenedor en `<body>` para los overlays de los ejemplos (diálogos, menús, tooltips,
+ * notificaciones), con el mismo tema que la documentación. Va en `<body>` y no dentro del
+ * ejemplo para que ningún contenedor de la página recorte o tape los overlays.
+ */
+function useThemedPortal(theme: 'light' | 'dark') {
+  const [container, setContainer] = useState<HTMLElement | null>(null)
+  useEffect(() => {
+    const element = document.createElement('div')
+    element.style.fontFamily = 'var(--bl-font-family-sans)'
+    element.style.color = 'var(--bl-color-text)'
+    document.body.append(element)
+    setContainer(element)
+    return () => element.remove()
+  }, [])
+  useEffect(() => {
+    if (container) container.dataset.theme = theme
+  }, [container, theme])
+  return container
+}
+
+/**
  * Lienzo para ejemplos en vivo: aplica los tokens de Betterlibs con el mismo modo de color
  * que la documentación.
  */
@@ -30,6 +52,7 @@ export function Preview({
   align?: 'start' | 'center'
 }) {
   const theme = useDocsTheme()
+  const portal = useThemedPortal(theme)
   return (
     <div
       data-theme={theme}
@@ -44,7 +67,7 @@ export function Preview({
         className={align === 'center' ? 'flex flex-wrap items-center justify-center gap-4' : ''}
         style={{ padding: padded ? 'var(--bl-space-8)' : 0 }}
       >
-        {children}
+        <PortalProvider container={portal}>{children}</PortalProvider>
       </div>
     </div>
   )

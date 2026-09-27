@@ -69,7 +69,6 @@ export function ErrorSummary({
               </>
             )
             return (
-              // biome-ignore lint/suspicious/noArrayIndexKey: la lista se regenera entera en cada envío
               <li key={error.id ?? index}>
                 {error.id ? (
                   <a

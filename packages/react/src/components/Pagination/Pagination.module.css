@@ -1,0 +1,91 @@
+@layer bl.components {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bl-space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bl-space-1-5);
+    min-inline-size: var(--bl-control-height-md);
+    min-block-size: var(--bl-control-height-md);
+    padding: 0 var(--bl-space-3);
+    border: 1px solid transparent;
+    border-radius: var(--bl-radius-md);
+    background: transparent;
+    color: var(--bl-color-text);
+    font-family: inherit;
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-medium);
+    font-variant-numeric: tabular-nums;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .link:hover:not([data-disabled], [aria-current="page"]) {
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .link:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Página actual: relleno de acento, no solo color de texto. */
+  .link[aria-current="page"] {
+    background-color: var(--bl-color-accent-text);
+    color: var(--bl-color-bg);
+    font-weight: var(--bl-font-weight-semibold);
+    cursor: default;
+  }
+
+  .link[data-disabled] {
+    color: var(--bl-color-text-disabled);
+    cursor: default;
+  }
+
+  .icon {
+    inline-size: 1.125em;
+    block-size: 1.125em;
+  }
+
+  .ellipsis {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 2rem;
+    color: var(--bl-color-text-muted);
+  }
+
+  .summary {
+    display: none;
+    padding-inline: var(--bl-space-2);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  /* Móvil: solo Anterior, «Página N de M» y Siguiente. */
+  @media (max-width: 639px) {
+    .list {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+
+    .page,
+    .ellipsis {
+      display: none;
+    }
+
+    .summary {
+      display: block;
+    }
+  }
+}

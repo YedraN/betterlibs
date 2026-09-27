@@ -1,0 +1,167 @@
+@layer bl.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-6);
+    min-inline-size: 0;
+  }
+
+  .root[data-orientation="vertical"] {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .list {
+    display: flex;
+    flex-shrink: 0;
+    max-inline-size: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .root[data-orientation="vertical"] .list {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .trigger {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--bl-space-2);
+    min-block-size: var(--bl-control-height-md);
+    padding: 0 var(--bl-space-1);
+    border: 0;
+    background: transparent;
+    color: var(--bl-color-text-muted);
+    font-family: inherit;
+    font-size: var(--bl-font-size-md);
+    font-weight: var(--bl-font-weight-medium);
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      color var(--bl-duration-fast) var(--bl-ease-standard),
+      background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .trigger:hover:not([data-disabled]) {
+    color: var(--bl-color-text);
+  }
+
+  .trigger[data-state="active"] {
+    color: var(--bl-color-text);
+  }
+
+  .trigger:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: -2px;
+    border-radius: var(--bl-radius-sm);
+  }
+
+  .trigger[data-disabled] {
+    color: var(--bl-color-text-disabled);
+    cursor: not-allowed;
+  }
+
+  .icon {
+    display: inline-flex;
+    font-size: 1.125em;
+  }
+
+  .root[data-full-width] .trigger {
+    flex: 1;
+  }
+
+  /* Variante `line`: subrayado de 3px en la activa, además del cambio de color. */
+  .root[data-variant="line"] .list {
+    gap: var(--bl-space-6);
+    box-shadow: inset 0 -1px 0 var(--bl-color-border);
+  }
+
+  .root[data-variant="line"] .trigger::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    block-size: 3px;
+    border-radius: 3px 3px 0 0;
+    background-color: transparent;
+    transition: background-color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .root[data-variant="line"] .trigger[data-state="active"]::after {
+    background-color: var(--bl-color-accent-text);
+  }
+
+  /* Variante `pill`: botones sobre un fondo suave. */
+  .root[data-variant="pill"] .list {
+    align-self: flex-start;
+    gap: var(--bl-space-1);
+    padding: var(--bl-space-1);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .root[data-variant="pill"][data-full-width] .list {
+    align-self: stretch;
+  }
+
+  .root[data-variant="pill"] .trigger {
+    min-block-size: calc(var(--bl-control-height-md) - 2 * var(--bl-space-1));
+    padding-inline: var(--bl-space-4);
+    border-radius: var(--bl-radius-md);
+  }
+
+  .root[data-variant="pill"] .trigger[data-state="active"] {
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-shadow-sm);
+  }
+
+  /* Variante `line` en vertical: la marca pasa al lateral. */
+  .root[data-variant="line"][data-orientation="vertical"] .list {
+    gap: 0;
+    box-shadow: inset -1px 0 0 var(--bl-color-border);
+  }
+
+  .root[data-variant="line"][data-orientation="vertical"] .trigger {
+    justify-content: flex-start;
+    padding-inline: var(--bl-space-4);
+  }
+
+  .root[data-variant="line"][data-orientation="vertical"] .trigger::after {
+    inset-block: 0;
+    inset-inline: auto 0;
+    block-size: auto;
+    inline-size: 3px;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .content {
+    min-inline-size: 0;
+    flex: 1;
+  }
+
+  .content:focus-visible {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: var(--bl-focus-ring-offset);
+    border-radius: var(--bl-radius-sm);
+  }
+
+  .content[data-state="active"] {
+    animation: fade-in var(--bl-duration-normal) var(--bl-ease-enter);
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content[data-state="active"] {
+      animation: none;
+    }
+  }
+}

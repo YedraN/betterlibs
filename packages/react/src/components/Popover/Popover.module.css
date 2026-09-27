@@ -1,0 +1,39 @@
+@layer bl.components {
+  .content {
+    --_width: 20rem;
+
+    position: relative;
+    inline-size: min(var(--_width), var(--radix-popover-content-available-width, 100vw));
+    padding: var(--bl-space-4);
+  }
+
+  .content[data-width="sm"] {
+    --_width: 16rem;
+  }
+  .content[data-width="lg"] {
+    --_width: 26rem;
+  }
+  .content[data-width="auto"] {
+    inline-size: auto;
+    max-inline-size: min(26rem, var(--radix-popover-content-available-width, 100vw));
+  }
+
+  .content[data-close] {
+    padding-inline-end: var(--bl-space-12);
+  }
+
+  .title {
+    margin: 0 0 var(--bl-space-1);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .content > :where(p:not(.title)) {
+    margin: 0;
+  }
+
+  .close {
+    position: absolute;
+    inset-block-start: var(--bl-space-2);
+    inset-inline-end: var(--bl-space-2);
+  }
+}

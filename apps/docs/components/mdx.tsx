@@ -3,6 +3,7 @@ import defaultMdxComponents from 'fumadocs-ui/mdx'
 import type { MDXComponents } from 'mdx/types'
 import { ContactFormDemo } from './docs/contact-form-demo'
 import { Preview } from './docs/preview'
+import { ToastDemo } from './docs/toast-demo'
 import {
   ColorScales,
   ContrastReport,
@@ -19,6 +20,7 @@ export function getMDXComponents(components?: MDXComponents) {
     Tabs,
     Preview,
     ContactFormDemo,
+    ToastDemo,
     ColorScales,
     SemanticColors,
     ContrastReport,

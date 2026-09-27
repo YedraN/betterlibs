@@ -3,8 +3,8 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 3 — Formularios
-> **Siguiente paso:** Fase 4 — Interactivos y overlays
+> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 4 — Interactivos y overlays
+> **Siguiente paso:** Fase 5 — Navegación
 
 ---
 
@@ -136,10 +136,35 @@ apps/
 - Stories: `Componentes/Formularios/{Field,Checkbox,Form}` y `Componentes/Feedback/Alert`.
   Tests: `src/components/forms.test.tsx` (incluye axe con errores visibles).
 
-### Fase 4 — Interactivos y overlays
-Dialog, Drawer, DropdownMenu, Popover, Tooltip, Tabs, Accordion, Toast, Carousel (con pausa, sin
-autoplay por defecto), Pagination, Breadcrumb. Sobre **Radix Primitives** con estilos propios;
-cuidado con foco, scroll lock y animaciones (`--bl-duration-slow`, reduced motion).
+### ✅ Fase 4 — Interactivos y overlays (2026-09-27)
+- Radix Primitives fijados (dialog 1.1.23, dropdown-menu 2.1.24, popover 1.1.23, tooltip 1.2.16,
+  tabs 1.1.21, accordion 1.2.20, toast 1.2.23) como `dependencies` de `@betterlibs/react`.
+- **Dialog / Drawer** (`Dialog/panel.tsx` compartido): `title` obligatorio, `description`,
+  `footer`, `size`; el botón Cerrar va al final del DOM para que el foco inicial caiga en el
+  contenido. Drawer con `side` físico (right/left/bottom/top). Centrado con `inset: 0; margin: auto`.
+- **Popover** (`title` → `aria-labelledby`, `closeButton`, `width`, flecha), **Tooltip** (API de una
+  pieza `content` + hijo; incluye su propio `Provider`), **DropdownMenu** (item con `icon`, `hint`,
+  `tone="danger"`, `asChild`; checkbox/radio items, label, separator, submenús).
+- **Tabs** (`line`/`pill`, `fullWidth`, vertical, scroll horizontal en móvil) y **Accordion**
+  (`single` + `collapsible` por defecto, `headingLevel`, variantes default/bordered/separated,
+  animación de altura con `--radix-accordion-content-height`).
+- **Toast**: almacén propio (`Toast/store.ts`, `useSyncExternalStore`) con `toast()`,
+  `toast.success/error/warning/info/dismiss`; `<Toaster />` con Radix Toast (errores
+  `foreground`, con acción duración infinita, máx. 4 visibles, viewport en portal).
+- **Carousel** propio (sin Radix): scroll-snap nativo, patrón WAI-ARIA (`aria-roledescription`,
+  diapositivas `role="group"` «1 de 5»), controles antes de las diapositivas en el DOM, anuncio
+  `aria-live` solo en cambios del usuario, sin autoplay por defecto; con autoplay: botón de pausa,
+  pausa al hover, parada al entrar con el teclado y nunca con «reducir movimiento».
+- **Pagination** (`paginationRange`, enlaces con `getHref` + `linkAs` o botones con
+  `onPageChange`, resumen «Página N de M» en móvil) y **Breadcrumb** (`linkAs`, JSON-LD
+  `BreadcrumbList` con `schemaBaseUrl`). Ambos sin estado: válidos en Server Components.
+- **PortalProvider / usePortalContainer**: dónde se montan los overlays (temas anidados). La
+  `Preview` de las docs crea un contenedor en `<body>` con el `data-theme` de la documentación.
+- Estilos flotantes compartidos en `Popover/Floating.module.css` (`bl-floating-*`); todas las
+  animaciones se anulan con `prefers-reduced-motion`.
+- **Docs:** páginas «Interactivos y overlays» y «Navegación» (demo `ToastDemo`).
+  Stories: `Componentes/Overlays/Dialog`, `Contenido interactivo/{Tabs,Carousel}`,
+  `Feedback/Toast`, `Navegación/Pagination`. Tests: `src/components/interactive.test.tsx`.
 
 ### Fase 5 — Navegación
 Header (sticky, ocultar al hacer scroll opcional) con NavigationMenu/mega-menú y menú móvil
@@ -200,6 +225,11 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
 - **React 19.3:** `onChange` de `<form>` recibe `ChangeEvent<HTMLFormElement>`, no `FormEvent`.
 - **jsdom:** `ana@empresa` es un email válido según HTML; en tests usa algo sin `@`. No implementa
   `scrollIntoView` ni `CSS.escape` (usar `?.()` y evitar `CSS.escape`).
+- **Radix en jsdom:** `src/test/setup.ts` define stubs de `ResizeObserver`, `scrollIntoView` y
+  `*PointerCapture`. Los menús se abren con teclado en los tests (Tab + Enter). Con un `Dialog`
+  abierto, pasa axe sobre el diálogo, no sobre `body` (Radix pone `aria-hidden` al resto).
+- **`matchMedia`** no existe en jsdom: `usePrefersReducedMotion` lo comprueba antes de usarlo.
+- **Tokens de espaciado:** no existe `--bl-space-2-5` (la escala es 0, 0-5, 1, 1-5, 2, 3, 4…).
 - **CSS Modules compartidos:** si un elemento lleva clases de dos módulos, el orden de import
   decide la cascada (`.field { padding: 0 }` pisaba al `<textarea>`; por eso no lleva `.field`).
 

@@ -1,0 +1,72 @@
+/* Piezas comunes de los bloques (clases `bl-block-*`). */
+@layer bl.components {
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-12);
+  }
+
+  .stack[data-gap="md"] {
+    gap: var(--bl-space-8);
+  }
+
+  /*
+   * Tarjeta enlazada: el título es el único enlace y su ::after cubre toda la tarjeta. Así hay un
+   * solo elemento en el orden de tabulación y un nombre accesible claro.
+   */
+  .cardLink {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .cardLink::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  .cardLink:focus-visible {
+    outline: none;
+  }
+
+  .linkedCard {
+    position: relative;
+  }
+
+  .linkedCard:has(.cardLink:focus-visible) {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: var(--bl-focus-ring-offset);
+  }
+
+  .linkedCard:has(.cardLink:hover) .cardLink {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  /* Indicador visual «Saber más →» de una tarjeta enlazada (decorativo). */
+  .more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-1-5);
+    color: var(--bl-color-accent-text);
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .more :where(svg) {
+    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .linkedCard:hover .more :where(svg) {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .more :where(svg) {
+      transition: none;
+    }
+  }
+}

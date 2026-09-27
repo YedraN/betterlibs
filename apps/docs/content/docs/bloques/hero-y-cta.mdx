@@ -1,0 +1,110 @@
+---
+title: Hero y CTA
+description: La cabecera principal de una página y la llamada a la acción final.
+icon: PanelTop
+---
+
+import { ArrowRightIcon } from '@betterlibs/icons'
+import { Avatar, AvatarGroup, Button, CTA, Hero } from '@betterlibs/react'
+
+## Hero
+
+Titular (`h1`), entradilla, acciones e imagen. Es lo primero que se ve: una promesa clara, en una
+frase, y una acción principal. (En estos ejemplos el titular es un `h2` con `headingLevel={2}`,
+porque la página de documentación ya tiene su `h1`.)
+
+<Preview padded={false}>
+  <Hero
+    headingLevel={2}
+    eyebrow="Consultoría financiera"
+    title="Crece con orden y decide con datos"
+    description="Acompañamos a pymes y grupos empresariales en fiscalidad, auditoría y estrategia."
+    actions={
+      <>
+        <Button size="lg" iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
+        <Button size="lg" variant="outline">Ver casos de éxito</Button>
+      </>
+    }
+    media={<img src="https://picsum.photos/seed/hero/1200/800" alt="Equipo de consultores con un cliente" />}
+    spacing="md"
+  >
+    <AvatarGroup max={3} size="sm">
+      <Avatar name="Ana Pérez" />
+      <Avatar name="Luis Martín" />
+      <Avatar name="Sara Gil" />
+      <Avatar name="Jorge Ramos" />
+    </AvatarGroup>
+    <span>Más de 500 empresas confían en nosotros</span>
+  </Hero>
+</Preview>
+
+<Preview padded={false}>
+  <Hero
+    headingLevel={2}
+    variant="background"
+    title="Asesoría cercana, resultados medibles"
+    description="Un equipo dedicado que conoce tu empresa."
+    actions={<Button size="lg">Hablar con un experto</Button>}
+    media={<img src="https://picsum.photos/seed/office/1920/1080" alt="" />}
+    spacing="md"
+  />
+</Preview>
+
+```tsx
+<Hero
+  variant="split" // 'split' | 'centered' | 'background'
+  eyebrow="Consultoría financiera"
+  title="Crece con orden y decide con datos"
+  description="…"
+  actions={<Button size="lg">Solicitar propuesta</Button>}
+  media={<Image src="/hero.jpg" alt="Equipo reunido con un cliente" priority />}
+>
+  {/* Opcional: prueba social bajo las acciones */}
+</Hero>
+```
+
+| Variante | Cuándo |
+| --- | --- |
+| `split` | Portada con imagen o ilustración al lado (se apila en móvil) |
+| `centered` | Páginas interiores o portadas sin imagen |
+| `background` | Imagen o vídeo a sangre; fuerza el tema oscuro y añade una capa para el contraste |
+
+- **Imagen**: en `split` suele ser informativa (con `alt`); de fondo es decorativa (`alt=""`). Usa
+  `priority` en la imagen principal para que cargue antes.
+- **Vídeo de fondo**: `video={{ src, poster }}`. Va silenciado, en bucle y con **botón de pausa**
+  (WCAG 2.2.2); no se reproduce si el usuario ha pedido reducir el movimiento.
+- **Contraste sobre imagen**: la capa oscura ayuda, pero revisa que el texto se lea bien sobre tu
+  foto concreta.
+
+## CTA
+
+Llamada a la acción, normalmente al final de la página: beneficio + acción, un botón principal y como
+mucho uno secundario.
+
+<Preview padded={false}>
+  <CTA
+    title="Hablemos de tu proyecto"
+    description="Una primera reunión sin compromiso para entender qué necesitas."
+    actions={
+      <>
+        <Button size="lg">Solicitar reunión</Button>
+        <Button size="lg" variant="outline">Llamar al 910 000 000</Button>
+      </>
+    }
+    note="Sin compromiso · Respuesta en 24 horas"
+    spacing="sm"
+  />
+</Preview>
+
+<Preview padded={false}>
+  <CTA
+    variant="split"
+    title="¿Listo para ordenar tus finanzas?"
+    description="Empieza hoy y ten tu primer informe en dos semanas."
+    actions={<Button>Empezar ahora</Button>}
+    spacing="sm"
+  />
+</Preview>
+
+Variantes: `panel` (por defecto, con fondo propio: `panelTone` `brand`, `subtle` o `dark`),
+`centered` y `split`.

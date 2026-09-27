@@ -1,0 +1,79 @@
+@layer bl.components {
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .member {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-4);
+  }
+
+  .member[data-variant="compact"] {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .photo {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--bl-radius-xl);
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .photo :where(img) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    min-inline-size: 0;
+  }
+
+  .name {
+    margin: 0;
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-lg);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .member[data-variant="compact"] .name {
+    font-size: var(--bl-font-size-md);
+  }
+
+  .role {
+    margin: 0;
+    color: var(--bl-color-accent-text);
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-medium);
+  }
+
+  .member[data-variant="compact"] .role {
+    color: var(--bl-color-text-muted);
+  }
+
+  .bio {
+    margin-block-start: var(--bl-space-2);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    line-height: var(--bl-leading-relaxed);
+  }
+
+  .bio > :where(p) {
+    margin: 0;
+  }
+
+  .links {
+    margin-block-start: var(--bl-space-2);
+  }
+}

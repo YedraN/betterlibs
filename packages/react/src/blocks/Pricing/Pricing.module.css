@@ -1,0 +1,177 @@
+@layer bl.components {
+  /* Selector de periodo: radios nativos con aspecto de control segmentado. */
+  .toggle {
+    display: inline-flex;
+    align-self: center;
+    gap: var(--bl-space-1);
+    padding: var(--bl-space-1);
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-block-size: calc(var(--bl-control-height-md) - 2 * var(--bl-space-1));
+    padding: 0 var(--bl-space-5);
+    border-radius: var(--bl-radius-full);
+    color: var(--bl-color-text-muted);
+    font-weight: var(--bl-font-weight-semibold);
+    cursor: pointer;
+    transition:
+      background-color var(--bl-duration-fast) var(--bl-ease-standard),
+      color var(--bl-duration-fast) var(--bl-ease-standard);
+  }
+
+  .optionInput {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    border-radius: inherit;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .option:has(.optionInput:checked) {
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-shadow-sm);
+    color: var(--bl-color-text);
+  }
+
+  .option:has(.optionInput:focus-visible) {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .list > li {
+    display: flex;
+  }
+
+  .plan {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--bl-space-4);
+    padding: var(--bl-space-8) var(--bl-space-6);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-xl);
+    background-color: var(--bl-color-surface);
+  }
+
+  .plan[data-highlighted] {
+    border-color: var(--bl-color-accent-text);
+    box-shadow:
+      inset 0 0 0 1px var(--bl-color-accent-text),
+      var(--bl-shadow-lg);
+  }
+
+  .badge {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 50%;
+    margin: 0;
+    padding: var(--bl-space-1) var(--bl-space-3);
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-accent-text);
+    color: var(--bl-color-bg);
+    font-size: var(--bl-font-size-xs);
+    font-weight: var(--bl-font-weight-semibold);
+    letter-spacing: var(--bl-tracking-wide);
+    text-transform: uppercase;
+    white-space: nowrap;
+    translate: -50% -50%;
+  }
+
+  .name {
+    margin: 0;
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-xl);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .description {
+    color: var(--bl-color-text-muted);
+  }
+
+  .description > :where(p) {
+    margin: 0;
+  }
+
+  .price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--bl-space-1);
+    margin: var(--bl-space-2) 0 0;
+  }
+
+  .amount {
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-4xl);
+    font-weight: var(--bl-font-weight-bold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--bl-tracking-tight);
+    line-height: var(--bl-leading-tight);
+  }
+
+  .period,
+  .note {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .note {
+    margin: 0;
+  }
+
+  .action {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .action > * {
+    inline-size: 100%;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-3);
+    margin: var(--bl-space-2) 0 0;
+    padding: var(--bl-space-5) 0 0;
+    border-block-start: 1px solid var(--bl-color-border);
+    list-style: none;
+  }
+
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-2);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .feature[data-included="false"] {
+    color: var(--bl-color-text-muted);
+  }
+
+  .featureIcon {
+    flex-shrink: 0;
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    margin-block-start: calc((1lh - 1.25rem) / 2);
+    color: var(--bl-color-success-text);
+  }
+
+  .feature[data-included="false"] .featureIcon {
+    color: var(--bl-color-text-subtle);
+  }
+}

@@ -1,0 +1,107 @@
+@layer bl.components {
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--bl-space-8);
+    text-align: center;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: inherit;
+    gap: var(--bl-space-3);
+    max-inline-size: 44rem;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--bl-color-accent-text);
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-semibold);
+    letter-spacing: var(--bl-tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .title {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .description {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-lg);
+    line-height: var(--bl-leading-relaxed);
+  }
+
+  .description > :where(p) {
+    margin: 0;
+  }
+
+  .actionsWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: inherit;
+    gap: var(--bl-space-3);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--bl-space-3);
+  }
+
+  .note {
+    margin: 0;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  /* Split: texto a un lado y acciones al otro a partir de 768px. */
+  @media (min-width: 768px) {
+    .box[data-variant="split"] {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      text-align: start;
+    }
+
+    .box[data-variant="split"] .text {
+      align-items: flex-start;
+    }
+
+    .box[data-variant="split"] .actionsWrap {
+      flex-shrink: 0;
+      align-items: flex-end;
+    }
+  }
+
+  /* Panel con fondo propio. */
+  .box[data-variant="panel"] {
+    padding: var(--bl-space-12) var(--bl-space-6);
+    border-radius: var(--bl-radius-2xl);
+    background-color: var(--bl-color-accent-subtle);
+  }
+
+  .box[data-panel-tone="subtle"] {
+    background-color: var(--bl-color-bg-subtle);
+  }
+
+  .box[data-panel-tone="dark"] {
+    background-color: var(--bl-color-bg-subtle);
+    color: var(--bl-color-text);
+  }
+
+  .box[data-panel-tone="brand"] .description,
+  .box[data-panel-tone="brand"] .note {
+    color: var(--bl-color-text);
+  }
+
+  @media (min-width: 768px) {
+    .box[data-variant="panel"] {
+      padding: var(--bl-space-16) var(--bl-space-12);
+    }
+  }
+}

@@ -3,8 +3,8 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 5 — Navegación
-> **Siguiente paso:** Fase 6 — Bloques corporativos
+> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 6 — Bloques corporativos
+> **Siguiente paso:** Fase 7 — Plantillas y documentación completa
 
 ---
 
@@ -62,6 +62,7 @@ packages/
               scripts/build-css.ts (Node ejecuta .ts nativo; falla si el tema no cumple WCAG AA)
   icons/      @betterlibs/icons   → 64 iconos (createIcon), sufijo *Icon, build con tsc
   react/      @betterlibs/react   → src/components/<Nombre>/<Nombre>.tsx + .module.css (+ stories)
+              src/blocks/<Bloque>/… (secciones completas, Fase 6)
               src/utils/{cx,types}.ts · src/test/{setup,axe}.ts
               tests agrupados: src/components/{layout,base}.test.tsx
               build: vite (lib, preserveModules) + tsc (solo .d.ts)
@@ -189,10 +190,37 @@ apps/
   SocialLinks) y nota de iconos de redes en «Iconografía». Stories en
   `Componentes/Navegación/Header`. Tests: `src/components/navigation.test.tsx`.
 
-### Fase 6 — Bloques corporativos
-Hero (centrado, split, con imagen/vídeo), FeatureGrid, LogoCloud, Stats, Testimonials, Pricing, CTA,
-TeamGrid, Timeline, FAQ, ContactSection, BlogGrid/PostCard, CaseStudyCard, Newsletter,
-CookieConsent (RGPD/LSSI: categorías, aceptar y rechazar igual de visibles). 2–3 variantes cada uno.
+### ✅ Fase 6 — Bloques corporativos (2026-09-27)
+- Bloques en `packages/react/src/blocks/` (clases `bl-{bloque}-*`). Esqueleto común en
+  `blocks/shared.tsx`: `BlockSection` (Section + Container + `SectionHeader`) y `BlockBaseProps`
+  (`eyebrow`, `title`, `description`, `actions`, `align`, `headingLevel`, `tone`, `spacing`,
+  `containerSize`, `id`). El `id` del título sale del `id` o de un slug del título (**sin hooks**,
+  para que los bloques sin estado sean Server Components); los títulos internos usan el nivel
+  siguiente (`itemHeadingLevel`). Tarjetas enlazadas: título = único enlace con `::after`
+  (`Block.module.css`: `cardLink`, `linkedCard`, `more`).
+- **SectionHeader** (componente público): antetítulo, título, entradilla y acciones.
+- **Hero** (`split`/`centered`/`background`, `h1` por defecto, `size`; fondo fuerza `data-theme`
+  oscuro + capa) con **HeroVideo** (cliente: silenciado, bucle, pausa, respeta reducir movimiento).
+- **FeatureGrid** (cards/plain/list), **LogoCloud** (row/grid, `grayscale`), **Stats** (`<dl>`:
+  etiqueta antes que la cifra en el DOM, `order` en CSS), **Timeline** (`<ol>`, vertical/steps),
+  **CTA** (panel/centered/split, `panelTone`).
+- **Testimonials** (grid/carousel/featured) + **TestimonialCard** (`figure`/`blockquote`/
+  `figcaption`, valoración como texto), **TeamGrid** (cards/compact; redes «Nombre en LinkedIn»),
+  **CaseStudyCard** (métricas en `<dl>`), **BlogGrid** (grid/list/featured) + **PostCard** (fecha
+  `formatPostDate` en UTC para evitar desajustes de hidratación).
+- **Pricing** (cliente): precios por periodo (`{ mensual, anual }`), selector de radios nativos,
+  plan destacado, «No incluido:» oculto para lectores. **FAQ** (accordion/split/columns,
+  `structuredData` → JSON-LD `FAQPage`). **ContactSection** (datos en `<address>`, formulario como
+  hijo). **Newsletter** (cliente: `onSubscribe`, estados, consentimiento; section/split/inline).
+- **CookieConsent** (RGPD/LSSI/AEPD): aviso no modal con «Rechazar todas» y «Aceptar todas» con el
+  mismo estilo, configuración por categorías en `Dialog` con `Switch`, sin casillas premarcadas,
+  `version` + `maxAgeDays`, `scroll-padding-bottom` para no tapar el foco. Store propio
+  (`'use client'`) con `useCookieConsent`, `cookieConsent.open/reset/update`. **ConsentGate**
+  bloquea contenidos de terceros hasta tener permiso.
+- Datos de ejemplo compartidos en `src/test/sample-data.tsx` (fuera del paquete publicado).
+- **Docs:** sección **Bloques** (introducción, Hero y CTA, Contenido, Confianza, Blog, Conversión,
+  Cookies con guía RGPD y lista de comprobación). Demos cliente en `components/docs/blocks-demos.tsx`.
+  Stories `Bloques/*`. Tests: `src/blocks/blocks.test.tsx` (incluye axe sobre una página completa).
 
 ### Fase 7 — Plantillas y documentación completa
 - `apps/playground` (Vite) con 6 plantillas: home corporativa, servicios, sobre nosotros, contacto,
@@ -247,6 +275,11 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
   `*PointerCapture`. Los menús se abren con teclado en los tests (Tab + Enter). Con un `Dialog`
   abierto, pasa axe sobre el diálogo, no sobre `body` (Radix pone `aria-hidden` al resto).
 - **`matchMedia`** no existe en jsdom: `usePrefersReducedMotion` lo comprueba antes de usarlo.
+- **Server Components y hooks:** un módulo sin `'use client'` que importa hooks de React
+  (`useSyncExternalStore`…) se evalúa en el servidor si lo importa el barrel. Marca con
+  `'use client'` los stores/hooks de cliente, y no uses `useId` en bloques sin estado.
+- **HTML válido:** nada de encabezados dentro de `<dt>` ni elementos sueltos dentro de los grupos
+  de un `<dl>` (solo `dt`/`dd`).
 - **Stories:** cualquier `export` de un `*.stories.tsx` se toma como story; los datos de ejemplo
   van en constantes sin exportar.
 - **Container queries:** una `@container` no puede estilar al propio contenedor, solo a sus

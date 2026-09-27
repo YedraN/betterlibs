@@ -1,0 +1,153 @@
+---
+title: Conversión
+description: Precios, preguntas frecuentes, contacto y suscripción al boletín.
+icon: Target
+---
+
+import { ClockIcon, MailIcon, MapPinIcon, PhoneIcon } from '@betterlibs/icons'
+import { Button, ContactSection, FAQ, Pricing } from '@betterlibs/react'
+
+## Pricing
+
+Planes en tarjetas con plan recomendado, características incluidas y no incluidas, y selector de
+periodo de facturación (grupo de radios nativo: se cambia con las flechas). Cada plan es un
+`<article>` con su título.
+
+<Preview padded={false}>
+  <Pricing
+    title="Planes claros, sin letra pequeña"
+    spacing="sm"
+    billingPeriods={[
+      { value: 'mensual', label: 'Mensual' },
+      { value: 'anual', label: 'Anual (-20 %)' },
+    ]}
+    columns={{ base: 1, md: 2 }}
+    plans={[
+      {
+        name: 'Básico',
+        description: 'Para autónomos y pequeñas empresas.',
+        price: { mensual: '49 €', anual: '39 €' },
+        period: '/mes',
+        note: 'IVA no incluido',
+        features: ['Contabilidad y fiscalidad', 'Un gestor asignado', { label: 'Cuadro de mando mensual', included: false }],
+        action: <Button variant="outline">Empezar con Básico</Button>,
+      },
+      {
+        name: 'Profesional',
+        description: 'Para pymes en crecimiento.',
+        price: { mensual: '129 €', anual: '103 €' },
+        period: '/mes',
+        note: 'IVA no incluido',
+        features: ['Todo lo de Básico', 'Cuadro de mando mensual', 'Reunión trimestral'],
+        action: <Button>Empezar con Profesional</Button>,
+        highlighted: true,
+        badge: 'Más elegido',
+      },
+    ]}
+  />
+</Preview>
+
+```tsx
+<Pricing
+  plans={[{
+    name: 'Profesional',
+    price: { mensual: '129 €', anual: '103 €' }, // o un valor fijo: '129 €', 'A medida'
+    period: '/mes',
+    features: ['Cuadro de mando mensual', { label: 'Soporte prioritario', included: false }],
+    action: <Button asChild><Link href="/contratar">Empezar</Link></Button>,
+    highlighted: true,
+  }]}
+  billingPeriods={[{ value: 'mensual', label: 'Mensual' }, { value: 'anual', label: 'Anual' }]}
+/>
+```
+
+- Las características no incluidas se anuncian como «No incluido: …» (no solo con un icono).
+- Indica si los precios llevan IVA y qué incluye cada plan con palabras concretas.
+
+## FAQ
+
+Preguntas frecuentes en acordeón (`accordion`), con la cabecera a un lado (`split`) o todas las
+respuestas a la vista (`columns`). Con `structuredData` añade el marcado `FAQPage` de schema.org.
+
+<Preview padded={false}>
+  <FAQ
+    title="Preguntas frecuentes"
+    spacing="sm"
+    openFirst
+    items={[
+      { question: '¿Cuánto tarda en arrancar un proyecto?', answer: 'Entre una y dos semanas desde la firma de la propuesta.' },
+      { question: '¿Trabajáis con empresas fuera de España?', answer: 'Sí, con filiales en Portugal y Latinoamérica.' },
+      { question: '¿Hay permanencia?', answer: 'No. Los planes son mensuales y puedes cancelarlos cuando quieras.' },
+    ]}
+  />
+</Preview>
+
+<Preview padded={false}>
+  <FAQ
+    variant="split"
+    title="¿Tienes dudas?"
+    description="Si no encuentras tu respuesta, escríbenos."
+    actions={<Button variant="outline">Contactar</Button>}
+    spacing="sm"
+    items={[
+      { question: '¿Cómo se calcula el presupuesto?', answer: 'Por fases cerradas: sabrás el coste total antes de empezar.' },
+      { question: '¿Incluye mantenimiento?', answer: 'El primer año sí: actualizaciones y soporte por email.' },
+    ]}
+  />
+</Preview>
+
+## ContactSection
+
+Datos de contacto (en un `<address>`) y el formulario que tú pases como hijo. Usa el formulario de
+la guía [Formulario de contacto accesible](/docs/guias/formulario-de-contacto).
+
+<Preview padded={false}>
+  <ContactSection
+    eyebrow="Contacto"
+    title="Hablemos"
+    description="Te respondemos en 24 horas laborables."
+    spacing="sm"
+    details={[
+      { icon: <PhoneIcon />, label: 'Teléfono', value: '910 000 000', href: 'tel:+34910000000' },
+      { icon: <MailIcon />, label: 'Email', value: 'hola@norte.es', href: 'mailto:hola@norte.es' },
+      { icon: <MapPinIcon />, label: 'Oficina', value: 'Paseo de la Castellana 100, Madrid' },
+      { icon: <ClockIcon />, label: 'Horario', value: 'L-V de 9 a 18 h' },
+    ]}
+  >
+    <ContactFormDemo />
+  </ContactSection>
+</Preview>
+
+```tsx
+<ContactSection title="Hablemos" details={datos} aside={<Mapa />}>
+  <ContactForm />
+</ContactSection>
+```
+
+Variantes: `split` (datos y formulario en columnas) y `stacked` (datos en tarjetas y el formulario
+debajo). Si incluyes un mapa de Google o similar, envuélvelo en `ConsentGate`: instala cookies de
+terceros.
+
+## Newsletter
+
+Suscripción al boletín con validación, estado de envío, confirmación y error (ambos anunciados a los
+lectores de pantalla). Tú decides qué hacer con el email en `onSubscribe`.
+
+<Preview>
+  <NewsletterDemo />
+</Preview>
+
+```tsx
+<Newsletter
+  title="Recibe el boletín mensual"
+  description="Novedades fiscales y consejos de gestión. Un email al mes."
+  onSubscribe={async (email) => {
+    const response = await fetch('/api/boletin', { method: 'POST', body: JSON.stringify({ email }) })
+    if (!response.ok) throw new Error('Alta fallida') // muestra el mensaje de error
+  }}
+  consentLabel={<>Acepto la <a href="/privacidad">política de privacidad</a></>}
+/>
+```
+
+Variantes: `section`, `split` (cabecera y formulario en columnas) e `inline` (solo el formulario,
+para el pie). Usa doble confirmación (email de verificación) y explica qué recibirá y cada cuánto.

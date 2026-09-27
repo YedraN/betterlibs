@@ -1,0 +1,51 @@
+@layer bl.components {
+  .list {
+    margin: 0;
+  }
+
+  /* La cifra va primero en pantalla, pero en el DOM la etiqueta (dt) precede al valor (dd). */
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+  }
+
+  .value {
+    order: -1;
+    margin: 0;
+    color: var(--bl-color-text);
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-4xl);
+    font-weight: var(--bl-font-weight-bold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--bl-tracking-tight);
+    line-height: var(--bl-leading-tight);
+  }
+
+  .label {
+    color: var(--bl-color-text);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .description {
+    margin: 0;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .item[data-variant="cards"] {
+    padding: var(--bl-space-6);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-xl);
+    background-color: var(--bl-color-surface);
+  }
+
+  .item[data-variant="divided"] {
+    padding-inline-start: var(--bl-space-6);
+    border-inline-start: 2px solid var(--bl-color-accent-text);
+  }
+
+  .item[data-variant="plain"] .value {
+    color: var(--bl-color-accent-text);
+  }
+}

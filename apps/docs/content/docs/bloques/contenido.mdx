@@ -1,0 +1,104 @@
+---
+title: Contenido
+description: Servicios y ventajas, cifras, logos de clientes e historia o proceso.
+icon: LayoutGrid
+---
+
+import { AwardIcon, BarChartIcon, BriefcaseIcon, ShieldCheckIcon, TargetIcon, UsersIcon } from '@betterlibs/icons'
+import { FeatureGrid, LogoCloud, Stats, Timeline } from '@betterlibs/react'
+
+## FeatureGrid
+
+Servicios, ventajas o características con icono, título y texto breve. Si indicas `href`, toda la
+tarjeta es clicable pero **solo el título es un enlace** (un único elemento al tabular y un nombre
+claro para lectores de pantalla).
+
+<Preview padded={false}>
+  <FeatureGrid
+    eyebrow="Servicios"
+    title="Todo lo que tu empresa necesita"
+    spacing="sm"
+    features={[
+      { icon: <BriefcaseIcon />, title: 'Consultoría estratégica', description: 'Objetivos realistas y un plan a tres años.', href: '#consultoria' },
+      { icon: <ShieldCheckIcon />, title: 'Auditoría', description: 'Cuentas y procesos revisados para decidir con datos.', href: '#auditoria' },
+      { icon: <BarChartIcon />, title: 'Cuadros de mando', description: 'Los indicadores que importan, fáciles de leer.', href: '#analitica' },
+    ]}
+  />
+</Preview>
+
+Variantes: `cards` (por defecto), `plain` (sin caja) y `list` (icono a la izquierda, dos columnas).
+`columns` acepta valores por breakpoint: `{ base: 1, md: 2, lg: 3 }`.
+
+## Stats
+
+Cifras destacadas. Es una lista de definiciones: se lee «Clientes activos: 500+» aunque la cifra
+vaya primero en pantalla.
+
+<Preview padded={false}>
+  <Stats
+    spacing="sm"
+    stats={[
+      { value: '500+', label: 'Clientes activos', description: 'En 12 sectores' },
+      { value: '20 años', label: 'De experiencia' },
+      { value: '98 %', label: 'Renuevan cada año' },
+      { value: '24 h', label: 'Tiempo de respuesta' },
+    ]}
+  />
+</Preview>
+
+Variantes: `plain`, `cards` y `divided`. Las cifras deben ser verificables: una cifra inflada resta
+confianza.
+
+## LogoCloud
+
+Logos de clientes, socios o certificaciones, con el nombre de la empresa como texto alternativo.
+En gris por defecto (`grayscale`), recuperan el color al pasar el ratón.
+
+<Preview padded={false}>
+  <LogoCloud
+    title="Más de 500 empresas confían en nosotros"
+    spacing="sm"
+    logos={['Norte', 'Vela', 'Sanare', 'Delta', 'Kobalt'].map((name) => ({
+      name,
+      logo: <span style={{ fontSize: '1.25rem', fontWeight: 700 }}>{name}</span>,
+    }))}
+  />
+</Preview>
+
+```tsx
+<LogoCloud
+  title="Confían en nosotros"
+  logos={[{ name: 'Norte Industrial', src: '/logos/norte.svg', href: 'https://norte.es' }]}
+  variant="grid" // 'row' | 'grid'
+/>
+```
+
+## Timeline
+
+Historia de la empresa (`vertical`) o proceso de trabajo (`steps`, numerado y en fila en escritorio).
+Es una lista ordenada (`<ol>`).
+
+<Preview padded={false}>
+  <Timeline
+    title="Cómo trabajamos"
+    variant="steps"
+    spacing="sm"
+    items={[
+      { icon: <UsersIcon />, title: 'Nos conocemos', description: 'Una reunión para entender tu empresa.' },
+      { icon: <TargetIcon />, title: 'Propuesta', description: 'Objetivos, plazos y precio cerrado.' },
+      { icon: <AwardIcon />, title: 'Ejecución', description: 'Un equipo dedicado y avances mensuales.' },
+    ]}
+  />
+</Preview>
+
+<Preview padded={false}>
+  <Timeline
+    title="Nuestra historia"
+    spacing="sm"
+    items={[
+      { label: '2006', title: 'Fundación en Madrid', description: 'Tres socios y un objetivo: asesoría cercana.' },
+      { label: '2014', title: 'Oficina en Barcelona' },
+      { label: '2026', title: '500 clientes', description: 'En 12 sectores y dos países.' },
+    ]}
+  />
+</Preview>

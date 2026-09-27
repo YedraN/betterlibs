@@ -1,0 +1,115 @@
+@layer bl.components {
+  .root {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .inner {
+    position: relative;
+    display: grid;
+    gap: var(--bl-space-12);
+    align-items: center;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-8);
+  }
+
+  .header {
+    max-inline-size: 44rem;
+  }
+
+  .root[data-align="center"] .text {
+    align-items: center;
+    text-align: center;
+  }
+
+  .extra {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--bl-space-4);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .root[data-align="center"] .extra {
+    justify-content: center;
+  }
+
+  .media {
+    min-inline-size: 0;
+  }
+
+  .media :where(img, video, svg) {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--bl-radius-2xl);
+  }
+
+  /* Split: dos columnas a partir de 1024px. */
+  @media (min-width: 1024px) {
+    .root[data-variant="split"] .inner {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--bl-space-16);
+    }
+
+    .root[data-variant="split"][data-media-position="start"] .media {
+      order: -1;
+    }
+  }
+
+  .root[data-variant="centered"] .media {
+    max-inline-size: 64rem;
+    margin-inline: auto;
+  }
+
+  /* Fondo: imagen o vídeo a sangre + capa oscura (el bloque fuerza el tema oscuro). */
+  .root[data-variant="background"] {
+    display: flex;
+    align-items: center;
+    min-block-size: min(36rem, 85vh);
+  }
+
+  .root[data-variant="background"][data-size="lg"] {
+    min-block-size: min(46rem, 100vh);
+  }
+
+  .root[data-variant="background"] .inner {
+    inline-size: 100%;
+  }
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .backdrop > :where(img, picture, figure, div:not(.overlay)),
+  .backdrop :where(img),
+  .video {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    object-fit: cover;
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.55), transparent 60%), rgb(0 0 0 / 0.5);
+  }
+
+  .videoToggle {
+    position: absolute;
+    inset-block-end: var(--bl-space-4);
+    inset-inline-end: var(--bl-space-4);
+    z-index: 1;
+  }
+}

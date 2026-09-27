@@ -42,14 +42,25 @@ export type SocialLinksProps = Omit<ComponentPropsWithRef<'ul'>, 'children'> & {
   newTabLabel?: string
 }
 
-const networks: Record<SocialNetwork, { label: string; Icon: typeof LinkedInIcon }> = {
-  linkedin: { label: 'LinkedIn', Icon: LinkedInIcon },
-  x: { label: 'X (Twitter)', Icon: XIcon },
-  instagram: { label: 'Instagram', Icon: InstagramIcon },
-  facebook: { label: 'Facebook', Icon: FacebookIcon },
-  youtube: { label: 'YouTube', Icon: YouTubeIcon },
-  github: { label: 'GitHub', Icon: GitHubIcon },
-  email: { label: 'Email', Icon: MailIcon },
+/** Nombre legible de cada red («LinkedIn», «X (Twitter)»…). */
+export const socialNetworkLabels: Record<SocialNetwork, string> = {
+  linkedin: 'LinkedIn',
+  x: 'X (Twitter)',
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+  youtube: 'YouTube',
+  github: 'GitHub',
+  email: 'Email',
+}
+
+const icons: Record<SocialNetwork, typeof LinkedInIcon> = {
+  linkedin: LinkedInIcon,
+  x: XIcon,
+  instagram: InstagramIcon,
+  facebook: FacebookIcon,
+  youtube: YouTubeIcon,
+  github: GitHubIcon,
+  email: MailIcon,
 }
 
 /**
@@ -67,8 +78,8 @@ export function SocialLinks({
   return (
     <ul className={cx(styles.root, className)} data-size={size} {...props}>
       {links.map((link) => {
-        const { label: defaultLabel, Icon } = networks[link.network]
-        const label = link.label ?? defaultLabel
+        const Icon = icons[link.network]
+        const label = link.label ?? socialNetworkLabels[link.network]
         return (
           <li key={`${link.network}-${link.href}`}>
             <a

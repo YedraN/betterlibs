@@ -1,0 +1,126 @@
+@layer bl.components {
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    block-size: 100%;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-xl);
+    background-color: var(--bl-color-surface);
+    transition: box-shadow var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .card:hover {
+    box-shadow: var(--bl-shadow-md);
+  }
+
+  .image {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background-color: var(--bl-color-bg-muted);
+  }
+
+  .image :where(img) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--bl-space-4);
+    padding: var(--bl-space-6);
+  }
+
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bl-space-3);
+  }
+
+  .client {
+    color: var(--bl-color-text-muted);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .client :where(img, svg) {
+    display: block;
+    max-block-size: 1.75rem;
+    inline-size: auto;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bl-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tag {
+    padding: var(--bl-space-0-5) var(--bl-space-2);
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-bg-muted);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-xs);
+    font-weight: var(--bl-font-weight-medium);
+  }
+
+  .title {
+    margin: 0;
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-xl);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+    text-wrap: balance;
+  }
+
+  .summary {
+    color: var(--bl-color-text-muted);
+    line-height: var(--bl-leading-relaxed);
+  }
+
+  .summary > :where(p) {
+    margin: 0;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+    gap: var(--bl-space-4);
+    margin: 0;
+    padding-block: var(--bl-space-4);
+    border-block: 1px solid var(--bl-color-border);
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metricValue {
+    order: -1;
+    margin: 0;
+    color: var(--bl-color-accent-text);
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-2xl);
+    font-weight: var(--bl-font-weight-bold);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--bl-leading-tight);
+  }
+
+  .metricLabel {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .body > :last-child {
+    margin-block-start: auto;
+  }
+}

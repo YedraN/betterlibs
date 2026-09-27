@@ -1,0 +1,125 @@
+@layer bl.components {
+  .list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    position: relative;
+    display: flex;
+    gap: var(--bl-space-5);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-1);
+    min-inline-size: 0;
+    padding-block-end: var(--bl-space-10);
+  }
+
+  .item:last-child .body {
+    padding-block-end: 0;
+  }
+
+  .label {
+    margin: 0;
+    color: var(--bl-color-accent-text);
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .title {
+    margin: 0;
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-lg);
+    font-weight: var(--bl-font-weight-semibold);
+    line-height: var(--bl-leading-snug);
+  }
+
+  .description {
+    max-inline-size: 40rem;
+    color: var(--bl-color-text-muted);
+    line-height: var(--bl-leading-relaxed);
+  }
+
+  .description > :where(p) {
+    margin: 0;
+  }
+
+  /* Vertical: punto sobre una línea continua. */
+  .list[data-variant="vertical"] .marker {
+    position: relative;
+    z-index: 1;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 1rem;
+    block-size: 1rem;
+    margin-block-start: 0.25rem;
+    border: 3px solid var(--bl-color-accent-text);
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-bg);
+  }
+
+  .list[data-variant="vertical"] .item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    inset-block: 1.25rem 0;
+    inset-inline-start: calc(0.5rem - 1px);
+    inline-size: 2px;
+    background-color: var(--bl-color-border);
+  }
+
+  /* Pasos numerados. */
+  .list[data-variant="steps"] .marker {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-accent-subtle);
+    color: var(--bl-color-accent-text);
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-lg);
+    font-weight: var(--bl-font-weight-bold);
+  }
+
+  .list[data-variant="steps"] .item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    inset-block: 3.25rem 0.5rem;
+    inset-inline-start: calc(1.375rem - 1px);
+    inline-size: 2px;
+    background-color: var(--bl-color-border);
+  }
+
+  @media (min-width: 1024px) {
+    .list[data-variant="steps"] {
+      display: grid;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      gap: var(--bl-space-8);
+    }
+
+    .list[data-variant="steps"] .item {
+      flex-direction: column;
+    }
+
+    .list[data-variant="steps"] .body {
+      padding-block-end: 0;
+    }
+
+    .list[data-variant="steps"] .item:not(:last-child)::before {
+      inset-block: calc(1.375rem - 1px) auto;
+      inset-inline: 3.75rem calc(var(--bl-space-8) * -1 + 1rem);
+      inline-size: auto;
+      block-size: 2px;
+    }
+  }
+}

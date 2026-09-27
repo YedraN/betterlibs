@@ -1,0 +1,115 @@
+@layer bl.components {
+  .layout {
+    display: grid;
+    gap: var(--bl-space-10);
+  }
+
+  @media (min-width: 1024px) {
+    .layout[data-variant="split"] {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+      gap: var(--bl-space-16);
+      align-items: start;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-8);
+  }
+
+  .address {
+    font-style: normal;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .details[data-variant="stacked"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: var(--bl-space-4);
+  }
+
+  .detail {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--bl-space-4);
+  }
+
+  .details[data-variant="stacked"] .detail {
+    padding: var(--bl-space-5);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-surface);
+  }
+
+  .icon {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border-radius: var(--bl-radius-lg);
+    background-color: var(--bl-color-accent-subtle);
+    color: var(--bl-color-accent-text);
+    font-size: 1.25rem;
+  }
+
+  .detailText {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-0-5);
+    min-inline-size: 0;
+  }
+
+  .label {
+    margin: 0;
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .value {
+    margin: 0;
+    color: var(--bl-color-text);
+    font-weight: var(--bl-font-weight-semibold);
+    overflow-wrap: anywhere;
+  }
+
+  .link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--bl-color-border-strong);
+    text-underline-offset: 0.2em;
+  }
+
+  .link:hover {
+    color: var(--bl-color-accent-text);
+    text-decoration-color: currentColor;
+  }
+
+  .link:focus-visible {
+    border-radius: var(--bl-radius-sm);
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .form {
+    padding: var(--bl-space-8) var(--bl-space-6);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-xl);
+    background-color: var(--bl-color-surface);
+  }
+
+  @media (min-width: 768px) {
+    .form {
+      padding: var(--bl-space-10);
+    }
+  }
+}

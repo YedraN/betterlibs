@@ -1,0 +1,64 @@
+---
+title: Bloques
+description: Secciones completas y listas para usar con las que montar páginas corporativas.
+icon: Blocks
+---
+
+Los bloques son **secciones enteras de página**: una portada, una rejilla de servicios, testimonios,
+precios, preguntas frecuentes, contacto… Combinan los componentes de la librería con el espaciado,
+la tipografía y la semántica ya resueltos. Les pasas datos y textos; ellos se encargan del resto.
+
+## Qué hay
+
+| Página | Bloques |
+| --- | --- |
+| [Hero y CTA](/docs/bloques/hero-y-cta) | `Hero` (split, centrado, con imagen o vídeo de fondo), `CTA` |
+| [Contenido](/docs/bloques/contenido) | `FeatureGrid`, `Stats`, `LogoCloud`, `Timeline` |
+| [Confianza](/docs/bloques/confianza) | `Testimonials`, `TeamGrid`, `CaseStudyCard` |
+| [Blog](/docs/bloques/blog) | `BlogGrid`, `PostCard` |
+| [Conversión](/docs/bloques/conversion) | `Pricing`, `FAQ`, `ContactSection`, `Newsletter` |
+| [Cookies (RGPD)](/docs/bloques/cookies) | `CookieConsent`, `ConsentGate`, `useCookieConsent` |
+
+## Props comunes
+
+Todos los bloques de sección aceptan las mismas props para la cabecera y el aspecto:
+
+| Prop | Qué hace |
+| --- | --- |
+| `eyebrow`, `title`, `description` | Antetítulo, título y entradilla (con `SectionHeader`) |
+| `actions` | Botones o enlaces bajo la entradilla |
+| `align` | `start` o `center` |
+| `headingLevel` | Nivel del título (2 por defecto); los títulos internos usan el siguiente |
+| `tone` | Fondo: `default`, `subtle`, `muted`, `brand`, `dark`, `light` |
+| `spacing` | Espacio vertical: `sm`, `md`, `lg` |
+| `containerSize` | Ancho del contenido |
+| `id` | Ancla de la sección (`#servicios`); el título recibe `{id}-title` |
+
+Cada bloque con título es una **región con nombre** (`<section aria-labelledby>`): los lectores de
+pantalla la listan y permiten saltar a ella.
+
+## Montar una página
+
+```tsx
+import { BlogGrid, CTA, FAQ, FeatureGrid, Hero, Stats, Testimonials } from '@betterlibs/react'
+
+export default function Home() {
+  return (
+    <main id="main">
+      <Hero title="Crece con orden y decide con datos" description="…" actions={…} media={…} />
+      <FeatureGrid id="servicios" eyebrow="Servicios" title="Todo lo que tu empresa necesita" features={servicios} />
+      <Stats tone="subtle" stats={cifras} />
+      <Testimonials title="Lo que dicen nuestros clientes" testimonials={opiniones} />
+      <FAQ title="Preguntas frecuentes" items={preguntas} />
+      <BlogGrid title="Últimos artículos" posts={articulos} />
+      <CTA title="Hablemos de tu proyecto" actions={<Button>Solicitar reunión</Button>} />
+    </main>
+  )
+}
+```
+
+- **Alterna fondos** (`tone="subtle"`) para separar secciones sin líneas.
+- **Un solo `h1`** por página: el del `Hero`. El resto de bloques usan `h2` y sus elementos `h3`.
+- Casi todos los bloques no tienen estado y funcionan en **Server Components**. Llevan
+  `'use client'` los que lo necesitan: `Pricing` (selector de periodo), `Newsletter`,
+  `CookieConsent`, `ConsentGate` y el vídeo de `Hero`.

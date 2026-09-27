@@ -1,0 +1,65 @@
+@layer bl.components {
+  .layout {
+    max-inline-size: 36rem;
+  }
+
+  /* Split: cabecera y formulario en dos columnas (el contenedor es el hijo de la sección). */
+  @media (min-width: 1024px) {
+    .section[data-variant="split"] > * {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--bl-space-12);
+      align-items: center;
+    }
+
+    .section[data-variant="split"] .layout {
+      justify-self: end;
+      inline-size: 100%;
+    }
+  }
+
+  .form {
+    gap: var(--bl-space-4);
+  }
+
+  /* Email y botón en la misma fila a partir de 480px; el botón se alinea con el campo. */
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-3);
+  }
+
+  @media (min-width: 480px) {
+    .row {
+      flex-direction: row;
+      align-items: flex-end;
+    }
+  }
+
+  .field {
+    flex: 1;
+  }
+
+  .submit {
+    flex-shrink: 0;
+  }
+
+  .note {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-xs);
+    line-height: var(--bl-leading-normal);
+  }
+
+  .note > :where(p) {
+    margin: 0;
+  }
+
+  .note :where(a) {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .inline {
+    max-inline-size: 30rem;
+  }
+}

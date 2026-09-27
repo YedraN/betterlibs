@@ -1,6 +1,7 @@
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 import defaultMdxComponents from 'fumadocs-ui/mdx'
 import type { MDXComponents } from 'mdx/types'
+import { CookieConsentDemo, NewsletterDemo } from './docs/blocks-demos'
 import { ContactFormDemo } from './docs/contact-form-demo'
 import { Preview } from './docs/preview'
 import { ToastDemo } from './docs/toast-demo'
@@ -21,6 +22,8 @@ export function getMDXComponents(components?: MDXComponents) {
     Preview,
     ContactFormDemo,
     ToastDemo,
+    NewsletterDemo,
+    CookieConsentDemo,
     ColorScales,
     SemanticColors,
     ContrastReport,

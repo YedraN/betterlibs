@@ -1,0 +1,114 @@
+---
+title: Cookies (RGPD)
+description: Aviso y configuración de cookies conforme al RGPD, la LSSI y la guía de la AEPD.
+icon: Cookie
+---
+
+En España, el uso de cookies que no son estrictamente necesarias exige **consentimiento previo,
+informado y libre** (art. 22.2 de la LSSI y RGPD). La [guía sobre el uso de las cookies de la
+AEPD](https://www.aepd.es/guias/guia-cookies.pdf) concreta cómo debe ser el aviso. `CookieConsent`
+cumple sus requisitos de diseño; lo que dependa de tu web (qué cookies usas, tu política) es cosa tuya.
+
+<Preview>
+  <CookieConsentDemo />
+</Preview>
+
+## Qué hace CookieConsent
+
+| Requisito | Cómo se cumple |
+| --- | --- |
+| Información en primera capa | Título, texto breve y enlace a la política de cookies |
+| Rechazar tan fácil como aceptar | «Rechazar todas» y «Aceptar todas» con el **mismo estilo**, en la primera capa |
+| Consentimiento por finalidades | «Configurar» abre las categorías con interruptores |
+| Nada activado de antemano | Solo las necesarias están activas (y no se pueden desactivar) |
+| Retirar el consentimiento | `cookieConsent.open()` reabre la configuración en cualquier momento |
+| Caducidad y cambios | La decisión caduca (`maxAgeDays`, 365 por defecto) y se vuelve a preguntar si cambias `version` |
+| No bloquear la navegación | El aviso no es modal ni roba el foco, y deja espacio para que no tape el elemento enfocado |
+
+## Uso
+
+Móntalo al principio del `<body>`, para que sea lo primero al navegar con el teclado:
+
+```tsx
+// app/layout.tsx
+import { CookieConsent } from '@betterlibs/react'
+
+<body>
+  <CookieConsent
+    policyHref="/politica-de-cookies"
+    version="2026-09" // cámbiala si cambias las categorías o los proveedores
+    onChange={(consent) => {
+      if (consent.analytics) cargarAnalitica()
+    }}
+  />
+  …
+</body>
+```
+
+Añade en el pie un enlace para cambiar la decisión (es obligatorio poder retirarla con la misma
+facilidad):
+
+```tsx
+'use client'
+import { cookieConsent } from '@betterlibs/react'
+
+<button type="button" onClick={cookieConsent.open}>Configurar cookies</button>
+```
+
+### Categorías
+
+Por defecto: **necesarias** (siempre activas), **preferencias**, **analíticas** y **publicidad**.
+Adáptalas a las cookies que uses de verdad y describe para qué sirve cada una:
+
+```tsx
+<CookieConsent
+  policyHref="/politica-de-cookies"
+  categories={[
+    { id: 'necessary', label: 'Necesarias', description: 'Sesión y seguridad.', required: true },
+    { id: 'analytics', label: 'Analíticas', description: 'Estadísticas de uso (Matomo).' },
+    { id: 'video', label: 'Vídeos', description: 'Vídeos incrustados de YouTube.' },
+  ]}
+/>
+```
+
+## Cargar scripts solo con consentimiento
+
+El aviso por sí solo no bloquea nada: **tú** debes cargar los scripts no necesarios después del
+consentimiento. Con el hook:
+
+```tsx
+'use client'
+import { useCookieConsent } from '@betterlibs/react'
+
+export function Analytics() {
+  const { hasConsent } = useCookieConsent()
+  if (!hasConsent('analytics')) return null
+  return <Script src="https://analitica.example/script.js" />
+}
+```
+
+Y para contenidos de terceros (vídeos, mapas), `ConsentGate` muestra un aviso con botón hasta que
+hay permiso:
+
+```tsx
+<ConsentGate category="marketing" ratio={16 / 9}>
+  <iframe
+    src="https://www.youtube-nocookie.com/embed/ID"
+    title="Presentación de Norte Consultores"
+    allowFullScreen
+  />
+</ConsentGate>
+```
+
+## Lista de comprobación
+
+- [ ] Has inventariado las cookies de tu web y las has agrupado por finalidad.
+- [ ] La política de cookies explica qué son, cuáles usas, quién las instala y cuánto duran.
+- [ ] Ningún script no necesario se carga antes del consentimiento.
+- [ ] Hay un enlace «Configurar cookies» siempre accesible (normalmente en el pie).
+- [ ] Cambias `version` cuando añades categorías o proveedores.
+
+<Callout type="warn" title="No es asesoramiento legal">
+  Este componente implementa los requisitos de diseño de la guía de la AEPD, pero el cumplimiento
+  depende de cómo configures tu web. Consulta con tu asesor en protección de datos.
+</Callout>

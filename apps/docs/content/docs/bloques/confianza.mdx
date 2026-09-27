@@ -1,0 +1,83 @@
+---
+title: Confianza
+description: Testimonios, equipo y casos de éxito.
+icon: Quote
+---
+
+import { CaseStudyCard, Grid, TeamGrid, Testimonials } from '@betterlibs/react'
+
+## Testimonials
+
+Opiniones de clientes. Cada una es un `<figure>` con la cita en `<blockquote>` y la autoría en
+`<figcaption>`; la valoración se anuncia como texto («Valoración: 5 de 5»).
+
+<Preview padded={false}>
+  <Testimonials
+    title="Lo que dicen nuestros clientes"
+    spacing="sm"
+    columns={{ base: 1, md: 2 }}
+    testimonials={[
+      { quote: 'Redujimos a la mitad el tiempo de cierre mensual en tres meses.', name: 'Ana Pérez', role: 'Directora financiera, Norte Industrial', rating: 5 },
+      { quote: 'Un equipo que entiende el negocio, no solo los números.', name: 'Luis Martín', role: 'CEO, Clínicas Sanare', rating: 5 },
+    ]}
+  />
+</Preview>
+
+<Preview padded={false}>
+  <Testimonials
+    variant="featured"
+    spacing="sm"
+    testimonials={[
+      { quote: 'Las solicitudes de contacto crecieron un 40 % con la nueva estrategia. Ojalá los hubiéramos conocido antes.', name: 'Sara Gil', role: 'Marketing, Vela' },
+    ]}
+  />
+</Preview>
+
+Variantes: `grid`, `carousel` (con el `Carousel` accesible, sin autoplay) y `featured` (una cita
+grande). Los mejores testimonios son **concretos**: un resultado, una cifra, un nombre real.
+
+## TeamGrid
+
+Equipo o personas de contacto. Las fotos llevan `alt=""` porque el nombre está al lado, y los
+perfiles sociales se nombran con la persona («Ana Pérez en LinkedIn»).
+
+<Preview padded={false}>
+  <TeamGrid
+    title="Las personas detrás de Norte"
+    spacing="sm"
+    columns={{ base: 1, sm: 2, lg: 3 }}
+    members={[
+      { name: 'Ana Pérez', role: 'Socia directora', photo: 'https://picsum.photos/seed/ana/600/750', links: [{ network: 'linkedin', href: '#' }] },
+      { name: 'Luis Martín', role: 'Director de auditoría', photo: 'https://picsum.photos/seed/luis/600/750' },
+      { name: 'Sara Gil', role: 'Responsable fiscal' },
+    ]}
+  />
+</Preview>
+
+Variantes: `cards` (foto, biografía y redes) y `compact` (avatar y nombre, para equipos grandes).
+
+## CaseStudyCard
+
+Caso de éxito con cliente, resumen y resultados medibles. Colócalos en una `Grid`.
+
+<Preview>
+  <Grid columns={{ base: 1, md: 2 }}>
+    <CaseStudyCard
+      title="Cómo Norte Industrial redujo a la mitad su cierre mensual"
+      href="#caso-1"
+      client="Norte Industrial"
+      tags={['Industria', 'Auditoría']}
+      metrics={[
+        { value: '-50 %', label: 'tiempo de cierre' },
+        { value: '3 meses', label: 'de proyecto' },
+      ]}
+    />
+    <CaseStudyCard
+      title="Clínicas Sanare: un cuadro de mando para 14 centros"
+      href="#caso-2"
+      client="Clínicas Sanare"
+      tags={['Salud']}
+      metrics={[{ value: '14', label: 'centros conectados' }]}
+    />
+  </Grid>
+</Preview>

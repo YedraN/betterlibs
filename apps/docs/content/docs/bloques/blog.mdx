@@ -1,0 +1,73 @@
+---
+title: Blog
+description: Listados de artículos, noticias y recursos.
+icon: Newspaper
+---
+
+import { BlogGrid, PostCard } from '@betterlibs/react'
+
+## BlogGrid
+
+Últimos artículos en rejilla (`grid`), en lista (`list`) o con el primero destacado (`featured`).
+
+<Preview padded={false}>
+  <BlogGrid
+    title="Últimos artículos"
+    spacing="sm"
+    variant="featured"
+    columns={{ base: 1, md: 2 }}
+    posts={[
+      {
+        title: 'Novedades del IVA para autónomos en 2026',
+        href: '#post-1',
+        excerpt: 'Qué cambia en las declaraciones trimestrales y cómo prepararse.',
+        image: { src: 'https://picsum.photos/seed/iva/1200/800' },
+        date: '2026-09-12',
+        category: 'Fiscalidad',
+        author: { name: 'Sara Gil' },
+        readingTime: '6 min de lectura',
+      },
+      {
+        title: 'Cinco indicadores que toda pyme debería vigilar',
+        href: '#post-2',
+        date: '2026-08-28',
+        category: 'Gestión',
+        readingTime: '4 min',
+      },
+      {
+        title: 'Cómo preparar una auditoría sin sustos',
+        href: '#post-3',
+        date: '2026-07-15',
+        category: 'Auditoría',
+        readingTime: '5 min',
+      },
+    ]}
+  />
+</Preview>
+
+## PostCard
+
+La tarjeta de artículo, para montar tus propios listados. Toda la tarjeta es clicable, pero solo el
+título es un enlace. La fecha va en `<time datetime>` y se muestra en español («12 de septiembre de
+2026»), igual en servidor y cliente.
+
+```tsx
+import Link from 'next/link'
+
+<PostCard
+  title="Novedades del IVA para autónomos en 2026"
+  href="/blog/iva-2026"
+  excerpt="Qué cambia en las declaraciones trimestrales."
+  image={{ src: '/blog/iva.jpg' }}
+  date="2026-09-12"
+  category="Fiscalidad"
+  author={{ name: 'Sara Gil', avatar: '/equipo/sara.jpg' }}
+  readingTime="6 min de lectura"
+  linkAs={Link}
+  layout="horizontal"
+/>
+```
+
+- La imagen de portada es decorativa por defecto (`alt=""`): el título ya dice de qué va.
+- `headingLevel` ajusta el nivel del título a la página (3 por defecto).
+- Combínalo con `Pagination` para listados largos.

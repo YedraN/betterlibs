@@ -1,0 +1,113 @@
+@layer bl.components {
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-5);
+    margin: 0;
+    padding: var(--bl-space-6);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-xl);
+    background-color: var(--bl-color-surface);
+  }
+
+  .fill {
+    block-size: 100%;
+  }
+
+  .card[data-variant="featured"] {
+    align-items: center;
+    max-inline-size: 48rem;
+    margin-inline: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: center;
+  }
+
+  .quoteIcon {
+    inline-size: 2rem;
+    block-size: 2rem;
+    color: var(--bl-color-accent-text);
+  }
+
+  .rating {
+    display: flex;
+    gap: var(--bl-space-0-5);
+    margin: 0;
+  }
+
+  .star {
+    inline-size: 1.125rem;
+    block-size: 1.125rem;
+    color: var(--bl-color-border-strong);
+  }
+
+  .star[data-filled] {
+    color: var(--bl-color-warning-solid);
+    fill: currentColor;
+  }
+
+  .quote {
+    flex: 1;
+    margin: 0;
+    color: var(--bl-color-text);
+    font-size: var(--bl-font-size-lg);
+    line-height: var(--bl-leading-relaxed);
+  }
+
+  .quote > :where(p) {
+    margin: 0;
+  }
+
+  .card[data-variant="featured"] .quote {
+    font-family: var(--bl-font-family-display);
+    font-size: var(--bl-font-size-2xl);
+    font-weight: var(--bl-font-weight-medium);
+    line-height: var(--bl-leading-snug);
+    text-wrap: balance;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-3);
+  }
+
+  .authorText {
+    display: flex;
+    flex-direction: column;
+    min-inline-size: 0;
+    text-align: start;
+  }
+
+  .name {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
+  .role {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+
+  .logo {
+    display: inline-flex;
+    margin-inline-start: auto;
+    padding-inline-start: var(--bl-space-4);
+    color: var(--bl-color-text-muted);
+  }
+
+  .logo :where(img, svg) {
+    max-block-size: 1.75rem;
+    inline-size: auto;
+  }
+
+  .card[data-variant="featured"] .logo {
+    margin-inline-start: 0;
+  }
+}

@@ -7,6 +7,57 @@
  *   import '@betterlibs/react/styles.css'
  */
 
+export { BlogGrid, type BlogGridProps } from './blocks/Blog/BlogGrid'
+export { formatPostDate, type Post, PostCard, type PostCardProps } from './blocks/Blog/PostCard'
+export {
+  CaseStudyCard,
+  type CaseStudyCardProps,
+  type CaseStudyMetric,
+} from './blocks/CaseStudyCard/CaseStudyCard'
+export {
+  type ContactDetail,
+  ContactSection,
+  type ContactSectionProps,
+} from './blocks/ContactSection/ContactSection'
+export { ConsentGate, type ConsentGateProps } from './blocks/CookieConsent/ConsentGate'
+export {
+  type CookieCategory,
+  CookieConsent,
+  type CookieConsentProps,
+  defaultCookieCategories,
+} from './blocks/CookieConsent/CookieConsent'
+export {
+  type ConsentCategories,
+  type ConsentConfig,
+  cookieConsent,
+  useCookieConsent,
+} from './blocks/CookieConsent/store'
+export { CTA, type CTAProps } from './blocks/CTA/CTA'
+export { FAQ, type FAQProps, type FaqItem } from './blocks/FAQ/FAQ'
+export { type Feature, FeatureGrid, type FeatureGridProps } from './blocks/FeatureGrid/FeatureGrid'
+export { Hero, type HeroProps } from './blocks/Hero/Hero'
+export { HeroVideo, type HeroVideoProps } from './blocks/Hero/HeroVideo'
+export { LogoCloud, type LogoCloudProps, type LogoItem } from './blocks/LogoCloud/LogoCloud'
+export { Newsletter, type NewsletterProps } from './blocks/Newsletter/Newsletter'
+export {
+  type BillingPeriod,
+  type PerPeriod,
+  Pricing,
+  type PricingFeature,
+  type PricingPlan,
+  type PricingProps,
+} from './blocks/Pricing/Pricing'
+export { type StatItem, Stats, type StatsProps } from './blocks/Stats/Stats'
+export type { BlockBaseProps } from './blocks/shared'
+export { TeamGrid, type TeamGridProps, type TeamMember } from './blocks/TeamGrid/TeamGrid'
+export {
+  type Testimonial,
+  TestimonialCard,
+  type TestimonialCardProps,
+  Testimonials,
+  type TestimonialsProps,
+} from './blocks/Testimonials/Testimonials'
+export { Timeline, type TimelineItem, type TimelineProps } from './blocks/Timeline/Timeline'
 export {
   Accordion,
   AccordionItem,
@@ -155,6 +206,7 @@ export {
   type RadioProps,
 } from './components/Radio/RadioGroup'
 export { Section, type SectionOwnProps, type SectionProps } from './components/Section/Section'
+export { SectionHeader, type SectionHeaderProps } from './components/SectionHeader/SectionHeader'
 export {
   Select,
   type SelectOption,
@@ -168,6 +220,7 @@ export {
   SocialLinks,
   type SocialLinksProps,
   type SocialNetwork,
+  socialNetworkLabels,
 } from './components/SocialLinks/SocialLinks'
 export { Spinner, type SpinnerProps } from './components/Spinner/Spinner'
 export { Stack, type StackOwnProps, type StackProps } from './components/Stack/Stack'

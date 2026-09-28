@@ -4,8 +4,21 @@ description: Cambios de cada fase hasta la versión 1.0.
 icon: History
 ---
 
-A partir de la 1.0, cada versión publicada tendrá su entrada generada con Changesets. Hasta
-entonces, este es el resumen de cada fase.
+A partir de la 1.0, cada versión publicada tiene su entrada en el `CHANGELOG.md` de cada paquete,
+generada con Changesets. Antes de la 1.0, este es el resumen de cada fase.
+
+## 1.0.0 · Versión estable
+
+- Auditoría de accesibilidad automatizada: axe (WCAG 2.2 AA) en las 101 stories y en todas las
+  plantillas, en modo claro y oscuro, más recorridos de teclado de los patrones críticos.
+- `Carousel`: la zona desplazable se puede enfocar y mover con las flechas cuando las
+  diapositivas no tienen nada enfocable.
+- `Header`: al elegir un enlace del menú móvil, el foco va al título de la página nueva.
+- `Pagination`: los controles desactivados mantienen un contraste legible.
+- `PostCard`: `srcSet` y `sizes` en la imagen.
+- Iconos marcados como puros: importar uno solo añade unos 0,4 kB.
+- Plantillas prerenderizadas (SSG) con Lighthouse ≥ 95 en rendimiento, accesibilidad, buenas
+  prácticas y SEO.
 
 ## Fase 7 · Plantillas y documentación completa
 

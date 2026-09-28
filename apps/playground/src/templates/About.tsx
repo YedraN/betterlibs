@@ -17,7 +17,13 @@ export function AboutPage() {
         title="Asesoría cercana desde 2006"
         description="Somos un equipo de 40 personas en Madrid y Barcelona. Creemos que una buena asesoría se nota en las decisiones de cada mes, no solo en el cierre del año."
         media={
-          <img src={photo('team', 1200, 900)} alt="El equipo de Norte en la oficina de Madrid" />
+          <img
+            src={photo('team', 1200, 900)}
+            alt="El equipo de Norte en la oficina de Madrid"
+            width={1200}
+            height={900}
+            fetchPriority="high"
+          />
         }
       />
 

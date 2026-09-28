@@ -141,7 +141,7 @@ export function ContrastBadge({ fg, bg, min }: { fg?: string; bg?: string; min: 
       }}
     >
       {pass ? '✓' : '✕'} {ratio.toFixed(2)}:1
-      <span style={{ opacity: 0.8 }}>(mín. {min})</span>
+      <span>(mín. {min})</span>
     </span>
   )
 }

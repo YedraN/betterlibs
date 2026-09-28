@@ -9,7 +9,14 @@ export type Post = {
   href: string
   excerpt?: ReactNode
   /** Imagen de portada. Suele ser decorativa (`alt` vacío) porque el título ya describe el post. */
-  image?: { src: string; alt?: string }
+  image?: {
+    src: string
+    alt?: string
+    /** Versiones de distintos anchos (`srcset`) para no descargar de más en móvil. */
+    srcSet?: string
+    /** Ancho que ocupa la imagen (`sizes`). @default '(min-width: 48em) 33vw, 100vw' */
+    sizes?: string
+  }
   /** Fecha de publicación (ISO `2026-09-12` o `Date`). */
   date?: string | Date
   category?: ReactNode
@@ -72,7 +79,14 @@ export function PostCard({
     >
       {image && (
         <div className={styles.image}>
-          <img src={image.src} alt={image.alt ?? ''} loading="lazy" decoding="async" />
+          <img
+            src={image.src}
+            srcSet={image.srcSet}
+            sizes={image.srcSet ? (image.sizes ?? '(min-width: 48em) 33vw, 100vw') : undefined}
+            alt={image.alt ?? ''}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       )}
       <div className={styles.body}>

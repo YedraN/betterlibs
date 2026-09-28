@@ -14,7 +14,10 @@ pnpm build
 packages/tokens   design tokens → variables CSS
 packages/react    componentes y bloques
 packages/icons    iconos
-apps/             documentación, Storybook y playground (se añaden en fases posteriores)
+apps/docs        documentación (Next.js + Fumadocs)
+apps/storybook   Storybook
+apps/playground  plantillas de ejemplo (prerenderizadas en el build)
+apps/e2e         Playwright: axe, teclado, regresión visual y Lighthouse CI
 ```
 
 ## Convenciones
@@ -31,7 +34,15 @@ apps/             documentación, Storybook y playground (se añaden en fases po
 1. Crea una rama desde `main`.
 2. Cumple la *Definition of Done* de la plantilla de PR.
 3. Añade un changeset con `pnpm changeset` si afecta a un paquete publicado.
-4. Abre la PR; la CI ejecuta lint, tipos, tests y build.
+4. Abre la PR; la CI ejecuta lint, tipos, tests, build, `size-limit`, `publint`, axe y teclado
+   (Playwright), Lighthouse y regresión visual.
+5. Si cambias algo visual a propósito, regenera las capturas: Actions → **Visual** → Run workflow
+   con «update».
+
+## Publicar
+
+Al fusionar en `main`, la acción **Release** abre el PR «versión de los paquetes» con los
+changesets pendientes. Al fusionar ese PR se publica en npm (requiere el secreto `NPM_TOKEN`).
 
 ## Commits
 

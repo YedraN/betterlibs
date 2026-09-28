@@ -1,6 +1,6 @@
 ---
 title: Roadmap
-description: Qué está hecho y qué falta para la versión 1.0.
+description: Qué incluye la versión 1.0 y qué vendrá después.
 icon: Map
 ---
 
@@ -14,15 +14,17 @@ icon: Map
 | 5 | Cabecera, menú principal y móvil, pie, anuncios | ✅ Hecho |
 | 6 | Bloques corporativos y aviso de cookies RGPD | ✅ Hecho |
 | 7 | Plantillas, documentación completa, generador de tema y guías | ✅ Hecho |
-| 8 | Endurecimiento y **versión 1.0** | ⏳ Siguiente |
+| 8 | Endurecimiento y **versión 1.0** | ✅ Hecho |
 
-## Fase 8: hacia la 1.0
+## Fase 8: versión 1.0
 
-- Auditoría de accesibilidad manual con teclado y lectores de pantalla (NVDA, VoiceOver).
-- Tests de regresión visual de todas las stories.
-- Presupuesto de tamaño (`size-limit`) en la integración continua.
-- Lighthouse ≥ 95 en todas las plantillas.
-- Publicación en npm y despliegue de la documentación, Storybook y las plantillas.
+- Auditoría de accesibilidad automatizada (axe) en todas las stories y plantillas, en claro y
+  oscuro, y recorridos de teclado de los patrones críticos. Ver [Calidad y accesibilidad](/docs/recursos/calidad).
+- Regresión visual de todas las stories y plantillas con Playwright.
+- Presupuesto de tamaño (`size-limit`) y validación de paquetes (`publint`) en la integración continua.
+- Lighthouse ≥ 95 en todas las plantillas, que ahora se prerenderizan como HTML estático.
+- Publicación en npm con Changesets y configuración de despliegue de la documentación, Storybook
+  y las plantillas.
 
 ## Después de la 1.0
 

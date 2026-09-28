@@ -3,7 +3,14 @@
 Librería de componentes React para **webs corporativas y profesionales**: accesible por defecto,
 fácil de adaptar a cualquier marca y pensada para que tus páginas se entiendan a la primera.
 
-> 🚧 En desarrollo. Consulta el [roadmap](#roadmap) para ver en qué fase estamos.
+```bash
+pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+```
+
+```tsx
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+```
 
 ## Principios
 
@@ -31,6 +38,9 @@ pnpm build       # compila todos los paquetes
 pnpm typecheck   # comprueba tipos
 pnpm lint        # lint + formato (Biome)
 pnpm test        # tests
+pnpm test:e2e    # axe + teclado sobre Storybook y las plantillas (tras pnpm build)
+pnpm lighthouse  # Lighthouse CI sobre las plantillas
+pnpm size        # presupuesto de tamaño
 ```
 
 ## Roadmap
@@ -43,7 +53,7 @@ pnpm test        # tests
 - [x] **Fase 5** — Navegación
 - [x] **Fase 6** — Bloques corporativos
 - [x] **Fase 7** — Plantillas y documentación completa
-- [ ] **Fase 8** — Endurecimiento y release 1.0
+- [x] **Fase 8** — Endurecimiento y release 1.0
 
 ## Contribuir
 

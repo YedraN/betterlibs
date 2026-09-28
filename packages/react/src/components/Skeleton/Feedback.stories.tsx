@@ -21,7 +21,12 @@ export const Playground: Story = {}
 export const TarjetasCargando: Story = {
   name: 'Tarjetas cargando',
   render: () => (
-    <Grid columns={{ base: 1, md: 3 }} aria-busy="true" aria-label="Cargando artículos">
+    <Grid
+      columns={{ base: 1, md: 3 }}
+      role="status"
+      aria-busy="true"
+      aria-label="Cargando artículos"
+    >
       {[1, 2, 3].map((i) => (
         <Box key={i} padding="5" bordered radius="lg">
           <Stack gap="3">

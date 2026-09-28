@@ -6,6 +6,7 @@ import {
   cookieConsent,
   Footer,
   Header,
+  SkipLink,
   Stack,
   Text,
   Toaster,
@@ -24,8 +25,18 @@ const logo = (
   </RouterLink>
 )
 
+let serverTitle = ''
+
+/** Título de la última página prerenderizada (lo lee `entry-server.tsx`). */
+export function consumePageTitle() {
+  const title = serverTitle
+  serverTitle = ''
+  return title
+}
+
 /** Pone el título de la pestaña: «Página · Empresa». */
 export function usePageTitle(title: string) {
+  if (typeof window === 'undefined') serverTitle = `${title} · ${company.name}`
   useEffect(() => {
     document.title = `${title} · ${company.name}`
   }, [title])
@@ -34,6 +45,8 @@ export function usePageTitle(title: string) {
 export function SiteLayout({ pathname, children }: { pathname: string; children: ReactNode }) {
   return (
     <>
+      {/* El enlace de salto va antes que el aviso de cookies: debe ser lo primero enfocable. */}
+      <SkipLink />
       <CookieConsent policyHref="/aviso-legal#cookies" version="2026-09" />
       <AnnouncementBar
         dismissible
@@ -49,6 +62,7 @@ export function SiteLayout({ pathname, children }: { pathname: string; children:
         currentHref={pathname}
         linkAs={RouterLink}
         hideOnScroll
+        skipLink={false}
         actions={
           <Button asChild size="sm">
             <RouterLink href="/contacto">Solicitar propuesta</RouterLink>

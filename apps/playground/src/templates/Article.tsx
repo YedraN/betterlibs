@@ -122,6 +122,8 @@ export function ArticlePage({ slug }: { slug: string }) {
           {article.image && (
             <Image
               src={article.image.src}
+              srcSet={article.image.srcSet}
+              sizes="(min-width: 75em) 72rem, 100vw"
               alt=""
               ratio={16 / 9}
               radius="2xl"

@@ -22,11 +22,19 @@ export function navigate(href: string) {
   for (const listener of listeners) listener()
 }
 
+/** Ruta que se está prerenderizando en el build (ver `scripts/prerender.ts`). */
+let serverPathname = '/'
+
+export function setServerPathname(pathname: string) {
+  serverPathname = pathname
+}
+
 export function usePathname() {
   return useSyncExternalStore(
     subscribe,
     () => window.location.pathname,
-    () => '/',
+    // En el navegador, la hidratación usa la ruta real (la misma con la que se prerenderizó).
+    () => (typeof window === 'undefined' ? serverPathname : window.location.pathname),
   )
 }
 

@@ -141,7 +141,8 @@ export const Contraste: StoryObj = {
                       padding: 'var(--bl-space-1) var(--bl-space-3)',
                       borderRadius: 'var(--bl-radius-md)',
                       background: `var(--bl-color-${pair.bg})`,
-                      color: `var(--bl-color-${pair.fg})`,
+                      // Los pares de 3:1 son bordes y foco: la muestra es el borde, no el texto.
+                      color: pair.min < 4.5 ? 'var(--bl-color-text)' : `var(--bl-color-${pair.fg})`,
                       border:
                         pair.fg.startsWith('border') || pair.fg === 'focus-ring'
                           ? `2px solid var(--bl-color-${pair.fg})`

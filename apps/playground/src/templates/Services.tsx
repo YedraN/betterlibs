@@ -14,7 +14,7 @@ import {
   Text,
   Timeline,
 } from '@betterlibs/react'
-import { faqs, photo, plans, process, services } from '../site/data'
+import { faqs, photo, photoSrcSet, plans, process, services } from '../site/data'
 import { PageHeader } from '../site/PageHeader'
 import { RouterLink } from '../site/router'
 import { usePageTitle } from '../site/SiteLayout'
@@ -66,7 +66,14 @@ export function ServicesPage() {
                   </Button>
                 </div>
               </Stack>
-              <Image src={photo(service.slug)} alt="" ratio={4 / 3} radius="2xl" />
+              <Image
+                src={photo(service.slug)}
+                srcSet={photoSrcSet(service.slug)}
+                sizes="(min-width: 48em) 50vw, 100vw"
+                alt=""
+                ratio={4 / 3}
+                radius="2xl"
+              />
             </Grid>
           </Container>
         </Section>

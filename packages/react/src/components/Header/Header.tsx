@@ -59,6 +59,15 @@ export type HeaderProps = Omit<ComponentPropsWithRef<'header'>, 'children'> & {
   openMenuLabel?: string
 }
 
+/** Lleva el foco al `h1` del contenido principal (o al propio contenedor si no tiene). */
+function focusMainHeading(target: string) {
+  const main = target.startsWith('#') ? document.getElementById(target.slice(1)) : null
+  const heading = main?.querySelector<HTMLElement>('h1') ?? main
+  if (!heading) return
+  if (!heading.hasAttribute('tabindex')) heading.tabIndex = -1
+  heading.focus()
+}
+
 /**
  * Cabecera del sitio: logo, navegación principal con desplegables o mega menús, acciones y menú
  * móvil en un panel lateral. Incluye el enlace para saltar al contenido.
@@ -97,6 +106,7 @@ export function Header({
 }: HeaderProps) {
   const headerRef = useRef<HTMLElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const navigatedRef = useRef(false)
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
 
@@ -167,6 +177,14 @@ export function Header({
                 </IconButton>
               </DrawerTrigger>
               <DrawerContent
+                // Al cerrar tras elegir un enlace, el foco no vuelve al botón del menú (la página
+                // ha cambiado): va al título del contenido principal, como al navegar.
+                onCloseAutoFocus={(event) => {
+                  if (!navigatedRef.current) return
+                  navigatedRef.current = false
+                  event.preventDefault()
+                  requestAnimationFrame(() => focusMainHeading(skipLink || '#main'))
+                }}
                 title={menuLabel}
                 side="right"
                 size="sm"
@@ -181,7 +199,10 @@ export function Header({
                   label={navigationLabel}
                   currentHref={currentHref}
                   linkAs={linkAs}
-                  onNavigate={() => setMenuOpen(false)}
+                  onNavigate={() => {
+                    navigatedRef.current = true
+                    setMenuOpen(false)
+                  }}
                 />
               </DrawerContent>
             </Drawer>

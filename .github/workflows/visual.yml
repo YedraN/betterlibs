@@ -1,0 +1,59 @@
+name: Visual
+
+# Regresión visual de las plantillas y de todas las stories con Playwright.
+# Las capturas de referencia viven en apps/e2e/tests/__screenshots__ y se generan siempre en
+# esta imagen de Linux para que sean estables. Para crearlas o actualizarlas tras un cambio
+# visual intencionado: Actions → Visual → Run workflow con «update» marcado.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      update:
+        description: Regenerar las capturas de referencia y subirlas a la rama
+        type: boolean
+        default: false
+
+concurrency:
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@betterlibs/playground --filter=@betterlibs/storybook
+      - name: Comparar con las referencias
+        if: ${{ !inputs.update }}
+        run: pnpm test:visual
+      - name: Regenerar las referencias
+        if: ${{ inputs.update }}
+        run: pnpm test:visual --update-snapshots=all
+      - name: Subir las referencias nuevas
+        if: ${{ inputs.update }}
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add apps/e2e/tests/__screenshots__
+          git diff --cached --quiet || git commit -m "test: actualiza las capturas de regresión visual"
+          git push
+      - uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: diferencias-visuales
+          path: apps/e2e/test-results
+          retention-days: 14

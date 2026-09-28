@@ -3,8 +3,10 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-27 · **Última fase completada:** Fase 7 — Plantillas y documentación
-> **Siguiente paso:** Fase 8 — Endurecimiento y release 1.0
+> **Última actualización:** 2026-09-28 · **Última fase completada:** Fase 8 — Endurecimiento y 1.0
+> **Siguiente paso:** publicar la 1.0.0 (fusionar el PR de Changesets con `NPM_TOKEN` configurado),
+> desplegar en Vercel, generar las capturas visuales y hacer la revisión manual con lectores de
+> pantalla (ver «Pendiente fuera del repo» en la Fase 8).
 
 ---
 
@@ -31,7 +33,9 @@ Comprobación general (desde la raíz):
 pnpm check        # Biome: lint + formato con autofix (solo warnings permitidos)
 pnpm typecheck    # turbo: todos los paquetes y apps
 pnpm test         # turbo: vitest en tokens y react
-pnpm build        # turbo: tokens, icons, react, storybook y docs
+pnpm build        # turbo: tokens, icons, react, storybook, docs y playground
+pnpm size         # size-limit (tras build)
+pnpm test:e2e     # Playwright: axe + teclado (tras build; necesita Chromium de Playwright)
 ```
 
 ## 3. Decisiones técnicas
@@ -70,7 +74,8 @@ apps/
   storybook/  stories de fundamentos y theming en src/; las de componentes viven en packages/react
   docs/       Next.js + Fumadocs; contenido en content/docs/**; componentes MDX en components/docs;
               scripts/generate-api.ts → generated/api.json (props y CSS de la librería)
-  playground/ Vite: web de ejemplo con las 6 plantillas (Fase 7)
+  playground/ Vite: web de ejemplo con las 6 plantillas (Fase 7), prerenderizada (SSG) en el build
+  e2e/        Playwright (axe, teclado, visual) + Lighthouse CI + serve.ts (servidor estático)
 ```
 
 ## 5. Estado por fases
@@ -247,10 +252,46 @@ apps/
   Preguntas frecuentes, Roadmap, Novedades y Contribuir. Enlace «Plantillas» en la cabecera
   (`NEXT_PUBLIC_PLAYGROUND_URL`, por defecto `http://localhost:5173`).
 
-### Fase 8 — Endurecimiento y release 1.0
-Auditoría de accesibilidad (axe + NVDA + teclado), regresión visual (Storybook test-runner +
-Playwright o Chromatic), `size-limit` en CI, Lighthouse ≥ 95 en plantillas, publicar en npm con
-Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOOK_URL`), v1.0.0.
+### ✅ Fase 8 — Endurecimiento y release 1.0 (2026-09-28)
+- **`apps/e2e`** (Playwright 1.63 + @axe-core/playwright): proyectos `a11y` (axe WCAG 2.2 A/AA +
+  best-practice en las 101 stories del build estático, leídas de `storybook-static/index.json`, y
+  en las 8 rutas del playground, claro/oscuro, más móvil con menú abierto), `keyboard` (7
+  recorridos) y `visual` (capturas de plantillas y stories). `serve.ts`: servidor estático con
+  brotli/gzip cacheado, URLs limpias y `404.html` (lo usan Playwright y Lighthouse).
+- **Regresión visual**: referencias en `apps/e2e/tests/__screenshots__`, solo en Linux
+  (`VISUAL_ANY_OS=1` para forzar). Sin referencia se omite (`updateSnapshots: 'none'`). Workflow
+  `.github/workflows/visual.yml` en la imagen `mcr.microsoft.com/playwright:v1.63.0-noble`;
+  con `workflow_dispatch` + `update` regenera y hace commit de las capturas.
+- **Lighthouse CI** (`apps/e2e/lighthouserc.cjs`, 3 ejecuciones, mediana): ≥ 95 en las cuatro
+  categorías en las 7 plantillas. Resultados locales: rendimiento 95–99, resto 100.
+- **Playground prerenderizado (SSG)**: `src/entry-server.tsx` + `scripts/prerender.ts` generan
+  `dist/<ruta>/index.html` y `404.html`; `main.tsx` hidrata. `usePathname` usa la ruta del
+  prerender en el servidor; `usePageTitle` captura el `<title>`. Fotos locales en
+  `public/images` (WebP optimizado con sharp, variantes 640/1200 con `srcset`), `robots.txt`.
+- **size-limit** (`.size-limit.json`, preset small-lib con rolldown; CSS con `"rolldown": false`)
+  y **publint** (`pnpm lint:packages`) en CI. Los iconos llevan `/* @__PURE__ */` (1 icono: 2,2 kB
+  → 0,4 kB; también bajó `Form`/`Header`/`CookieConsent`).
+- **Arreglos de la auditoría**: `Carousel` viewport enfocable si no hay nada enfocable dentro;
+  `Header` lleva el foco al `h1` de `#main` al navegar desde el menú móvil (`onCloseAutoFocus`);
+  `Pagination` desactivada con `text-muted`; `PostCard` acepta `srcSet`/`sizes`; en el playground
+  `SkipLink` va antes que `CookieConsent` (`Header skipLink={false}`) y así lo dice la guía.
+- **Release**: changeset `major` (`.changeset/v1-release.md`) → 1.0.0 de los tres paquetes.
+  `.github/workflows/release.yml` con `changesets/action` (PR de versión; al fusionarlo publica
+  con procedencia). Metadatos npm (keywords, homepage, bugs, `./package.json` en exports) y README
+  de `@betterlibs/react`.
+- **Despliegue**: `vercel.json` en `apps/docs`, `apps/storybook` y `apps/playground` (root
+  directory = la app; build con turbo desde la raíz).
+- **Docs**: página «Calidad y accesibilidad» (recursos/calidad) con resultados y protocolo de
+  revisión con lectores de pantalla; roadmap y novedades actualizados; nota del orden
+  SkipLink/CookieConsent en Cookies.
+
+#### Pendiente fuera del repo (requiere cuentas del usuario)
+1. Secreto `NPM_TOKEN` en GitHub y crear la organización `@betterlibs` en npm → fusionar el PR
+   «chore: versión de los paquetes» para publicar la 1.0.0.
+2. Vercel: tres proyectos (root directory `apps/docs`, `apps/storybook`, `apps/playground`);
+   en docs, `NEXT_PUBLIC_STORYBOOK_URL` y `NEXT_PUBLIC_PLAYGROUND_URL` con las URLs finales.
+3. Ejecutar el workflow **Visual** con «update» para crear las capturas de referencia.
+4. Revisión manual con NVDA/VoiceOver/TalkBack (lista en recursos/calidad).
 
 ## 6. Definition of Done por componente
 
@@ -309,6 +350,17 @@ Changesets, desplegar docs y Storybook (Vercel, configurar `NEXT_PUBLIC_STORYBOO
 - **CSS Modules compartidos:** si un elemento lleva clases de dos módulos, el orden de import
   decide la cascada (`.field { padding: 0 }` pisaba al `<textarea>`; por eso no lleva `.field`).
 
+- **Playwright en Windows:** Lighthouse CI (`lhci autorun`) falla al borrar su carpeta temporal
+  (EPERM de chrome-launcher); en CI (Linux) funciona. En local se puede medir con la API de
+  `lighthouse` directamente. Las capturas visuales solo se comparan en Linux.
+- **Storybook + axe:** el addon a11y lanza su propio axe en el iframe; las URLs de las pruebas
+  llevan `globals=a11y.manual:!true` y `expectNoViolations` reintenta si «Axe is already running».
+- **Prerender del playground:** cualquier acceso a `window`/`document` durante el render rompe el
+  build (`scripts/prerender.ts`); úsalos en efectos. Un desajuste de hidratación sale como error
+  de consola y baja «Buenas prácticas» en Lighthouse.
+- **Turbo y dist:** si el HTML del playground apunta a un JS que no existe, borra `dist` y
+  reconstruye con `--force`.
+
 ## 8. Comandos útiles
 
 ```bash
@@ -318,4 +370,6 @@ pnpm --filter @betterlibs/docs dev        # http://localhost:3000
 pnpm --filter @betterlibs/playground dev  # http://localhost:5173
 pnpm --filter @betterlibs/react test
 pnpm changeset                            # al publicar cambios de paquetes
+pnpm test:e2e                             # axe + teclado (tras pnpm build)
+pnpm lighthouse                           # Lighthouse CI sobre las plantillas
 ```

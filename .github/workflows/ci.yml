@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   ci:
+    name: Lint, tipos, tests, build y tamaño
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,3 +25,33 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+      - name: Presupuesto de tamaño (size-limit)
+        run: pnpm size
+      - name: Paquetes publicables (publint)
+        run: pnpm lint:packages
+
+  e2e:
+    name: Accesibilidad, teclado y Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=@betterlibs/playground --filter=@betterlibs/storybook
+      - run: pnpm --filter @betterlibs/e2e exec playwright install --with-deps chromium
+      - name: axe (WCAG 2.2 AA) en plantillas y stories + recorridos de teclado
+        run: pnpm --filter @betterlibs/e2e test:e2e
+      - name: Lighthouse ≥ 95 en las plantillas
+        run: pnpm lighthouse
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: informes-e2e
+          path: |
+            apps/e2e/playwright-report
+            apps/e2e/.lighthouseci
+          retention-days: 14

@@ -1,0 +1,69 @@
+[
+  {
+    "name": "@betterlibs/react (todo)",
+    "path": "packages/react/dist/index.js",
+    "import": "*",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "70 kB"
+  },
+  {
+    "name": "@betterlibs/react { Button }",
+    "path": "packages/react/dist/index.js",
+    "import": "{ Button }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "2.5 kB"
+  },
+  {
+    "name": "@betterlibs/react { Header, Footer }",
+    "path": "packages/react/dist/index.js",
+    "import": "{ Header, Footer }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "24 kB"
+  },
+  {
+    "name": "@betterlibs/react { Form, Field, Input }",
+    "path": "packages/react/dist/index.js",
+    "import": "{ Form, Field, Input }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "6 kB"
+  },
+  {
+    "name": "@betterlibs/react { CookieConsent }",
+    "path": "packages/react/dist/index.js",
+    "import": "{ CookieConsent }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "17 kB"
+  },
+  {
+    "name": "@betterlibs/react/styles.css",
+    "path": "packages/react/dist/styles.css",
+    "rolldown": false,
+    "limit": "16 kB"
+  },
+  {
+    "name": "@betterlibs/tokens/index.css",
+    "path": "packages/tokens/dist/index.css",
+    "rolldown": false,
+    "limit": "3.5 kB"
+  },
+  {
+    "name": "@betterlibs/tokens { createTheme }",
+    "path": "packages/tokens/dist/index.js",
+    "import": "{ createTheme }",
+    "limit": "4.5 kB"
+  },
+  {
+    "name": "@betterlibs/icons (un icono)",
+    "path": "packages/icons/dist/index.js",
+    "import": "{ ArrowRightIcon }",
+    "ignore": ["react", "react/jsx-runtime"],
+    "limit": "0.5 kB"
+  },
+  {
+    "name": "@betterlibs/icons (todo)",
+    "path": "packages/icons/dist/index.js",
+    "import": "*",
+    "ignore": ["react", "react/jsx-runtime"],
+    "limit": "3.2 kB"
+  }
+]

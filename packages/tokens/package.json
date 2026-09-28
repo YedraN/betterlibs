@@ -3,12 +3,27 @@
   "version": "0.0.0",
   "description": "Design tokens de Betterlibs UI: colores, tipografía, espaciado, movimiento y temas como variables CSS.",
   "license": "MIT",
+  "author": "YedraN",
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "theme",
+    "oklch",
+    "wcag",
+    "contrast",
+    "dark-mode"
+  ],
+  "homepage": "https://github.com/YedraN/betterlibs/tree/main/packages/tokens#readme",
+  "bugs": {
+    "url": "https://github.com/YedraN/betterlibs/issues"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,7 +36,8 @@
     "./tokens.css": "./dist/tokens.css",
     "./reset.css": "./dist/reset.css",
     "./base.css": "./dist/base.css",
-    "./tokens.json": "./dist/tokens.json"
+    "./tokens.json": "./dist/tokens.json",
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",

@@ -27,13 +27,16 @@ cumple sus requisitos de diseño; lo que dependa de tu web (qué cookies usas, t
 
 ## Uso
 
-Móntalo al principio del `<body>`, para que sea lo primero al navegar con el teclado:
+Móntalo al principio del `<body>`, justo después del enlace de salto, para que sea lo primero al
+navegar con el teclado. El enlace de salto debe seguir siendo el primer elemento enfocable: si usas
+`Header`, desactiva el suyo (`skipLink={false}`) y pon `SkipLink` delante del aviso:
 
 ```tsx
 // app/layout.tsx
-import { CookieConsent } from '@betterlibs/react'
+import { CookieConsent, Header, SkipLink } from '@betterlibs/react'
 
 <body>
+  <SkipLink />
   <CookieConsent
     policyHref="/politica-de-cookies"
     version="2026-09" // cámbiala si cambias las categorías o los proveedores
@@ -41,6 +44,7 @@ import { CookieConsent } from '@betterlibs/react'
       if (consent.analytics) cargarAnalitica()
     }}
   />
+  <Header skipLink={false} … />
   …
 </body>
 ```

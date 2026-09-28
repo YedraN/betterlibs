@@ -38,8 +38,12 @@ export const company = {
   hours: 'Lunes a viernes, de 9 a 18 h',
 }
 
+/** Fotos de ejemplo servidas desde `public/images` (WebP optimizado, como en una web real). */
 export const photo = (seed: string, width = 1200, height = 800) =>
-  `https://picsum.photos/seed/norte-${seed}/${width}/${height}`
+  `/images/${seed}-${width}x${height}.webp`
+
+/** `srcset` de las fotos 3:2: 640 px para móvil y 1200 px para pantallas grandes. */
+export const photoSrcSet = (seed: string) => `${photo(seed, 640, 427)} 640w, ${photo(seed)} 1200w`
 
 export type Service = {
   slug: string
@@ -317,7 +321,7 @@ export const articles: Article[] = [
     href: '/blog/iva-autonomos-2026',
     excerpt:
       'Qué cambia en las declaraciones trimestrales y cómo prepararse para no llevarse sustos.',
-    image: { src: photo('iva') },
+    image: { src: photo('iva'), srcSet: photoSrcSet('iva') },
     date: '2026-09-12',
     category: 'Fiscalidad',
     author: { name: 'Elena Soto', avatar: photo('elena', 96, 96) },
@@ -386,7 +390,7 @@ export const articles: Article[] = [
     title: 'Cinco indicadores que toda pyme debería vigilar',
     href: '/blog/indicadores-pyme',
     excerpt: 'Del margen bruto a la rotación de cobro: qué mirar cada mes y por qué.',
-    image: { src: photo('kpi') },
+    image: { src: photo('kpi'), srcSet: photoSrcSet('kpi') },
     date: '2026-08-28',
     category: 'Gestión',
     author: { name: 'David Cruz', avatar: photo('david', 96, 96) },
@@ -398,7 +402,7 @@ export const articles: Article[] = [
     title: 'Cómo preparar una auditoría sin sustos',
     href: '/blog/auditoria-sin-sustos',
     excerpt: 'La documentación que conviene tener lista antes de que llegue el equipo auditor.',
-    image: { src: photo('audit') },
+    image: { src: photo('audit'), srcSet: photoSrcSet('audit') },
     date: '2026-07-15',
     category: 'Auditoría',
     author: { name: 'Jorge Ramos', avatar: photo('jorge', 96, 96) },
@@ -410,7 +414,7 @@ export const articles: Article[] = [
     title: 'Cierre mensual en cinco días: nuestro método',
     href: '/blog/cierre-mensual',
     excerpt: 'Un calendario sencillo que cualquier equipo financiero puede aplicar.',
-    image: { src: photo('close') },
+    image: { src: photo('close'), srcSet: photoSrcSet('close') },
     date: '2026-06-30',
     category: 'Gestión',
     author: { name: 'Marta León', avatar: photo('marta', 96, 96) },
@@ -422,7 +426,7 @@ export const articles: Article[] = [
     title: 'Herencias y empresa familiar: lo que conviene planificar',
     href: '/blog/herencias-empresa-familiar',
     excerpt: 'Cómo evitar que el relevo generacional se convierta en un problema fiscal.',
-    image: { src: photo('family') },
+    image: { src: photo('family'), srcSet: photoSrcSet('family') },
     date: '2026-06-02',
     category: 'Fiscalidad',
     author: { name: 'Elena Soto', avatar: photo('elena', 96, 96) },

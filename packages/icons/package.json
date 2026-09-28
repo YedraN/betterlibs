@@ -3,10 +3,23 @@
   "version": "0.0.0",
   "description": "Iconos SVG como componentes React, accesibles y tree-shakeable.",
   "license": "MIT",
+  "author": "YedraN",
+  "keywords": [
+    "react",
+    "icons",
+    "svg",
+    "tree-shakeable",
+    "accessibility"
+  ],
+  "homepage": "https://github.com/YedraN/betterlibs/tree/main/packages/icons#readme",
+  "bugs": {
+    "url": "https://github.com/YedraN/betterlibs/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +27,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",

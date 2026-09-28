@@ -48,8 +48,9 @@
     cursor: default;
   }
 
+  /* Texto atenuado pero legible (4.5:1): se sigue viendo aunque no se pueda usar. */
   .link[data-disabled] {
-    color: var(--bl-color-text-disabled);
+    color: var(--bl-color-text-muted);
     cursor: default;
   }
 

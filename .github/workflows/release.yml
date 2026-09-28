@@ -1,0 +1,43 @@
+name: Release
+
+# Publicación con Changesets:
+# 1. Cada cambio en los paquetes añade un changeset (`pnpm changeset`).
+# 2. Al llegar a main, esta acción abre (o actualiza) el PR «Versión de los paquetes» con las
+#    versiones nuevas y los CHANGELOG.
+# 3. Al fusionar ese PR, publica en npm (con procedencia) y crea las etiquetas y releases.
+# Requiere el secreto NPM_TOKEN (token de automatización de npm con permiso sobre @betterlibs).
+
+on:
+  push:
+    branches: [main]
+
+concurrency: release-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - uses: changesets/action@v1
+        with:
+          title: 'chore: versión de los paquetes'
+          commit: 'chore: versión de los paquetes'
+          version: pnpm version-packages
+          publish: pnpm release
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

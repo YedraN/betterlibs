@@ -1,0 +1,20 @@
+{
+  "name": "@betterlibs/e2e",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test:e2e": "playwright test --project=a11y --project=keyboard",
+    "test:visual": "playwright test --project=visual",
+    "lighthouse": "lhci autorun",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@betterlibs/playground": "workspace:*",
+    "@betterlibs/storybook": "workspace:*",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.2"
+  }
+}

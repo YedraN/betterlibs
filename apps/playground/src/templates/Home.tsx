@@ -12,7 +12,7 @@ import {
   Stats,
   Testimonials,
 } from '@betterlibs/react'
-import { articles, clients, photo, services, stats, testimonials } from '../site/data'
+import { articles, clients, photo, photoSrcSet, services, stats, testimonials } from '../site/data'
 import { RouterLink } from '../site/router'
 import { usePageTitle } from '../site/SiteLayout'
 
@@ -38,9 +38,13 @@ export function HomePage() {
         media={
           <img
             src={photo('hero')}
+            srcSet={photoSrcSet('hero')}
+            sizes="(min-width: 64em) 50vw, 100vw"
             alt="Dos consultoras de Norte revisan un informe con un cliente"
             width={1200}
             height={800}
+            // Es la imagen principal (LCP): se pide cuanto antes.
+            fetchPriority="high"
           />
         }
       >

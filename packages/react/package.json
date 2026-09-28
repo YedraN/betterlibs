@@ -3,12 +3,30 @@
   "version": "0.0.0",
   "description": "Componentes React accesibles para webs corporativas y profesionales.",
   "license": "MIT",
+  "author": "YedraN",
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "accessibility",
+    "a11y",
+    "wcag",
+    "corporate",
+    "css-modules",
+    "rsc"
+  ],
+  "homepage": "https://github.com/YedraN/betterlibs/tree/main/packages/react#readme",
+  "bugs": {
+    "url": "https://github.com/YedraN/betterlibs/issues"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,7 +35,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",

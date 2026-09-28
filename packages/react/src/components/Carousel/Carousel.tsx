@@ -102,6 +102,18 @@ export function Carousel({
     setPlaying(Boolean(autoplay) && !reducedMotion)
   }, [autoplay, reducedMotion])
 
+  // Si las diapositivas no tienen nada enfocable, la zona desplazable se hace enfocable para
+  // poder moverla con las flechas del teclado (WCAG 2.1.1).
+  const [scrollableFocus, setScrollableFocus] = useState(false)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: se recalcula si cambian las diapositivas
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    setScrollableFocus(
+      !viewport.querySelector('a[href], button, input, select, textarea, [tabindex], video'),
+    )
+  }, [children])
+
   const measure = useCallback(() => {
     const viewport = viewportRef.current
     const first = viewport?.firstElementChild as HTMLElement | null
@@ -250,7 +262,7 @@ export function Carousel({
           </div>
         </div>
       )}
-      <div ref={viewportRef} className={styles.viewport}>
+      <div ref={viewportRef} className={styles.viewport} tabIndex={scrollableFocus ? 0 : undefined}>
         {slides.map((slide, i) => (
           <div
             // biome-ignore lint/suspicious/noArrayIndexKey: las diapositivas no cambian de orden

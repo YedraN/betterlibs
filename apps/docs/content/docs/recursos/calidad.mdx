@@ -1,0 +1,100 @@
+---
+title: Calidad y accesibilidad
+description: Cómo se comprueba cada versión y resultados de la auditoría de la 1.0.
+icon: ShieldCheck
+---
+
+Cada cambio pasa por las mismas comprobaciones automáticas en la integración continua. Si una
+falla, el cambio no se fusiona.
+
+| Comprobación | Herramienta | Qué cubre |
+| --- | --- | --- |
+| Tests unitarios y de accesibilidad | Vitest + Testing Library + axe | Comportamiento y ARIA de cada componente |
+| Contraste de los temas | Build de `@betterlibs/tokens` | 50 pares de color en claro y oscuro (el build falla si uno no cumple) |
+| Auditoría axe | Playwright + axe-core | Todas las stories y todas las plantillas, en claro y oscuro, WCAG 2.2 A/AA |
+| Teclado | Playwright | Enlace de salto, aviso de cookies, mega menú, menú móvil, formularios, cambio de página |
+| Regresión visual | Playwright | Capturas de todas las stories y plantillas (escritorio y móvil) |
+| Rendimiento y SEO | Lighthouse CI | Todas las plantillas ≥ 95 en las cuatro categorías |
+| Tamaño | size-limit | Presupuesto por paquete y por componente habitual |
+| Paquetes | publint | `exports`, tipos y archivos publicados correctos |
+
+## Resultados de la 1.0
+
+- **axe:** 0 infracciones en las 101 stories y en las 8 plantillas (incluida la 404), en modo claro
+  y oscuro, y en móvil con el menú abierto.
+- **Teclado:** 7 recorridos críticos sin fallos.
+- **Lighthouse** (móvil, red lenta simulada):
+
+| Plantilla | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
+| --- | --- | --- | --- | --- |
+| Portada | 95 | 100 | 100 | 100 |
+| Servicios | 96 | 100 | 100 | 100 |
+| Sobre nosotros | 99 | 100 | 100 | 100 |
+| Contacto | 99 | 100 | 100 | 100 |
+| Blog | 97 | 100 | 100 | 100 |
+| Artículo | 95 | 100 | 100 | 100 |
+| Aviso legal | 99 | 100 | 100 | 100 |
+
+- **Tamaño** (minificado + brotli, sin React):
+
+| Importación | Tamaño | Presupuesto |
+| --- | --- | --- |
+| `Button` | 1,75 kB | 2,5 kB |
+| `Form`, `Field`, `Input` | 4,5 kB | 6 kB |
+| `CookieConsent` | 14,5 kB | 17 kB |
+| `Header`, `Footer` | 20,3 kB | 24 kB |
+| Toda la librería | 60,3 kB | 70 kB |
+| `styles.css` | 13,9 kB | 16 kB |
+| `tokens/index.css` | 3 kB | 3,5 kB |
+| Un icono | 0,4 kB | 0,5 kB |
+
+### Problemas encontrados y corregidos en la auditoría
+
+- El enlace de salto no era el primer elemento enfocable cuando el aviso de cookies iba delante.
+  Ahora la guía de [Cookies y RGPD](/docs/bloques/cookies) indica el orden correcto.
+- La zona desplazable del `Carousel` no se podía mover con el teclado si las diapositivas no
+  tenían enlaces ni botones (WCAG 2.1.1).
+- Al navegar desde el menú móvil, el foco volvía al botón del menú en lugar de a la página nueva.
+- «Anterior» y «Siguiente» desactivados en `Pagination` tenían un contraste insuficiente.
+- Importar un solo icono incluía todos (faltaba marcar las funciones como puras).
+
+## Revisión manual con lectores de pantalla
+
+Las herramientas automáticas detectan en torno a un tercio de los problemas de accesibilidad.
+Antes de cada versión mayor, repasa las plantillas con lectores de pantalla reales:
+
+| Lector | Navegador | Sistema |
+| --- | --- | --- |
+| NVDA | Firefox y Chrome | Windows |
+| VoiceOver | Safari | macOS e iOS |
+| TalkBack | Chrome | Android |
+
+Lista de comprobación:
+
+- [ ] La página se anuncia con su título al cargar y al cambiar de ruta.
+- [ ] La lista de encabezados (tecla H en NVDA, rotor en VoiceOver) resume la página sin saltos de nivel.
+- [ ] Las regiones (cabecera, navegación, principal, pie, aviso de cookies) aparecen con nombre.
+- [ ] El menú principal anuncia si cada desplegable está abierto o cerrado y la página actual.
+- [ ] Los diálogos (menú móvil, cookies) anuncian su título al abrirse y devuelven el foco al cerrarse.
+- [ ] Los errores del formulario se anuncian en el resumen y en cada campo.
+- [ ] Las notificaciones (toast) se leen sin mover el foco.
+- [ ] El carrusel anuncia «diapositiva N de M» y no cambia solo mientras se lee.
+- [ ] Las imágenes decorativas se ignoran y las informativas tienen texto alternativo útil.
+- [ ] Con zoom al 200 % y a 320 px de ancho no hay desplazamiento horizontal ni contenido tapado.
+
+Si encuentras un problema, abre una incidencia indicando lector, navegador y pasos para
+reproducirlo.
+
+## Ejecutarlo en local
+
+```bash
+pnpm build                                          # paquetes, Storybook y plantillas
+pnpm --filter @betterlibs/e2e exec playwright install chromium
+pnpm test:e2e                                       # axe + teclado
+pnpm lighthouse                                     # Lighthouse CI (se ejecuta mejor en Linux o macOS)
+pnpm size                                           # presupuesto de tamaño
+```
+
+Las capturas de regresión visual se generan en Linux para que sean estables: en GitHub, ejecuta
+el workflow **Visual** con la opción «update» para crearlas o actualizarlas tras un cambio
+visual intencionado.

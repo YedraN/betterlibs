@@ -3,10 +3,10 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-28 · **Última fase completada:** Fase 8 — Endurecimiento y 1.0
-> **Siguiente paso:** publicar la 1.0.0 (fusionar el PR de Changesets con `NPM_TOKEN` configurado),
-> desplegar en Vercel, generar las capturas visuales y hacer la revisión manual con lectores de
-> pantalla (ver «Pendiente fuera del repo» en la Fase 8).
+> **Última actualización:** 2026-09-29 · **Última fase completada:** Fase 9 — Lenguaje visual
+> **Siguiente paso:** Fase 10 — Movimiento e interacción. Siguen pendientes fuera del repo la
+> publicación en npm, el despliegue y las capturas visuales (ver «Pendiente fuera del repo» en la
+> Fase 8).
 
 ---
 
@@ -293,6 +293,54 @@ apps/
 3. Ejecutar el workflow **Visual** con «update» para crear las capturas de referencia.
 4. Revisión manual con NVDA/VoiceOver/TalkBack (lista en recursos/calidad).
 
+### Ampliación acordada con el usuario (2026-09-29)
+
+El usuario consideró los componentes «muy básicos, fáciles de replicar sin librería». Pidió aportar
+valor y una identidad visual propia. Eligió la dirección **«Profundidad suave»** (estilo
+Linear/Vercel: capas, filo de luz, degradados, halos) y las cuatro líneas de valor, por fases:
+
+- **Fase 9 — Lenguaje visual** ✅
+- **Fase 10 — Movimiento e interacción:** hook/`Reveal` de aparición al hacer scroll
+  (IntersectionObserver, respeta reducir movimiento), contadores animados en `Stats`, marquesina
+  continua en `LogoCloud`, `Spotlight` (luz que sigue al cursor en `Card`), botón carga → éxito.
+- **Fase 11 — Componentes complejos:** Combobox con búsqueda, formulario por pasos (wizard),
+  selector de fecha, menú de comandos ⌘K, tabla comparativa de planes, subida con progreso.
+- **Fase 12 — Bloques de marketing:** bento grid, antes/después, muro de testimonios, hero con
+  mockup de producto, fondos decorativos.
+
+### ✅ Fase 9 — Lenguaje visual «Profundidad suave» (2026-09-29)
+- **Tokens de efectos** (`packages/tokens/src/effects.ts`, `effectVars(mode)`): se emiten dentro
+  de `semanticVars`, así que están en cada tema/`data-theme`/`createTheme` (una variable que usa
+  otra se calcula donde se declara). Todo con `color-mix(in oklab, …)` sobre los semánticos:
+  `--bl-color-border-subtle`, `highlight`, `glass`, `glass-border`, `accent-glow`, `accent-tint`;
+  `--bl-gradient-{accent,accent-hover,surface,neutral,border,border-accent,text,glow,mesh}`;
+  `--bl-elevation-0…4` (anillo + sombra + filo de luz interior); `--bl-shadow-{accent,
+  accent-hover,control,inset}`; `--bl-ring-{halo,danger}`; `--bl-pattern-{grid,dots,noise}`.
+- Motion: `--bl-ease-out` y `--bl-ease-spring`. Fuente por defecto Inter Variable (con fallback
+  del sistema) + `font-feature-settings` en base. Densidad: `[data-density="compact"]` en base.css
+  redefine `--bl-control-height-*`.
+- **Nuevos componentes:** `Card` (elevated/outline/glass/gradient/glow, `interactive`, enlace
+  `.bl-card-link` que cubre la tarjeta), `IconTile` (accent/solid/neutral), `GradientText` (en
+  `Heading/Heading.tsx`) y `Heading tone="gradient"`.
+- `Section background` (`grid`/`dots`/`glow`/`mesh`/`noise`, `::before` con máscara; glow/mesh
+  añaden grano en `::after`); `BlockBaseProps.background` lo pasa a todos los bloques; `Hero`
+  usa `glow` por defecto y `mediaStyle="framed"` (marco de cristal + resplandor).
+- `SectionHeader eyebrowStyle` (`pill` por defecto: cápsula con borde degradado y punto).
+- `blockTitleId` extrae el texto de títulos JSX (antes solo strings).
+- **Rediseño**: Button (degradado, capa hover con opacidad, destello `::after`, variante `soft`;
+  `secondary` = superficie neutra), campos (superficie + `shadow-control`; foco = borde 2px del
+  color de foco + halo, sin outline; `forced-colors` recupera outline), Checkbox/Radio (marca con
+  `clip-path`, punto que crece, escala al pulsar), Switch (rebote y estiramiento), Badge (filo
+  translúcido, `pulse`), Tag, Avatar, Tabs (indicador deslizante con JS en `TabsList`:
+  MutationObserver + ResizeObserver → `--_ind-*`), Accordion, Alert, Toast, overlays (cristal +
+  elevation), Dialog (backdrop blur), Header (cristal al ser sticky), mega menú, Link (subrayado
+  que se dibuja), Pagination, AnnouncementBar, SocialLinks, FileInput, Skeleton y bloques
+  (FeatureGrid, Pricing con plan destacado en glow, Stats con cifras en degradado, CTA panel con
+  resplandor y rejilla, Testimonials, Blog/CaseStudy con elevación e imagen que se acerca,
+  Timeline, CookieConsent, ContactSection).
+- Apps cargan `@fontsource-variable/inter`. Docs: «Lenguaje visual» (fundamentos), páginas de
+  `Card` e `IconTile`, `background` en Section, `soft` en Button, `pulse` en Badge.
+
 ## 6. Definition of Done por componente
 
 - [ ] Props tipadas con JSDoc en español
@@ -360,6 +408,14 @@ apps/
   de consola y baja «Buenas prácticas» en Lighthouse.
 - **Turbo y dist:** si el HTML del playground apunta a un JS que no existe, borra `dist` y
   reconstruye con `--force`.
+
+- **Efectos y temas:** los tokens de `effects.ts` dependen de otros (`var(--bl-color-accent)`):
+  deben declararse en el mismo selector que los colores del tema (por eso van en
+  `semanticVars`). Si no, un tema anidado no los recalcula.
+- **Contraste con efectos:** los degradados de texto/botón van siempre entre dos tokens que ya
+  cumplen contraste (acento → acento hover, texto → accent-text). Los halos y tintes son
+  decorativos. `color-mix` sobre `transparent` no cambia el contraste del texto.
+- **Bash + heredocs:** crear CSS/TSX largos con la herramienta Write, no con `cat <<EOF`.
 
 ## 8. Comandos útiles
 

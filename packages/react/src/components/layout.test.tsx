@@ -3,9 +3,11 @@ import { describe, expect, it } from 'vitest'
 import { expectNoA11yViolations } from '../test/axe'
 import { AspectRatio } from './AspectRatio/AspectRatio'
 import { Box } from './Box/Box'
+import { Card } from './Card/Card'
 import { Container } from './Container/Container'
 import { Divider } from './Divider/Divider'
 import { Grid } from './Grid/Grid'
+import { IconTile } from './IconTile/IconTile'
 import { Section } from './Section/Section'
 import { Stack } from './Stack/Stack'
 
@@ -95,6 +97,43 @@ describe('Accesibilidad del layout', () => {
         </Section>
       </main>,
     )
+    await expectNoA11yViolations(container)
+  })
+})
+
+describe('Section background', () => {
+  it('marca el fondo decorativo solo si se pide', () => {
+    const { container } = render(
+      <>
+        <Section background="mesh" aria-label="Con fondo" />
+        <Section aria-label="Sin fondo" />
+      </>,
+    )
+    const [withBg, plain] = container.querySelectorAll('section')
+    expect(withBg?.getAttribute('data-background')).toBe('mesh')
+    expect(plain?.hasAttribute('data-background')).toBe(false)
+  })
+})
+
+describe('Card e IconTile', () => {
+  it('aplica variante, relleno e interactividad, y la baldosa es decorativa', async () => {
+    const { container } = render(
+      <Card as="article" variant="glow" padding="8" interactive>
+        <IconTile tone="solid">
+          <svg />
+        </IconTile>
+        <h3>
+          <a className="bl-card-link" href="/analitica">
+            Analítica
+          </a>
+        </h3>
+      </Card>,
+    )
+    const card = container.querySelector('article')
+    expect(card?.getAttribute('data-variant')).toBe('glow')
+    expect(card?.hasAttribute('data-interactive')).toBe(true)
+    expect(card?.getAttribute('style')).toContain('--_padding: var(--bl-space-8)')
+    expect(container.querySelector('[data-tone="solid"]')?.getAttribute('aria-hidden')).toBe('true')
     await expectNoA11yViolations(container)
   })
 })

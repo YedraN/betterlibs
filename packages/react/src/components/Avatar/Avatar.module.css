@@ -9,7 +9,13 @@
     block-size: var(--_size);
     overflow: hidden;
     border-radius: var(--bl-radius-full);
-    background-color: var(--bl-color-accent-subtle);
+    /* Iniciales sobre un degradado suave de la marca, con un filo de luz. */
+    background: linear-gradient(
+      145deg,
+      var(--bl-color-accent-subtle),
+      var(--bl-color-accent-subtle-hover)
+    );
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 14%, transparent);
     color: var(--bl-color-accent-text);
     font-size: calc(var(--_size) * 0.4);
     font-weight: var(--bl-font-weight-semibold);
@@ -35,6 +41,16 @@
     border-radius: var(--bl-radius-lg);
   }
 
+  /* La foto lleva un filo interior para no fundirse con fondos del mismo tono. */
+  .root:has(.image)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(12 16 23 / 0.08);
+    pointer-events: none;
+  }
+
   .image {
     inline-size: 100%;
     block-size: 100%;
@@ -53,10 +69,18 @@
 
   .group > * {
     box-shadow: 0 0 0 2px var(--bl-color-bg);
+    transition: transform var(--bl-duration-normal) var(--bl-ease-spring);
   }
 
   .group > * + * {
     margin-inline-start: calc(var(--_size, 2.5rem) * -0.25);
+  }
+
+  /* Al pasar por el grupo, los avatares se separan un poco. */
+  @media (hover: hover) {
+    .group:hover > * + * {
+      transform: translateX(calc(var(--_size, 2.5rem) * 0.08));
+    }
   }
 
   .more {

@@ -14,9 +14,10 @@
     gap: var(--bl-space-2);
     min-block-size: 2.5rem;
     padding: var(--bl-space-2) var(--bl-space-3);
-    border-radius: var(--bl-radius-md);
+    border-radius: calc(var(--bl-radius-lg) - var(--bl-space-1));
     color: var(--bl-color-text);
     font-size: var(--bl-font-size-md);
+    transition: background-color var(--bl-duration-fast) var(--bl-ease-standard);
     line-height: var(--bl-leading-snug);
     text-decoration: none;
     cursor: pointer;
@@ -27,6 +28,7 @@
   /* Radix mueve un «foco virtual» con `data-highlighted` (teclado y ratón). */
   .item[data-highlighted] {
     background-color: var(--bl-color-bg-muted);
+    box-shadow: inset 0 1px 0 var(--bl-color-highlight);
   }
 
   .item[data-state="open"] {

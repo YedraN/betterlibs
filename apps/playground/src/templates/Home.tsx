@@ -6,6 +6,7 @@ import {
   Button,
   CTA,
   FeatureGrid,
+  GradientText,
   Hero,
   Link,
   LogoCloud,
@@ -23,7 +24,11 @@ export function HomePage() {
     <>
       <Hero
         eyebrow="Consultoría financiera"
-        title="Crece con orden y decide con datos"
+        title={
+          <>
+            Crece con orden y <GradientText>decide con datos</GradientText>
+          </>
+        }
         description="Acompañamos a pymes y grupos empresariales en fiscalidad, auditoría y estrategia desde hace 20 años."
         actions={
           <>
@@ -63,6 +68,7 @@ export function HomePage() {
       <FeatureGrid
         id="servicios"
         tone="subtle"
+        background="dots"
         eyebrow="Servicios"
         title="Todo lo que tu empresa necesita"
         description="Un equipo, cuatro especialidades y un mismo objetivo: que crezcas con orden."

@@ -39,6 +39,9 @@ export const Variantes: Story = {
       <Button {...args} variant="secondary">
         Secundario
       </Button>
+      <Button {...args} variant="soft">
+        Suave
+      </Button>
       <Button {...args} variant="outline">
         Contorno
       </Button>

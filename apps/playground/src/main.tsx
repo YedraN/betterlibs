@@ -1,3 +1,4 @@
+import '@fontsource-variable/inter'
 import '@betterlibs/tokens/index.css'
 import '@betterlibs/react/styles.css'
 import { StrictMode } from 'react'

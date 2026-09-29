@@ -1,0 +1,49 @@
+@layer bl.components {
+  .root {
+    --_size: 2.75rem;
+
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    inline-size: var(--_size);
+    block-size: var(--_size);
+    border-radius: calc(var(--_size) * 0.3);
+    background: linear-gradient(
+      145deg,
+      var(--bl-color-accent-subtle),
+      color-mix(in oklab, var(--bl-color-accent-subtle-hover) 80%, var(--bl-color-accent))
+    );
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 14%, transparent),
+      inset 0 1px 0 var(--bl-color-highlight),
+      0 4px 12px -6px var(--bl-color-accent-glow);
+    color: var(--bl-color-accent-text);
+    font-size: calc(var(--_size) * 0.48);
+  }
+
+  .root > svg {
+    inline-size: 1em;
+    block-size: 1em;
+  }
+
+  .root[data-size="sm"] {
+    --_size: 2.25rem;
+  }
+
+  .root[data-size="lg"] {
+    --_size: 3.5rem;
+  }
+
+  .root[data-tone="solid"] {
+    background: var(--bl-gradient-accent);
+    box-shadow: var(--bl-shadow-accent);
+    color: var(--bl-color-on-accent);
+  }
+
+  .root[data-tone="neutral"] {
+    background: var(--bl-gradient-neutral);
+    box-shadow: var(--bl-elevation-1);
+    color: var(--bl-color-text);
+  }
+}

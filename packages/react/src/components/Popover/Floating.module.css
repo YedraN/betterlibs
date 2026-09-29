@@ -7,10 +7,12 @@
     z-index: var(--bl-z-popover);
     box-sizing: border-box;
     max-inline-size: calc(100vw - 2 * var(--bl-space-4));
-    border: 1px solid var(--bl-color-border);
+    border: 0;
     border-radius: var(--bl-radius-lg);
-    background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-lg);
+    /* Superficie casi opaca con desenfoque: flota sobre el contenido sin perder legibilidad. */
+    background-color: color-mix(in oklab, var(--bl-color-surface-raised) 92%, transparent);
+    box-shadow: var(--bl-elevation-3);
+    backdrop-filter: blur(12px) saturate(1.3);
     color: var(--bl-color-text);
     font-family: var(--bl-font-family-sans);
     font-size: var(--bl-font-size-md);

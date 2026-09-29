@@ -41,11 +41,14 @@
     align-items: flex-start;
     gap: var(--bl-space-3);
     padding: var(--bl-space-4) var(--bl-space-12) var(--bl-space-4) var(--bl-space-4);
-    border: 1px solid var(--bl-color-border);
-    border-inline-start: 4px solid var(--_accent);
-    border-radius: var(--bl-radius-lg);
+    border: 0;
+    border-radius: var(--bl-radius-xl);
+    /* Un tinte del color del estado entra desde el lado del icono. */
+    background:
+      linear-gradient(90deg, color-mix(in oklab, var(--_accent) 9%, transparent), transparent 45%),
+      var(--bl-gradient-surface);
     background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-lg);
+    box-shadow: var(--bl-elevation-4);
     color: var(--bl-color-text);
     font-family: var(--bl-font-family-sans);
     font-size: var(--bl-font-size-md);
@@ -76,6 +79,7 @@
     block-size: 1.25rem;
     margin-block-start: calc((1lh - 1.25rem) / 2);
     color: var(--_icon);
+    filter: drop-shadow(0 0 6px color-mix(in oklab, var(--_accent) 45%, transparent));
   }
 
   .body {

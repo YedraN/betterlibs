@@ -7,7 +7,7 @@
     background: linear-gradient(
         90deg,
         transparent 0%,
-        color-mix(in srgb, var(--bl-color-bg) 60%, transparent) 50%,
+        color-mix(in oklab, var(--bl-color-highlight) 70%, transparent) 50%,
         transparent 100%
       )
       var(--bl-color-bg-muted);

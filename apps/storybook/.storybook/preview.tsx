@@ -1,3 +1,4 @@
+import '@fontsource-variable/inter'
 import '@betterlibs/tokens/index.css'
 import { createTheme } from '@betterlibs/tokens'
 import type { Decorator, Preview } from '@storybook/react-vite'

@@ -1,4 +1,5 @@
 import { contrast } from './color.ts'
+import { effectVars } from './effects.ts'
 import {
   breakpoint,
   color,
@@ -84,6 +85,7 @@ export function semanticVars(mode: 'light' | 'dark', semantic?: SemanticColors):
       Object.entries(map).map(([key, ref]) => [`${PREFIX}-color-${key}`, refToCss(ref)]),
     ),
     ...flatten('shadow', mode === 'light' ? shadow : shadowDark),
+    ...effectVars(mode),
   }
 }
 

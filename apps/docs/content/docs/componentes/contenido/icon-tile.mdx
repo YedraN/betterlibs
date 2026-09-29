@@ -1,0 +1,58 @@
+---
+title: IconTile
+description: Baldosa decorativa para el icono de una tarjeta, servicio o característica.
+---
+
+import { BarChartIcon, MailIcon, ShieldCheckIcon } from '@betterlibs/icons'
+import { IconTile } from '@betterlibs/react'
+
+<Preview align="center">
+  <IconTile size="sm">
+    <MailIcon />
+  </IconTile>
+  <IconTile>
+    <BarChartIcon />
+  </IconTile>
+  <IconTile size="lg">
+    <ShieldCheckIcon />
+  </IconTile>
+  <IconTile tone="solid">
+    <BarChartIcon />
+  </IconTile>
+  <IconTile tone="neutral">
+    <ShieldCheckIcon />
+  </IconTile>
+</Preview>
+
+```tsx
+<IconTile><BarChartIcon /></IconTile>
+```
+
+## Cuándo usarlo
+
+Delante del título de una tarjeta o característica, para que el icono tenga presencia sin
+competir con el texto. Es el mismo estilo que usan `FeatureGrid`, los mega menús y la línea de
+tiempo.
+
+## Variantes
+
+- `tone`: `accent` (degradado suave de la marca), `solid` (degradado intenso con brillo) o
+  `neutral` (superficie gris elevada).
+- `size`: `sm` (36px), `md` (44px) o `lg` (56px). El icono se escala solo.
+
+## Accesibilidad
+
+Es decorativa y lleva `aria-hidden`: el texto que la acompaña debe explicar el contenido.
+
+## Props
+
+<PropsTable name="IconTileProps" />
+
+## Anatomía y CSS
+
+<CssReference module="IconTile" />
+
+## Relacionados
+
+- [Card](/docs/componentes/contenido/card)
+- [Icon](/docs/componentes/contenido/icon)

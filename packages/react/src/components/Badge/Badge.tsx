@@ -14,6 +14,8 @@ export type BadgeProps = ComponentPropsWithRef<'span'> & {
   icon?: ReactNode
   /** Punto de color antes del texto (estado «en línea», «nuevo»…). */
   dot?: boolean
+  /** El punto late suavemente para indicar algo en curso o en directo. Requiere `dot`. */
+  pulse?: boolean
 }
 
 /** Etiqueta corta de estado o categoría: «Nuevo», «Beta», «Agotado». No es interactiva. */
@@ -23,6 +25,7 @@ export function Badge({
   size = 'md',
   icon,
   dot = false,
+  pulse = false,
   className,
   children,
   ...props
@@ -35,7 +38,7 @@ export function Badge({
       data-size={size}
       {...props}
     >
-      {dot && <span className={styles.dot} aria-hidden="true" />}
+      {dot && <span className={styles.dot} data-pulse={pulse || undefined} aria-hidden="true" />}
       {icon && (
         <span className={styles.icon} aria-hidden="true">
           {icon}

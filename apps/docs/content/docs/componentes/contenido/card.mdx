@@ -1,0 +1,117 @@
+---
+title: Card
+description: Superficie en capas para agrupar contenido, con cinco estilos y modo interactivo.
+---
+
+import { BarChartIcon, ShieldCheckIcon, UsersIcon } from '@betterlibs/icons'
+import { Card, Grid, Heading, IconTile, Text } from '@betterlibs/react'
+
+<Preview>
+  <Grid columns={{ base: 1, md: 3 }} gap="6">
+    <Card interactive>
+      <IconTile>
+        <BarChartIcon />
+      </IconTile>
+      <Heading level={3} size="lg">
+        <a className="bl-card-link" href="#analitica">
+          Analítica
+        </a>
+      </Heading>
+      <Text tone="muted">Cuadros de mando que se entienden a la primera.</Text>
+    </Card>
+    <Card variant="gradient" interactive>
+      <IconTile tone="neutral">
+        <ShieldCheckIcon />
+      </IconTile>
+      <Heading level={3} size="lg">
+        <a className="bl-card-link" href="#auditoria">
+          Auditoría
+        </a>
+      </Heading>
+      <Text tone="muted">Revisión independiente, sin sorpresas.</Text>
+    </Card>
+    <Card variant="glow">
+      <IconTile tone="solid">
+        <UsersIcon />
+      </IconTile>
+      <Heading level={3} size="lg">
+        Recomendado
+      </Heading>
+      <Text tone="muted">El borde y el halo de la marca lo destacan del resto.</Text>
+    </Card>
+  </Grid>
+</Preview>
+
+```tsx
+<Card interactive>
+  <IconTile><BarChartIcon /></IconTile>
+  <Heading level={3} size="lg">
+    <a className="bl-card-link" href="/servicios/analitica">Analítica</a>
+  </Heading>
+  <Text tone="muted">Cuadros de mando que se entienden a la primera.</Text>
+</Card>
+```
+
+## Cuándo usarlo
+
+Para agrupar contenido que se entiende como una unidad: un servicio, un artículo, un plan, un
+caso de éxito o un dato destacado. Si solo necesitas relleno y fondo sin la «profundidad», usa
+[`Box`](/docs/componentes/layout/box).
+
+## Variantes
+
+| `variant` | Uso |
+| --- | --- |
+| `elevated` | Por defecto. Superficie con filo de luz y sombra suave |
+| `outline` | Solo borde: listas densas o fondos con color |
+| `glass` | Translúcida con desenfoque, sobre imágenes o fondos decorativos (`Section background="mesh"`) |
+| `gradient` | Borde degradado que toma el color de marca al pasar el ratón |
+| `glow` | Borde y halo de la marca: **un solo elemento destacado** por grupo |
+
+<Preview>
+  <Grid columns={{ base: 1, sm: 2, lg: 4 }} gap="6">
+    <Card>
+      <Text weight="semibold">elevated</Text>
+    </Card>
+    <Card variant="outline">
+      <Text weight="semibold">outline</Text>
+    </Card>
+    <Card variant="glass">
+      <Text weight="semibold">glass</Text>
+    </Card>
+    <Card variant="gradient">
+      <Text weight="semibold">gradient</Text>
+    </Card>
+  </Grid>
+</Preview>
+
+`padding` (escala de espaciado, `6` por defecto) y `radius` (`md`, `lg`, `xl`, `2xl`) ajustan la
+forma. Con `as` cambias el elemento (`as="article"`, `as="li"`).
+
+## Tarjetas enlazadas
+
+Con `interactive`, la tarjeta se eleva al pasar el ratón o al enfocar su enlace. Para que **toda
+la tarjeta sea clicable** sin anidar elementos interactivos, pon un único enlace con la clase
+`bl-card-link` (normalmente en el título): su área se extiende a toda la tarjeta y el anillo de
+foco se dibuja alrededor de ella.
+
+## Accesibilidad
+
+- La tarjeta es un contenedor sin rol: usa `as="article"` si es contenido independiente (un
+  artículo) o `as="li"` dentro de una lista.
+- El enlace de la tarjeta debe tener un texto que se entienda solo (el título, no «Leer más»).
+- Los estilos `glass`, `gradient` y `glow` son decorativos; el texto mantiene el contraste de la
+  superficie. En modo de alto contraste la tarjeta muestra un borde del sistema.
+
+## Props
+
+<PropsTable name="CardOwnProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Card" />
+
+## Relacionados
+
+- [IconTile](/docs/componentes/contenido/icon-tile)
+- [Box](/docs/componentes/layout/box)

@@ -19,9 +19,11 @@
     gap: var(--bl-space-2);
     min-block-size: 7rem;
     padding: var(--bl-space-5) var(--bl-space-4);
-    border: 1px dashed var(--bl-color-border-input);
-    border-radius: var(--bl-radius-lg);
-    background-color: var(--bl-color-bg);
+    border: 1.5px dashed var(--bl-color-border-input);
+    border-radius: var(--bl-radius-xl);
+    background:
+      radial-gradient(60% 80% at 50% 0%, var(--bl-color-accent-tint), transparent 70%),
+      var(--bl-color-surface);
     color: var(--bl-color-text-muted);
     font-size: var(--bl-font-size-md);
     line-height: var(--bl-leading-normal);
@@ -46,8 +48,13 @@
     background-color: var(--bl-color-accent-subtle);
   }
 
+  /* Al arrastrar un archivo encima, la zona «se enciende» para confirmar que lo acepta. */
   .zone[data-dragging] {
     border-style: solid;
+    box-shadow:
+      var(--bl-ring-halo),
+      0 12px 32px -12px var(--bl-color-accent-glow);
+    transform: scale(1.01);
   }
 
   .zone:has(.input:focus-visible) {

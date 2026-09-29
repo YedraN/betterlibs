@@ -51,6 +51,39 @@
     border-radius: var(--bl-radius-2xl);
   }
 
+  /*
+   * Marco: la imagen se presenta como una ventana elevada, con un cristal alrededor, filo de luz
+   * y un resplandor de la marca detrás.
+   */
+  .root[data-media-style="framed"] .media {
+    position: relative;
+    isolation: isolate;
+    padding: var(--bl-space-2);
+    border-radius: calc(var(--bl-radius-2xl) + var(--bl-space-2));
+    background: var(--bl-color-glass);
+    box-shadow:
+      inset 0 0 0 1px var(--bl-color-glass-border),
+      var(--bl-elevation-4);
+    backdrop-filter: blur(8px);
+  }
+
+  .root[data-media-style="framed"] .media::before {
+    content: "";
+    position: absolute;
+    inset: 12% 8% -4%;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--bl-color-accent-glow);
+    filter: blur(48px);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .root[data-media-style="framed"] .media :where(img, video, svg) {
+    border-radius: var(--bl-radius-2xl);
+    box-shadow: 0 0 0 1px var(--bl-color-border-subtle);
+  }
+
   /* Split: dos columnas a partir de 1024px. */
   @media (min-width: 1024px) {
     .root[data-variant="split"] .inner {

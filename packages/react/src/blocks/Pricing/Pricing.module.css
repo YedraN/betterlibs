@@ -7,6 +7,7 @@
     padding: var(--bl-space-1);
     border-radius: var(--bl-radius-full);
     background-color: var(--bl-color-bg-muted);
+    box-shadow: var(--bl-shadow-inset);
   }
 
   .option {
@@ -34,8 +35,8 @@
   }
 
   .option:has(.optionInput:checked) {
-    background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-sm);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-elevation-1);
     color: var(--bl-color-text);
   }
 
@@ -60,17 +61,42 @@
     flex: 1;
     flex-direction: column;
     gap: var(--bl-space-4);
+    isolation: isolate;
     padding: var(--bl-space-8) var(--bl-space-6);
-    border: 1px solid var(--bl-color-border);
-    border-radius: var(--bl-radius-xl);
-    background-color: var(--bl-color-surface);
+    border-radius: var(--bl-radius-2xl);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-elevation-1);
   }
 
+  /* Plan destacado: borde degradado de la marca, tinte arriba y halo detrás. */
   .plan[data-highlighted] {
-    border-color: var(--bl-color-accent-text);
+    background:
+      linear-gradient(180deg, var(--bl-color-accent-tint), transparent 40%),
+      var(--bl-gradient-surface);
     box-shadow:
-      inset 0 0 0 1px var(--bl-color-accent-text),
-      var(--bl-shadow-lg);
+      0 1px 2px rgb(12 16 23 / 0.05),
+      0 24px 64px -20px var(--bl-color-accent-glow);
+  }
+
+  .plan[data-highlighted]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    padding: 1.5px;
+    border-radius: inherit;
+    background: var(--bl-gradient-border-accent);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1024px) {
+    .plan[data-highlighted] {
+      transform: scale(1.03);
+    }
   }
 
   .badge {
@@ -80,8 +106,9 @@
     margin: 0;
     padding: var(--bl-space-1) var(--bl-space-3);
     border-radius: var(--bl-radius-full);
-    background-color: var(--bl-color-accent-text);
-    color: var(--bl-color-bg);
+    background: var(--bl-gradient-accent);
+    box-shadow: var(--bl-shadow-accent);
+    color: var(--bl-color-on-accent);
     font-size: var(--bl-font-size-xs);
     font-weight: var(--bl-font-weight-semibold);
     letter-spacing: var(--bl-tracking-wide);

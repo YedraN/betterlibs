@@ -68,4 +68,35 @@
   .root[data-align="end"] {
     text-align: end;
   }
+
+  /* Texto con degradado: del color de texto al de acento (ambos cumplen contraste). */
+  .root[data-tone="gradient"],
+  .gradient {
+    background: var(--bl-gradient-text);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    /* Evita que las descendentes (g, p, y) se corten. */
+    padding-block-end: 0.08em;
+  }
+
+  /* Resaltado: del acento a un tono vecino; ambos extremos cumplen 4.5:1 sobre el fondo. */
+  .gradient {
+    background-image: linear-gradient(
+      120deg,
+      var(--bl-color-accent-text),
+      color-mix(in oklab, var(--bl-color-accent-text) 55%, var(--bl-color-info-text))
+    );
+  }
+
+  /* En modo de alto contraste el texto recupera su color del sistema. */
+  @media (forced-colors: active) {
+    .root[data-tone="gradient"],
+    .gradient {
+      background: none;
+      color: CanvasText;
+      -webkit-text-fill-color: CanvasText;
+    }
+  }
 }

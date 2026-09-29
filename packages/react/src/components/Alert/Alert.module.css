@@ -9,10 +9,19 @@
     align-items: flex-start;
     gap: var(--bl-space-3);
     padding: var(--bl-space-4);
-    border: 1px solid var(--_border);
-    border-inline-start: 4px solid var(--_accent);
-    border-radius: var(--bl-radius-md);
-    background-color: var(--_bg);
+    border: 1px solid color-mix(in oklab, var(--_border) 70%, transparent);
+    border-radius: var(--bl-radius-lg);
+    /* Fondo del estado con un degradado que se aclara hacia el final y filo de luz arriba. */
+    background:
+      linear-gradient(
+        100deg,
+        var(--_bg) 30%,
+        color-mix(in oklab, var(--_bg) 55%, var(--bl-color-surface))
+      ),
+      var(--_bg);
+    box-shadow:
+      inset 0 1px 0 var(--bl-color-highlight),
+      0 1px 2px rgb(12 16 23 / 0.04);
     color: var(--_fg);
     font-size: var(--bl-font-size-md);
     line-height: var(--bl-leading-normal);
@@ -39,11 +48,19 @@
     --_fg: var(--bl-color-danger-text);
   }
 
+  /* Icono en una pastilla del color del estado: el tipo de aviso se reconoce de un vistazo. */
   .icon {
-    display: inline-flex;
+    display: inline-grid;
     flex-shrink: 0;
-    margin-block-start: calc((1lh - 1.25rem) / 2);
-    font-size: 1.25rem;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    margin-block-start: calc((1lh - 1.75rem) / 2);
+    border-radius: var(--bl-radius-md);
+    background-color: color-mix(in oklab, var(--_accent) 16%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--_accent) 28%, transparent);
+    color: var(--_fg);
+    font-size: 1.125rem;
   }
 
   .body {

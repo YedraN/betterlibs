@@ -64,6 +64,9 @@
     border: 3px solid var(--bl-color-accent-text);
     border-radius: var(--bl-radius-full);
     background-color: var(--bl-color-bg);
+    box-shadow:
+      0 0 0 4px var(--bl-color-accent-tint),
+      0 0 12px var(--bl-color-accent-glow);
   }
 
   .list[data-variant="vertical"] .item:not(:last-child)::before {
@@ -72,7 +75,8 @@
     inset-block: 1.25rem 0;
     inset-inline-start: calc(0.5rem - 1px);
     inline-size: 2px;
-    background-color: var(--bl-color-border);
+    background: linear-gradient(180deg, var(--bl-color-accent-text), var(--bl-color-border) 40%);
+    opacity: 0.6;
   }
 
   /* Pasos numerados. */
@@ -83,7 +87,15 @@
     inline-size: 2.75rem;
     block-size: 2.75rem;
     border-radius: var(--bl-radius-full);
-    background-color: var(--bl-color-accent-subtle);
+    background: linear-gradient(
+      145deg,
+      var(--bl-color-accent-subtle),
+      var(--bl-color-accent-subtle-hover)
+    );
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 18%, transparent),
+      inset 0 1px 0 var(--bl-color-highlight),
+      0 4px 12px -6px var(--bl-color-accent-glow);
     color: var(--bl-color-accent-text);
     font-family: var(--bl-font-family-display);
     font-size: var(--bl-font-size-lg);
@@ -96,7 +108,8 @@
     inset-block: 3.25rem 0.5rem;
     inset-inline-start: calc(1.375rem - 1px);
     inline-size: 2px;
-    background-color: var(--bl-color-border);
+    background: linear-gradient(180deg, var(--bl-color-accent-text), var(--bl-color-border) 40%);
+    opacity: 0.6;
   }
 
   @media (min-width: 1024px) {

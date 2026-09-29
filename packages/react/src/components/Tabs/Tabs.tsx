@@ -1,8 +1,9 @@
 'use client'
 
 import * as TabsPrimitive from '@radix-ui/react-tabs'
-import type { ReactNode } from 'react'
+import { type ComponentPropsWithRef, type ReactNode, useEffect, useRef } from 'react'
 import { cx } from '../../utils/cx'
+import { mergeRefs } from '../../utils/merge-refs'
 import styles from './Tabs.module.css'
 
 export type TabsProps = TabsPrimitive.TabsProps & {
@@ -40,9 +41,56 @@ export function Tabs({ variant = 'line', fullWidth = false, className, ...props 
   )
 }
 
-/** Lista de pestañas. Dale un `aria-label` que describa el conjunto. */
-export function TabsList({ className, ...props }: TabsPrimitive.TabsListProps) {
-  return <TabsPrimitive.List className={cx(styles.list, className)} {...props} />
+/**
+ * Lista de pestañas. Dale un `aria-label` que describa el conjunto.
+ *
+ * Un indicador se desliza hasta la pestaña activa (subrayado en `line`, superficie elevada en
+ * `pill`). Sin JavaScript, cada pestaña muestra su propio indicador fijo.
+ */
+export function TabsList({
+  className,
+  children,
+  ref,
+  ...props
+}: ComponentPropsWithRef<typeof TabsPrimitive.List>) {
+  const listRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const list = listRef.current
+    if (!list) return
+    const update = () => {
+      const active = list.querySelector<HTMLElement>('[role="tab"][data-state="active"]')
+      if (!active) {
+        delete list.dataset.indicator
+        return
+      }
+      list.style.setProperty('--_ind-x', `${active.offsetLeft}px`)
+      list.style.setProperty('--_ind-y', `${active.offsetTop}px`)
+      list.style.setProperty('--_ind-w', `${active.offsetWidth}px`)
+      list.style.setProperty('--_ind-h', `${active.offsetHeight}px`)
+      list.dataset.indicator = ''
+    }
+    update()
+    const mutations = new MutationObserver(update)
+    mutations.observe(list, { attributes: true, attributeFilter: ['data-state'], subtree: true })
+    const resize = typeof ResizeObserver === 'function' ? new ResizeObserver(update) : undefined
+    resize?.observe(list)
+    return () => {
+      mutations.disconnect()
+      resize?.disconnect()
+    }
+  }, [])
+
+  return (
+    <TabsPrimitive.List
+      ref={mergeRefs(listRef, ref)}
+      className={cx(styles.list, className)}
+      {...props}
+    >
+      {children}
+      <span className={styles.indicator} aria-hidden="true" />
+    </TabsPrimitive.List>
+  )
 }
 
 export type TabsTriggerProps = TabsPrimitive.TabsTriggerProps & {

@@ -16,8 +16,12 @@ export type HeadingProps = ComponentPropsWithRef<'h2'> & {
    * pueden diferir sin romper la accesibilidad.
    */
   size?: HeadingSize
-  /** @default 'default' */
-  tone?: 'default' | 'muted' | 'accent'
+  /**
+   * `gradient` pinta el texto con el degradado de la marca (del color de texto al de acento,
+   * ambos con contraste suficiente). Úsalo en uno o dos titulares por página.
+   * @default 'default'
+   */
+  tone?: 'default' | 'muted' | 'accent' | 'gradient'
   align?: 'start' | 'center' | 'end'
   /** @default 'semibold' */
   weight?: 'medium' | 'semibold' | 'bold'
@@ -53,4 +57,14 @@ export function Heading({
       {...props}
     />
   )
+}
+
+export type GradientTextProps = ComponentPropsWithRef<'span'>
+
+/**
+ * Resalta unas palabras de un titular con el degradado de la marca:
+ * `<Heading>Finanzas para <GradientText>crecer</GradientText></Heading>`.
+ */
+export function GradientText({ className, ...props }: GradientTextProps) {
+  return <span className={cx(styles.gradient, className)} {...props} />
 }

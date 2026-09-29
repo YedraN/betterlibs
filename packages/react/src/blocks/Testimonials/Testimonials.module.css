@@ -11,9 +11,9 @@
     gap: var(--bl-space-5);
     margin: 0;
     padding: var(--bl-space-6);
-    border: 1px solid var(--bl-color-border);
     border-radius: var(--bl-radius-xl);
-    background-color: var(--bl-color-surface);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-elevation-1);
   }
 
   .fill {

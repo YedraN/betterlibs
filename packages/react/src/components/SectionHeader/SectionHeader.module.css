@@ -23,9 +23,50 @@
     text-transform: uppercase;
   }
 
+  /* Cápsula: borde degradado de 1px, fondo teñido y punto con halo. */
+  .eyebrow[data-style="pill"] {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bl-space-2);
+    padding: var(--bl-space-1) var(--bl-space-3);
+    border-radius: var(--bl-radius-full);
+    background: var(--bl-color-accent-tint);
+    box-shadow: var(--bl-shadow-control);
+    font-size: var(--bl-font-size-xs);
+    letter-spacing: 0.06em;
+  }
+
+  .eyebrow[data-style="pill"]::before {
+    content: "";
+    inline-size: 0.375rem;
+    block-size: 0.375rem;
+    border-radius: var(--bl-radius-full);
+    background: var(--bl-color-accent-text);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--bl-color-accent-text) 20%, transparent);
+  }
+
+  .eyebrow[data-style="pill"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--bl-gradient-border-accent);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
   .title {
     margin: 0;
     text-wrap: balance;
+  }
+
+  .eyebrow + .title {
+    margin-block-start: var(--bl-space-1);
   }
 
   .description {

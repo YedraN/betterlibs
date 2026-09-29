@@ -24,6 +24,8 @@ export type BlockBaseProps = {
   tone?: SectionOwnProps['tone']
   /** Espacio vertical. @default 'md' */
   spacing?: SectionOwnProps['spacing']
+  /** Fondo decorativo (`grid`, `dots`, `glow`, `mesh`, `noise`). @default 'none' */
+  background?: SectionOwnProps['background']
   /** Ancho del contenido. @default 'xl' */
   containerSize?: ContainerOwnProps['size']
   /** `id` de la sección (anclas: `#servicios`). El título recibe `{id}-title`. */
@@ -47,8 +49,18 @@ const slugify = (text: string) =>
  */
 export function blockTitleId(id?: string, title?: ReactNode): string | undefined {
   if (id) return `${id}-title`
-  if (typeof title === 'string' && title.trim()) return `bl-${slugify(title)}`
-  return undefined
+  const text = nodeText(title).trim()
+  return text ? `bl-${slugify(text)}` : undefined
+}
+
+/** Texto plano de un nodo de React (p. ej. un título con `<GradientText>` dentro). */
+function nodeText(node: ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node)
+  if (Array.isArray(node)) return node.map(nodeText).join('')
+  if (node && typeof node === 'object' && 'props' in node) {
+    return nodeText((node.props as { children?: ReactNode }).children)
+  }
+  return ''
 }
 
 /** Nivel de los títulos de los elementos del bloque (uno por debajo del de la sección). */
@@ -78,6 +90,7 @@ export function BlockSection({
   headingLevel = 2,
   tone,
   spacing,
+  background,
   containerSize = 'xl',
   id,
   className,
@@ -94,6 +107,7 @@ export function BlockSection({
       id={id}
       tone={tone}
       spacing={spacing}
+      background={background}
       className={cx(blockClassName, className)}
       style={style}
       aria-labelledby={titleId}

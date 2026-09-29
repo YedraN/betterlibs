@@ -19,6 +19,7 @@ export {
   primitiveVars,
   semanticVars,
 } from './css.ts'
+export { effectVars } from './effects.ts'
 export {
   breakpoint,
   type ColorScale,

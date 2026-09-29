@@ -29,6 +29,12 @@ export type HeroProps = Omit<BlockBaseProps, 'headingLevel' | 'title'> & {
   headingLevel?: 1 | 2
   /** Altura y tamaño del titular. @default 'md' */
   size?: 'md' | 'lg'
+  /**
+   * Marco de la imagen en `split` y `centered`: `framed` la presenta como una ventana elevada
+   * con borde de luz y resplandor detrás (ideal para capturas de producto); `plain`, tal cual.
+   * @default 'framed'
+   */
+  mediaStyle?: 'framed' | 'plain'
 }
 
 /**
@@ -47,8 +53,10 @@ export function Hero({
   children,
   headingLevel = 1,
   size = 'md',
+  mediaStyle = 'framed',
   align,
   tone,
+  background: decoration = 'glow',
   spacing = 'lg',
   containerSize = 'xl',
   id,
@@ -79,12 +87,14 @@ export function Hero({
       id={id}
       tone={background ? 'dark' : tone}
       spacing={spacing}
+      background={background ? 'none' : decoration}
       className={cx(styles.root, className)}
       style={style}
       aria-labelledby={titleId}
       data-variant={variant}
       data-size={size}
       data-media-position={mediaPosition}
+      data-media-style={mediaStyle}
       data-align={align ?? (variant === 'split' ? 'start' : 'center')}
     >
       {background && (media || video) && (

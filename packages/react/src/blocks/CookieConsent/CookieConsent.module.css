@@ -16,10 +16,11 @@
     max-inline-size: var(--bl-container-xl);
     margin-inline: auto;
     padding: var(--bl-space-5);
-    border: 1px solid var(--bl-color-border);
+    border: 0;
     border-radius: var(--bl-radius-xl);
+    background: var(--bl-gradient-surface);
     background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-xl);
+    box-shadow: var(--bl-elevation-4);
     color: var(--bl-color-text);
     font-size: var(--bl-font-size-sm);
     line-height: var(--bl-leading-normal);

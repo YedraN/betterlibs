@@ -1,0 +1,117 @@
+@layer bl.components {
+  .root {
+    --_bg: var(--bl-gradient-surface);
+    --_shadow: var(--bl-elevation-1);
+    --_shadow-hover: var(--bl-elevation-3);
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-3);
+    min-inline-size: 0;
+    padding: var(--_padding);
+    border-radius: var(--_radius);
+    background: var(--_bg);
+    box-shadow: var(--_shadow);
+    color: var(--bl-color-text);
+    transition:
+      box-shadow var(--bl-duration-slow) var(--bl-ease-standard),
+      transform var(--bl-duration-slow) var(--bl-ease-out);
+  }
+
+  .root[data-variant="outline"] {
+    --_bg: transparent;
+    --_shadow: inset 0 0 0 1px var(--bl-color-border);
+    --_shadow-hover: inset 0 0 0 1px var(--bl-color-border-strong), var(--bl-elevation-2);
+  }
+
+  .root[data-variant="glass"] {
+    --_bg: var(--bl-color-glass);
+    --_shadow: inset 0 0 0 1px var(--bl-color-glass-border), 0 8px 32px -8px rgb(12 16 23 / 0.18);
+    --_shadow-hover:
+      inset 0 0 0 1px var(--bl-color-glass-border), 0 16px 48px -12px rgb(12 16 23 / 0.28);
+    backdrop-filter: blur(16px) saturate(1.4);
+  }
+
+  /* Borde degradado: una capa con máscara que solo deja ver 1px alrededor. */
+  .root[data-variant="gradient"],
+  .root[data-variant="glow"] {
+    --_shadow: 0 1px 2px rgb(12 16 23 / 0.05);
+    --_shadow-hover: 0 1px 2px rgb(12 16 23 / 0.05), var(--bl-elevation-3);
+    --_border-image: var(--bl-gradient-border);
+  }
+
+  .root[data-variant="glow"] {
+    --_border-image: var(--bl-gradient-border-accent);
+    --_bg:
+      linear-gradient(180deg, var(--bl-color-accent-tint), transparent 45%),
+      var(--bl-gradient-surface);
+    --_shadow: 0 1px 2px rgb(12 16 23 / 0.05), 0 16px 48px -16px var(--bl-color-accent-glow);
+    --_shadow-hover: 0 1px 2px rgb(12 16 23 / 0.05), 0 24px 64px -16px var(--bl-color-accent-glow);
+  }
+
+  .root[data-variant="gradient"]::before,
+  .root[data-variant="glow"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--_border-image);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  @media (hover: hover) {
+    .root[data-variant="gradient"][data-interactive]:hover {
+      --_border-image: var(--bl-gradient-border-accent);
+    }
+
+    .root[data-interactive]:hover {
+      box-shadow: var(--_shadow-hover);
+      transform: translateY(-2px);
+    }
+  }
+
+  .root[data-interactive] {
+    cursor: pointer;
+  }
+
+  .root[data-interactive]:has(:focus-visible) {
+    box-shadow: var(--_shadow-hover);
+  }
+
+  /* El enlace principal cubre toda la tarjeta; su foco se dibuja alrededor de la tarjeta. */
+  .root :global(.bl-card-link) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .root :global(.bl-card-link)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: var(--_radius);
+  }
+
+  .root :global(.bl-card-link):focus-visible {
+    outline: none;
+  }
+
+  .root:has(:global(.bl-card-link):focus-visible) {
+    outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
+    outline-offset: var(--bl-focus-ring-offset);
+  }
+
+  @media (forced-colors: active) {
+    .root {
+      border: 1px solid CanvasText;
+    }
+  }
+}

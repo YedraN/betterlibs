@@ -24,4 +24,54 @@
   .root[data-tone="brand"] {
     background-color: var(--bl-color-accent-subtle);
   }
+
+  /* Fondos decorativos: una capa detrás del contenido que se difumina hacia los bordes. */
+  .root[data-background] {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .root[data-background]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .root[data-background="grid"]::before {
+    background-image: var(--bl-pattern-grid);
+    background-size: 3rem 3rem;
+    background-position: center top;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 100%);
+  }
+
+  .root[data-background="dots"]::before {
+    background-image: var(--bl-pattern-dots);
+    background-size: 1.25rem 1.25rem;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, #000 20%, transparent 90%);
+  }
+
+  .root[data-background="glow"]::before {
+    background: var(--bl-gradient-glow);
+  }
+
+  .root[data-background="mesh"]::before {
+    background: var(--bl-gradient-mesh);
+  }
+
+  .root[data-background="noise"]::before {
+    background-image: var(--bl-pattern-noise);
+  }
+
+  /* El grano se suma a los resplandores para que no se vean «bandas» en el degradado. */
+  .root:is([data-background="glow"], [data-background="mesh"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: var(--bl-pattern-noise);
+    pointer-events: none;
+  }
 }

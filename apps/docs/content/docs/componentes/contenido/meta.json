@@ -1,4 +1,4 @@
 {
   "title": "Contenido",
-  "pages": ["badge", "tag", "avatar", "image", "icon"]
+  "pages": ["card", "icon-tile", "badge", "tag", "avatar", "image", "icon"]
 }

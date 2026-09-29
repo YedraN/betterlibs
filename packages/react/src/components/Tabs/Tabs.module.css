@@ -12,6 +12,8 @@
   }
 
   .list {
+    position: relative;
+    isolation: isolate;
     display: flex;
     flex-shrink: 0;
     max-inline-size: 100%;
@@ -26,6 +28,7 @@
 
   .trigger {
     position: relative;
+    z-index: 1;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
@@ -116,7 +119,65 @@
 
   .root[data-variant="pill"] .trigger[data-state="active"] {
     background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-sm);
+    box-shadow: var(--bl-elevation-1);
+  }
+
+  .root[data-variant="pill"] .list {
+    box-shadow: var(--bl-shadow-inset);
+  }
+
+  /*
+   * Indicador deslizante (lo coloca TabsList con JS). Mientras no está listo, cada pestaña
+   * muestra su propio indicador; en cuanto lo está, se ocultan y se anima uno solo.
+   */
+  .indicator {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 0;
+    display: none;
+    pointer-events: none;
+    transition:
+      transform var(--bl-duration-slow) var(--bl-ease-out),
+      inline-size var(--bl-duration-slow) var(--bl-ease-out),
+      block-size var(--bl-duration-slow) var(--bl-ease-out);
+  }
+
+  .list[data-indicator] .indicator {
+    display: block;
+  }
+
+  .root[data-variant="line"] .list[data-indicator] .indicator {
+    inline-size: var(--_ind-w);
+    block-size: 2px;
+    border-radius: 2px;
+    background: var(--bl-color-accent-text);
+    box-shadow: 0 0 12px 1px var(--bl-color-accent-glow);
+    transform: translate(var(--_ind-x), calc(var(--_ind-y) + var(--_ind-h) - 2px));
+  }
+
+  .root[data-variant="line"][data-orientation="vertical"] .list[data-indicator] .indicator {
+    inline-size: 2px;
+    block-size: var(--_ind-h);
+    transform: translate(calc(var(--_ind-x) + var(--_ind-w) - 2px), var(--_ind-y));
+  }
+
+  .root[data-variant="line"] .list[data-indicator] .trigger::after {
+    display: none;
+  }
+
+  .root[data-variant="pill"] .list[data-indicator] .indicator {
+    inline-size: var(--_ind-w);
+    block-size: var(--_ind-h);
+    border-radius: var(--bl-radius-md);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-elevation-1);
+    transform: translate(var(--_ind-x), var(--_ind-y));
+  }
+
+  .root[data-variant="pill"] .list[data-indicator] .trigger[data-state="active"] {
+    background-color: transparent;
+    box-shadow: none;
   }
 
   /* Variante `line` en vertical: la marca pasa al lateral. */

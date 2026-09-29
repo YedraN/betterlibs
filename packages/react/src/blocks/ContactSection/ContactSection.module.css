@@ -45,9 +45,11 @@
 
   .details[data-variant="stacked"] .detail {
     padding: var(--bl-space-5);
-    border: 1px solid var(--bl-color-border);
+    border: 0;
     border-radius: var(--bl-radius-lg);
-    background-color: var(--bl-color-surface);
+    background: var(--bl-gradient-surface);
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-elevation-1);
   }
 
   .icon {
@@ -102,9 +104,11 @@
 
   .form {
     padding: var(--bl-space-8) var(--bl-space-6);
-    border: 1px solid var(--bl-color-border);
+    border: 0;
     border-radius: var(--bl-radius-xl);
-    background-color: var(--bl-color-surface);
+    background: var(--bl-gradient-surface);
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-elevation-1);
   }
 
   @media (min-width: 768px) {

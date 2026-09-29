@@ -1,6 +1,7 @@
 {
   "title": "Fundamentos",
   "pages": [
+    "lenguaje-visual",
     "tokens",
     "color",
     "tipografia",

@@ -7,12 +7,25 @@
   .root {
     container: bl-header / inline-size;
     z-index: var(--bl-z-header);
-    border-block-end: 1px solid var(--bl-color-border);
+    border-block-end: 1px solid var(--bl-color-border-subtle);
     background-color: var(--bl-color-bg);
     color: var(--bl-color-text);
     transition:
       transform var(--bl-duration-slow) var(--bl-ease-emphasized),
-      box-shadow var(--bl-duration-normal) var(--bl-ease-standard);
+      box-shadow var(--bl-duration-normal) var(--bl-ease-standard),
+      background-color var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  /* Fija: cristal translúcido que deja intuir el contenido al hacer scroll. */
+  .root[data-sticky] {
+    background-color: color-mix(in oklab, var(--bl-color-bg) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(1.6);
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .root[data-sticky] {
+      background-color: var(--bl-color-bg);
+    }
   }
 
   .root[data-sticky] {
@@ -21,7 +34,9 @@
   }
 
   .root[data-scrolled] {
-    box-shadow: var(--bl-shadow-sm);
+    box-shadow:
+      0 1px 0 var(--bl-color-border-subtle),
+      0 8px 24px -12px rgb(12 16 23 / 0.18);
   }
 
   .root[data-hidden] {

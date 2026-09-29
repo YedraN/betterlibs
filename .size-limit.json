@@ -38,19 +38,19 @@
     "name": "@betterlibs/react/styles.css",
     "path": "packages/react/dist/styles.css",
     "rolldown": false,
-    "limit": "16 kB"
+    "limit": "19 kB"
   },
   {
     "name": "@betterlibs/tokens/index.css",
     "path": "packages/tokens/dist/index.css",
     "rolldown": false,
-    "limit": "3.5 kB"
+    "limit": "5 kB"
   },
   {
     "name": "@betterlibs/tokens { createTheme }",
     "path": "packages/tokens/dist/index.js",
     "import": "{ createTheme }",
-    "limit": "4.5 kB"
+    "limit": "5.5 kB"
   },
   {
     "name": "@betterlibs/icons (un icono)",

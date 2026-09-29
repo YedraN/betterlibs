@@ -4,6 +4,8 @@
     inset: 0;
     z-index: var(--bl-z-overlay);
     background-color: var(--bl-color-overlay);
+    /* El fondo se desenfoca: el diálogo queda en primer plano sin perder el contexto. */
+    backdrop-filter: blur(6px);
   }
 
   .overlay[data-state="open"] {
@@ -24,8 +26,9 @@
     flex-direction: column;
     box-sizing: border-box;
     overflow: hidden;
+    background: var(--bl-gradient-surface);
     background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-xl);
+    box-shadow: var(--bl-elevation-4);
     color: var(--bl-color-text);
     font-family: var(--bl-font-family-sans);
     font-size: var(--bl-font-size-md);
@@ -158,8 +161,8 @@
     justify-content: flex-end;
     gap: var(--bl-space-3);
     padding: var(--bl-space-4) var(--bl-space-6);
-    border-block-start: 1px solid var(--bl-color-border);
-    background-color: var(--bl-color-bg-subtle);
+    border-block-start: 1px solid var(--bl-color-border-subtle);
+    background-color: color-mix(in oklab, var(--bl-color-bg-subtle) 60%, transparent);
   }
 
   /* En móvil, las acciones del pie ocupan todo el ancho y se apilan. */

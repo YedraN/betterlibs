@@ -14,16 +14,24 @@
     text-decoration-thickness: 2px;
   }
 
+  /* Independiente: el subrayado se «dibuja» de izquierda a derecha al pasar el ratón. */
   .root[data-variant="standalone"] {
     display: inline-flex;
     align-items: center;
     gap: var(--bl-space-1-5);
     font-weight: var(--bl-font-weight-semibold);
     text-decoration-line: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition:
+      color var(--bl-duration-fast) var(--bl-ease-standard),
+      background-size var(--bl-duration-slow) var(--bl-ease-out);
   }
 
   .root[data-variant="standalone"]:hover {
-    text-decoration-line: underline;
+    background-size: 100% 1px;
   }
 
   .root[data-variant="subtle"] {
@@ -46,7 +54,7 @@
   }
 
   .arrow {
-    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+    transition: transform var(--bl-duration-normal) var(--bl-ease-spring);
   }
 
   .root:hover .arrow {

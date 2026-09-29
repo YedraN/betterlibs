@@ -18,8 +18,20 @@
     font-size: var(--bl-font-size-4xl);
     font-weight: var(--bl-font-weight-bold);
     font-variant-numeric: tabular-nums;
-    letter-spacing: var(--bl-tracking-tight);
+    letter-spacing: var(--bl-tracking-tighter);
     line-height: var(--bl-leading-tight);
+    /* Cifra con el degradado de la marca (del texto al acento: ambos cumplen contraste). */
+    background: var(--bl-gradient-text);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (forced-colors: active) {
+    .value {
+      background: none;
+      -webkit-text-fill-color: CanvasText;
+    }
   }
 
   .label {
@@ -35,17 +47,14 @@
 
   .item[data-variant="cards"] {
     padding: var(--bl-space-6);
-    border: 1px solid var(--bl-color-border);
     border-radius: var(--bl-radius-xl);
-    background-color: var(--bl-color-surface);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-elevation-1);
   }
 
   .item[data-variant="divided"] {
     padding-inline-start: var(--bl-space-6);
-    border-inline-start: 2px solid var(--bl-color-accent-text);
-  }
-
-  .item[data-variant="plain"] .value {
-    color: var(--bl-color-accent-text);
+    border-inline-start: 2px solid transparent;
+    border-image: linear-gradient(180deg, var(--bl-color-accent-text), transparent) 1;
   }
 }

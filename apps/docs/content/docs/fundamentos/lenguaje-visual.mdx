@@ -1,0 +1,205 @@
+---
+title: Lenguaje visual
+description: Profundidad suave, la identidad de Betterlibs UI y cómo se aplica a cada componente.
+icon: Sparkles
+---
+
+import { ArrowRightIcon, BarChartIcon, ZapIcon } from '@betterlibs/icons'
+import {
+  Badge,
+  Button,
+  Card,
+  GradientText,
+  Heading,
+  IconTile,
+  Section,
+  SectionHeader,
+  Stack,
+  Text,
+} from '@betterlibs/react'
+
+Betterlibs UI tiene un estilo propio, **Profundidad suave**: superficies en capas con un filo de
+luz, bordes finos translúcidos, degradados discretos del color de marca y movimiento con
+intención. Se reconoce a primera vista y, a la vez, se adapta a cualquier marca porque todo se
+calcula a partir de tus tokens.
+
+<Preview>
+  <Section background="mesh" spacing="sm" style={{ borderRadius: '1rem' }}>
+    <Stack gap="8" align="center">
+      <SectionHeader
+        align="center"
+        eyebrow="Nuevo"
+        title={
+          <>
+            Finanzas claras para <GradientText>crecer con orden</GradientText>
+          </>
+        }
+        description="Un vistazo al lenguaje visual: cápsula de antetítulo, titular con degradado, botones con profundidad y tarjetas en capas."
+        actions={
+          <>
+            <Button iconEnd={<ArrowRightIcon />}>Empezar</Button>
+            <Button variant="secondary">Ver servicios</Button>
+          </>
+        }
+      />
+      <Card variant="glass" padding="5" style={{ maxWidth: '28rem' }}>
+        <Stack direction="row" gap="4" align="center">
+          <IconTile tone="solid">
+            <ZapIcon />
+          </IconTile>
+          <Stack gap="1">
+            <Text weight="semibold">Cierre mensual en 3 días</Text>
+            <Text size="sm" tone="muted">
+              Tarjeta de cristal sobre un fondo de color.
+            </Text>
+          </Stack>
+          <Badge tone="success" dot pulse>
+            En curso
+          </Badge>
+        </Stack>
+      </Card>
+    </Stack>
+  </Section>
+</Preview>
+
+## Los cinco principios
+
+1. **Capas, no cajas.** Las superficies se separan con luz y sombra, no con bordes grises. Cada
+   superficie lleva un anillo de 1px translúcido, un filo de luz en el borde superior y una
+   sombra suave (`--bl-elevation-0` a `--bl-elevation-4`).
+2. **La marca brilla, no grita.** El color de marca aparece en degradados cortos (del acento a su
+   tono vecino), halos y tintes al 6–30 %. Los rellenos sólidos se reservan para la acción
+   principal.
+3. **Los detalles responden.** Todo lo interactivo reacciona: los botones se elevan y proyectan
+   un halo de color, las casillas dibujan su marca, los interruptores rebotan, las pestañas
+   deslizan su indicador y las tarjetas enlazadas se elevan.
+4. **Texto primero.** Inter con rasgos de legibilidad, titulares con tracking negativo y
+   entradillas en gris medio. El degradado en texto se usa en una o dos palabras por página.
+5. **Accesible siempre.** Los efectos son decorativos: el contraste lo garantizan los colores de
+   base. El foco mantiene un anillo sólido (más un halo). Con «reducir movimiento» se eliminan
+   las animaciones y en modo de alto contraste se recuperan los bordes del sistema.
+
+## Superficies
+
+<Preview>
+  <Stack direction="row" gap="6" wrap>
+    <Card padding="5">
+      <Text weight="semibold">elevation-1</Text>
+      <Text size="sm" tone="muted">
+        Tarjetas en reposo
+      </Text>
+    </Card>
+    <Card padding="5" style={{ boxShadow: 'var(--bl-elevation-3)' }}>
+      <Text weight="semibold">elevation-3</Text>
+      <Text size="sm" tone="muted">
+        Hover y menús
+      </Text>
+    </Card>
+    <Card padding="5" style={{ boxShadow: 'var(--bl-elevation-4)' }}>
+      <Text weight="semibold">elevation-4</Text>
+      <Text size="sm" tone="muted">
+        Diálogos y paneles
+      </Text>
+    </Card>
+    <Card padding="5" variant="glow">
+      <Text weight="semibold">glow</Text>
+      <Text size="sm" tone="muted">
+        Elemento destacado
+      </Text>
+    </Card>
+  </Stack>
+</Preview>
+
+| Token | Para qué sirve |
+| --- | --- |
+| `--bl-elevation-0…4` | Anillo + sombra + filo de luz, de plano a flotante |
+| `--bl-gradient-surface` | Fondo de tarjetas y paneles (casi plano, con un matiz hacia abajo) |
+| `--bl-gradient-accent` | Relleno de la acción principal (acento → acento hover) |
+| `--bl-shadow-accent` | Sombra de color de la acción principal (y `-hover`) |
+| `--bl-gradient-border`, `--bl-gradient-border-accent` | Bordes degradados de 1px |
+| `--bl-color-glass`, `--bl-color-glass-border` | Superficies translúcidas con desenfoque |
+| `--bl-color-accent-tint`, `--bl-color-accent-glow` | Tinte (6–10 %) y halo (30–40 %) de la marca |
+| `--bl-ring-halo` | Halo que acompaña al anillo de foco |
+| `--bl-gradient-text` | Degradado para texto (del color de texto al de acento) |
+
+Todos se construyen con `color-mix()` a partir de los tokens semánticos: cambian solos con
+`createTheme({ brand })` y con el modo oscuro. Si defines un tema en un selector propio, se
+recalculan también dentro de él.
+
+## Fondos de sección
+
+`Section` (y todos los bloques) aceptan `background` para añadir un fondo decorativo que se
+difumina hacia los bordes:
+
+| `background` | Uso |
+| --- | --- |
+| `grid` | Rejilla fina, para secciones técnicas o de producto |
+| `dots` | Trama de puntos |
+| `glow` | Resplandor de la marca desde arriba (por defecto en `Hero`) |
+| `mesh` | Varios resplandores de color, para portadas y CTAs |
+| `noise` | Grano sutil que da textura a un fondo plano |
+
+<Preview>
+  <Stack gap="4">
+    <Section background="grid" spacing="sm" style={{ borderRadius: '1rem' }}>
+      <Heading level={3} size="lg" align="center">
+        grid
+      </Heading>
+    </Section>
+    <Section background="dots" spacing="sm" style={{ borderRadius: '1rem' }}>
+      <Heading level={3} size="lg" align="center">
+        dots
+      </Heading>
+    </Section>
+    <Section background="glow" spacing="sm" style={{ borderRadius: '1rem' }}>
+      <Heading level={3} size="lg" align="center">
+        glow
+      </Heading>
+    </Section>
+  </Stack>
+</Preview>
+
+## Tipografía
+
+La identidad usa **Inter** (variable). Instálala y cárgala una vez; si no está, se usa la
+tipografía del sistema sin romper nada:
+
+```bash
+pnpm add @fontsource-variable/inter
+```
+
+```tsx
+import '@fontsource-variable/inter'
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+```
+
+Para usar otra, pásala a `createTheme({ fontSans, fontDisplay })`.
+
+## Densidad
+
+Añade `data-density="compact"` a cualquier contenedor (o a `<html>`) para reducir la altura de
+los controles (botones y campos pasan de 44 a 36px), útil en paneles y tablas. Los objetivos
+táctiles siguen por encima del mínimo de WCAG 2.2 (24px).
+
+```tsx
+<div data-density="compact">
+  <Button size="sm">Filtrar</Button>
+</div>
+```
+
+## Cómo se aplica en cada componente
+
+| Componente | Detalle de la identidad |
+| --- | --- |
+| `Button` | Degradado con filo de luz, halo de color, destello al pasar el ratón, pulsación con escala |
+| `Card`, `IconTile` | Superficies en capas, bordes degradados, cristal y halos |
+| Campos (`Input`, `Select`…) | Superficie con sombra interior; al enfocar, borde de 2px y halo |
+| `Checkbox`, `Radio`, `Switch` | La marca se dibuja, el punto crece, el interruptor rebota |
+| `Tabs` | Indicador que se desliza entre pestañas |
+| `Badge` | Filo translúcido del propio color y punto que late (`pulse`) |
+| `SectionHeader` | Antetítulo en cápsula con borde degradado |
+| `Heading`, `GradientText` | Titulares con degradado de la marca |
+| Overlays | Cristal con desenfoque, elevación 3–4 y fondo desenfocado en diálogos |
+| `Header` | Cristal translúcido al fijarse, sombra al hacer scroll |
+| Bloques | Hero con resplandor y marco de imagen, cifras con degradado, plan destacado con halo |

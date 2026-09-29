@@ -7,6 +7,19 @@ icon: History
 A partir de la 1.0, cada versión publicada tiene su entrada en el `CHANGELOG.md` de cada paquete,
 generada con Changesets. Antes de la 1.0, este es el resumen de cada fase.
 
+## Fase 9 · Lenguaje visual
+
+- Identidad **Profundidad suave**: superficies en capas con filo de luz, degradados de la marca,
+  halos, cristal y patrones de fondo, todo calculado desde los tokens (`--bl-elevation-*`,
+  `--bl-gradient-*`, `--bl-ring-halo`…).
+- Nuevos: `Card` (elevated, outline, glass, gradient, glow), `IconTile` y `GradientText`.
+- `Section` y todos los bloques aceptan `background` (`grid`, `dots`, `glow`, `mesh`, `noise`).
+- `Button` con degradado, destello y halo; nueva variante `soft` (`secondary` pasa a ser una
+  superficie neutra elevada).
+- Campos con halo al enfocar; casillas que dibujan su marca; interruptor con rebote; pestañas con
+  indicador deslizante; `Badge` con `pulse`; antetítulo en cápsula.
+- Tipografía Inter y densidad compacta con `data-density="compact"`.
+
 ## 1.0.0 · Versión estable
 
 - Auditoría de accesibilidad automatizada: axe (WCAG 2.2 AA) en las 101 stories y en todas las

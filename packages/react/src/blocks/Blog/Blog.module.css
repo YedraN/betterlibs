@@ -22,14 +22,28 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid var(--bl-color-border);
+    border: 0;
     border-radius: var(--bl-radius-xl);
-    background-color: var(--bl-color-surface);
-    transition: box-shadow var(--bl-duration-normal) var(--bl-ease-standard);
+    background: var(--bl-gradient-surface);
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: var(--bl-elevation-1);
+    transition:
+      box-shadow var(--bl-duration-slow) var(--bl-ease-standard),
+      transform var(--bl-duration-slow) var(--bl-ease-out);
   }
 
   .card:hover {
-    box-shadow: var(--bl-shadow-md);
+    box-shadow: var(--bl-elevation-3);
+    transform: translateY(-2px);
+  }
+
+  /* La imagen se acerca un poco al pasar el ratón por la tarjeta. */
+  .card :where(.image img) {
+    transition: transform var(--bl-duration-slower) var(--bl-ease-out);
+  }
+
+  .card:hover :where(.image img) {
+    transform: scale(1.04);
   }
 
   .image {

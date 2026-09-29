@@ -9,6 +9,7 @@ import { Button, ButtonGroup } from '@betterlibs/react'
 <Preview align="center">
   <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
   <Button variant="secondary">Secundario</Button>
+  <Button variant="soft">Suave</Button>
   <Button variant="outline" iconStart={<DownloadIcon />}>Descargar dossier</Button>
   <Button variant="ghost">Fantasma</Button>
   <Button variant="danger">Eliminar</Button>
@@ -31,8 +32,9 @@ dentro mantiene la semántica correcta.
 
 | `variant` | Uso |
 | --- | --- |
-| `primary` | La acción principal. **Una por bloque** |
-| `secondary` | Acción importante pero secundaria |
+| `primary` | La acción principal: degradado de la marca, brillo y halo al pasar el ratón. **Una por bloque** |
+| `secondary` | Superficie elevada neutra; acompaña a la principal («Ver servicios») |
+| `soft` | Fondo suave de la marca, para acciones frecuentes de menos peso |
 | `outline` | Alternativa a la principal («Ver precios» junto a «Solicitar demo») |
 | `ghost` | Acciones terciarias o en barras de herramientas |
 | `danger` | Acciones destructivas («Eliminar cuenta») |

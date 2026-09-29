@@ -7,6 +7,30 @@ html {
   color: var(--bl-color-text);
   background-color: var(--bl-color-bg);
   -webkit-tap-highlight-color: transparent;
+  /* Rasgos de Inter: «a» y «l» más legibles, cifras con la raya del 0; otras fuentes los ignoran. */
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/*
+ * Densidad: `data-density="compact"` en cualquier contenedor reduce la altura de los controles
+ * y el aire de los componentes (tablas, paneles de administración, barras de herramientas).
+ * Los objetivos táctiles siguen por encima de 24px (WCAG 2.5.8).
+ */
+[data-density="compact"] {
+  --bl-control-height-sm: 1.875rem;
+  --bl-control-height-md: 2.25rem;
+  --bl-control-height-lg: 2.75rem;
+  --bl-density: 0.75;
+}
+
+[data-density="comfortable"] {
+  --bl-control-height-sm: 2.25rem;
+  --bl-control-height-md: 2.75rem;
+  --bl-control-height-lg: 3.25rem;
+  --bl-density: 1;
 }
 
 body {
@@ -29,6 +53,7 @@ h6 {
   line-height: var(--bl-leading-snug);
   letter-spacing: var(--bl-tracking-tight);
   text-wrap: balance;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
 }
 
 p,

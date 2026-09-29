@@ -4,8 +4,14 @@ import { Heading, type HeadingSize } from '../Heading/Heading'
 import styles from './SectionHeader.module.css'
 
 export type SectionHeaderProps = Omit<ComponentPropsWithRef<'div'>, 'title'> & {
-  /** Antetítulo corto sobre el título («SERVICIOS»). */
+  /** Antetítulo corto sobre el título («Servicios»). */
   eyebrow?: ReactNode
+  /**
+   * `pill`: cápsula con borde degradado y punto de color (el sello de la librería).
+   * `text`: texto en mayúsculas del color de acento.
+   * @default 'pill'
+   */
+  eyebrowStyle?: 'pill' | 'text'
   title: ReactNode
   /** Entradilla bajo el título. */
   description?: ReactNode
@@ -27,6 +33,7 @@ export type SectionHeaderProps = Omit<ComponentPropsWithRef<'div'>, 'title'> & {
  */
 export function SectionHeader({
   eyebrow,
+  eyebrowStyle = 'pill',
   title,
   description,
   actions,
@@ -39,7 +46,11 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={cx(styles.root, className)} data-align={align} {...props}>
-      {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
+      {eyebrow && (
+        <p className={styles.eyebrow} data-style={eyebrowStyle}>
+          {eyebrow}
+        </p>
+      )}
       <Heading
         id={titleId}
         level={headingLevel}

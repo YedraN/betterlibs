@@ -27,9 +27,22 @@
   }
 
   .root[data-variant="separated"] .item {
-    border: 1px solid var(--bl-color-border);
-    border-radius: var(--bl-radius-lg);
-    background-color: var(--bl-color-surface);
+    border: 0;
+    border-radius: var(--bl-radius-xl);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-elevation-1);
+    transition: box-shadow var(--bl-duration-slow) var(--bl-ease-standard);
+  }
+
+  /* El elemento abierto se eleva un poco más y toma un filo del color de marca. */
+  .root[data-variant="separated"] .item[data-state="open"] {
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 22%, transparent),
+      var(--bl-elevation-2);
+  }
+
+  .root[data-variant="bordered"] {
+    box-shadow: var(--bl-elevation-1);
   }
 
   .heading {
@@ -93,16 +106,30 @@
     font-size: 1.25em;
   }
 
+  /* El chevron vive en un círculo que se rellena con la marca al abrir. */
   .chevron {
     flex-shrink: 0;
-    inline-size: 1.25em;
-    block-size: 1.25em;
+    box-sizing: content-box;
+    inline-size: 1em;
+    block-size: 1em;
+    padding: 0.3em;
+    border-radius: var(--bl-radius-full);
+    background-color: var(--bl-color-bg-muted);
     color: var(--bl-color-text-muted);
-    transition: transform var(--bl-duration-normal) var(--bl-ease-standard);
+    transition:
+      transform var(--bl-duration-slow) var(--bl-ease-spring),
+      background-color var(--bl-duration-normal) var(--bl-ease-standard),
+      color var(--bl-duration-normal) var(--bl-ease-standard);
+  }
+
+  .trigger:hover .chevron {
+    color: var(--bl-color-text);
   }
 
   .trigger[data-state="open"] .chevron {
     transform: rotate(180deg);
+    background-color: var(--bl-color-accent-subtle);
+    color: var(--bl-color-accent-text);
   }
 
   .content {
@@ -110,7 +137,7 @@
   }
 
   .content[data-state="open"] {
-    animation: open var(--bl-duration-normal) var(--bl-ease-standard);
+    animation: open var(--bl-duration-slow) var(--bl-ease-out);
   }
 
   .content[data-state="closed"] {

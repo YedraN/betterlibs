@@ -91,6 +91,12 @@ export {
   type ButtonVariant,
 } from './components/Button/Button'
 export { ButtonGroup, type ButtonGroupProps } from './components/ButtonGroup/ButtonGroup'
+export {
+  Card,
+  type CardOwnProps,
+  type CardProps,
+  type CardVariant,
+} from './components/Card/Card'
 export { Carousel, type CarouselProps } from './components/Carousel/Carousel'
 export {
   Checkbox,
@@ -168,9 +174,16 @@ export {
 } from './components/Form/validation'
 export { Grid, type GridOwnProps, type GridProps } from './components/Grid/Grid'
 export { Header, type HeaderProps } from './components/Header/Header'
-export { Heading, type HeadingProps, type HeadingSize } from './components/Heading/Heading'
+export {
+  GradientText,
+  type GradientTextProps,
+  Heading,
+  type HeadingProps,
+  type HeadingSize,
+} from './components/Heading/Heading'
 export { Icon, type IconProps } from './components/Icon/Icon'
 export { IconButton, type IconButtonProps } from './components/IconButton/IconButton'
+export { IconTile, type IconTileProps } from './components/IconTile/IconTile'
 export { Image, type ImageProps } from './components/Image/Image'
 export { Input, type InputProps } from './components/Input/Input'
 export { Link, type LinkProps } from './components/Link/Link'
@@ -206,7 +219,12 @@ export {
   type RadioGroupProps,
   type RadioProps,
 } from './components/Radio/RadioGroup'
-export { Section, type SectionOwnProps, type SectionProps } from './components/Section/Section'
+export {
+  Section,
+  type SectionBackground,
+  type SectionOwnProps,
+  type SectionProps,
+} from './components/Section/Section'
 export { SectionHeader, type SectionHeaderProps } from './components/SectionHeader/SectionHeader'
 export {
   Select,

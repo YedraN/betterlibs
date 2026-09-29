@@ -44,18 +44,28 @@
     inline-size: 100%;
     block-size: 100%;
     margin: 0;
-    border: 2px solid var(--bl-color-border-input);
-    border-radius: var(--bl-radius-sm);
-    background-color: var(--bl-color-bg);
+    border: 1.5px solid var(--bl-color-border-input);
+    border-radius: calc(var(--bl-radius-sm) + 1px);
+    background-color: var(--bl-color-surface);
+    box-shadow: var(--bl-shadow-control);
     cursor: pointer;
     transition:
       background-color var(--bl-duration-fast) var(--bl-ease-standard),
       border-color var(--bl-duration-fast) var(--bl-ease-standard),
-      box-shadow var(--bl-duration-fast) var(--bl-ease-standard);
+      box-shadow var(--bl-duration-normal) var(--bl-ease-spring),
+      transform var(--bl-duration-normal) var(--bl-ease-spring);
   }
 
+  .input:active:not(:disabled) {
+    transform: scale(0.88);
+  }
+
+  /* Radio: el punto central crece desde el borde (sombra interior del color de fondo). */
   .input[type="radio"] {
     border-radius: var(--bl-radius-full);
+    box-shadow:
+      inset 0 0 0 0.625rem var(--bl-color-surface),
+      var(--bl-shadow-control);
   }
 
   .input:hover:not(:disabled, :checked, :indeterminate) {
@@ -70,11 +80,13 @@
   .input:indeterminate {
     border-color: var(--bl-color-accent-text);
     background-color: var(--bl-color-accent-text);
+    box-shadow: 0 2px 6px -1px var(--bl-color-accent-glow);
   }
 
-  /* Radio: punto central dibujado con una sombra interior del color de fondo. */
   .input[type="radio"]:checked {
-    box-shadow: inset 0 0 0 3px var(--bl-color-bg);
+    box-shadow:
+      inset 0 0 0 0.1875rem var(--bl-color-surface),
+      0 2px 6px -1px var(--bl-color-accent-glow);
   }
 
   .input:focus-visible {
@@ -90,12 +102,17 @@
     color: var(--bl-color-bg);
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--bl-duration-fast) var(--bl-ease-standard);
+    /* La marca se «dibuja» de izquierda a derecha al activarse. */
+    clip-path: inset(0 100% 0 0);
+    transition:
+      opacity var(--bl-duration-fast) var(--bl-ease-standard),
+      clip-path var(--bl-duration-slow) var(--bl-ease-out);
   }
 
   .input:checked:not(:indeterminate) ~ .check,
   .input:indeterminate ~ .dash {
     opacity: 1;
+    clip-path: inset(0);
   }
 
   .root[data-invalid] .input:not(:checked, :indeterminate) {
@@ -135,10 +152,13 @@
     padding: var(--bl-space-4);
     border: 1px solid var(--bl-color-border-strong);
     border-radius: var(--bl-radius-lg);
-    background-color: var(--bl-color-bg);
+    background: var(--bl-gradient-surface);
+    box-shadow: var(--bl-shadow-control);
     transition:
       border-color var(--bl-duration-fast) var(--bl-ease-standard),
-      background-color var(--bl-duration-fast) var(--bl-ease-standard);
+      background-color var(--bl-duration-fast) var(--bl-ease-standard),
+      box-shadow var(--bl-duration-normal) var(--bl-ease-standard),
+      transform var(--bl-duration-normal) var(--bl-ease-standard);
   }
 
   .root[data-variant="card"] .label {
@@ -154,12 +174,16 @@
 
   .root[data-variant="card"]:hover:not([data-disabled]) {
     border-color: var(--bl-color-text-muted);
+    box-shadow: var(--bl-elevation-2);
+    transform: translateY(-1px);
   }
 
   .root[data-variant="card"]:has(.input:checked) {
     border-color: var(--bl-color-accent-text);
-    background-color: var(--bl-color-accent-subtle);
-    box-shadow: inset 0 0 0 1px var(--bl-color-accent-text);
+    background: linear-gradient(180deg, var(--bl-color-accent-subtle), var(--bl-color-surface));
+    box-shadow:
+      inset 0 0 0 1px var(--bl-color-accent-text),
+      0 8px 24px -10px var(--bl-color-accent-glow);
   }
 
   .root[data-variant="card"]:has(.input:checked) .input[type="radio"] {

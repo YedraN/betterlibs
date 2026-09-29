@@ -8,7 +8,7 @@ import { Badge } from '@betterlibs/react'
 
 <Preview align="center">
   <Badge tone="accent">Nuevo</Badge>
-  <Badge tone="success" dot>Disponible</Badge>
+  <Badge tone="success" dot pulse>En directo</Badge>
   <Badge tone="warning">Plazas limitadas</Badge>
   <Badge tone="danger" variant="solid">Agotado</Badge>
   <Badge tone="info" icon={<StarIcon />}>Destacado</Badge>
@@ -29,7 +29,7 @@ Si es interactivo (un filtro que se puede quitar, una categoría enlazada), usa
 
 - `tone`: `neutral`, `accent`, `success`, `warning`, `danger` o `info`.
 - `variant`: `subtle` (por defecto), `solid` u `outline`.
-- `dot` añade un punto de estado; `icon`, un icono delante.
+- `dot` añade un punto de estado (con `pulse`, late suavemente para indicar algo en curso); `icon`, un icono delante.
 
 ## Textos
 

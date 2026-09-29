@@ -98,10 +98,11 @@
     min-inline-size: 16rem;
     max-inline-size: min(26rem, calc(100vw - 2 * var(--bl-space-4)));
     padding: var(--bl-space-2);
-    border: 1px solid var(--bl-color-border);
-    border-radius: var(--bl-radius-lg);
-    background-color: var(--bl-color-surface-raised);
-    box-shadow: var(--bl-shadow-lg);
+    border: 0;
+    border-radius: var(--bl-radius-xl);
+    background-color: color-mix(in oklab, var(--bl-color-surface-raised) 94%, transparent);
+    box-shadow: var(--bl-elevation-4);
+    backdrop-filter: blur(16px) saturate(1.3);
     color: var(--bl-color-text);
   }
 
@@ -158,9 +159,22 @@
     inline-size: 2.25rem;
     block-size: 2.25rem;
     border-radius: var(--bl-radius-md);
-    background-color: var(--bl-color-accent-subtle);
+    background: linear-gradient(
+      145deg,
+      var(--bl-color-accent-subtle),
+      var(--bl-color-accent-subtle-hover)
+    );
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 14%, transparent),
+      inset 0 1px 0 var(--bl-color-highlight);
     color: var(--bl-color-accent-text);
     font-size: 1.125rem;
+    transition: transform var(--bl-duration-normal) var(--bl-ease-spring);
+  }
+
+  .link:hover .linkIcon,
+  .link:focus-visible .linkIcon {
+    transform: scale(1.08) rotate(-3deg);
   }
 
   .linkText {

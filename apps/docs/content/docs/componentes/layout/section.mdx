@@ -45,6 +45,18 @@ Para cada bloque horizontal de una página: portada, servicios, testimonios, con
 
 `spacing` (`none`, `sm`, `md`, `lg`) es fluido: menos espacio en móvil, más en escritorio.
 
+`background` añade un fondo decorativo que se difumina hacia los bordes: `grid`, `dots`, `glow`,
+`mesh` o `noise`. Es solo decoración (va detrás del contenido y con poca intensidad), así que no
+afecta al contraste. Ver [Lenguaje visual](/docs/fundamentos/lenguaje-visual#fondos-de-sección).
+
+<Preview>
+  <Section background="mesh" spacing="sm" style={{ borderRadius: '1rem' }}>
+    <Container>
+      <Heading level={3} align="center">Sección con fondo mesh</Heading>
+    </Container>
+  </Section>
+</Preview>
+
 ## Accesibilidad
 
 Si la sección tiene título, enlázalo con `aria-labelledby`: la sección pasa a ser una **región**

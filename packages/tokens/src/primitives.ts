@@ -111,9 +111,11 @@ export function fluid(minRem: number, maxRem: number, minVw = 360, maxVw = 1280)
 
 export const font = {
   family: {
-    sans: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    // Inter es la tipografía de la identidad (optimizada para pantalla, con cifras tabulares).
+    // Si no está cargada, se usa la del sistema. Ver «Tipografía» en la documentación.
+    sans: "'Inter Variable', 'InterVariable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
     display:
-      "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+      "'Inter Variable', 'InterVariable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
     mono: "ui-monospace, 'SFMono-Regular', 'Cascadia Code', Menlo, Consolas, monospace",
   },
   size: {
@@ -241,6 +243,10 @@ export const motion = {
     enter: 'cubic-bezier(0, 0, 0.2, 1)',
     exit: 'cubic-bezier(0.4, 0, 1, 1)',
     emphasized: 'cubic-bezier(0.3, 0, 0, 1)',
+    /** Salida larga y suave para apariciones y paneles. */
+    out: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    /** Pequeño rebote para micro-interacciones (casillas, interruptores). */
+    spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
   },
 }
 

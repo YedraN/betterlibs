@@ -5,12 +5,16 @@ import { Spinner } from '../Spinner/Spinner'
 import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
 import styles from './Button.module.css'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
+export type ButtonVariant = 'primary' | 'secondary' | 'soft' | 'outline' | 'ghost' | 'danger'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export type ButtonProps = ComponentPropsWithRef<'button'> & {
   /**
    * Jerarquía visual. Usa un solo `primary` por bloque: es la acción principal.
+   * - `primary`: degradado del color de marca con brillo; la acción principal.
+   * - `secondary`: superficie elevada neutra; acompaña a la principal.
+   * - `soft`: fondo suave del color de marca; acciones frecuentes de menos peso.
+   * - `outline` y `ghost`: acciones terciarias. `danger`: acciones destructivas.
    * @default 'primary'
    */
   variant?: ButtonVariant

@@ -15,7 +15,19 @@ export type SectionOwnProps = {
    * @default 'default'
    */
   tone?: 'default' | 'subtle' | 'muted' | 'brand' | 'dark' | 'light'
+  /**
+   * Fondo decorativo que se difumina hacia los bordes. Es solo decoración: no afecta al
+   * contraste del texto porque se queda por detrás con muy poca intensidad.
+   * - `grid` y `dots`: patrones finos, para secciones técnicas o de producto.
+   * - `glow`: resplandor del color de marca desde arriba, ideal tras un título.
+   * - `mesh`: varios resplandores de color, para portadas y llamadas a la acción.
+   * - `noise`: grano sutil que da textura a fondos planos.
+   * @default 'none'
+   */
+  background?: SectionBackground
 }
+
+export type SectionBackground = 'none' | 'grid' | 'dots' | 'glow' | 'mesh' | 'noise'
 
 export type SectionProps<E extends ElementType = 'section'> = PolymorphicProps<E, SectionOwnProps>
 
@@ -30,6 +42,7 @@ export function Section<E extends ElementType = 'section'>({
   as,
   spacing = 'md',
   tone = 'default',
+  background = 'none',
   className,
   ...props
 }: SectionProps<E>) {
@@ -40,6 +53,7 @@ export function Section<E extends ElementType = 'section'>({
       className={cx(styles.root, className)}
       data-spacing={spacing}
       data-tone={tone}
+      data-background={background === 'none' ? undefined : background}
       data-theme={theme}
       {...props}
     />

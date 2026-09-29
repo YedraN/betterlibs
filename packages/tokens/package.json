@@ -1,6 +1,6 @@
 {
   "name": "@betterlibs/tokens",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Design tokens de Betterlibs UI: colores, tipografía, espaciado, movimiento y temas como variables CSS.",
   "license": "MIT",
   "author": "YedraN",

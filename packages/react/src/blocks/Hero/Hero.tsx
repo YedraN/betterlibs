@@ -32,7 +32,7 @@ export type HeroProps = Omit<BlockBaseProps, 'headingLevel' | 'title'> & {
   /**
    * Marco de la imagen en `split` y `centered`: `framed` la presenta como una ventana elevada
    * con borde de luz y resplandor detrás (ideal para capturas de producto); `plain`, tal cual.
-   * @default 'framed'
+   * @default 'plain'
    */
   mediaStyle?: 'framed' | 'plain'
 }
@@ -53,10 +53,10 @@ export function Hero({
   children,
   headingLevel = 1,
   size = 'md',
-  mediaStyle = 'framed',
+  mediaStyle = 'plain',
   align,
   tone,
-  background: decoration = 'glow',
+  background: decoration = 'none',
   spacing = 'lg',
   containerSize = 'xl',
   id,

@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Fixture layout/gestos (experimental, incluye motor)",
+    "path": "packages/motion/fixtures/advanced.tsx",
+    "import": "{ AdvancedFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"]
+  }
+]

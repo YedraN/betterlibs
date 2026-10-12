@@ -7,7 +7,7 @@ async function rejectCookies(page: Page) {
 }
 
 test('el aviso de cookies se maneja con teclado y recuerda la elección', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/plantillas/corporativa')
   const banner = page.getByRole('region', { name: 'Aviso de cookies' })
   await expect(banner).toBeVisible()
   // Rechazar y aceptar tienen el mismo peso visual y ambos son alcanzables con Tab.
@@ -30,7 +30,7 @@ test('el aviso de cookies se maneja con teclado y recuerda la elección', async 
 })
 
 test('el primer Tab lleva al enlace de salto y este al contenido principal', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/plantillas/corporativa')
   await rejectCookies(page)
   // Visita siguiente, ya sin aviso de cookies: el primer Tab va al enlace de salto.
   await page.reload()
@@ -49,7 +49,7 @@ test('el primer Tab lleva al enlace de salto y este al contenido principal', asy
 test('el mega menú se abre con Enter, se recorre con Tab y se cierra con Escape', async ({
   page,
 }) => {
-  await page.goto('/')
+  await page.goto('/plantillas/corporativa')
   await rejectCookies(page)
   const trigger = page
     .getByRole('navigation', { name: 'Principal' })
@@ -66,7 +66,7 @@ test('el mega menú se abre con Enter, se recorre con Tab y se cierra con Escape
 })
 
 test('al navegar sin recargar el foco va al título de la página nueva', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/plantillas/corporativa')
   await rejectCookies(page)
   await page
     .getByRole('navigation', { name: 'Principal' })
@@ -83,7 +83,7 @@ test.describe('en móvil', () => {
   test('el menú móvil atrapa el foco, se cierra con Escape y devuelve el foco', async ({
     page,
   }) => {
-    await page.goto('/')
+    await page.goto('/plantillas/corporativa')
     await rejectCookies(page)
     const open = page.getByRole('button', { name: 'Abrir menú' })
     await open.focus()
@@ -100,7 +100,7 @@ test.describe('en móvil', () => {
   })
 
   test('al elegir un enlace del menú móvil se cierra el panel y se navega', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('/plantillas/corporativa')
     await rejectCookies(page)
     await page.getByRole('button', { name: 'Abrir menú' }).click()
     const menu = page.getByRole('dialog', { name: 'Menú' })

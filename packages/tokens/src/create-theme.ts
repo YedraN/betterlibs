@@ -17,12 +17,24 @@ import {
   type RadiusPreset,
   radiusPresets,
 } from './primitives.ts'
-import { dark, light, type SemanticColors } from './semantic.ts'
+import { dark, light, resolveColor, type SemanticColors } from './semantic.ts'
+
+/** Fundamentos de un estilo; importar un preset permite eliminar los demás del bundle. */
+export type ThemePreset = {
+  palette: typeof color
+  semantic: { light: SemanticColors; dark: SemanticColors }
+  font: { sans: string; display: string }
+  radius: (typeof radiusPresets)['soft']
+  typography: Record<string, string>
+  effects?: CssVars
+}
 
 export type ThemeOptions = {
+  /** Dirección visual. `editorial` combina marfil, carbón y lima; el default se conserva. */
+  preset?: ThemePreset
   /** Color principal de la marca en hex (`#0a5cff`). Genera toda la escala `brand`. */
   brand?: string
-  /** Redondeo general de la interfaz. Por defecto `soft`. */
+  /** Redondeo general. Por defecto `soft`, o los radios propios del preset editorial. */
   radius?: RadiusPreset
   /** Familia tipográfica para textos. Recuerda cargar la fuente (p. ej. con `next/font`). */
   fontSans?: string
@@ -47,6 +59,8 @@ export type Theme = {
   css: string
   /** Escala de marca generada. */
   brand: ColorScale
+  /** Paleta utilizada para resolver las referencias semánticas. */
+  palette: typeof color
   /** Tokens semánticos resultantes por modo. */
   semantic: { light: SemanticColors; dark: SemanticColors }
   /** Informe de contraste de todos los pares obligatorios en ambos modos. */
@@ -59,12 +73,12 @@ export class ThemeContrastError extends Error {
   readonly failures: ContrastResult[]
   constructor(failures: ContrastResult[]) {
     super(
-      `El tema no cumple el contraste mínimo WCAG AA:\n${failures
+      `Contraste insuficiente (WCAG AA):\n${failures
         .map(
           (f) =>
             `  · [${f.mode}] ${f.usage} (${f.fg} sobre ${f.bg}): ${f.ratio}:1, mínimo ${f.min}:1`,
         )
-        .join('\n')}\nPrueba con un color de marca más oscuro o usa { strict: false }.`,
+        .join('\n')}\nUsa otra marca o { strict: false } para revisar el informe.`,
     )
     this.name = 'ThemeContrastError'
     this.failures = failures
@@ -82,10 +96,14 @@ const byDistance = (anchor: ColorStep, candidates: ColorStep[]) =>
   )
 
 /** Elige el texto (claro u oscuro) que mejor contraste da sobre todos los fondos indicados. */
-function pickOnColor(backgrounds: string[], preferLight: boolean): string | undefined {
+function pickOnColor(
+  backgrounds: string[],
+  preferLight: boolean,
+  palette: typeof color,
+): string | undefined {
   const options = preferLight ? ['white', 'neutral.950'] : ['neutral.950', 'white']
   return options.find((ref) => {
-    const hex = ref === 'white' ? color.white : color.neutral[950]
+    const hex = resolveColor(ref, palette)
     return backgrounds.every((bg) => contrast(hex, bg) >= 4.5)
   })
 }
@@ -99,7 +117,13 @@ function firstPassing(
   return candidates.find((step) => backgrounds.every((bg) => contrast(scale[step], bg) >= min))
 }
 
-function accentTokens(scale: ColorScale, anchor: ColorStep, mode: 'light' | 'dark') {
+function accentTokens(
+  scale: ColorScale,
+  anchor: ColorStep,
+  mode: 'light' | 'dark',
+  semantic: SemanticColors,
+  palette: typeof color,
+) {
   const tokens: SemanticColors = {}
   const direction = mode === 'light' ? 1 : -1
   const candidates: ColorStep[] =
@@ -111,7 +135,7 @@ function accentTokens(scale: ColorScale, anchor: ColorStep, mode: 'light' | 'dar
     const hover = neighbour(step, direction)
     const active = neighbour(step, direction * 2)
     if (!hover || !active) continue
-    const on = pickOnColor([scale[step], scale[hover]], mode === 'light')
+    const on = pickOnColor([scale[step], scale[hover], scale[active]], mode === 'light', palette)
     if (!on) continue
     Object.assign(tokens, {
       accent: `brand.${step}`,
@@ -122,10 +146,11 @@ function accentTokens(scale: ColorScale, anchor: ColorStep, mode: 'light' | 'dar
     break
   }
 
-  const bgs =
-    mode === 'light'
-      ? [color.white, color.neutral[50], scale[50]]
-      : [color.neutral[950], color.neutral[900], scale[950]]
+  tokens['accent-subtle'] = mode === 'light' ? 'brand.50' : 'brand.950'
+  tokens['accent-subtle-hover'] = mode === 'light' ? 'brand.100' : 'brand.900'
+  const bgs = [semantic.bg, semantic['bg-subtle'], tokens['accent-subtle']].map((ref) =>
+    resolveColor(ref ?? '', palette),
+  )
   const textStep = firstPassing(
     scale,
     mode === 'light' ? [600, 700, 800, 900] : [300, 200, 100, 50],
@@ -137,7 +162,7 @@ function accentTokens(scale: ColorScale, anchor: ColorStep, mode: 'light' | 'dar
   const ringStep = firstPassing(
     scale,
     mode === 'light' ? [500, 600, 700] : [400, 300, 200],
-    [bgs[0] as string],
+    [resolveColor(semantic.bg ?? '', palette), resolveColor(semantic.surface ?? '', palette)],
     3,
   )
   if (ringStep) tokens['focus-ring'] = `brand.${ringStep}`
@@ -155,17 +180,27 @@ function accentTokens(scale: ColorScale, anchor: ColorStep, mode: 'light' | 'dar
 export function createTheme(options: ThemeOptions = {}): Theme {
   const { selector = ':root', strict = true } = options
 
-  let brand = color.brand
-  const semantic = { light: { ...light }, dark: { ...dark } }
+  const preset = options.preset
+  const basePalette = preset?.palette ?? color
+  const baseSemantic = preset?.semantic ?? { light, dark }
+  let brand = basePalette.brand
+  const semantic = { light: { ...baseSemantic.light }, dark: { ...baseSemantic.dark } }
+  const palette = { ...basePalette, brand }
 
   if (options.brand) {
     const generated = generateScale(options.brand)
     brand = generated.scale
-    Object.assign(semantic.light, accentTokens(brand, generated.anchor, 'light'))
-    Object.assign(semantic.dark, accentTokens(brand, generated.anchor, 'dark'))
+    palette.brand = brand
+    Object.assign(
+      semantic.light,
+      accentTokens(brand, generated.anchor, 'light', semantic.light, palette),
+    )
+    Object.assign(
+      semantic.dark,
+      accentTokens(brand, generated.anchor, 'dark', semantic.dark, palette),
+    )
   }
 
-  const palette = { ...color, brand }
   const report = [
     ...checkContrast('light', semantic.light, palette),
     ...checkContrast('dark', semantic.dark, palette),
@@ -173,11 +208,16 @@ export function createTheme(options: ThemeOptions = {}): Theme {
   const failures = report.filter((r) => !r.pass)
   if (strict && failures.length > 0) throw new ThemeContrastError(failures)
 
-  const shared: CssVars = {}
-  if (options.brand) {
-    for (const [key, value] of Object.entries(colorVars(palette))) {
-      if (key.startsWith(`${PREFIX}-color-brand-`)) shared[key] = value
-    }
+  // Cada tema declara su paleta para validar los mismos colores que pinta, incluso anidado.
+  const shared: CssVars = colorVars(palette)
+  if (preset) {
+    Object.assign(shared, radiusVars(preset.radius), {
+      '--bl-font-family-sans': preset.font.sans,
+      '--bl-font-family-display': preset.font.display,
+      ...Object.fromEntries(
+        Object.entries(preset.typography).map(([key, value]) => [`--bl-type-${key}`, value]),
+      ),
+    })
   }
   if (options.radius) Object.assign(shared, radiusVars(radiusPresets[options.radius]))
   if (options.fontSans) {
@@ -188,11 +228,10 @@ export function createTheme(options: ThemeOptions = {}): Theme {
   }
   if (options.fontMono) shared[`${PREFIX}-font-family-mono`] = options.fontMono
 
-  const css = themeCss(
-    selector,
-    { ...shared, ...semanticVars('light', semantic.light) },
-    semanticVars('dark', semantic.dark),
-  )
+  const effects = preset?.effects ?? {}
+  const lightVars = { ...semanticVars('light', semantic.light), ...effects }
+  const darkVars = { ...semanticVars('dark', semantic.dark), ...effects }
+  const css = themeCss(selector, { ...shared, ...lightVars }, darkVars, lightVars)
 
-  return { css, brand, semantic, contrast: report, accessible: failures.length === 0 }
+  return { css, brand, palette, semantic, contrast: report, accessible: failures.length === 0 }
 }

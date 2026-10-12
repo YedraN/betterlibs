@@ -33,6 +33,7 @@
       "import": "./dist/index.js"
     },
     "./index.css": "./dist/index.css",
+    "./editorial.css": "./dist/editorial.css",
     "./tokens.css": "./dist/tokens.css",
     "./reset.css": "./dist/reset.css",
     "./base.css": "./dist/base.css",

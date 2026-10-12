@@ -5,6 +5,7 @@ import { AboutPage } from './templates/About'
 import { ArticlePage } from './templates/Article'
 import { BlogPage } from './templates/Blog'
 import { ContactPage } from './templates/Contact'
+import { CorporateHomePage } from './templates/CorporateHome'
 import { HomePage } from './templates/Home'
 import { LegalPage } from './templates/Legal'
 import { NotFoundPage } from './templates/NotFound'
@@ -13,6 +14,7 @@ import { ServicesPage } from './templates/Services'
 function route(pathname: string) {
   const path = pathname.replace(/\/+$/, '') || '/'
   if (path === '/') return <HomePage />
+  if (path === '/plantillas/corporativa') return <CorporateHomePage />
   if (path === '/servicios') return <ServicesPage />
   if (path === '/sobre-nosotros') return <AboutPage />
   if (path === '/contacto') return <ContactPage />
@@ -49,5 +51,6 @@ function useRouteFocus(pathname: string) {
 export function App() {
   const pathname = usePathname()
   useRouteFocus(pathname)
+  if (pathname === '/') return <HomePage />
   return <SiteLayout pathname={pathname}>{route(pathname)}</SiteLayout>
 }

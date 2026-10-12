@@ -7,9 +7,9 @@ export type SectionHeaderProps = Omit<ComponentPropsWithRef<'div'>, 'title'> & {
   /** Antetítulo corto sobre el título («Servicios»). */
   eyebrow?: ReactNode
   /**
-   * `pill`: cápsula con borde degradado y punto de color (el sello de la librería).
+   * `pill`: cápsula con borde degradado y punto de color, para un destacado.
    * `text`: texto en mayúsculas del color de acento.
-   * @default 'pill'
+   * @default 'text'
    */
   eyebrowStyle?: 'pill' | 'text'
   title: ReactNode
@@ -33,7 +33,7 @@ export type SectionHeaderProps = Omit<ComponentPropsWithRef<'div'>, 'title'> & {
  */
 export function SectionHeader({
   eyebrow,
-  eyebrowStyle = 'pill',
+  eyebrowStyle = 'text',
   title,
   description,
   actions,

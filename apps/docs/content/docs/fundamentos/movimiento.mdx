@@ -1,6 +1,6 @@
 ---
 title: Movimiento
-description: Transiciones cortas que explican, nunca decoran.
+description: Roles compartidos para respuesta, aparición, navegación y movimiento reducido.
 icon: Wind
 ---
 
@@ -39,3 +39,51 @@ mínimo en toda la página.
   Evita carruseles que avanzan solos, vídeos de fondo con mucho movimiento o elementos que parpadean.
   Si algo se mueve más de 5 segundos, debe poder pausarse (WCAG 2.2.2).
 </Callout>
+
+
+## Roles de movimiento
+
+Los roles añaden intención a las duraciones primitivas. CSS y JavaScript comparten la misma
+definición en `@betterlibs/tokens`; no requieren un motor de animación.
+
+| Rol | Entrada / salida | Distancia | Uso |
+| --- | --- | --- | --- |
+| `feedback` | 140 / 120 ms | 2 px, escala 0.98 | Respuesta a una acción |
+| `disclosure` | 220 / 180 ms | 8 px | Paneles y menús |
+| `reveal` | 360 / 180 ms | 14 px | Aparición de contenido |
+| `navigation` | 240 / 180 ms | 8 px | Cambio de vista |
+
+<TokenTable group="motion-role" />
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    transition: transform var(--bl-motion-disclosure-duration)
+      var(--bl-motion-disclosure-easing);
+  }
+}
+```
+
+```ts
+import { motionRoles, motionStagger, motionSprings } from '@betterlibs/tokens'
+
+motionRoles.reveal.duration // 360, en ms
+motionStagger.interval      // 48, en ms
+motionStagger.maxDelay      // 240, límite de espera para secuencias
+motionSprings.snappy        // { stiffness: 400, damping: 35, mass: 1 }
+motionSprings.gentle        // { stiffness: 170, damping: 26, mass: 1 }
+```
+
+Los springs son parámetros físicos para un motor compatible. Úsalos en indicadores o gestos que
+necesiten continuidad; el movimiento de lectura usa curvas sin rebote. El paquete opcional `@betterlibs/motion` utiliza estos roles para entradas, secuencias y salidas.
+Consulta la [guía de movimiento opcional](/docs/guias/movimiento-opcional).
+
+## Integración con JavaScript
+
+Para WAAPI u otro motor, comprueba `matchMedia('(prefers-reduced-motion: reduce)')` y escucha
+sus cambios. Cancela las animaciones activas al reducir o desactivar el movimiento. Las reglas
+CSS de movimiento reducido no cancelan por sí solas una animación iniciada con `element.animate()`.
+
+Si tu aplicación permite modificar las variables CSS, lee sus valores con `getComputedStyle`
+al iniciar la animación. Los objetos exportados representan los valores iniciales y no reflejan
+overrides del CSS. Mantén el contenido visible antes de hidratar y cuando JavaScript falle.

@@ -5,7 +5,10 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createTheme } from '../src/create-theme.ts'
 import { checkContrast, primitiveVars, semanticVars, themeCss } from '../src/css.ts'
+import { editorial } from '../src/editorial.ts'
+import { motionRoles, motionSprings, motionStagger } from '../src/motion.ts'
 import * as primitives from '../src/primitives.ts'
 import { dark, light } from '../src/semantic.ts'
 
@@ -21,6 +24,8 @@ if (failures.length > 0) {
     console.error(`  [${f.mode}] ${f.usage}: ${f.ratio}:1 (mínimo ${f.min}:1)`)
   process.exit(1)
 }
+
+const editorialTheme = createTheme({ preset: editorial, selector: '[data-preset="editorial"]' })
 
 const layerOrder = '@layer bl.tokens, bl.reset, bl.base, bl.components;'
 const header = '/* Betterlibs UI — generado automáticamente, no editar. */'
@@ -42,12 +47,17 @@ const base = readFileSync(join(root, 'src/css/base.css'), 'utf8')
 
 const files = {
   'tokens.css': `${header}\n${layerOrder}\n\n${layer('tokens', tokens)}`,
+  'editorial.css': `${header}\n${layerOrder}\n\n${layer('tokens', editorialTheme.css)}`,
   'reset.css': `${header}\n${layerOrder}\n\n${layer('reset', reset)}`,
   'base.css': `${header}\n${layerOrder}\n\n${layer('base', base)}`,
   'index.css': `${header}\n${layerOrder}\n\n${layer('tokens', tokens)}\n${layer('reset', reset)}\n${layer('base', base)}`,
   'tokens.json': `${JSON.stringify(
     {
       ...primitives,
+      motionRoles,
+      motionSprings,
+      motionStagger,
+      presets: { editorial: { ...editorial, contrast: editorialTheme.contrast } },
       semantic: { light, dark },
       contrast: report,
     },
@@ -58,4 +68,6 @@ const files = {
 
 for (const [name, content] of Object.entries(files)) writeFileSync(join(dist, name), content)
 
-console.log(`✔ Tokens generados en dist/ (${report.length} pares de contraste WCAG AA verificados)`)
+console.log(
+  `✔ Tokens generados en dist/ (${report.length + editorialTheme.contrast.length} pares de contraste WCAG AA verificados)`,
+)

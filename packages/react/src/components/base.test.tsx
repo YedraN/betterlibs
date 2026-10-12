@@ -1,6 +1,7 @@
 import { ArrowRightIcon, MailIcon } from '@betterlibs/icons'
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import type { FormEvent } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 import { expectNoA11yViolations } from '../test/axe'
 import { Avatar, AvatarGroup } from './Avatar/Avatar'
@@ -77,6 +78,35 @@ describe('Button', () => {
     const link = screen.getByRole('link', { name: 'Contactar' })
     expect(link.getAttribute('data-variant')).toBe('outline')
     expect(link.getAttribute('href')).toBe('/contacto')
+  })
+
+  it('loading bloquea el envío nativo sin onClick y permite enviarlo al terminar', async () => {
+    const user = userEvent.setup()
+    const onSubmit = vi.fn((event: FormEvent) => event.preventDefault())
+    const { rerender } = render(
+      <form onSubmit={onSubmit}>
+        <Button type="submit" loading>
+          Enviar
+        </Button>
+      </form>,
+    )
+    const button = screen.getByRole('button')
+    button.focus()
+    await user.keyboard('{Enter}')
+    await user.keyboard(' ')
+    await user.click(button)
+    expect(onSubmit).not.toHaveBeenCalled()
+    expect(document.activeElement).toBe(button)
+    rerender(
+      <form onSubmit={onSubmit}>
+        <Button type="submit" loading={false}>
+          Enviar
+        </Button>
+      </form>,
+    )
+    expect(document.activeElement).toBe(button)
+    await user.click(button)
+    expect(onSubmit).toHaveBeenCalledTimes(1)
   })
 
   it('IconButton usa label como nombre accesible', () => {

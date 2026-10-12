@@ -1,6 +1,6 @@
 ---
 title: Card
-description: Superficie en capas para agrupar contenido, con cinco estilos y modo interactivo.
+description: Superficie con borde discreto para agrupar contenido, con cinco estilos y modo interactivo.
 ---
 
 import { BarChartIcon, ShieldCheckIcon, UsersIcon } from '@betterlibs/icons'
@@ -62,15 +62,15 @@ caso de éxito o un dato destacado. Si solo necesitas relleno y fondo sin la «p
 
 | `variant` | Uso |
 | --- | --- |
-| `elevated` | Por defecto. Superficie con filo de luz y sombra suave |
-| `outline` | Solo borde: listas densas o fondos con color |
+| `elevated` | Superficie con filo de luz y sombra suave |
+| `outline` | Por defecto. Superficie plana con borde fino |
 | `glass` | Translúcida con desenfoque, sobre imágenes o fondos decorativos (`Section background="mesh"`) |
 | `gradient` | Borde degradado que toma el color de marca al pasar el ratón |
 | `glow` | Borde y halo de la marca: **un solo elemento destacado** por grupo |
 
 <Preview>
   <Grid columns={{ base: 1, sm: 2, lg: 4 }} gap="6">
-    <Card>
+    <Card variant="elevated">
       <Text weight="semibold">elevated</Text>
     </Card>
     <Card variant="outline">

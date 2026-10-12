@@ -6,12 +6,12 @@
   .root {
     --_height: var(--bl-control-height-md);
     --_px: var(--bl-space-5);
-    --_bg: var(--bl-gradient-accent);
-    --_bg-hover: var(--bl-gradient-accent-hover);
+    --_bg: var(--bl-color-accent);
+    --_bg-hover: var(--bl-color-accent-hover);
     --_fg: var(--bl-color-on-accent);
     --_border: transparent;
-    --_shadow: var(--bl-shadow-accent);
-    --_shadow-hover: var(--bl-shadow-accent-hover);
+    --_shadow: none;
+    --_shadow-hover: none;
 
     position: relative;
     isolation: isolate;
@@ -20,6 +20,9 @@
     justify-content: center;
     gap: var(--bl-space-2);
     min-block-size: var(--_height);
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    padding-block: var(--bl-space-2);
     padding-inline: var(--_px);
     overflow: hidden;
     border: 1px solid var(--_border);
@@ -34,7 +37,8 @@
     letter-spacing: -0.005em;
     text-align: center;
     text-decoration: none;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
     cursor: pointer;
     user-select: none;
     transition:
@@ -55,47 +59,25 @@
     transition: opacity var(--bl-duration-normal) var(--bl-ease-standard);
   }
 
-  /* Destello que cruza el botón principal al pasar el ratón. */
-  .root[data-variant="primary"]::after {
-    content: "";
-    position: absolute;
-    inset-block: 0;
-    inset-inline-start: -60%;
-    inline-size: 45%;
-    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.28), transparent);
-    transform: skewX(-18deg);
-    pointer-events: none;
-    opacity: 0;
-  }
-
   @media (hover: hover) {
     .root:hover:not(:disabled, [aria-disabled="true"]) {
       box-shadow: var(--_shadow-hover);
-      transform: translateY(-1px);
     }
 
     .root:hover:not(:disabled, [aria-disabled="true"])::before {
       opacity: 1;
     }
-
-    .root[data-variant="primary"]:hover:not(:disabled, [aria-disabled="true"])::after {
-      opacity: 1;
-      inset-inline-start: 120%;
-      transition:
-        inset-inline-start var(--bl-duration-slower) var(--bl-ease-out),
-        opacity var(--bl-duration-fast) linear;
-    }
   }
 
   .root:active:not(:disabled, [aria-disabled="true"]) {
     box-shadow: var(--_shadow);
-    transform: translateY(0) scale(0.98);
+    transform: scale(0.99);
   }
 
   .root:focus-visible {
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: var(--bl-focus-ring-offset);
-    box-shadow: var(--_shadow), var(--bl-ring-halo);
+    box-shadow: var(--_shadow);
   }
 
   /* Tamaños */
@@ -113,13 +95,22 @@
     font-size: var(--bl-font-size-lg);
   }
 
+  /* El degradado se elige explícitamente y conserva los mismos estados y contraste. */
+  .root[data-variant="primary"][data-appearance="gradient"] {
+    --_bg: var(--bl-gradient-accent);
+    --_bg-hover: var(--bl-gradient-accent-hover);
+    --_shadow: var(--bl-shadow-xs);
+    --_shadow-hover: var(--bl-shadow-sm);
+  }
+
   /* Variantes */
   .root[data-variant="secondary"] {
-    --_bg: var(--bl-gradient-surface);
-    --_bg-hover: var(--bl-gradient-neutral);
+    --_bg: var(--bl-color-surface);
+    --_bg-hover: var(--bl-color-bg-subtle);
     --_fg: var(--bl-color-text);
-    --_shadow: var(--bl-elevation-1);
-    --_shadow-hover: var(--bl-elevation-2);
+    --_border: var(--bl-color-border-input);
+    --_shadow: none;
+    --_shadow-hover: none;
   }
   .root[data-variant="soft"] {
     --_bg: var(--bl-color-accent-subtle);
@@ -134,7 +125,7 @@
     --_fg: var(--bl-color-text);
     --_border: var(--bl-color-border-input);
     --_shadow: none;
-    --_shadow-hover: 0 0 0 3px var(--bl-color-accent-tint);
+    --_shadow-hover: none;
   }
   .root[data-variant="outline"]:hover:not(:disabled, [aria-disabled="true"]) {
     --_border: var(--bl-color-accent-text);
@@ -153,14 +144,8 @@
     --_bg: var(--bl-color-danger-solid);
     --_bg-hover: var(--bl-color-danger-text);
     --_fg: var(--bl-color-on-danger);
-    --_shadow:
-      0 1px 2px rgb(0 0 0 / 0.12),
-      0 4px 14px -4px color-mix(in oklab, var(--bl-color-danger-solid) 50%, transparent),
-      inset 0 1px 0 rgb(255 255 255 / 0.2);
-    --_shadow-hover:
-      0 1px 2px rgb(0 0 0 / 0.12),
-      0 10px 28px -6px color-mix(in oklab, var(--bl-color-danger-solid) 55%, transparent),
-      inset 0 1px 0 rgb(255 255 255 / 0.24);
+    --_shadow: none;
+    --_shadow-hover: none;
   }
 
   .root[data-full-width] {
@@ -186,6 +171,7 @@
     display: inline-flex;
     align-items: center;
     gap: inherit;
+    min-inline-size: 0;
   }
 
   .root[data-loading] .content {
@@ -205,12 +191,14 @@
     font-size: 1.15em;
   }
 
-  .icon:last-child {
-    transition: transform var(--bl-duration-normal) var(--bl-ease-spring);
-  }
-
-  .root:hover .icon:last-child:not(:first-child) {
-    transform: translateX(3px);
+  @media (prefers-reduced-motion: reduce) {
+    .root,
+    .root::before {
+      transition: none;
+    }
+    .root:active:not(:disabled, [aria-disabled="true"]) {
+      transform: none;
+    }
   }
 
   /* Solo icono (IconButton) */

@@ -3,8 +3,13 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-09-29 · **Última fase completada:** Fase 9 — Lenguaje visual
-> **Siguiente paso:** Fase 10 — Movimiento e interacción. Siguen pendientes fuera del repo la
+> **Última actualización:** 2026-10-13 · **Última fase completada:** Fase 9 — Lenguaje visual, con ajuste sobrio
+> **Nueva dirección en ejecución (2026-10-12):** UI de páginas y animación, con un lenguaje editorial.
+> El plan completo y la nueva secuencia de trabajo están en [PLAN_UI_MOTION.md](./PLAN_UI_MOTION.md).
+> **Hito completado:** fases 0, 1 y 2 del nuevo plan: piloto editorial, fundamentos y paquete de movimiento opcional.
+> **Entorno Docker operativo:** web en http://localhost:8080, documentación en http://localhost:3000/docs
+> y Storybook en http://localhost:6006; recarga automática de fuentes. Arranque y controles en [docker/README.md](./docker/README.md).
+> **Siguiente paso:** fase 3, estados y microinteracciones de los ocho componentes prioritarios. Siguen pendientes fuera del repo la
 > publicación en npm, el despliegue y las capturas visuales (ver «Pendiente fuera del repo» en la
 > Fase 8).
 
@@ -307,6 +312,22 @@ Linear/Vercel: capas, filo de luz, degradados, halos) y las cuatro líneas de va
   selector de fecha, menú de comandos ⌘K, tabla comparativa de planes, subida con progreso.
 - **Fase 12 — Bloques de marketing:** bento grid, antes/después, muro de testimonios, hero con
   mockup de producto, fondos decorativos.
+
+### Ajuste visual — Base limpia (2026-10-12)
+
+- Botones sólidos por defecto y degradado opcional (`appearance`), sin destello.
+- Card usa `outline` por defecto; mantiene los otros acabados y elevación interactiva.
+- Campos planos, etiquetas y espacios ajustados; casillas e interruptores con movimiento breve.
+- SectionHeader usa antetítulo de texto; Hero usa fondo sin decoración e imagen sin marco.
+- Header opaco con `surface="glass"` opcional; CTA plano con `panelStyle="glow"` opcional.
+- Bloques con superficies y bordes discretos; precios con destacado sin escala ni halo.
+- Portada de ejemplo con servicios en lista, cifras divididas y artículos con una pieza principal.
+- Documentación y stories actualizadas; Button loading bloquea el envío nativo sin onClick.
+- Corregidos el desbordamiento de botones con textos largos y la rejilla del BlogGrid.
+- Verificación: build, tipos, 103 tests unitarios, 239 pruebas de axe/teclado, size-limit y
+  publint correctos. Revisión visual de portada, contacto y precios a 1440px y 390px sin
+  desbordamiento. Las pruebas de navegador se ejecutaron con Chromium del sistema; siguen
+  pendientes las referencias visuales del workflow oficial y la revisión con lectores de pantalla.
 
 ### ✅ Fase 9 — Lenguaje visual «Profundidad suave» (2026-09-29)
 - **Tokens de efectos** (`packages/tokens/src/effects.ts`, `effectVars(mode)`): se emiten dentro

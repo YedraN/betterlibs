@@ -10,11 +10,11 @@ export type CardOwnProps = {
   /**
    * Estilo de la superficie:
    * - `elevated`: superficie en capas con filo de luz y sombra suave.
-   * - `outline`: solo borde, para listas densas o fondos con color.
+   * - `outline`: superficie plana con borde fino, para contenido habitual.
    * - `glass`: translúcida con desenfoque, para ir sobre imágenes o fondos decorativos.
    * - `gradient`: borde degradado que toma el color de marca al pasar el ratón.
    * - `glow`: borde y halo del color de marca, para destacar un elemento (plan recomendado).
-   * @default 'elevated'
+   * @default 'outline'
    */
   variant?: CardVariant
   /** Relleno interior (escala `--bl-space-*`). @default '6' */
@@ -44,7 +44,7 @@ export type CardProps<E extends ElementType = 'div'> = PolymorphicProps<E, CardO
  */
 export function Card<E extends ElementType = 'div'>({
   as,
-  variant = 'elevated',
+  variant = 'outline',
   padding = '6',
   radius = 'xl',
   interactive = false,

@@ -84,3 +84,14 @@ cualquier elemento:
 
 Continúa con la guía de tu framework: [Next.js](/docs/primeros-pasos/nextjs),
 [Vite](/docs/primeros-pasos/vite) o [Astro](/docs/primeros-pasos/astro).
+
+## Añadir movimiento opcional
+
+```bash
+pnpm add @betterlibs/motion motion
+```
+
+`MotionProvider`, `Reveal`, `Stagger` y `Presence` se importan desde `@betterlibs/motion`,
+con Motion 14.1+ como peer explícito. No añaden CSS global ni cambian el paquete de UI estática.
+Sigue la [guía de movimiento opcional](/docs/guias/movimiento-opcional) para preferencias,
+SSR, repetición y gestión de foco durante una salida.

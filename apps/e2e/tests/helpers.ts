@@ -7,7 +7,8 @@ export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'
 
 /** Rutas de las plantillas del playground. */
 export const ROUTES = [
-  { name: 'portada', path: '/' },
+  { name: 'betterlibs', path: '/' },
+  { name: 'portada', path: '/plantillas/corporativa' },
   { name: 'servicios', path: '/servicios' },
   { name: 'sobre-nosotros', path: '/sobre-nosotros' },
   { name: 'contacto', path: '/contacto' },

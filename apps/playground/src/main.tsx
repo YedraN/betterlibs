@@ -1,5 +1,7 @@
 import '@fontsource-variable/inter'
+import '@fontsource-variable/space-grotesk'
 import '@betterlibs/tokens/index.css'
+import '@betterlibs/tokens/editorial.css'
 import '@betterlibs/react/styles.css'
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'

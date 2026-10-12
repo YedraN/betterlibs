@@ -1,0 +1,53 @@
+{
+  "engine": "motion@14.1.0",
+  "tool": "Vite 8 / Rolldown, ES2022, minified; node Brotli default",
+  "excluded": "React and ReactDOM, including the JSX runtime",
+  "css": "No CSS is imported by these JS fixtures; existing CSS is measured separately by size-limit.",
+  "rows": [
+    {
+      "fixture": "static",
+      "initialBrotli": 1825,
+      "deferredBrotli": 0,
+      "chunks": [
+        {
+          "file": "assets/static-D2C0Rc7i.js",
+          "initial": true,
+          "bytes": 4958,
+          "brotli": 1825
+        }
+      ]
+    },
+    {
+      "fixture": "basic",
+      "initialBrotli": 2782,
+      "deferredBrotli": 4434,
+      "chunks": [
+        {
+          "file": "assets/basic-BqivWueO.js",
+          "initial": true,
+          "bytes": 6724,
+          "brotli": 2782
+        },
+        {
+          "file": "assets/mini-DZhX7r_6.js",
+          "initial": false,
+          "bytes": 11935,
+          "brotli": 4434
+        }
+      ]
+    },
+    {
+      "fixture": "advanced",
+      "initialBrotli": 35539,
+      "deferredBrotli": 0,
+      "chunks": [
+        {
+          "file": "assets/advanced-Dni5At0f.js",
+          "initial": true,
+          "bytes": 122375,
+          "brotli": 35539
+        }
+      ]
+    }
+  ]
+}

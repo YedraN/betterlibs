@@ -12,8 +12,9 @@ const meta = {
   argTypes: {
     variant: {
       control: 'inline-radio',
-      options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
+      options: ['primary', 'secondary', 'soft', 'outline', 'ghost', 'danger'],
     },
+    appearance: { control: 'inline-radio', options: ['solid', 'gradient'] },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
   },
   parameters: {
@@ -29,6 +30,15 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Playground: Story = {}
+
+export const Acabados: Story = {
+  render: () => (
+    <ButtonGroup>
+      <Button>Sólido por defecto</Button>
+      <Button appearance="gradient">Degradado opcional</Button>
+    </ButtonGroup>
+  ),
+}
 
 export const Variantes: Story = {
   render: (args) => (

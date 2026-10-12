@@ -1,0 +1,104 @@
+---
+title: Movimiento opcional
+description: Entradas, secuencias y salidas accesibles con @betterlibs/motion.
+icon: Wind
+---
+
+El paquete opcional añade movimiento a la UI sin cambiar la instalación de `@betterlibs/react`.
+Sus componentes son fronteras cliente, con contenido visible desde el HTML del servidor.
+
+```bash
+pnpm add @betterlibs/motion @betterlibs/tokens motion
+```
+
+Motion 14.1+, React 19+ y React DOM 19+ son peers explícitos. Importa los tokens CSS una vez
+en la entrada de Vite o el layout de Next. El paquete de movimiento no añade CSS global.
+
+<Preview preset="editorial"><MotionDemo /></Preview>
+
+```tsx
+'use client'
+import { MotionProvider, Reveal, Stagger } from '@betterlibs/motion'
+
+export function Features() {
+  return (
+    <MotionProvider mode="system" intensity="subtle">
+      <ul>
+        <Stagger interval={48}>
+          <Reveal as="li" preset="rise" once>Identidad</Reveal>
+          <Reveal as="li" preset="rise" once>Composición</Reveal>
+        </Stagger>
+      </ul>
+    </MotionProvider>
+  )
+}
+```
+
+## Preferencias y repetición
+
+`mode` acepta `system`, `reduced` y `off`. La preferencia de sistema reducida prevalece siempre;
+un proveedor anidado tampoco puede anular `reduced` u `off` de su padre. En esta primera versión,
+reducido y desactivado muestran el estado final sin animación. `intensity="standard"` amplía
+el recorrido un 50 %; no fuerza movimiento cuando está restringido.
+
+`Reveal` acepta `rise` o `fade`, observa el viewport y reproduce una sola vez por defecto.
+Usa `once={false}` para repetir al salir y entrar, o cambia `replayKey` para repetir en vista.
+`Stagger` no añade DOM y asigna índices a sus hijos inmediatos; la espera acumulada está
+limitada a 240 ms. No envuelvas todas las tarjetas en un único fragmento si buscas una secuencia.
+
+## Contenido condicional y foco
+
+```tsx
+const [open, setOpen] = useState(false)
+const trigger = useRef<HTMLButtonElement>(null)
+
+<Button ref={trigger} aria-expanded={open} aria-controls="details"
+  onClick={() => setOpen(!open)}>Detalles</Button>
+<Presence present={open} id="details" returnFocusRef={trigger}>
+  <Input aria-label="Nombre del proyecto" />
+</Presence>
+```
+
+`Presence` utiliza un `div` por defecto y `fade` para entrada/salida (`rise` es opcional).
+Al cerrar, la región pasa inmediatamente a `inert` y `aria-hidden`. Si el foco estaba dentro,
+vuelve a `returnFocusRef`; sin referencia se desenfoca el descendiente. La salida se puede
+interrumpir y reabrir. No sustituye a Dialog ni a sus reglas de foco y teclado.
+
+## DOM, SSR y estilo
+
+`Reveal` y `Presence` crean un wrapper y reenvían su ref. `as` admite `div`, `section`, `article`,
+`aside`, `li`, `ul`, `ol` y `span`. En listas utiliza `li`; en tablas evita introducir un wrapper
+entre filas/celdas. No hay `asChild`. El elemento animado debe ser dueño de su `transform` y
+`opacity`: coloca hover y otras transiciones en un hijo.
+
+No se oculta contenido antes de hidratar. Si JavaScript, la carga del motor o una API de
+animación falla, queda la versión estática. Next puede pasar contenido de servidor como hijos
+de estas fronteras cliente. El ejemplo de esta página comprueba el consumo con Next; el
+playground utiliza los mismos exports con Vite.
+
+## Animación de una acción
+
+```tsx
+const { enabled } = useMotionPreferences()
+const { play, cancel } = useMotionAnimation()
+// Dentro de un evento, con una referencia a un elemento real:
+await play([element], 'press')
+```
+
+El hook acepta `rise`, `fade`, `sequence` y `press`. La promesa devuelve `false` si se cancela,
+se desactiva o falla el motor. Cada nueva llamada interrumpe la animación anterior del mismo
+elemento; desmontar o cambiar preferencias cancela también las llamadas pendientes. `cancel()`
+actúa sobre las animaciones iniciadas por esa instancia del hook.
+
+## Coste y capacidades
+
+El motor `motion/mini` se importa dinámicamente al necesitar un efecto. Se han evaluado
+`m` + `LazyMotion` y sus paquetes `domAnimation`/`domMax`; esta entrega solo necesita opacity
+y transform completos mediante WAAPI. Layout, drag y navegación tendrán capacidades opcionales
+separadas. Consulta la [comparación oficial](https://motion.dev/docs/react-reduce-bundle-size).
+
+Los límites de tamaño del repositorio incluyen el coste del peer Motion y miden también el
+motor por separado. La carga diferida no reduce el total transferido. Los valores CSS
+`--bl-motion-reveal-duration`, `--bl-motion-reveal-distance`, `--bl-motion-reveal-easing` y
+`--bl-motion-stagger-interval` se leen del elemento al iniciar cada efecto; el máximo de espera
+nunca supera 240 ms.

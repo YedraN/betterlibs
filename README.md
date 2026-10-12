@@ -1,7 +1,7 @@
 # Betterlibs UI
 
-Librería de componentes React para **webs corporativas y profesionales**: accesible por defecto,
-fácil de adaptar a cualquier marca y pensada para que tus páginas se entiendan a la primera.
+Librería de componentes React para **construir webs con identidad**: UI accesible, componentes
+personalizables y bloques de página. La nueva dirección editorial y de movimiento está en desarrollo.
 
 ```bash
 pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
@@ -26,7 +26,45 @@ import '@betterlibs/react/styles.css'
 | --- | --- |
 | [`@betterlibs/tokens`](packages/tokens) | Design tokens y temas como variables CSS |
 | [`@betterlibs/react`](packages/react) | Componentes, bloques y patrones |
+| [`@betterlibs/motion`](packages/motion) | Entradas, secuencias y salidas opcionales, con preferencias y carga diferida |
 | [`@betterlibs/icons`](packages/icons) | Iconos SVG como componentes React |
+
+## Preset editorial
+
+El nuevo estilo combina marfil, carbón y lima, Space Grotesk en titulares y superficies planas.
+Actívalo en toda la página o en un contenedor:
+
+```tsx
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/tokens/editorial.css'
+import '@betterlibs/react/styles.css'
+
+<div data-preset="editorial">…</div>
+```
+
+Carga Space Grotesk e Inter en tu aplicación o configura tus fuentes. Para personalizar el preset:
+
+```ts
+import { createTheme, editorial } from '@betterlibs/tokens'
+
+const theme = createTheme({ preset: editorial, brand: '#0f766e' })
+```
+
+Storybook permite cambiar entre estilos con **Estilo → Editorial** y combinarlo con tema y marca.
+Los roles de movimiento, stagger y springs están disponibles en `@betterlibs/tokens`.
+`@betterlibs/motion` ofrece animación opcional con preferencias, Reveal, Stagger y Presence.
+Consulta [el plan](PLAN_UI_MOTION.md).
+
+## Arrancar con Docker
+
+```bash
+./docker.sh
+```
+
+Arranca en segundo plano la web en http://localhost:8080, la documentación en
+http://localhost:3000/docs y Storybook en http://localhost:6006. Los cambios de fuentes se
+recargan y los contenedores tienen reinicio automático al arrancar Docker.
+No necesitas instalar Node ni pnpm en el host. [Guía de Docker](docker/README.md).
 
 ## Desarrollo
 
@@ -71,10 +109,18 @@ pnpm --filter @betterlibs/storybook dev   # http://localhost:6006
 pnpm --filter @betterlibs/docs dev   # http://localhost:3000
 ```
 
-## Plantillas
+## Playground y plantillas
 
-Web corporativa de ejemplo (portada, servicios, sobre nosotros, contacto, blog y página legal):
+Piloto de UI y movimiento de Betterlibs en la portada. Incluye ejemplos interactivos, tema
+claro/oscuro y controles de movimiento. La web corporativa sigue disponible en
+`/plantillas/corporativa`, con sus páginas de servicios, equipo, contacto, blog y contenido legal.
 
 ```bash
 pnpm --filter @betterlibs/playground dev   # http://localhost:5173
 ```
+
+Los enlaces de documentación apuntan a `http://localhost:3000/docs` durante el desarrollo.
+Para usar otro dominio, configura `VITE_DOCS_URL` siguiendo
+[`apps/playground/.env.example`](apps/playground/.env.example).
+
+El estado de esta nueva dirección está en [PLAN_UI_MOTION.md](PLAN_UI_MOTION.md).

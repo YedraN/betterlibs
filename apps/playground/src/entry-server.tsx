@@ -8,6 +8,7 @@ import { consumePageTitle } from './site/SiteLayout'
 /** Rutas que se generan como HTML estático en el build. */
 export const routes = [
   '/',
+  '/plantillas/corporativa',
   '/servicios',
   '/sobre-nosotros',
   '/contacto',

@@ -11,7 +11,7 @@ import { Card } from './Card'
 const meta = {
   title: 'Componentes/Contenido/Card',
   component: Card,
-  args: { variant: 'elevated', interactive: false },
+  args: { variant: 'outline', interactive: false },
   argTypes: {
     variant: {
       control: 'inline-radio',
@@ -66,7 +66,7 @@ export const Enlazadas: Story = {
   render: () => (
     <Grid columns={{ base: 1, md: 3 }} gap="6">
       {services.map((service) => (
-        <Card key={service.title} interactive variant="gradient">
+        <Card key={service.title} interactive>
           <IconTile>{service.icon}</IconTile>
           <Heading level={3} size="lg">
             <a className="bl-card-link" href={`#${service.title}`}>

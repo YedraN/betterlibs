@@ -50,6 +50,7 @@ const meta = {
   argTypes: {
     variant: { control: 'inline-radio', options: ['split', 'centered', 'background'] },
     size: { control: 'inline-radio', options: ['md', 'lg'] },
+    mediaStyle: { control: 'inline-radio', options: ['plain', 'framed'] },
   },
   parameters: {
     layout: 'fullscreen',
@@ -65,6 +66,11 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Dividido: Story = { name: 'Split', args: { variant: 'split' } }
+
+export const Decorado: Story = {
+  name: 'Efectos opcionales',
+  args: { variant: 'split', background: 'glow', mediaStyle: 'framed' },
+}
 
 export const Centrado: Story = {
   name: 'Centrado',

@@ -38,6 +38,8 @@ export type HeaderProps = Omit<ComponentPropsWithRef<'header'>, 'children'> & {
   linkAs?: ElementType
   /** Se queda fija arriba al hacer scroll. @default true */
   sticky?: boolean
+  /** Superficie de la cabecera. Cristal opcional para fondos decorativos. @default 'solid' */
+  surface?: 'solid' | 'glass'
   /** Se oculta al bajar y reaparece al subir (solo con `sticky`). @default false */
   hideOnScroll?: boolean
   /** Por debajo de este ancho se muestra el botón de menú móvil. @default 'lg' */
@@ -91,6 +93,7 @@ export function Header({
   currentHref,
   linkAs,
   sticky = true,
+  surface = 'solid',
   hideOnScroll = false,
   collapseBelow = 'lg',
   containerSize = 'xl',
@@ -147,6 +150,7 @@ export function Header({
         ref={mergeRefs(headerRef, ref)}
         className={cx(styles.root, className)}
         data-sticky={sticky || undefined}
+        data-surface={surface}
         data-scrolled={scrolled || undefined}
         data-hidden={(hidden && !menuOpen) || undefined}
         data-collapse={collapseBelow}

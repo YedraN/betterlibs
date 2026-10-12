@@ -10,7 +10,13 @@
  *   import { createTheme } from '@betterlibs/tokens'
  */
 export { contrast, generateScale, hexToOklch, luminance, oklchToHex } from './color.ts'
-export { createTheme, type Theme, ThemeContrastError, type ThemeOptions } from './create-theme.ts'
+export {
+  createTheme,
+  type Theme,
+  ThemeContrastError,
+  type ThemeOptions,
+  type ThemePreset,
+} from './create-theme.ts'
 export {
   type ContrastResult,
   type CssVars,
@@ -19,7 +25,9 @@ export {
   primitiveVars,
   semanticVars,
 } from './css.ts'
+export { editorial } from './editorial.ts'
 export { effectVars } from './effects.ts'
+export { motionRoles, motionSprings, motionStagger, motionVars } from './motion.ts'
 export {
   breakpoint,
   type ColorScale,

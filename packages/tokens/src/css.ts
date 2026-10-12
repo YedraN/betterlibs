@@ -1,5 +1,6 @@
 import { contrast } from './color.ts'
 import { effectVars } from './effects.ts'
+import { motionVars } from './motion.ts'
 import {
   breakpoint,
   color,
@@ -68,6 +69,7 @@ export function primitiveVars(): CssVars {
     ...radiusVars(),
     ...flatten('duration', motion.duration),
     ...flatten('ease', motion.ease),
+    ...motionVars(),
     ...flatten('breakpoint', breakpoint, 'px'),
     ...flatten('container', container),
     ...flatten('z', zIndex),
@@ -110,8 +112,8 @@ export function darkSelectors(scope = ':root') {
     }
   }
   return {
-    explicit: `[data-theme="dark"] ${scope}, ${scope}[data-theme="dark"], ${scope} [data-theme="dark"]`,
-    auto: `:root:not([data-theme="light"]) ${scope}:not([data-theme="light"])`,
+    explicit: `:where([data-theme="dark"]) ${scope}:not([data-theme="light"]), ${scope}[data-theme="dark"], ${scope} [data-theme="dark"]`,
+    auto: `${scope}:where(:root):not([data-theme="light"]), :where(:root:not([data-theme="light"])) ${scope}:not([data-theme="light"])`,
     nestedLight: `${scope}[data-theme="light"], ${scope} [data-theme="light"]`,
   }
 }
@@ -153,7 +155,8 @@ export function checkContrast(
   return contrastPairs.map((pair) => {
     const fg = resolveColor(semantic[pair.fg] ?? '', palette)
     const bg = resolveColor(semantic[pair.bg] ?? '', palette)
-    const ratio = Math.round(contrast(fg, bg) * 100) / 100
-    return { ...pair, mode, ratio, pass: ratio >= pair.min }
+    const rawRatio = contrast(fg, bg)
+    const ratio = Math.round(rawRatio * 100) / 100
+    return { ...pair, mode, ratio, pass: rawRatio >= pair.min }
   })
 }

@@ -1,6 +1,5 @@
 /* Estilos base: tipografía, colores del documento, foco y movimiento. */
 html {
-  color-scheme: light dark;
   font-family: var(--bl-font-family-sans);
   font-size: 100%;
   line-height: var(--bl-leading-normal);

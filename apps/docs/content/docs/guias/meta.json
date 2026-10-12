@@ -1,9 +1,10 @@
 {
-  "title": "Guías",
+  "title": "Gu\u00edas",
   "pages": [
     "formulario-de-contacto",
     "sobrescribir-estilos",
     "seo",
-    "[Cookies y RGPD](/docs/bloques/cookies)"
+    "[Cookies y RGPD](/docs/bloques/cookies)",
+    "movimiento-opcional"
   ]
 }

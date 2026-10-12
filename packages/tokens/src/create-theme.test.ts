@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { contrast, generateScale } from './color.ts'
 import { createTheme, ThemeContrastError } from './create-theme.ts'
 import { checkContrast } from './css.ts'
+import { editorial } from './editorial.ts'
 import { dark, light } from './semantic.ts'
 
 describe('contrast', () => {
@@ -72,5 +73,56 @@ describe('createTheme', () => {
     ])
     expect(error.message).toContain('Texto principal')
     expect(error.failures).toHaveLength(1)
+  })
+})
+
+describe('fundamentos editoriales', () => {
+  it('valida ambos modos y permite resolver su paleta propia', () => {
+    const theme = createTheme({ preset: editorial, selector: '[data-preset="editorial"]' })
+    expect(theme.accessible).toBe(true)
+    expect(theme.palette.neutral[50]).toBe('#f5f3ee')
+    expect(theme.css).toContain('--bl-type-hero-size: clamp(')
+    expect(theme.css).toContain('--bl-elevation-1: none')
+    expect(createTheme().palette.neutral[50]).toBe('#f7f8fa')
+  })
+
+  it.each([
+    '#0a5cff',
+    '#e11d48',
+    '#0f766e',
+    '#7c3aed',
+    '#facc15',
+    '#111827',
+    '#c7f45a',
+    '#ffffff',
+    '#000000',
+  ])('valida la marca %s sobre las superficies editoriales, incluidos hover y active', (brand) => {
+    const theme = createTheme({ preset: editorial, brand })
+    expect(theme.contrast.filter((pair) => !pair.pass)).toEqual([])
+    expect(theme.semantic.light['accent-active']).toMatch(/^brand\./)
+  })
+
+  it('rechaza un preset personalizado ilegible y permite inspeccionarlo con strict false', () => {
+    const invalid = {
+      ...editorial,
+      semantic: {
+        ...editorial.semantic,
+        light: { ...editorial.semantic.light, text: 'neutral.50' },
+      },
+    }
+    expect(() => createTheme({ preset: invalid })).toThrow(ThemeContrastError)
+    const theme = createTheme({ preset: invalid, strict: false })
+    expect(theme.accessible).toBe(false)
+    expect(theme.contrast.some((pair) => pair.fg === 'text' && !pair.pass)).toBe(true)
+    expect(createTheme({ preset: editorial }).accessible).toBe(true)
+  })
+
+  it('rechaza un ratio inferior al mínimo aunque se muestre como 4.5', () => {
+    const semantic = { ...light, text: '#6e7978', bg: '#ffffff' }
+    const result = checkContrast('light', semantic).find(
+      (pair) => pair.fg === 'text' && pair.bg === 'bg',
+    )
+    expect(result?.ratio).toBe(4.5)
+    expect(result?.pass).toBe(false)
   })
 })

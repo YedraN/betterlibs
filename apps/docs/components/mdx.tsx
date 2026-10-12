@@ -4,6 +4,7 @@ import type { MDXComponents } from 'mdx/types'
 import { CssReference, PropsTable } from './docs/api'
 import { CookieConsentDemo, NewsletterDemo } from './docs/blocks-demos'
 import { ContactFormDemo } from './docs/contact-form-demo'
+import { MotionDemo } from './docs/motion-demo'
 import { Preview } from './docs/preview'
 import { ThemeBuilder } from './docs/theme-builder'
 import { ToastDemo } from './docs/toast-demo'
@@ -22,6 +23,7 @@ export function getMDXComponents(components?: MDXComponents) {
     Tab,
     Tabs,
     Preview,
+    MotionDemo,
     PropsTable,
     CssReference,
     ContactFormDemo,

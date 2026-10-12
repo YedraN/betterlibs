@@ -20,6 +20,8 @@ export type CTAProps = Omit<BlockBaseProps, 'title' | 'align'> & {
   variant?: 'centered' | 'split' | 'panel'
   /** Fondo del panel en `panel`. @default 'brand' */
   panelTone?: 'brand' | 'dark' | 'subtle'
+  /** Decoración del panel destacado. @default 'plain' */
+  panelStyle?: 'plain' | 'glow'
   /** Contenido extra bajo las acciones («Sin compromiso · Respuesta en 24 h»). */
   note?: ReactNode
 }
@@ -33,8 +35,10 @@ export function CTA({
   note,
   variant = 'panel',
   panelTone = 'brand',
+  panelStyle = 'plain',
   headingLevel = 2,
   tone,
+  background,
   spacing,
   containerSize = 'xl',
   id,
@@ -46,6 +50,7 @@ export function CTA({
     <Section
       id={id}
       tone={tone}
+      background={background}
       spacing={spacing}
       className={cx(styles.root, className)}
       style={style}
@@ -56,6 +61,7 @@ export function CTA({
           className={styles.box}
           data-variant={variant}
           data-panel-tone={variant === 'panel' ? panelTone : undefined}
+          data-panel-style={variant === 'panel' ? panelStyle : undefined}
           data-theme={variant === 'panel' && panelTone === 'dark' ? 'dark' : undefined}
         >
           <div className={styles.text}>

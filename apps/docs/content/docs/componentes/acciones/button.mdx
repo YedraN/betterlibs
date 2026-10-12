@@ -32,8 +32,8 @@ dentro mantiene la semántica correcta.
 
 | `variant` | Uso |
 | --- | --- |
-| `primary` | La acción principal: degradado de la marca, brillo y halo al pasar el ratón. **Una por bloque** |
-| `secondary` | Superficie elevada neutra; acompaña a la principal («Ver servicios») |
+| `primary` | La acción principal: relleno sólido de marca y estados discretos. **Una por bloque** |
+| `secondary` | Superficie neutra con borde; acompaña a la principal («Ver servicios») |
 | `soft` | Fondo suave de la marca, para acciones frecuentes de menos peso |
 | `outline` | Alternativa a la principal («Ver precios» junto a «Solicitar demo») |
 | `ghost` | Acciones terciarias o en barras de herramientas |
@@ -48,6 +48,20 @@ Tamaños: `sm`, `md` (44px, el mínimo recomendado para pantallas táctiles) y `
   <Button loading>Enviando</Button>
   <Button disabled>Deshabilitado</Button>
 </Preview>
+
+## Acabado opcional
+
+`appearance="solid"` es el acabado por defecto. Para destacar una acción principal puedes usar
+`appearance="gradient"`; conserva el mismo contraste y no añade destellos ni animación continua.
+
+<Preview align="center">
+  <Button>Sólido por defecto</Button>
+  <Button appearance="gradient">Degradado opcional</Button>
+</Preview>
+
+```tsx
+<Button appearance="gradient">Solicitar demo</Button>
+```
 
 ## Estados
 

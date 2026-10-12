@@ -16,7 +16,7 @@ for (const scheme of ['light', 'dark'] as const) {
 
     test('las plantillas cumplen también en móvil y con el menú abierto', async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 })
-      await page.goto('/')
+      await page.goto('/plantillas/corporativa')
       await page.getByRole('button', { name: 'Rechazar todas' }).click()
       await page.getByRole('button', { name: 'Abrir menú' }).click()
       await page.getByRole('dialog', { name: 'Menú' }).waitFor()

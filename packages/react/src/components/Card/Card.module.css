@@ -2,7 +2,7 @@
   .root {
     --_bg: var(--bl-gradient-surface);
     --_shadow: var(--bl-elevation-1);
-    --_shadow-hover: var(--bl-elevation-3);
+    --_shadow-hover: var(--bl-elevation-2);
 
     position: relative;
     isolation: isolate;
@@ -21,9 +21,9 @@
   }
 
   .root[data-variant="outline"] {
-    --_bg: transparent;
+    --_bg: var(--bl-color-surface);
     --_shadow: inset 0 0 0 1px var(--bl-color-border);
-    --_shadow-hover: inset 0 0 0 1px var(--bl-color-border-strong), var(--bl-elevation-2);
+    --_shadow-hover: inset 0 0 0 1px var(--bl-color-border-strong), var(--bl-shadow-sm);
   }
 
   .root[data-variant="glass"] {
@@ -74,7 +74,7 @@
 
     .root[data-interactive]:hover {
       box-shadow: var(--_shadow-hover);
-      transform: translateY(-2px);
+      transform: translateY(-1px);
     }
   }
 
@@ -107,6 +107,15 @@
   .root:has(:global(.bl-card-link):focus-visible) {
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: var(--bl-focus-ring-offset);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .root {
+      transition: none;
+    }
+    .root[data-interactive]:hover {
+      transform: none;
+    }
   }
 
   @media (forced-colors: active) {

@@ -16,14 +16,14 @@
       background-color var(--bl-duration-normal) var(--bl-ease-standard);
   }
 
-  /* Fija: cristal translúcido que deja intuir el contenido al hacer scroll. */
-  .root[data-sticky] {
+  /* El cristal se activa de forma explícita, independientemente de sticky. */
+  .root[data-surface="glass"] {
     background-color: color-mix(in oklab, var(--bl-color-bg) 78%, transparent);
     backdrop-filter: blur(14px) saturate(1.6);
   }
 
   @supports not (backdrop-filter: blur(1px)) {
-    .root[data-sticky] {
+    .root[data-surface="glass"] {
       background-color: var(--bl-color-bg);
     }
   }

@@ -3,15 +3,17 @@ import {
   color,
   container,
   contrastPairs,
+  createTheme,
   dark,
+  editorial,
   font,
   light,
   motion,
+  motionVars,
   radius,
   resolveColor,
   shadow,
   space,
-  contrast as wcagContrast,
   zIndex,
 } from '@betterlibs/tokens'
 import type { ReactNode } from 'react'
@@ -92,9 +94,8 @@ export function SemanticColors({ filter }: { filter?: string }) {
 }
 
 /** Informe de contraste WCAG del tema por defecto. */
-export function ContrastReport() {
-  const ratio = (mode: typeof light, fg: string, bg: string) =>
-    wcagContrast(resolveColor(mode[fg] ?? ''), resolveColor(mode[bg] ?? ''))
+export function ContrastReport({ preset = 'default' }: { preset?: 'default' | 'editorial' }) {
+  const theme = createTheme({ preset: preset === 'editorial' ? editorial : undefined })
   return (
     <Table head={['Uso', 'Tokens', 'Mínimo', 'Claro', 'Oscuro']}>
       {contrastPairs.map((p) => (
@@ -106,11 +107,14 @@ export function ContrastReport() {
             </code>
           </td>
           <td className="px-4 py-2">{p.min}:1</td>
-          {[light, dark].map((mode, i) => {
-            const r = ratio(mode, p.fg, p.bg)
+          {(['light', 'dark'] as const).map((mode) => {
+            const result = theme.contrast.find(
+              (pair) => pair.mode === mode && pair.fg === p.fg && pair.bg === p.bg,
+            )
+            const r = result?.ratio ?? 0
             return (
-              <td key={i === 0 ? 'l' : 'd'} className="px-4 py-2">
-                {r >= p.min ? '✓' : '✕'} {r.toFixed(2)}:1
+              <td key={mode} className="px-4 py-2">
+                {result?.pass ? '✓' : '✕'} {r.toFixed(2)}:1
               </td>
             )
           })}
@@ -161,6 +165,7 @@ export function TokenTable({
     | 'container'
     | 'weight'
     | 'leading'
+    | 'motion-role'
 }) {
   const sources: Record<typeof group, [string, Record<string, string>]> = {
     space: ['space', space],
@@ -172,6 +177,15 @@ export function TokenTable({
     container: ['container', container],
     weight: ['font-weight', font.weight],
     leading: ['leading', font.leading],
+    'motion-role': [
+      'motion',
+      Object.fromEntries(
+        Object.entries(motionVars()).map(([key, value]) => [
+          key.replace('--bl-motion-', ''),
+          value,
+        ]),
+      ),
+    ],
   }
   const [prefix, values] = sources[group]
   return (

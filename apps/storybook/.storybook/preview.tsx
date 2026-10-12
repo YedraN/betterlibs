@@ -1,6 +1,8 @@
 import '@fontsource-variable/inter'
+import '@fontsource-variable/space-grotesk'
 import '@betterlibs/tokens/index.css'
-import { createTheme } from '@betterlibs/tokens'
+import '@betterlibs/tokens/editorial.css'
+import { createTheme, editorial } from '@betterlibs/tokens'
 import type { Decorator, Preview } from '@storybook/react-vite'
 
 export const brands: Record<string, string | undefined> = {
@@ -12,8 +14,9 @@ export const brands: Record<string, string | undefined> = {
 }
 
 const withTheme: Decorator = (Story, context) => {
-  const { theme = 'light', brand = 'default' } = context.globals
+  const { theme = 'light', brand = 'default', preset = 'default' } = context.globals
   const root = document.documentElement
+  root.dataset.preset = preset
   if (theme === 'auto') delete root.dataset.theme
   else root.dataset.theme = theme
 
@@ -24,10 +27,12 @@ const withTheme: Decorator = (Story, context) => {
     document.head.append(style)
   }
   const color = brands[brand]
-  style.textContent = color ? createTheme({ brand: color }).css : ''
+  style.textContent = color
+    ? createTheme({ brand: color, preset: preset === 'editorial' ? editorial : undefined }).css
+    : ''
 
   return (
-    <div key={`${theme}-${brand}`}>
+    <div key={`${theme}-${brand}-${preset}`}>
       <Story />
     </div>
   )
@@ -37,6 +42,18 @@ const preview: Preview = {
   tags: ['autodocs'],
   decorators: [withTheme],
   globalTypes: {
+    preset: {
+      description: 'Dirección visual de la interfaz',
+      toolbar: {
+        title: 'Estilo',
+        icon: 'component',
+        items: [
+          { value: 'default', title: 'Base actual' },
+          { value: 'editorial', title: 'Editorial' },
+        ],
+        dynamicTitle: true,
+      },
+    },
     theme: {
       description: 'Modo de color',
       toolbar: {
@@ -63,7 +80,7 @@ const preview: Preview = {
       },
     },
   },
-  initialGlobals: { theme: 'light', brand: 'default' },
+  initialGlobals: { theme: 'light', brand: 'default', preset: 'default' },
   parameters: {
     layout: 'padded',
     controls: { expanded: true, matchers: { color: /(background|color|brand)$/i } },

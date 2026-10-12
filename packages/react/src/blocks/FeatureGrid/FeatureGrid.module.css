@@ -15,16 +15,26 @@
     position: relative;
     padding: var(--bl-space-6);
     border-radius: var(--bl-radius-xl);
-    background: var(--bl-gradient-surface);
-    box-shadow: var(--bl-elevation-1);
+    background: var(--bl-color-surface);
+    box-shadow: inset 0 0 0 1px var(--bl-color-border);
     transition:
       box-shadow var(--bl-duration-slow) var(--bl-ease-standard),
       transform var(--bl-duration-slow) var(--bl-ease-out);
   }
 
-  .item[data-variant="cards"]:has(a:hover) {
-    box-shadow: var(--bl-elevation-3);
-    transform: translateY(-2px);
+  @media (hover: hover) {
+    .item[data-variant="cards"]:has(a:hover) {
+      box-shadow:
+        inset 0 0 0 1px var(--bl-color-border-strong),
+        var(--bl-shadow-sm);
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .item[data-variant="cards"]:has(a:hover) {
+      transform: none;
+    }
   }
 
   .item[data-variant="list"] {
@@ -39,22 +49,9 @@
     inline-size: 3rem;
     block-size: 3rem;
     border-radius: var(--bl-radius-lg);
-    background: linear-gradient(
-      145deg,
-      var(--bl-color-accent-subtle),
-      color-mix(in oklab, var(--bl-color-accent-subtle-hover) 80%, var(--bl-color-accent))
-    );
-    box-shadow:
-      inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 14%, transparent),
-      inset 0 1px 0 var(--bl-color-highlight),
-      0 4px 12px -6px var(--bl-color-accent-glow);
+    background: var(--bl-color-accent-subtle);
     color: var(--bl-color-accent-text);
     font-size: 1.5rem;
-    transition: transform var(--bl-duration-slow) var(--bl-ease-spring);
-  }
-
-  .item:has(a:hover) .icon {
-    transform: translateY(-2px) rotate(-4deg);
   }
 
   .body {

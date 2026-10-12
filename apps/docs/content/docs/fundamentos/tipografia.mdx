@@ -7,7 +7,8 @@ icon: Type
 ## Escala fluida
 
 Los tamaños grandes crecen de forma continua entre **360px** y **1280px** de ancho con `clamp()`:
-no hay saltos entre breakpoints y todo usa `rem`, así que **respeta el zoom del usuario**.
+no hay saltos entre breakpoints. Combinan `rem` y `vw`; comprueba el reflow de tu composición
+con texto ampliado al 200 %, además de los tamaños de pantalla habituales.
 
 <TypeScale />
 
@@ -33,7 +34,7 @@ no hay saltos entre breakpoints y todo usa `rem`, así que **respeta el zoom del
 
 ## Tu tipografía
 
-Por defecto se usa la fuente del sistema: carga instantánea y aspecto nativo. Para usar la de tu
+El tema habitual usa Inter con fallback del sistema si la fuente no está cargada. Para usar la de tu
 marca:
 
 ```ts
@@ -44,3 +45,24 @@ createTheme({ fontSans: "'Inter', system-ui, sans-serif", fontDisplay: "'Fraunce
   Carga solo los pesos que uses (normalmente 400 y 600) y usa `font-display: swap` para que el texto
   se vea desde el primer momento.
 </Callout>
+
+
+## Tipografía editorial
+
+El preset `editorial` combina Space Grotesk para titulares e Inter para lectura. Las fuentes
+se cargan en la aplicación, por ejemplo con Fontsource o `next/font/local`; los tokens incluyen
+fallback del sistema.
+
+| Token | Rol |
+| --- | --- |
+| `--bl-type-hero-size` | Titular de portada, fluido entre 3 y 6.1 rem |
+| `--bl-type-heading-size` | Titular de sección, entre 2 y 3.25 rem |
+| `--bl-type-lead-size` | Entradilla, entre 1 y 1.125 rem |
+| `--bl-type-hero-leading` | Interlineado de portada: 1.02 |
+| `--bl-type-heading-leading` | Interlineado de sección: 1.1 |
+| `--bl-type-display-tracking` | Espaciado expresivo: −0.055 em |
+
+Usa estas variables en tus composiciones después de activar el preset. El titular de portada
+crece entre 360 y 1600 px; los demás tamaños fluidos usan el intervalo común de 360–1280 px.
+Evita alturas fijas, permite que los textos largos se partan y comprueba que los controles
+siguen siendo utilizables con texto ampliado.

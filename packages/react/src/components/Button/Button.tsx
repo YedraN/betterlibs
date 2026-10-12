@@ -1,9 +1,10 @@
 import { Slot, Slottable } from '@radix-ui/react-slot'
-import type { ComponentPropsWithRef, MouseEvent, ReactNode } from 'react'
+import type { ComponentPropsWithRef, ReactNode } from 'react'
 import { cx } from '../../utils/cx'
 import { Spinner } from '../Spinner/Spinner'
 import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden'
 import styles from './Button.module.css'
+import { ButtonControl } from './ButtonControl'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'soft' | 'outline' | 'ghost' | 'danger'
 export type ButtonSize = 'sm' | 'md' | 'lg'
@@ -11,13 +12,15 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
 export type ButtonProps = ComponentPropsWithRef<'button'> & {
   /**
    * Jerarquía visual. Usa un solo `primary` por bloque: es la acción principal.
-   * - `primary`: degradado del color de marca con brillo; la acción principal.
-   * - `secondary`: superficie elevada neutra; acompaña a la principal.
+   * - `primary`: color sólido de marca; la acción principal.
+   * - `secondary`: superficie neutra con borde; acompaña a la principal.
    * - `soft`: fondo suave del color de marca; acciones frecuentes de menos peso.
    * - `outline` y `ghost`: acciones terciarias. `danger`: acciones destructivas.
    * @default 'primary'
    */
   variant?: ButtonVariant
+  /** Acabado del botón principal. El degradado es opcional. @default 'solid' */
+  appearance?: 'solid' | 'gradient'
   /** `md` mide 44px de alto, el mínimo recomendado para pantallas táctiles. @default 'md' */
   size?: ButtonSize
   /** Ocupa todo el ancho disponible. */
@@ -46,11 +49,12 @@ export type ButtonProps = ComponentPropsWithRef<'button'> & {
  */
 export function Button({
   variant = 'primary',
+  appearance = 'solid',
   size = 'md',
   fullWidth = false,
   iconStart,
   iconEnd,
-  loading = false,
+  loading,
   loadingLabel = 'Cargando…',
   asChild = false,
   type,
@@ -62,6 +66,7 @@ export function Button({
   const shared = {
     className: cx(styles.root, className),
     'data-variant': variant,
+    'data-appearance': appearance,
     'data-size': size,
     'data-full-width': fullWidth || undefined,
   }
@@ -84,17 +89,19 @@ export function Button({
     )
   }
 
-  const handleClick =
-    loading && onClick ? (event: MouseEvent<HTMLButtonElement>) => event.preventDefault() : onClick
+  // Una prop de carga booleana mantiene el mismo control cliente al cambiar de estado.
+  // Los botones estáticos sin esta prop se siguen renderizando en el servidor.
+  const Component = loading === undefined ? 'button' : ButtonControl
 
   return (
-    <button
+    <Component
       type={type ?? 'button'}
       {...shared}
       data-loading={loading || undefined}
       aria-disabled={loading || undefined}
       aria-busy={loading || undefined}
-      onClick={handleClick}
+      loading={loading}
+      onClick={onClick}
       {...props}
     >
       <span className={styles.content}>
@@ -116,6 +123,6 @@ export function Button({
           <VisuallyHidden>{loadingLabel}</VisuallyHidden>
         </span>
       )}
-    </button>
+    </Component>
   )
 }

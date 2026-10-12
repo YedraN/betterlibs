@@ -26,3 +26,13 @@ Indican **elevación**: menús, diálogos, tarjetas flotantes. No las uses como 
 oscuro se oscurecen automáticamente para seguir siendo visibles.
 
 <TokenTable group="shadow" />
+
+
+## Forma editorial
+
+`createTheme({ preset: editorial })` (importando `editorial` de `@betterlibs/tokens`) o `editorial.css` aplica radios contenidos: `md` 6 px,
+`lg` 8 px, `xl` 14 px y `2xl` 16 px. Puedes sustituirlos con `radius: 'sharp' | 'soft' | 'round'`.
+
+Las tarjetas habituales tienen borde y superficie plana. El preset elimina la elevación básica
+y la sombra interior; mantiene los tokens de sombra para overlays y los acabados explícitos
+que los componentes ofrecen. Reserva la profundidad para explicar qué está por encima.

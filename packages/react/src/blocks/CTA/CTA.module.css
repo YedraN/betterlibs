@@ -26,10 +26,12 @@
 
   .title {
     margin: 0;
+    max-inline-size: 26ch;
     text-wrap: balance;
   }
 
   .description {
+    max-inline-size: 52ch;
     color: var(--bl-color-text-muted);
     font-size: var(--bl-font-size-lg);
     line-height: var(--bl-leading-relaxed);
@@ -78,58 +80,36 @@
     }
   }
 
-  /* Panel con fondo propio. */
-  /* Panel: resplandor de la marca desde arriba, rejilla difuminada y filo de luz. */
+  /* El panel usa una superficie plana; el resplandor es una opción explícita. */
   .box[data-variant="panel"] {
     position: relative;
     isolation: isolate;
     overflow: hidden;
     padding: var(--bl-space-12) var(--bl-space-6);
+    border: 1px solid var(--bl-color-border);
     border-radius: var(--bl-radius-2xl);
-    background:
-      radial-gradient(
-        70% 90% at 50% 0%,
-        color-mix(in oklab, var(--bl-color-accent) 22%, transparent),
-        transparent 70%
-      ),
-      var(--bl-color-accent-subtle);
-    box-shadow:
-      inset 0 0 0 1px color-mix(in oklab, var(--bl-color-accent-text) 14%, transparent),
-      inset 0 1px 0 var(--bl-color-highlight),
-      var(--bl-elevation-2);
+    background: var(--bl-color-accent-subtle);
   }
 
-  .box[data-variant="panel"]::before {
+  .box[data-panel-tone="subtle"],
+  .box[data-panel-tone="dark"] {
+    background: var(--bl-color-bg-subtle);
+  }
+
+  .box[data-panel-style="glow"] {
+    background-image: var(--bl-gradient-glow);
+    box-shadow: var(--bl-elevation-2);
+  }
+
+  .box[data-panel-style="glow"]::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     background-image: var(--bl-pattern-grid);
     background-size: 2.5rem 2.5rem;
-    background-position: center;
     mask-image: radial-gradient(ellipse 60% 70% at 50% 0%, #000 10%, transparent 80%);
     pointer-events: none;
-  }
-
-  .box[data-panel-tone="subtle"] {
-    background:
-      radial-gradient(70% 90% at 50% 0%, var(--bl-color-accent-tint), transparent 70%),
-      var(--bl-color-bg-subtle);
-    box-shadow: var(--bl-elevation-1);
-  }
-
-  .box[data-panel-tone="dark"] {
-    background:
-      radial-gradient(
-        70% 90% at 50% 0%,
-        color-mix(in oklab, var(--bl-color-accent) 30%, transparent),
-        transparent 70%
-      ),
-      var(--bl-color-bg-subtle);
-    box-shadow:
-      inset 0 1px 0 var(--bl-color-highlight),
-      var(--bl-elevation-3);
-    color: var(--bl-color-text);
   }
 
   .box[data-panel-tone="brand"] .description,

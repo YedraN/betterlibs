@@ -47,10 +47,22 @@
     "limit": "5 kB"
   },
   {
+    "name": "@betterlibs/tokens/editorial.css",
+    "path": "packages/tokens/dist/editorial.css",
+    "rolldown": false,
+    "limit": "3 kB"
+  },
+  {
     "name": "@betterlibs/tokens { createTheme }",
     "path": "packages/tokens/dist/index.js",
     "import": "{ createTheme }",
     "limit": "5.5 kB"
+  },
+  {
+    "name": "@betterlibs/tokens { createTheme, editorial }",
+    "path": "packages/tokens/dist/index.js",
+    "import": "{ createTheme, editorial }",
+    "limit": "6 kB"
   },
   {
     "name": "@betterlibs/icons (un icono)",
@@ -65,5 +77,32 @@
     "import": "*",
     "ignore": ["react", "react/jsx-runtime"],
     "limit": "3.2 kB"
+  },
+  {
+    "name": "@betterlibs/motion b\u00e1sico (incluye motor peer)",
+    "path": "packages/motion/dist/index.js",
+    "import": "{ MotionProvider, Reveal, Stagger, Presence }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "8 kB"
+  },
+  {
+    "name": "Motion mini (capacidad diferida)",
+    "path": "packages/motion/node_modules/motion/dist/es/mini.mjs",
+    "import": "{ animate }",
+    "limit": "4 kB"
+  },
+  {
+    "name": "Fixture UI est\u00e1tica (sin motor)",
+    "path": "packages/motion/fixtures/static.tsx",
+    "import": "{ StaticFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "2.5 kB"
+  },
+  {
+    "name": "Fixture Reveal/Presence (incluye motor)",
+    "path": "packages/motion/fixtures/basic.tsx",
+    "import": "{ BasicFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "8 kB"
   }
 ]

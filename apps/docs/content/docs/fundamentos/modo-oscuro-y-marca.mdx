@@ -72,3 +72,43 @@ const filial = createTheme({ brand: '#0f766e', selector: '[data-brand="filial"]'
 ```html
 <div data-brand="filial">…</div>
 ```
+
+
+## Preset editorial
+
+Activa la nueva dirección visual en toda la web o en un contenedor:
+
+```tsx
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/tokens/editorial.css'
+import '@betterlibs/react/styles.css'
+
+<section data-preset="editorial" data-theme="light">…</section>
+```
+
+Si omites `data-theme`, sigue la preferencia del sistema. Un modo explícito del contenedor tiene
+prioridad sobre el sistema. Los elementos anidados con `data-theme="light"` o `"dark"`
+adaptan las superficies, el texto y los controles dentro de ese mismo preset.
+
+Para cambiar marca, fuentes o radios, genera el CSS del tema en lugar de importar `editorial.css`:
+
+```ts
+import { createTheme, editorial } from '@betterlibs/tokens'
+
+const studio = createTheme({
+  preset: editorial,
+  brand: '#0f766e',
+  selector: '[data-brand="studio"]',
+})
+```
+
+Las referencias de `studio.semantic` se resuelven con `resolveColor(ref, studio.palette)`.
+En Storybook puedes elegir **Estilo → Editorial** y después cambiar tema y marca para revisar
+el catálogo. El preset JavaScript se importa como objeto para que los consumidores del tema
+habitual puedan eliminarlo del bundle.
+
+El contraste se valida contra las superficies propias del preset, incluyendo hover, active,
+bordes de campos y foco. El resultado cubre los pares del sistema; revisa además las
+composiciones, imágenes y estilos personalizados de tu aplicación.
+
+<ContrastReport preset="editorial" />

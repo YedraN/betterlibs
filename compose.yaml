@@ -1,0 +1,67 @@
+name: betterlibs
+
+x-development: &development
+  image: betterlibs-dev:local
+  build:
+    context: .
+    target: development
+  init: true
+  restart: unless-stopped
+  stop_grace_period: 15s
+  environment: &environment
+    VITE_DOCS_URL: http://localhost:${BETTERLIBS_DOCS_PORT:-3000}/docs
+  # Only source is mounted. Dependencies, dist and Next caches stay inside each container.
+  # Read-only mounts prevent generated files and container ownership from affecting the IDE.
+  volumes:
+    - ./packages/tokens/src:/workspace/packages/tokens/src:ro
+    - ./packages/tokens/scripts:/workspace/packages/tokens/scripts:ro
+    - ./packages/icons/src:/workspace/packages/icons/src:ro
+    - ./packages/react/src:/workspace/packages/react/src:ro
+    - ./packages/motion/src:/workspace/packages/motion/src:ro
+    - ./apps/playground/src:/workspace/apps/playground/src:ro
+    - ./apps/playground/public:/workspace/apps/playground/public:ro
+    - ./apps/playground/index.html:/workspace/apps/playground/index.html:ro
+    - ./apps/docs/app:/workspace/apps/docs/app:ro
+    - ./apps/docs/components:/workspace/apps/docs/components:ro
+    - ./apps/docs/content:/workspace/apps/docs/content:ro
+    - ./apps/docs/lib:/workspace/apps/docs/lib:ro
+    - ./apps/docs/scripts:/workspace/apps/docs/scripts:ro
+    - ./apps/docs/proxy.ts:/workspace/apps/docs/proxy.ts:ro
+    - ./apps/storybook/src:/workspace/apps/storybook/src:ro
+    - ./apps/storybook/.storybook:/workspace/apps/storybook/.storybook:ro
+  healthcheck:
+    test: [CMD, node, docker/healthcheck.mjs]
+    interval: 15s
+    timeout: 15s
+    start_period: 90s
+    retries: 10
+  logging:
+    driver: json-file
+    options:
+      max-size: 10m
+      max-file: "3"
+
+services:
+  web:
+    <<: *development
+    environment:
+      <<: *environment
+      BETTERLIBS_SERVICE: web
+    ports:
+      - "127.0.0.1:${BETTERLIBS_WEB_PORT:-8080}:5173"
+
+  docs:
+    <<: *development
+    environment:
+      <<: *environment
+      BETTERLIBS_SERVICE: docs
+    ports:
+      - "127.0.0.1:${BETTERLIBS_DOCS_PORT:-3000}:3000"
+
+  storybook:
+    <<: *development
+    environment:
+      <<: *environment
+      BETTERLIBS_SERVICE: storybook
+    ports:
+      - "127.0.0.1:${BETTERLIBS_STORYBOOK_PORT:-6006}:6006"

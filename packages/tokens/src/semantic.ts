@@ -108,6 +108,9 @@ export const contrastPairs: ContrastPair[] = [
   { fg: 'border-input', bg: 'bg', min: 3, usage: 'Borde de campos de formulario' },
   { fg: 'on-accent', bg: 'accent', min: 4.5, usage: 'Texto en botón primario' },
   { fg: 'on-accent', bg: 'accent-hover', min: 4.5, usage: 'Texto en botón primario (hover)' },
+  { fg: 'on-accent', bg: 'accent-active', min: 4.5, usage: 'Texto en botón primario (active)' },
+  { fg: 'border-input', bg: 'surface', min: 3, usage: 'Borde de campos sobre una superficie' },
+  { fg: 'focus-ring', bg: 'surface', min: 3, usage: 'Anillo de foco sobre una superficie' },
   { fg: 'accent-text', bg: 'bg', min: 4.5, usage: 'Enlaces' },
   { fg: 'accent-text', bg: 'bg-subtle', min: 4.5, usage: 'Enlaces en fondo sutil' },
   {

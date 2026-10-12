@@ -22,7 +22,7 @@ function useDocsTheme() {
  * notificaciones), con el mismo tema que la documentación. Va en `<body>` y no dentro del
  * ejemplo para que ningún contenedor de la página recorte o tape los overlays.
  */
-function useThemedPortal(theme: 'light' | 'dark') {
+function useThemedPortal(theme: 'light' | 'dark', preset: 'default' | 'editorial') {
   const [container, setContainer] = useState<HTMLElement | null>(null)
   useEffect(() => {
     const element = document.createElement('div')
@@ -33,8 +33,11 @@ function useThemedPortal(theme: 'light' | 'dark') {
     return () => element.remove()
   }, [])
   useEffect(() => {
-    if (container) container.dataset.theme = theme
-  }, [container, theme])
+    if (container) {
+      container.dataset.theme = theme
+      container.dataset.preset = preset
+    }
+  }, [container, theme, preset])
   return container
 }
 
@@ -46,16 +49,19 @@ export function Preview({
   children,
   padded = true,
   align = 'start',
+  preset = 'default',
 }: {
   children: ReactNode
   padded?: boolean
   align?: 'start' | 'center'
+  preset?: 'default' | 'editorial'
 }) {
   const theme = useDocsTheme()
-  const portal = useThemedPortal(theme)
+  const portal = useThemedPortal(theme, preset)
   return (
     <div
       data-theme={theme}
+      data-preset={preset}
       className="not-prose my-6 overflow-hidden rounded-xl border"
       style={{
         background: 'var(--bl-color-bg)',

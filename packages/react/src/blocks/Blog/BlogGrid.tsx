@@ -1,5 +1,6 @@
 import type { ElementType } from 'react'
 import { Grid } from '../../components/Grid/Grid'
+import { cx } from '../../utils/cx'
 import type { Responsive } from '../../utils/types'
 import { type BlockBaseProps, BlockSection, itemHeadingLevel } from '../shared'
 import styles from './Blog.module.css'
@@ -46,7 +47,7 @@ export function BlogGrid({
   return (
     <BlockSection {...block} headingLevel={headingLevel}>
       {variant === 'list' ? (
-        <ul className={styles.list}>
+        <ul className={cx(styles.list, styles.verticalList)}>
           {posts.map((post, index) => card(post, index, 'horizontal'))}
         </ul>
       ) : variant === 'featured' && first ? (

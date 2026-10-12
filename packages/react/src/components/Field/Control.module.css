@@ -18,9 +18,8 @@
     padding-inline: var(--_px);
     border: 1px solid var(--_border);
     border-radius: var(--bl-radius-md);
-    /* Superficie ligeramente hundida con sombra mínima: el campo «invita» a escribir. */
+    /* Superficie limpia: el borde y el foco identifican el control. */
     background-color: var(--bl-color-surface);
-    box-shadow: var(--bl-shadow-control);
     color: var(--bl-color-text);
     font-family: inherit;
     font-size: var(--_font-size);

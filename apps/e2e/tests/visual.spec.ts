@@ -21,7 +21,7 @@ function skipWithoutBaseline(testInfo: TestInfo, name: string) {
 
 async function dismissCookieBanner(page: Page) {
   // Se responde al aviso una vez: la elección queda guardada y no tapa las capturas.
-  await page.goto('/')
+  await page.goto('/plantillas/corporativa')
   await page.getByRole('button', { name: 'Rechazar todas' }).click()
 }
 

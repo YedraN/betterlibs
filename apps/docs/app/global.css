@@ -8,6 +8,8 @@
  * <Preview>, que aplica el modo de color correcto con data-theme.
  */
 @import "@betterlibs/tokens/tokens.css";
+@import "@betterlibs/tokens/editorial.css";
+@import "@fontsource-variable/space-grotesk";
 @import "@betterlibs/react/styles.css";
 
 html {

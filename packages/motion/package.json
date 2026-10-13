@@ -1,6 +1,6 @@
 {
   "name": "@betterlibs/motion",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Primitivas opcionales de movimiento accesible para interfaces y p\u00e1ginas React.",
   "license": "MIT",
   "author": "YedraN",

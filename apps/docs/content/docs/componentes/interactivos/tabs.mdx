@@ -6,7 +6,7 @@ description: Pestañas para alternar vistas relacionadas sin salir de la página
 import { BarChartIcon, BriefcaseIcon, ShieldCheckIcon } from '@betterlibs/icons'
 import { Stack, Tabs, TabsContent, TabsList, TabsTrigger, Text } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Stack gap="10">
     <Tabs defaultValue="consultoria">
       <TabsList aria-label="Servicios">
@@ -65,6 +65,16 @@ pestaña oculta pasa desapercibido. Para preguntas frecuentes, `Accordion`.
 
 Da un `aria-label` a `TabsList` que describa el conjunto. La pestaña activa se marca con color y
 subrayado (o fondo), no solo con color.
+
+## Estilo editorial
+
+La selección combina peso tipográfico con subrayado o superficie de acento. El indicador CSS
+existente utiliza los roles compartidos, se ajusta a cambios de etiquetas y funciona en RTL.
+No necesita Motion; los springs y adaptaciones avanzadas se reservan para el paquete opcional.
+Los paneles inactivos, incluso con `forceMount`, quedan ocultos y fuera del recorrido de teclado.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

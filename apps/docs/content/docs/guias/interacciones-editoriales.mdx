@@ -1,0 +1,106 @@
+---
+title: Interacciones editoriales
+description: Formularios, menús y paneles con estados claros y capacidad opcional de posiciones.
+---
+
+import { CatalogFormsDemo, CatalogOverlaysDemo, PositionDemo } from '@/components/docs/catalog-demo'
+
+El preset editorial adapta el catálogo de componentes con superficies planas, bordes definidos
+y respuestas breves. Importa `@betterlibs/tokens/editorial.css` y aplica `data-preset="editorial"`
+al contenedor, también al destino de los portales. Los bloques y recetas de navegación se
+completan en la siguiente entrega.
+
+## Formularios
+
+Input, Select y Textarea comparten marco y estados mediante Field. Checkbox y Radio mantienen
+controles nativos; Switch comunica la selección mediante posición y color. FileInput conserva
+el input real y restaura el foco al quitar un archivo. Los mensajes van asociados al control;
+Form enfoca el resumen enlazado cuando el envío contiene errores.
+
+<Preview preset="editorial"><CatalogFormsDemo /></Preview>
+
+Las etiquetas, archivos y mensajes largos se ajustan al ancho disponible. Los controles
+deshabilitados y de solo lectura mantienen sus estados nativos. Las marcas de selección
+aparecen sin dibujos prolongados ni presión que desplace el formulario.
+
+## Menús, paneles y notificaciones
+
+Los menús conservan flechas, búsqueda por inicial, selección, submenús y Escape de Radix.
+Popover permite editar sin bloquear la página. Drawer conserva foco atrapado y bloqueo de
+scroll durante la apertura. Al cerrar menús, Popover, Dialog o Drawer se desmonta el contenido
+y el foco vuelve inmediatamente; solo el fondo modal mantiene su desvanecimiento breve.
+La entrada de Drawer sigue el lado indicado y dura el rol disclosure.
+En editorial el recorrido es la distancia disclosure (8 px por defecto).
+
+<Preview preset="editorial"><CatalogOverlaysDemo /></Preview>
+
+Toast mantiene pausa al enfocar/pasar el puntero, acceso con F8, acciones y descarte táctil.
+Al cerrar queda inerte y oculto al árbol accesible durante la salida. Una actualización con el
+mismo id sustituye la notificación, incluso si su versión anterior estaba cerrándose. Las
+acciones no caducan por defecto. El tono siempre se acompaña de texto e icono.
+
+## Posiciones opcionales
+
+`useLayoutTransition` y `useSpringTabsIndicator` pertenecen a `@betterlibs/motion`. La UI básica
+no los importa. El motor mini y el generador de spring se descargan solo cuando hay un cambio
+de posición que animar y el movimiento está permitido; montaje, SSR y selección estática
+no los necesitan. Consulta la [receta oficial de spring con mini](https://motion.dev/docs/spring).
+
+<Preview preset="editorial"><PositionDemo /></Preview>
+
+```tsx
+'use client'
+import { useRef } from 'react'
+import { useLayoutTransition, useSpringTabsIndicator } from '@betterlibs/motion'
+import { TabsList, TabsTrigger } from '@betterlibs/react'
+
+function Pieces({ items }: { items: string[] }) {
+  const ref = useRef<HTMLUListElement>(null)
+  useLayoutTransition(ref, items.join(','), { spring: 'snappy' })
+  return (
+    <ul ref={ref}>
+      {items.map((item) => <li key={item} data-bl-layout>{item}</li>)}
+    </ul>
+  )
+}
+
+function Selector() {
+  const ref = useRef<HTMLDivElement>(null)
+  useSpringTabsIndicator(ref, { spring: 'snappy' })
+  return (
+    <TabsList ref={ref} aria-label="Vista">
+      <TabsTrigger value="read">Leer</TabsTrigger>
+      <TabsTrigger value="edit">Editar</TabsTrigger>
+    </TabsList>
+  )
+}
+```
+
+El hook de posiciones no introduce DOM: marca hijos **directos** de un contenedor y conserva
+claves React estables. Cambia `transitionKey` después de modificar orden o retícula. Usa
+wrappers sin otro propietario de `transform`; no lo combines con Reveal en el mismo nodo.
+Anima desplazamiento, sin escalar tamaños ni retener piezas eliminadas. El orden DOM y el
+contenido funcional cambian inmediatamente. No incluye arrastre ni elementos compartidos
+entre rutas. Conserva los borradores en estado React si deben sobrevivir al desmontaje.
+
+El adaptador de Tabs opera sobre el indicador existente de TabsList. Solo su posición usa
+spring; tamaño, foco, selección y paneles siguen actualizándose directamente. Redimensionar
+ajusta el indicador al instante. Mantiene fallback CSS sin JavaScript y no sustituye Radix.
+
+Ambos hooks admiten `spring="snappy" | "gentle"` y consumen los presets físicos de tokens.
+`useLayoutTransition(ref, transitionKey, options)` devuelve `{ cancel }` para interrupción
+manual. Reducido, off, cambio de preferencia, desmontaje y fallo de carga restauran el estado
+final. Configura MotionProvider y `data-motion` con la misma preferencia para incluir CSS.
+
+## Otros estados del catálogo
+
+Alert usa un borde de estado e icono. Badge, Tag, Avatar, IconTile, Pagination y SocialLinks
+adoptan superficies planas. Skeleton editorial presenta un placeholder estático; los puntos
+de Badge no pulsan en este preset. Tipografía, layout, imágenes, separadores y controles que
+ya dependen únicamente de tokens conservan sus contratos. Las variantes visuales explícitas
+y el preset predeterminado siguen disponibles.
+
+Carousel conserva scroll nativo, controles y pausa con teclado. Las restricciones de
+`data-motion` de cualquier ancestro prevalecen, detienen autoplay y cancelan desplazamientos
+suaves en curso. La reproducción automática se suspende mientras el carrusel está fuera de
+vista. La navegación solicitada por el usuario sigue funcionando directamente.

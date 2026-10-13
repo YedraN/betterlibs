@@ -1,0 +1,97 @@
+---
+title: Composiciones editoriales
+description: Hero, BentoFeatures, FeatureShowcase y CTA para una página con identidad.
+---
+
+Los cuatro bloques funcionan con `@betterlibs/react` y el preset editorial. El movimiento
+coordinado se añade desde el paquete opcional; los bloques no importan su motor.
+
+<Preview preset="editorial" padded={false}><EditorialPageDemo /></Preview>
+
+## Hero editorial
+
+`variant="editorial"` organiza texto y demostración en proporción 7/5 en escritorio y una columna
+en móvil. Usa la escala fluida editorial en lugar de `size`; las otras variantes mantienen su
+escala existente. `media` acepta imagen con `alt`, ilustración o demo. El título es `h1` por
+defecto; ajusta `headingLevel` cuando la página ya tenga su título principal.
+
+```tsx
+<Hero variant="editorial" id="inicio" title="Una interfaz con voz propia"
+  description="Contenido claro y movimiento que responde."
+  media={<Card>Tu demostración de producto</Card>}
+  actions={<Button asChild><a href="#ejemplos">Explorar ejemplos</a></Button>} />
+```
+
+## BentoFeatures
+
+El bloque aporta sección, contenedor y retícula: 7/5 y 5/7 desde 768 px; una columna en móvil.
+Acepta hijos para combinar tarjetas, `Reveal` y `Stagger`. No añade una lista ni convierte las
+tarjetas en enlaces. `BentoFeature` renderiza un `article` con `title`, `description`, `media`,
+`actions` y `children`; su título es `h3` por defecto (`headingLevel` configurable).
+
+`tone` admite `default`, `brand` e `inverse`. Las superficies de énfasis se destinan a texto y
+gráficos; para formularios usa `default`, o configura explícitamente el tema de los controles.
+El componente no inventa un texto alternativo para `media`.
+
+```tsx
+<BentoFeatures id="ventajas" title="Cuatro formas de crear">
+  <BentoFeature title="Identidad" tone="brand" description="Tipografía que organiza." />
+  <BentoFeature title="Ritmo" description="Movimiento con una razón." />
+  <BentoFeature title="Interacción" description="Estados claros y foco visible." />
+  <BentoFeature title="Composición" description="De piezas a páginas." />
+</BentoFeatures>
+```
+
+<PropsTable name="BentoFeaturesProps" />
+<PropsTable name="BentoFeatureProps" />
+<CssReference module="BentoFeatures" />
+
+## FeatureShowcase
+
+Cada entrada de `items` necesita un `value` único, `label` y `content`. `selectorLabel` da nombre
+al conjunto; `disabled` marca una vista no disponible. Usa Tabs para mantener flechas, Inicio/Fin,
+foco y selección con teclado o tacto.
+
+```tsx
+<FeatureShowcase id="ejemplos" title="Elige tu siguiente paso" selectorLabel="Ejemplos"
+  items={[
+    { value: 'leer', label: 'Leer', content: <ArticlePreview /> },
+    { value: 'editar', label: 'Editar', content: <ProjectForm /> },
+  ]} />
+```
+
+`defaultValue` configura el estado inicial; `value` y `onValueChange` permiten controlarlo.
+Con `activationMode="manual"`, Enter/Espacio activan la vista después de mover el foco.
+La selección y el panel accesible cambian inmediatamente; no retiene salidas. Para conservar
+borradores, guarda su estado en el padre, como hace el playground. `children` coloca controles
+antes del selector; `variant` admite `line` y `pill`.
+
+<PropsTable name="FeatureShowcaseProps" />
+
+## CTA de contraste
+
+`panelTone="inverse"` combina fondo y texto inversos del tema en la variante `panel`. En el
+ejemplo, Button primario conserva sus propios colores contrastados de marca.
+
+```tsx
+<CTA panelTone="inverse" title="Dale forma a tu próxima idea"
+  actions={<Button asChild><a href="/empezar">Empezar</a></Button>} />
+```
+
+## Movimiento opcional
+
+Los wrappers rodean una tarjeta sin competir con sus estilos; el HTML inicial permanece visible.
+
+```tsx
+<MotionProvider mode="system">
+  <BentoFeatures title="Una página con ritmo">
+    <Stagger>
+      <Reveal><BentoFeature title="Identidad" description="Tu contenido." /></Reveal>
+      <Reveal><BentoFeature title="Ritmo" description="Tu siguiente paso." /></Reveal>
+    </Stagger>
+  </BentoFeatures>
+</MotionProvider>
+```
+
+Consulta [AnimatedNumber](/docs/guias/animated-number) y la receta de
+[Tu primera página](/docs/primeros-pasos/primera-pagina) para instalación y SSR/RSC.

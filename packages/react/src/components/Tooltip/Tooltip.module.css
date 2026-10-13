@@ -20,4 +20,11 @@
   .arrow {
     fill: var(--bl-color-bg-inverse);
   }
+
+  :where([data-preset="editorial"]) .content {
+    border-color: var(--bl-color-bg-inverse);
+    background-color: var(--bl-color-bg-inverse);
+    background-image: none;
+    box-shadow: none;
+  }
 }

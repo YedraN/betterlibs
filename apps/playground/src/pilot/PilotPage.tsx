@@ -3,10 +3,8 @@ import {
   ArrowRightIcon,
   ArrowUpRightIcon,
   GitHubIcon,
-  LayoutGridIcon,
   MenuIcon,
   SlidersIcon,
-  ZapIcon,
 } from '@betterlibs/icons'
 import {
   type MotionMode,
@@ -17,11 +15,15 @@ import {
   useMotionPreferences,
 } from '@betterlibs/motion'
 import {
+  BentoFeature,
+  BentoFeatures,
   Button,
+  CTA,
   Dialog,
   DialogClose,
   DialogContent,
   DialogTrigger,
+  Hero,
   IconButton,
   PortalProvider,
   SkipLink,
@@ -31,6 +33,7 @@ import { RouterLink } from '../site/router'
 import { usePageTitle } from '../site/SiteLayout'
 import { ComponentLab } from './ComponentLab'
 import { HeroStage } from './HeroStage'
+import { NumberDemo } from './NumberDemo'
 import styles from './Pilot.module.css'
 
 const docsUrl = (import.meta.env.VITE_DOCS_URL || 'http://localhost:3000/docs').replace(/\/$/, '')
@@ -172,140 +175,124 @@ function PilotContent({
           </div>
         </header>
         <main id="main">
-          <section className={styles.hero} aria-labelledby="hero-title">
-            <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>
-                <span className={styles.statusDot} /> UI + MOTION, EN LA MISMA DIRECCIÓN
-              </p>
-              <h1 id="hero-title">
+          <Hero
+            id="hero"
+            variant="editorial"
+            className={styles.composedHero}
+            title={
+              <>
                 Interfaces
                 <br />
                 que se sienten
                 <br />
                 <span className={styles.highlight}>vivas.</span>
                 <Star className={styles.heroStar} />
-              </h1>
-              <p className={styles.heroDescription}>
-                Componentes con carácter. Movimiento con intención. Una buena base para hacer que tu
-                próxima web se sienta diferente.
-              </p>
-              <div className={styles.heroActions}>
+              </>
+            }
+            eyebrow={
+              <>
+                <span className={styles.statusDot} /> UI + MOTION, EN LA MISMA DIRECCIÓN
+              </>
+            }
+            description="Componentes con carácter. Movimiento con intención. Una buena base para hacer que tu próxima web se sienta diferente."
+            actions={
+              <>
                 <Button asChild size="lg" className={styles.action} iconEnd={<ArrowRightIcon />}>
                   <a href="#componentes">Explorar componentes</a>
                 </Button>
                 <a href="#movimiento" className={styles.textLink}>
                   Verlo en movimiento <ArrowDownIcon />
                 </a>
-              </div>
-              <div className={styles.heroFootnote}>
-                <span>REACT + TYPESCRIPT</span>
-                <span>DISEÑADO PARA PERSONAS</span>
-              </div>
+              </>
+            }
+            media={<HeroStage enabled={enabled} play={play} />}
+          >
+            <div className={styles.heroFootnote}>
+              <span>REACT + TYPESCRIPT</span>
+              <span>DISEÑADO PARA PERSONAS</span>
             </div>
-            <HeroStage enabled={enabled} play={play} />
-          </section>
+          </Hero>
           <div className={styles.manifesto}>
             <span className={styles.mono}>UNA BUENA WEB SE VE. Y SE SIENTE.</span>
             <span>01 / UI</span>
             <span>02 / MOTION</span>
             <span>03 / COMPOSICIÓN</span>
           </div>
-          <section
+          <NumberDemo />
+          <BentoFeatures
             id="movimiento"
-            className={styles.capabilities}
-            aria-labelledby="capabilities-title"
+            className={styles.composedBento}
+            title={
+              <>
+                Más que piezas.
+                <br />
+                Una forma de crear.
+              </>
+            }
+            description="Del primer botón a la última sección. Un lenguaje que conecta lo que ves con lo que haces."
           >
-            <Reveal className={styles.sectionHeading}>
-              <div>
-                <p className={styles.eyebrow}>01 — EL SISTEMA</p>
-                <h2 id="capabilities-title">
-                  Más que piezas.
-                  <br />
-                  Una forma de crear.
-                </h2>
-              </div>
-              <p>
-                Del primer botón a la última sección. Un lenguaje que conecta lo que ves con lo que
-                haces.
-              </p>
-            </Reveal>
-            <div className={styles.bento}>
-              <Stagger>
-                <Reveal as="article" className={`${styles.bentoCard} ${styles.typeCard}`}>
-                  <div className={styles.bentoTop}>
-                    <span className={styles.mono}>01 / IDENTIDAD</span>
-                    <ArrowUpRightIcon aria-hidden="true" />
-                  </div>
-                  <div className={styles.typeArtwork} aria-hidden="true">
-                    <span>Aa</span>
-                    <span className={styles.typeTag}>UN POCO DE CARÁCTER.</span>
-                  </div>
-                  <div className={styles.bentoCopy}>
-                    <h3>UI con voz propia.</h3>
-                    <p>
-                      Tipografía, contraste y espacio. Los detalles que hacen reconocible una
-                      interfaz.
-                    </p>
-                  </div>
-                </Reveal>
-                <Reveal as="article" className={`${styles.bentoCard} ${styles.motionCard}`}>
-                  <div className={styles.bentoTop}>
-                    <span className={styles.mono}>02 / MOVIMIENTO</span>
-                    <ZapIcon aria-hidden="true" />
-                  </div>
-                  <div className={styles.motionArtwork} aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                    <span className={styles.motionTrack}>→</span>
-                  </div>
-                  <div className={styles.bentoCopy}>
-                    <h3>El ritmo justo.</h3>
-                    <p>Entradas, respuestas y cambios de estado. Cada gesto tiene una razón.</p>
-                  </div>
-                </Reveal>
-                <Reveal as="article" className={`${styles.bentoCard} ${styles.interactionCard}`}>
-                  <div className={styles.bentoTop}>
-                    <span className={styles.mono}>03 / INTERACCIÓN</span>
-                    <SlidersIcon aria-hidden="true" />
-                  </div>
-                  <div className={styles.interactionArtwork} aria-hidden="true">
-                    <span>Hover ↗</span>
-                    <span>
-                      Focus <span>↹</span>
-                    </span>
-                    <span>
-                      Pressed <span>✓</span>
-                    </span>
-                  </div>
-                  <div className={styles.bentoCopy}>
-                    <h3>Se entiende. Se usa.</h3>
-                    <p>
-                      Estados claros, foco visible y controles que funcionan también con teclado y
-                      tacto.
-                    </p>
-                  </div>
-                </Reveal>
-                <Reveal as="article" className={`${styles.bentoCard} ${styles.layoutCard}`}>
-                  <div className={styles.bentoTop}>
-                    <span className={styles.mono}>04 / COMPOSICIÓN</span>
-                    <LayoutGridIcon aria-hidden="true" />
-                  </div>
-                  <div className={styles.layoutArtwork} aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                  <div className={styles.bentoCopy}>
-                    <h3>De piezas a páginas.</h3>
-                    <p>Secciones que se combinan y composiciones que se adaptan a tu contenido.</p>
-                  </div>
-                </Reveal>
-              </Stagger>
-            </div>
-          </section>
+            <Stagger>
+              <Reveal>
+                <BentoFeature
+                  title="UI con voz propia."
+                  tone="brand"
+                  description="Tipografía, contraste y espacio. Los detalles que hacen reconocible una interfaz."
+                  media={
+                    <div className={styles.typeArtwork} aria-hidden="true">
+                      <span>Aa</span>
+                      <span className={styles.typeTag}>UN POCO DE CARÁCTER.</span>
+                    </div>
+                  }
+                />
+              </Reveal>
+              <Reveal>
+                <BentoFeature
+                  title="El ritmo justo."
+                  description="Entradas, respuestas y cambios de estado. Cada gesto tiene una razón."
+                  media={
+                    <div className={styles.motionArtwork} aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                      <span className={styles.motionTrack}>→</span>
+                    </div>
+                  }
+                />
+              </Reveal>
+              <Reveal>
+                <BentoFeature
+                  title="Se entiende. Se usa."
+                  description="Estados claros, foco visible y controles que funcionan también con teclado y tacto."
+                  media={
+                    <div className={styles.interactionArtwork} aria-hidden="true">
+                      <span>Hover ↗</span>
+                      <span>
+                        Focus <span>↹</span>
+                      </span>
+                      <span>
+                        Pressed <span>✓</span>
+                      </span>
+                    </div>
+                  }
+                />
+              </Reveal>
+              <Reveal>
+                <BentoFeature
+                  title="De piezas a páginas."
+                  description="Secciones que se combinan y composiciones que se adaptan a tu contenido."
+                  media={
+                    <div className={styles.layoutArtwork} aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                  }
+                />
+              </Reveal>
+            </Stagger>
+          </BentoFeatures>
           <section
             id="componentes"
             className={styles.components}
@@ -412,20 +399,25 @@ function PilotContent({
               </Button>
             </Reveal>
           </section>
-          <section className={styles.cta} aria-labelledby="cta-title">
-            <div>
-              <p className={styles.eyebrow}>TU PRÓXIMA IDEA EMPIEZA AQUÍ</p>
-              <h2 id="cta-title">
+          <CTA
+            id="cta"
+            className={styles.composedCta}
+            panelTone="inverse"
+            eyebrow="Tu próxima idea empieza aquí"
+            title={
+              <>
                 Dale forma.
                 <br />
-                Dale <span>vida.</span>
-              </h2>
+                Dale vida.
+              </>
+            }
+            description="Monta tu primera página con componentes, secciones y movimiento opcional."
+            actions={
               <Button asChild size="lg" className={styles.action} iconEnd={<ArrowUpRightIcon />}>
                 <a href={`${docsUrl}/primeros-pasos/instalacion`}>Ver guía de instalación</a>
               </Button>
-            </div>
-            <Star className={styles.ctaStar} />
-          </section>
+            }
+          />
         </main>
         <footer className={styles.footer}>
           <a href="#" className={styles.brand} aria-label="Betterlibs, volver al inicio">

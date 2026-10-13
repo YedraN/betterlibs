@@ -5,7 +5,7 @@ description: Secciones desplegables, ideales para preguntas frecuentes.
 
 import { Accordion, AccordionItem, Stack } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Stack gap="10">
     <Accordion defaultValue="plazos">
       <AccordionItem value="plazos" title="¿Cuánto tarda un proyecto web?">
@@ -62,6 +62,16 @@ respuesta («No. Los planes son mensuales…»).
 
 Cada pregunta es un encabezado con un botón (`aria-expanded`): aparece en la lista de encabezados
 de los lectores de pantalla. Ajusta `headingLevel` a la jerarquía de la página.
+
+## Estilo editorial
+
+Las filas usan titulares editoriales y un chevron sencillo. El panel abre en 220 ms y cierra en
+180 ms, con altura natural de Radix: el contenido puede crecer mientras está abierto.
+Durante el cierre queda `inert` y oculto al árbol accesible desde el cambio de estado. La pregunta
+sigue disponible para reabrir; los modos controlado, único y múltiple conservan sus contratos.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

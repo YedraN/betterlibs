@@ -130,6 +130,7 @@ export function Field({
         </LabelText>
       </label>
       {descriptionId && <FieldDescription id={descriptionId}>{description}</FieldDescription>}
+      <FieldContext.Provider value={context}>{children}</FieldContext.Provider>
       {invalid && (
         <FieldMessage id={messageId} tone="error">
           {errorMessage}
@@ -140,7 +141,6 @@ export function Field({
           {success}
         </FieldMessage>
       )}
-      <FieldContext.Provider value={context}>{children}</FieldContext.Provider>
     </div>
   )
 }

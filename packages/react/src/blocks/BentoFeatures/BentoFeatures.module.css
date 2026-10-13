@@ -1,0 +1,76 @@
+@layer bl.components {
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--bl-space-4);
+  }
+  .grid > * {
+    min-inline-size: 0;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--bl-space-6);
+    block-size: 100%;
+    min-inline-size: 0;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-xl);
+    background: var(--bl-color-surface);
+    color: var(--bl-color-text);
+    overflow-wrap: anywhere;
+  }
+  .card[data-tone="brand"] {
+    background: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    border-color: currentColor;
+  }
+  .card[data-tone="inverse"] {
+    background: var(--bl-color-bg-inverse);
+    color: var(--bl-color-text-inverse);
+    border-color: currentColor;
+  }
+  .media {
+    min-inline-size: 0;
+  }
+  .media :where(img, video) {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--bl-radius-lg);
+  }
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bl-space-3);
+    min-inline-size: 0;
+  }
+  .title {
+    color: inherit;
+  }
+  .description {
+    max-inline-size: 60ch;
+    line-height: var(--bl-leading-relaxed);
+  }
+  .description > :where(p) {
+    margin: 0;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bl-space-3);
+  }
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+    .grid > * {
+      grid-column: span 5;
+    }
+    .grid > :nth-child(4n + 1),
+    .grid > :nth-child(4n) {
+      grid-column: span 7;
+    }
+  }
+}

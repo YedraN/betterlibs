@@ -6,7 +6,15 @@ import { build } from 'vite'
 
 // Real consumer chunks, excluding React/ReactDOM, including every byte of the peer engine.
 const rows = []
-for (const fixture of ['static', 'basic', 'advanced']) {
+for (const fixture of [
+  'static',
+  'basic',
+  'number',
+  'complete',
+  'positions',
+  'tabs-spring',
+  'advanced',
+]) {
   const result = await build({
     configFile: false,
     plugins: [react()],

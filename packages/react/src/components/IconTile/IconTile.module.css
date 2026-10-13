@@ -36,4 +36,8 @@
     background: var(--bl-color-bg-muted);
     color: var(--bl-color-text);
   }
+
+  :where([data-preset="editorial"]) .root {
+    border-radius: var(--bl-radius-sm);
+  }
 }

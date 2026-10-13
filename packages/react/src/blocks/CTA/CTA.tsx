@@ -18,8 +18,8 @@ export type CTAProps = Omit<BlockBaseProps, 'title' | 'align'> & {
    * @default 'panel'
    */
   variant?: 'centered' | 'split' | 'panel'
-  /** Fondo del panel en `panel`. @default 'brand' */
-  panelTone?: 'brand' | 'dark' | 'subtle'
+  /** Fondo del panel; inverse utiliza fondo y texto inversos del tema. @default 'brand' */
+  panelTone?: 'brand' | 'dark' | 'subtle' | 'inverse'
   /** Decoración del panel destacado. @default 'plain' */
   panelStyle?: 'plain' | 'glow'
   /** Contenido extra bajo las acciones («Sin compromiso · Respuesta en 24 h»). */

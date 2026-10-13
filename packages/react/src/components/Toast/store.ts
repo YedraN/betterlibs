@@ -55,13 +55,18 @@ export const getServerSnapshot = () => empty
 function dismiss(id?: string) {
   const closing = records.filter((record) => record.open && (id === undefined || record.id === id))
   if (closing.length === 0) return
-  records = records.map((record) =>
-    closing.includes(record) ? { ...record, open: false } : record,
-  )
+  const retiring = new Set<ToastRecord>()
+  records = records.map((record) => {
+    if (!closing.includes(record)) return record
+    const closed = { ...record, open: false }
+    retiring.add(closed)
+    return closed
+  })
   emit()
   // Se retira del estado cuando ha terminado la animación de salida.
   setTimeout(() => {
-    records = records.filter((record) => !closing.some((item) => item.id === record.id))
+    // Una actualización con el mismo id durante la salida es una notificación nueva.
+    records = records.filter((record) => !retiring.has(record))
     emit()
   }, EXIT_DELAY)
 }

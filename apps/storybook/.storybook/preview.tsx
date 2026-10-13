@@ -2,6 +2,7 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/space-grotesk'
 import '@betterlibs/tokens/index.css'
 import '@betterlibs/tokens/editorial.css'
+import { type MotionMode, MotionProvider } from '@betterlibs/motion'
 import { createTheme, editorial } from '@betterlibs/tokens'
 import type { Decorator, Preview } from '@storybook/react-vite'
 
@@ -14,9 +15,15 @@ export const brands: Record<string, string | undefined> = {
 }
 
 const withTheme: Decorator = (Story, context) => {
-  const { theme = 'light', brand = 'default', preset = 'default' } = context.globals
+  const {
+    theme = 'light',
+    brand = 'default',
+    preset = 'default',
+    motion = 'system',
+  } = context.globals
   const root = document.documentElement
   root.dataset.preset = preset
+  root.dataset.motion = motion
   if (theme === 'auto') delete root.dataset.theme
   else root.dataset.theme = theme
 
@@ -33,7 +40,9 @@ const withTheme: Decorator = (Story, context) => {
 
   return (
     <div key={`${theme}-${brand}-${preset}`}>
-      <Story />
+      <MotionProvider mode={motion as MotionMode}>
+        <Story />
+      </MotionProvider>
     </div>
   )
 }
@@ -42,6 +51,19 @@ const preview: Preview = {
   tags: ['autodocs'],
   decorators: [withTheme],
   globalTypes: {
+    motion: {
+      description: 'Preferencia de movimiento de la UI y las primitivas opcionales',
+      toolbar: {
+        title: 'Movimiento',
+        icon: 'play',
+        items: [
+          { value: 'system', title: 'Sistema' },
+          { value: 'reduced', title: 'Reducido' },
+          { value: 'off', title: 'Desactivado' },
+        ],
+        dynamicTitle: true,
+      },
+    },
     preset: {
       description: 'Dirección visual de la interfaz',
       toolbar: {
@@ -80,7 +102,7 @@ const preview: Preview = {
       },
     },
   },
-  initialGlobals: { theme: 'light', brand: 'default', preset: 'default' },
+  initialGlobals: { theme: 'light', brand: 'default', preset: 'default', motion: 'system' },
   parameters: {
     layout: 'padded',
     controls: { expanded: true, matchers: { color: /(background|color|brand)$/i } },

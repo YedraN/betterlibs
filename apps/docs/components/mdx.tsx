@@ -3,7 +3,9 @@ import defaultMdxComponents from 'fumadocs-ui/mdx'
 import type { MDXComponents } from 'mdx/types'
 import { CssReference, PropsTable } from './docs/api'
 import { CookieConsentDemo, NewsletterDemo } from './docs/blocks-demos'
+import { CatalogFormsDemo, CatalogOverlaysDemo, PositionDemo } from './docs/catalog-demo'
 import { ContactFormDemo } from './docs/contact-form-demo'
+import { AnimatedNumberDemo, EditorialPageDemo } from './docs/editorial-demo'
 import { MotionDemo } from './docs/motion-demo'
 import { Preview } from './docs/preview'
 import { ThemeBuilder } from './docs/theme-builder'
@@ -24,9 +26,14 @@ export function getMDXComponents(components?: MDXComponents) {
     Tabs,
     Preview,
     MotionDemo,
+    AnimatedNumberDemo,
+    EditorialPageDemo,
     PropsTable,
     CssReference,
     ContactFormDemo,
+    CatalogFormsDemo,
+    CatalogOverlaysDemo,
+    PositionDemo,
     ToastDemo,
     NewsletterDemo,
     CookieConsentDemo,

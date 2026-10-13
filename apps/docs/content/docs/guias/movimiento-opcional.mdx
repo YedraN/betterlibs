@@ -92,6 +92,10 @@ actúa sobre las animaciones iniciadas por esa instancia del hook.
 
 ## Coste y capacidades
 
+La quinta primitiva, [AnimatedNumber](./animated-number), anima la representación visual de una
+cifra y conserva un único valor final accesible. Usa requestAnimationFrame sin descargar el motor.
+Las [composiciones editoriales](/docs/bloques/editoriales) se pueden usar también sin movimiento.
+
 El motor `motion/mini` se importa dinámicamente al necesitar un efecto. Se han evaluado
 `m` + `LazyMotion` y sus paquetes `domAnimation`/`domMax`; esta entrega solo necesita opacity
 y transform completos mediante WAAPI. Layout, drag y navegación tendrán capacidades opcionales

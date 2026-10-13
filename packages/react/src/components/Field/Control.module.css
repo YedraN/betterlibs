@@ -156,4 +156,14 @@
   .box[data-disabled] .icon {
     color: inherit;
   }
+
+  :where([data-preset="editorial"]) .box {
+    transition:
+      border-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing),
+      background-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .box:has(.field:focus) {
+    background-color: var(--bl-color-surface);
+  }
 }

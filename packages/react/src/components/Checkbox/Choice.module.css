@@ -209,4 +209,23 @@
   .root[data-variant="card"][data-disabled] {
     background-color: var(--bl-color-bg-subtle);
   }
+
+  :where([data-preset="editorial"]) .input {
+    transition:
+      background-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing),
+      border-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .input:active:not(:disabled) {
+    transform: none;
+  }
+
+  :where([data-preset="editorial"]) :is(.check, .dash) {
+    clip-path: none;
+    transition: opacity var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) :is(.label, .body) {
+    overflow-wrap: anywhere;
+  }
 }

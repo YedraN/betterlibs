@@ -358,7 +358,7 @@
   border-radius: 3px;
 }
 .presetList :global(.bl-tabs-indicator) {
-  background: var(--pilot-surface);
+  background: var(--pilot-accent);
   box-shadow: none;
 }
 .replayButton {
@@ -502,6 +502,7 @@
   border: 1px solid #f5f3ee;
   border-radius: 3px;
   background: #20201e;
+  color: #f5f3ee;
   font-family: var(--bl-font-family-mono);
   font-size: 0.625rem;
   rotate: -10deg;
@@ -644,12 +645,12 @@
   border: 1px solid var(--pilot-line);
   border-radius: var(--bl-radius-xl);
 }
-.componentList {
+.showcase :global(.bl-tabs-list) {
   gap: 0;
   padding-inline: 2rem;
   background: var(--pilot-subtle);
 }
-.componentList :global(.bl-tabs-trigger) {
+.showcase :global(.bl-tabs-list) :global(.bl-tabs-trigger) {
   gap: 1.5rem;
   min-block-size: 64px;
   padding-inline: 1rem;
@@ -660,7 +661,7 @@
   font-family: var(--bl-font-family-mono);
   font-size: 0.625rem;
 }
-.componentList :global(.bl-tabs-indicator) {
+.showcase :global(.bl-tabs-list) :global(.bl-tabs-indicator) {
   box-shadow: none;
 }
 .labPanel {
@@ -1236,11 +1237,11 @@
   .preferenceNote {
     font-size: 0.625rem;
   }
-  .componentList {
+  .showcase :global(.bl-tabs-list) {
     justify-content: space-between;
     padding-inline: 0.5rem;
   }
-  .componentList :global(.bl-tabs-trigger) {
+  .showcase :global(.bl-tabs-list) :global(.bl-tabs-trigger) {
     min-block-size: 56px;
     padding-inline: 0.5rem;
     font-size: 0.6875rem;
@@ -1315,4 +1316,49 @@
     margin-inline-start: auto;
     font-size: 0.5rem;
   }
+}
+
+.composedHero,
+.composedBento,
+.composedCta {
+  max-inline-size: 1440px;
+  margin-inline: auto;
+  background: transparent;
+}
+.composedHero h1 {
+  font-weight: 500;
+  text-wrap: initial;
+}
+.composedHero :global(.bl-section-header-actions) {
+  align-items: center;
+}
+.showcase {
+  background: transparent;
+}
+.showcase > :global(.bl-container-root) {
+  padding-inline: 0;
+}
+.numberSection {
+  max-inline-size: 1440px;
+  margin-inline: auto;
+  padding: 3rem var(--gutter);
+  border-block-end: 1px solid var(--pilot-line);
+}
+.numberRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: 2rem;
+  margin-block: 2rem;
+}
+.numberValue {
+  display: block;
+  font-family: var(--bl-font-family-display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+}
+.numberActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }

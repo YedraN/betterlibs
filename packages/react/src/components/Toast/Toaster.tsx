@@ -89,6 +89,8 @@ export function Toaster({
             className={styles.toast}
             data-tone={record.tone}
             open={record.open}
+            inert={!record.open || undefined}
+            aria-hidden={!record.open || undefined}
             onOpenChange={(open) => {
               if (!open) toast.dismiss(record.id)
             }}

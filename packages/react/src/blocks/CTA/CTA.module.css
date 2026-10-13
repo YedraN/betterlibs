@@ -13,6 +13,7 @@
     align-items: inherit;
     gap: var(--bl-space-3);
     max-inline-size: 44rem;
+    min-inline-size: 0;
   }
 
   .eyebrow {
@@ -26,7 +27,8 @@
 
   .title {
     margin: 0;
-    max-inline-size: 26ch;
+    max-inline-size: min(100%, 26ch);
+    overflow-wrap: anywhere;
     text-wrap: balance;
   }
 
@@ -46,6 +48,7 @@
     flex-direction: column;
     align-items: inherit;
     gap: var(--bl-space-3);
+    min-inline-size: 0;
   }
 
   .actions {
@@ -115,6 +118,27 @@
   .box[data-panel-tone="brand"] .description,
   .box[data-panel-tone="brand"] .note {
     color: var(--bl-color-text);
+  }
+
+  .box[data-panel-tone="inverse"] {
+    background: var(--bl-color-bg-inverse);
+    color: var(--bl-color-text-inverse);
+    border-color: var(--bl-color-border-input);
+  }
+
+  .box[data-panel-tone="inverse"] :is(.title, .eyebrow, .description, .note) {
+    color: inherit;
+  }
+
+  :where([data-preset="editorial"]) .eyebrow {
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  :where([data-preset="editorial"]) .title {
+    font-size: var(--bl-type-heading-size);
+    line-height: var(--bl-type-heading-leading);
+    letter-spacing: var(--bl-type-display-tracking);
   }
 
   @media (min-width: 768px) {

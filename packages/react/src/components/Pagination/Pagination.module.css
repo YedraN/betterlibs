@@ -77,6 +77,21 @@
     font-size: var(--bl-font-size-sm);
   }
 
+  :where([data-preset="editorial"]) .link[aria-current="page"] {
+    background: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"]) :is(.link, .summary) {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  :where([data-preset="editorial"]) .list {
+    flex-wrap: wrap;
+  }
+
   /* Móvil: solo Anterior, «Página N de M» y Siguiente. */
   @media (max-width: 639px) {
     .list {

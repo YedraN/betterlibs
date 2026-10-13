@@ -5,7 +5,7 @@ description: Desplegable nativo con estilos del sistema, marcador y grupos de op
 
 import { Field, Select, Stack } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Stack gap="6" style={{ maxWidth: '28rem' }}>
     <Field label="Tamaño de la empresa" required>
       <Select
@@ -67,3 +67,11 @@ Teclado y lectores de pantalla nativos. Dentro de un `Field` recibe etiqueta, ay
 
 - [RadioGroup](/docs/componentes/formularios/radio-group)
 - [Field](/docs/componentes/formularios/field)
+
+
+## Preset editorial
+
+Comparte el marco editorial y estados de Field con Input. Las opciones conservan el selector nativo.
+
+Consulta la [guía de interacciones editoriales](/docs/guias/interacciones-editoriales)
+para combinar preferencias, formularios, portales y capacidades opcionales.

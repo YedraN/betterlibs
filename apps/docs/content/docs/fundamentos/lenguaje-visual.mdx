@@ -9,7 +9,8 @@ import { Button, Card, Grid, Heading, IconTile, Section, SectionHeader, Stack, T
 
 La nueva dirección de Betterlibs combina **marfil, carbón y lima**, titulares expresivos y
 superficies planas. Busca que las páginas tengan identidad y que cada interacción se entienda.
-Está disponible como preset `editorial`; el catálogo está en proceso de adaptación.
+Está disponible como preset `editorial`. Button, Card, Input, Tabs, Accordion, Dialog, Header y
+SectionHeader ya incorporan sus estados editoriales; la adaptación del resto del catálogo continúa.
 
 ```tsx
 import '@fontsource-variable/inter'
@@ -49,8 +50,9 @@ Los roles compartidos se detallan en [Movimiento](./movimiento) y la configuraci
 ## Base actual del catálogo
 
 La base actual conserva superficies planas, bordes finos y acabados explícitos. Puedes aplicar
-el preset con los mismos componentes. Su adaptación de estados y microinteracciones continúa
-en las fases siguientes del plan.
+el preset con los mismos componentes. Storybook incluye **Componentes → Editorial → UI prioritaria**:
+acciones con carga, validación, contenido variable, diálogos, navegación y texto largo. La barra
+**Movimiento** permite cambiar la preferencia CSS sin remontar la story.
 
 <Preview>
   <Stack gap="8">

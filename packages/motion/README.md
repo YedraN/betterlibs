@@ -1,6 +1,6 @@
 # @betterlibs/motion
 
-Movimiento opcional para páginas React: `MotionProvider`, `Reveal`, `Stagger`, `Presence`,
+Movimiento opcional para páginas React: `MotionProvider`, `Reveal`, `Stagger`, `Presence`, `AnimatedNumber`,
 `useMotionPreferences` y `useMotionAnimation`. React 19+, Motion 14.1+ y los tokens son peers
 explícitos. `@betterlibs/react` no depende de este paquete ni del motor.
 
@@ -33,6 +33,7 @@ o se pide movimiento reducido, la interfaz conserva su estado funcional y visibl
 
 | API | Contrato |
 | --- | --- |
+| `AnimatedNumber` | `span` con ref; `value` finito, `startValue` opcional, `locale='es-ES'`, `format` de Intl, `duration` en ms y `replayKey`. SSR y lectores de pantalla reciben el final; la copia visual se anima con RAF, sin motor. Se cancela al salir del viewport, cambiar preferencias o desmontar; los cambios rápidos continúan desde la cifra visible. |
 | `MotionProvider` | Sin wrapper. `mode`: `system` (defecto), `reduced`, `off`; `intensity`: `subtle` (defecto), `standard`. El sistema reducido y las restricciones de proveedores superiores prevalecen. |
 | `Reveal` | Wrapper `div` por defecto; `as` permite `section`, `article`, `aside`, `li`, `ul`, `ol`, `span`. `preset`: `rise` o `fade`; `once=true`; `replayKey` repite al cambiar si está en vista. Ref al elemento real. |
 | `Stagger` | Sin wrapper. Índices de hijos inmediatos; `interval` en ms (48). Espera total máxima de 240 ms. Un fragmento cuenta como un hijo. |
@@ -65,12 +66,11 @@ base y restaura los estilos inline al terminar o cancelar.
 
 En Next.js, importa desde una frontera cliente; los hijos estáticos pueden provenir de un
 Server Component. No se accede a `window` ni se carga el motor durante SSR. No se incluye CSS
-propio ni se requiere un router. Layout, drag, springs, cifras y transiciones de navegación
-quedan para entregas posteriores.
+propio ni se requiere un router. AnimatedNumber presenta cifras sin cargar el motor.
 
 La elección de mini frente a `m` + `LazyMotion` sigue las capacidades y costes de la
 [guía oficial de Motion](https://motion.dev/docs/react-reduce-bundle-size): para estas primitivas
-basta WAAPI; layout/drag requerirán una entrada opcional separada. Los presupuestos del repo
+basta WAAPI; las posiciones usan mini y un generador de spring diferidos. Los presupuestos del repo
 cuentan también el motor peer, no solo el wrapper.
 
 Para reproducir las mediciones en este monorepo: `pnpm --filter @betterlibs/motion measure`
@@ -78,6 +78,17 @@ registra chunks iniciales/diferidos en `docs/previews/ui-motion/bundle-cost.json
 comprueba los presupuestos de la API publicada. El fixture exploratorio de layout/drag se mide
 con `pnpm exec size-limit --config .size-limit.motion-experiments.json`: supera el objetivo
 de 30 kB y no forma parte de la API ni se considera una capacidad aprobada.
+
+`useLayoutTransition(ref, transitionKey, { spring?: 'snappy' | 'gentle' })` conserva posiciones
+de hijos directos marcados `data-bl-layout`, con claves React estables y wrappers sin otro
+transform. Cambia la clave al modificar orden/retícula. Devuelve `{ cancel }`; no añade DOM,
+escala tamaños, retiene salidas ni incorpora arrastre. El orden accesible cambia inmediatamente.
+
+`useSpringTabsIndicator(listRef, { spring })` adapta el indicador de `@betterlibs/react` TabsList.
+Solo la posición usa spring: foco, selección, panel y tamaño siguen siendo inmediatos. Mantiene
+el fallback CSS del servidor, ajusta el resize sin animarlo y restaura estilos al desmontar.
+No importa la UI: usa su clase pública estable `.bl-tabs-indicator`. Ambos hooks cancelan en
+reducido/off o al fallar la carga. El primer render no descarga la capacidad.
 
 Para un wrapper `span` con `rise`, aplica `display: inline-block` (los elementos inline no
 reemplazados no admiten transforms).

@@ -6,14 +6,14 @@
   "rows": [
     {
       "fixture": "static",
-      "initialBrotli": 1825,
+      "initialBrotli": 1840,
       "deferredBrotli": 0,
       "chunks": [
         {
-          "file": "assets/static-D2C0Rc7i.js",
+          "file": "assets/static-BuM3IZQe.js",
           "initial": true,
-          "bytes": 4958,
-          "brotli": 1825
+          "bytes": 5002,
+          "brotli": 1840
         }
       ]
     },
@@ -33,6 +33,76 @@
           "initial": false,
           "bytes": 11935,
           "brotli": 4434
+        }
+      ]
+    },
+    {
+      "fixture": "number",
+      "initialBrotli": 1557,
+      "deferredBrotli": 0,
+      "chunks": [
+        {
+          "file": "assets/number-Cu1GvpFa.js",
+          "initial": true,
+          "bytes": 3546,
+          "brotli": 1557
+        }
+      ]
+    },
+    {
+      "fixture": "complete",
+      "initialBrotli": 3457,
+      "deferredBrotli": 4434,
+      "chunks": [
+        {
+          "file": "assets/complete-CGNC-vZZ.js",
+          "initial": true,
+          "bytes": 8660,
+          "brotli": 3457
+        },
+        {
+          "file": "assets/mini-DZhX7r_6.js",
+          "initial": false,
+          "bytes": 11935,
+          "brotli": 4434
+        }
+      ]
+    },
+    {
+      "fixture": "positions",
+      "initialBrotli": 1484,
+      "deferredBrotli": 4743,
+      "chunks": [
+        {
+          "file": "assets/positions-CyaQT4Yn.js",
+          "initial": true,
+          "bytes": 3329,
+          "brotli": 1484
+        },
+        {
+          "file": "assets/position-engine-B2ScbTi1.js",
+          "initial": false,
+          "bytes": 12805,
+          "brotli": 4743
+        }
+      ]
+    },
+    {
+      "fixture": "tabs-spring",
+      "initialBrotli": 9217,
+      "deferredBrotli": 4743,
+      "chunks": [
+        {
+          "file": "assets/tabs-spring-DbGT7Maz.js",
+          "initial": true,
+          "bytes": 29436,
+          "brotli": 9217
+        },
+        {
+          "file": "assets/position-engine-B2ScbTi1.js",
+          "initial": false,
+          "bytes": 12805,
+          "brotli": 4743
         }
       ]
     },

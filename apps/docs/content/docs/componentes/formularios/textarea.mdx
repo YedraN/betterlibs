@@ -5,7 +5,7 @@ description: Texto de varias líneas con contador de caracteres y altura automá
 
 import { Field, Stack, Textarea } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Stack gap="6" style={{ maxWidth: '32rem' }}>
     <Field label="¿En qué podemos ayudarte?" description="Objetivos, plazos y cualquier detalle útil.">
       <Textarea rows={4} maxLength={500} showCount />
@@ -52,3 +52,11 @@ sugiere cuánto escribir: ajústalo a la respuesta esperada.
 
 - [Input](/docs/componentes/formularios/input)
 - [Field](/docs/componentes/formularios/field)
+
+
+## Preset editorial
+
+Comparte el marco editorial y los mensajes asociados de Field con Input, conservando el contador y el resize nativos.
+
+Consulta la [guía de interacciones editoriales](/docs/guias/interacciones-editoriales)
+para combinar preferencias, formularios, portales y capacidades opcionales.

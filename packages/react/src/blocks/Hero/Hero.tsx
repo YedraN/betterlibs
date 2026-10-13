@@ -14,9 +14,10 @@ export type HeroProps = Omit<BlockBaseProps, 'headingLevel' | 'title'> & {
    * - `centered`: texto centrado, ideal para portadas sin imagen o con imagen debajo.
    * - `split`: texto a un lado e imagen al otro (se apila en móvil).
    * - `background`: imagen o vídeo a sangre de fondo con capa oscura para asegurar el contraste.
+   * - `editorial`: retícula asimétrica 7/5 y escala tipográfica editorial fluida.
    * @default 'split'
    */
-  variant?: 'centered' | 'split' | 'background'
+  variant?: 'centered' | 'split' | 'background' | 'editorial'
   /** Imagen o ilustración. En `background` es el fondo (usa `alt=""`: es decorativa). */
   media?: ReactNode
   /** Lado de la imagen en `split`. @default 'end' */
@@ -27,7 +28,7 @@ export type HeroProps = Omit<BlockBaseProps, 'headingLevel' | 'title'> & {
   children?: ReactNode
   /** Nivel del titular. Solo debe haber un `h1` por página. @default 1 */
   headingLevel?: 1 | 2
-  /** Altura y tamaño del titular. @default 'md' */
+  /** Altura y tamaño de las variantes base; editorial utiliza su escala fluida. @default 'md' */
   size?: 'md' | 'lg'
   /**
    * Marco de la imagen en `split` y `centered`: `framed` la presenta como una ventana elevada
@@ -65,6 +66,7 @@ export function Hero({
 }: HeroProps) {
   const titleId = blockTitleId(id, title)
   const background = variant === 'background'
+  const split = variant === 'split' || variant === 'editorial'
   const header = (
     <div className={styles.text}>
       <SectionHeader
@@ -73,8 +75,16 @@ export function Hero({
         description={description}
         actions={actions}
         headingLevel={headingLevel}
-        size={size === 'lg' ? '6xl' : headingLevel === 1 ? '5xl' : '4xl'}
-        align={align ?? (variant === 'split' ? 'start' : 'center')}
+        size={
+          variant === 'editorial'
+            ? undefined
+            : size === 'lg'
+              ? '6xl'
+              : headingLevel === 1
+                ? '5xl'
+                : '4xl'
+        }
+        align={align ?? (split ? 'start' : 'center')}
         titleId={titleId}
         className={styles.header}
       />
@@ -95,7 +105,7 @@ export function Hero({
       data-size={size}
       data-media-position={mediaPosition}
       data-media-style={mediaStyle}
-      data-align={align ?? (variant === 'split' ? 'start' : 'center')}
+      data-align={align ?? (split ? 'start' : 'center')}
     >
       {background && (media || video) && (
         <div className={styles.backdrop}>

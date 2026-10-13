@@ -5,7 +5,7 @@ description: Paginación de listados con enlaces o botones y resumen en móvil.
 
 import { Pagination, Stack } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Stack gap="8">
     <Pagination page={5} totalPages={12} getHref={(page) => `#pagina-${page}`} />
     <Pagination page={1} totalPages={3} getHref={(page) => `#pagina-${page}`} />
@@ -51,3 +51,11 @@ textos.
 
 - [Breadcrumb](/docs/componentes/navegacion/breadcrumb)
 - [BlogGrid](/docs/bloques/blog)
+
+
+## Preset editorial
+
+La página actual usa acento y peso, con texto de contraste. Las etiquetas largas pueden ajustarse en móvil.
+
+Consulta la [guía de interacciones editoriales](/docs/guias/interacciones-editoriales)
+para combinar preferencias, formularios, portales y capacidades opcionales.

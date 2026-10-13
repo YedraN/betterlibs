@@ -135,4 +135,18 @@
     display: inline-flex;
     font-size: 1.1em;
   }
+
+  :where([data-preset="editorial"]) .root {
+    max-inline-size: 100%;
+    border-radius: var(--bl-radius-sm);
+    background-image: none;
+    box-shadow: none;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  :where([data-preset="editorial"]) .dot[data-pulse]::after {
+    /* El estado editorial es estático; la información sigue en el texto y el punto. */
+    animation: none;
+  }
 }

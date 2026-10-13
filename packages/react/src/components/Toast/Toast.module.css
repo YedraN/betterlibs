@@ -93,11 +93,13 @@
 
   .title {
     font-weight: var(--bl-font-weight-semibold);
+    overflow-wrap: anywhere;
   }
 
   .description {
     color: var(--bl-color-text-muted);
     font-size: var(--bl-font-size-sm);
+    overflow-wrap: anywhere;
   }
 
   .action {
@@ -111,11 +113,13 @@
   }
 
   .toast[data-state="open"] {
-    animation: toast-in var(--bl-duration-slow) var(--bl-ease-emphasized);
+    animation: toast-in var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .toast[data-state="closed"] {
-    animation: toast-out var(--bl-duration-normal) var(--bl-ease-exit);
+    animation: toast-out var(--bl-motion-disclosure-exit-duration)
+      var(--bl-motion-disclosure-easing);
+    pointer-events: none;
   }
 
   .toast[data-swipe="move"] {
@@ -131,17 +135,27 @@
     animation: swipe-out var(--bl-duration-fast) var(--bl-ease-exit);
   }
 
+  :where([data-preset="editorial"]) .toast {
+    border: 1px solid var(--bl-color-border-input);
+    border-inline-start: 3px solid var(--_icon);
+    background: var(--bl-color-surface-raised);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"]) .icon {
+    filter: none;
+  }
+
   @keyframes toast-in {
     from {
       opacity: 0;
-      transform: translateY(0.75rem) scale(0.98);
+      transform: translateY(var(--bl-motion-disclosure-distance));
     }
   }
 
   @keyframes toast-out {
     to {
       opacity: 0;
-      transform: scale(0.96);
     }
   }
 

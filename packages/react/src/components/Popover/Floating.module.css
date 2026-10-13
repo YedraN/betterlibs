@@ -35,11 +35,13 @@
   .content[data-state="open"],
   .content[data-state="delayed-open"],
   .content[data-state="instant-open"] {
-    animation: enter var(--bl-duration-normal) var(--bl-ease-enter);
+    animation: enter var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .content[data-state="closed"] {
-    animation: exit var(--bl-duration-fast) var(--bl-ease-exit);
+    display: none;
+    /* Los menús y formularios cerrados dejan de participar en el foco inmediatamente. */
+    animation: none;
   }
 
   .content:focus-visible {
@@ -51,17 +53,18 @@
     fill: var(--bl-color-surface-raised);
   }
 
+  :where([data-preset="editorial"]) .content {
+    border: 1px solid var(--bl-color-border-input);
+    background-color: var(--bl-color-surface-raised);
+    box-shadow: none;
+    backdrop-filter: none;
+    overflow-wrap: anywhere;
+  }
+
   @keyframes enter {
     from {
       opacity: 0;
-      transform: translate(var(--_from-x), var(--_from-y)) scale(0.97);
-    }
-  }
-
-  @keyframes exit {
-    to {
-      opacity: 0;
-      transform: scale(0.97);
+      transform: translate(var(--_from-x), var(--_from-y));
     }
   }
 

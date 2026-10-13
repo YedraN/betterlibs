@@ -1,0 +1,6 @@
+@layer bl.components {
+  .panel {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+}

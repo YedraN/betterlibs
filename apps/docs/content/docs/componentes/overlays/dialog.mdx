@@ -5,7 +5,7 @@ description: Ventana modal con foco atrapado, scroll bloqueado y pie de acciones
 
 import { Button, Dialog, DialogClose, DialogContent, DialogTrigger, Field, Input, Stack } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Dialog>
     <DialogTrigger asChild>
       <Button>Solicitar una demo</Button>
@@ -76,6 +76,17 @@ ventanas al entrar en la web) y no los encadenes. Para contenido largo o navegac
 
 - El foco inicial va al primer campo del contenido; «Cerrar» está al final del orden de tabulación.
 - El resto de la página se oculta a los lectores de pantalla y no hace scroll mientras está abierto.
+
+## Estilo editorial
+
+La superficie tiene un borde definido y entra con un desplazamiento corto de 8 px en 220 ms.
+El contenido se desmonta al cerrar y Radix restaura el foco inmediatamente; solo el fondo se
+desvanece durante 180 ms, sin interceptar clics. Se puede volver a abrir durante ese desvanecimiento.
+Las salidas coordinadas de contenido quedan para adaptaciones opcionales. Usa `PortalProvider`
+si el preset, el tema o `data-motion` están en una zona y no en `<html>`.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

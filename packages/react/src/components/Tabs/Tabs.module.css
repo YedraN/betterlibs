@@ -57,6 +57,10 @@
     color: var(--bl-color-text);
   }
 
+  :where([data-preset="editorial"]) .trigger[data-state="active"] {
+    font-weight: var(--bl-font-weight-semibold);
+  }
+
   .trigger:focus-visible {
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: -2px;
@@ -133,7 +137,7 @@
   .indicator {
     position: absolute;
     inset-block-start: 0;
-    inset-inline-start: 0;
+    left: 0;
     z-index: 0;
     display: none;
     pointer-events: none;
@@ -141,6 +145,13 @@
       transform var(--bl-duration-slow) var(--bl-ease-out),
       inline-size var(--bl-duration-slow) var(--bl-ease-out),
       block-size var(--bl-duration-slow) var(--bl-ease-out);
+  }
+
+  :where([data-preset="editorial"]) .indicator {
+    transition:
+      transform var(--bl-motion-navigation-duration) var(--bl-motion-navigation-easing),
+      inline-size var(--bl-motion-navigation-duration) var(--bl-motion-navigation-easing),
+      block-size var(--bl-motion-navigation-duration) var(--bl-motion-navigation-easing);
   }
 
   .list[data-indicator] .indicator {
@@ -211,7 +222,29 @@
   }
 
   .content[data-state="active"] {
-    animation: fade-in var(--bl-duration-normal) var(--bl-ease-enter);
+    animation: fade-in var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  .content[data-state="inactive"] {
+    display: none;
+  }
+
+  :where([data-preset="editorial"]) .root[data-variant="pill"] .list {
+    border: 1px solid var(--bl-color-border);
+  }
+
+  :where([data-preset="editorial"]) .root[data-variant="pill"] .list[data-indicator] .indicator,
+  :where([data-preset="editorial"]) .root[data-variant="pill"] .trigger[data-state="active"] {
+    background: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"])
+    .root[data-variant="pill"]
+    .list[data-indicator]
+    .trigger[data-state="active"] {
+    background: transparent;
   }
 
   @keyframes fade-in {
@@ -221,6 +254,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .indicator,
+    .trigger,
+    .trigger::after {
+      transition: none;
+    }
     .content[data-state="active"] {
       animation: none;
     }

@@ -111,4 +111,28 @@
     margin: var(--bl-space-1-5) calc(var(--bl-space-1-5) * -1);
     background-color: var(--bl-color-border);
   }
+
+  :where([data-preset="editorial"]) .content {
+    min-inline-size: min(12rem, calc(100vw - 2 * var(--bl-space-4)));
+  }
+
+  :where([data-preset="editorial"]) .item {
+    flex-wrap: wrap;
+    transition: background-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .item[data-highlighted] {
+    background-color: var(--bl-color-accent-subtle);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"]) .item[data-tone="danger"][data-highlighted] {
+    background-color: var(--bl-color-danger-bg);
+  }
+
+  :where([data-preset="editorial"]) .hint {
+    max-inline-size: 100%;
+    margin-inline-start: 0;
+    overflow-wrap: anywhere;
+  }
 }

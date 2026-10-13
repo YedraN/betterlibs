@@ -5,7 +5,7 @@ description: Selector de archivos con zona para arrastrar y lista de archivos el
 
 import { Field, FileInput, Stack } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Stack gap="6" style={{ maxWidth: '32rem' }}>
     <Field label="Adjunta tu CV" description="PDF o DOCX, máximo 5 MB.">
       <FileInput accept=".pdf,.docx" />
@@ -54,3 +54,11 @@ tamaño («1,4 MB») y un botón para quitar cada uno.
 ## Relacionados
 
 - [Field](/docs/componentes/formularios/field)
+
+
+## Preset editorial
+
+La zona de archivos usa una superficie plana y borde, sin ampliar al arrastrar. Los nombres largos se ajustan al ancho disponible.
+
+Consulta la [guía de interacciones editoriales](/docs/guias/interacciones-editoriales)
+para combinar preferencias, formularios, portales y capacidades opcionales.

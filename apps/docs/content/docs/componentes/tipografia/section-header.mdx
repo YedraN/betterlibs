@@ -5,7 +5,7 @@ description: Antetítulo, título, entradilla y acciones con el ritmo tipográfi
 
 import { Button, SectionHeader } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <SectionHeader
     eyebrow="Servicios"
     title="Todo lo que tu empresa necesita"
@@ -43,6 +43,16 @@ legible en escritorio y se adaptan al espacio disponible en móvil.
 
 Usa `titleId` y enlázalo desde la sección con `aria-labelledby` para que la sección tenga nombre.
 `headingLevel` (2 por defecto) mantiene la jerarquía de la página.
+
+## Estilo editorial
+
+Sin `size` explícito, el título usa `--bl-type-heading-size`; con `headingLevel={1}`, usa el rol
+hero. Un `size` explícito mantiene su tamaño. El antetítulo conserva la escritura original y la
+entradilla usa el rol lead, con ancho de lectura limitado. Títulos y acciones largos se ajustan
+sin recortarse; la semántica sigue dependiendo de `headingLevel`, no del tamaño visual.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

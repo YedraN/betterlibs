@@ -81,7 +81,7 @@ export function Button({
         )}
         <Slottable>{children}</Slottable>
         {iconEnd && (
-          <span className={styles.icon} aria-hidden="true">
+          <span className={styles.icon} data-position="end" aria-hidden="true">
             {iconEnd}
           </span>
         )}
@@ -112,7 +112,7 @@ export function Button({
         )}
         {children}
         {iconEnd && (
-          <span className={styles.icon} aria-hidden="true">
+          <span className={styles.icon} data-position="end" aria-hidden="true">
             {iconEnd}
           </span>
         )}

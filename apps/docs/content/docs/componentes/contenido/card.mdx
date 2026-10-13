@@ -6,7 +6,7 @@ description: Superficie con borde discreto para agrupar contenido, con cinco est
 import { BarChartIcon, ShieldCheckIcon, UsersIcon } from '@betterlibs/icons'
 import { Card, Grid, Heading, IconTile, Text } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <Grid columns={{ base: 1, md: 3 }} gap="6">
     <Card interactive>
       <IconTile>
@@ -102,6 +102,16 @@ foco se dibuja alrededor de ella.
 - El enlace de la tarjeta debe tener un texto que se entienda solo (el título, no «Leer más»).
 - Los estilos `glass`, `gradient` y `glow` son decorativos; el texto mantiene el contraste de la
   superficie. En modo de alto contraste la tarjeta muestra un borde del sistema.
+
+## Estilo editorial
+
+Las variantes `outline` y `elevated` son superficies planas con borde. Una tarjeta `interactive`
+resalta el borde al pasar el puntero o enfocar su enlace, sin desplazar el contenido. Usa un único
+enlace con `bl-card-link`; no conviertas una tarjeta estática en una acción solo mediante hover.
+Las variantes decorativas siguen siendo explícitas.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

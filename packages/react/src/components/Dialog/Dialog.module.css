@@ -9,11 +9,12 @@
   }
 
   .overlay[data-state="open"] {
-    animation: fade-in var(--bl-duration-slow) var(--bl-ease-enter);
+    animation: fade-in var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .overlay[data-state="closed"] {
-    animation: fade-out var(--bl-duration-normal) var(--bl-ease-exit);
+    animation: fade-out var(--bl-motion-disclosure-exit-duration) var(--bl-motion-disclosure-easing);
+    pointer-events: none;
   }
 
   .content {
@@ -61,11 +62,13 @@
   }
 
   .content[data-kind="dialog"][data-state="open"] {
-    animation: dialog-in var(--bl-duration-slow) var(--bl-ease-emphasized);
+    animation: dialog-in var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .content[data-kind="dialog"][data-state="closed"] {
-    animation: dialog-out var(--bl-duration-normal) var(--bl-ease-exit);
+    display: none;
+    /* Radix desmonta y restaura el foco al cerrar; solo el fondo conserva una salida visual. */
+    animation: none;
   }
 
   /* Panel lateral: los lados son físicos (derecha es derecha también en RTL). */
@@ -119,11 +122,13 @@
   }
 
   .content[data-kind="drawer"][data-state="open"] {
-    animation: drawer-in var(--bl-duration-slow) var(--bl-ease-emphasized);
+    animation: drawer-in var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .content[data-kind="drawer"][data-state="closed"] {
-    animation: drawer-out var(--bl-duration-normal) var(--bl-ease-exit);
+    display: none;
+    /* El foco y el bloqueo modal terminan con el estado funcional. */
+    animation: none;
   }
 
   .header {
@@ -140,11 +145,13 @@
     font-weight: var(--bl-font-weight-semibold);
     line-height: var(--bl-leading-snug);
     letter-spacing: var(--bl-tracking-tight);
+    overflow-wrap: anywhere;
   }
 
   .description {
     margin: 0;
     color: var(--bl-color-text-muted);
+    overflow-wrap: anywhere;
   }
 
   .body {
@@ -182,6 +189,29 @@
     inset-inline-end: var(--bl-space-4);
   }
 
+  :where([data-preset="editorial"]) .content {
+    border: 1px solid var(--bl-color-border-input);
+    background: var(--bl-color-surface-raised);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"]) .overlay {
+    backdrop-filter: none;
+  }
+
+  :where([data-preset="editorial"]) .content[data-side="right"] {
+    --_from: translateX(var(--bl-motion-disclosure-distance));
+  }
+  :where([data-preset="editorial"]) .content[data-side="left"] {
+    --_from: translateX(calc(-1 * var(--bl-motion-disclosure-distance)));
+  }
+  :where([data-preset="editorial"]) .content[data-side="bottom"] {
+    --_from: translateY(var(--bl-motion-disclosure-distance));
+  }
+  :where([data-preset="editorial"]) .content[data-side="top"] {
+    --_from: translateY(calc(-1 * var(--bl-motion-disclosure-distance)));
+  }
+
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -197,25 +227,13 @@
   @keyframes dialog-in {
     from {
       opacity: 0;
-      transform: translateY(0.75rem) scale(0.98);
-    }
-  }
-
-  @keyframes dialog-out {
-    to {
-      opacity: 0;
-      transform: scale(0.98);
+      transform: translateY(var(--bl-motion-disclosure-distance));
     }
   }
 
   @keyframes drawer-in {
     from {
-      transform: var(--_from);
-    }
-  }
-
-  @keyframes drawer-out {
-    to {
+      opacity: 0;
       transform: var(--_from);
     }
   }

@@ -121,4 +121,17 @@
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: 0;
   }
+
+  :where([data-preset="editorial"]) .root {
+    border-color: var(--_border);
+    border-inline-start: 3px solid var(--_accent);
+    background: var(--_bg);
+    box-shadow: none;
+    overflow-wrap: anywhere;
+  }
+
+  :where([data-preset="editorial"]) .icon {
+    background: transparent;
+    box-shadow: none;
+  }
 }

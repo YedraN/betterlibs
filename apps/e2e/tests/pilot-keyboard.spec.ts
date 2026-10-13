@@ -232,7 +232,7 @@ test.describe('sin JavaScript', () => {
   test.use({ javaScriptEnabled: false })
 
   test('el contenido está prerenderizado y la plantilla es navegable', async ({ page }) => {
-    await expect(page.locator('#capabilities-title')).toBeVisible()
+    await expect(page.getByRole('heading', { name: /Más que piezas/ })).toBeVisible()
     await expect(page.locator('[data-preview-card]')).toBeVisible()
     await page.getByRole('link', { name: 'Explorar plantilla', exact: true }).click()
     await expect(page.locator('main h1')).toContainText('Crece con orden')

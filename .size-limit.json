@@ -1,5 +1,33 @@
 [
   {
+    "name": "Tabs con spring (UI, Radix y capacidad diferida)",
+    "path": "packages/motion/fixtures/tabs-spring.tsx",
+    "import": "{ SpringTabsFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "30 kB"
+  },
+  {
+    "name": "Continuidad de posiciones (incluye spring y motor diferidos)",
+    "path": "packages/motion/fixtures/positions.tsx",
+    "import": "{ PositionsFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "10 kB"
+  },
+  {
+    "name": "AnimatedNumber (sin motor)",
+    "path": "packages/motion/fixtures/number.tsx",
+    "import": "{ NumberFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "2 kB"
+  },
+  {
+    "name": "Cinco primitivas (incluye motor peer)",
+    "path": "packages/motion/fixtures/complete.tsx",
+    "import": "{ CompleteFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "8 kB"
+  },
+  {
     "name": "@betterlibs/react (todo)",
     "path": "packages/react/dist/index.js",
     "import": "*",

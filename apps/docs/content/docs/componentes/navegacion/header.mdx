@@ -6,7 +6,7 @@ description: Cabecera del sitio con salto al contenido, menú principal, accione
 import { BriefcaseIcon, FileTextIcon, ShieldCheckIcon } from '@betterlibs/icons'
 import { Button, Header, Text } from '@betterlibs/react'
 
-<Preview padded={false}>
+<Preview preset="editorial" padded={false}>
   <div style={{ minHeight: '28rem' }}>
     <Header
       skipLink={false}
@@ -91,6 +91,16 @@ corporativa; si necesitas otra estructura, monta la tuya con `NavigationMenu` y 
 La cabecera es opaca por defecto (`surface="solid"`). Usa `surface="glass"` cuando quieras
 transparencia y desenfoque sobre un fondo decorativo. El comportamiento de `sticky` es
 independiente de este acabado.
+
+## Estilo editorial
+
+La marca de texto usa la familia de titulares. Al desplazarse, el borde se refuerza sin añadir
+sombra; `hideOnScroll` conserva su comportamiento y vuelve a mostrar la cabecera al recibir foco.
+Las marcas largas pueden ajustarse al ancho móvil. El menú lateral conserva navegación, Escape,
+foco atrapado y restauración de foco.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

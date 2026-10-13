@@ -88,4 +88,13 @@
     color: var(--bl-color-text);
     font-size: calc(var(--_size) * 0.34);
   }
+
+  :where([data-preset="editorial"]) .root {
+    background: var(--bl-color-accent-subtle);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"]) .group:hover > * + * {
+    transform: none;
+  }
 }

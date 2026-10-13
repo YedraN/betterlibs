@@ -1,0 +1,50 @@
+---
+title: AnimatedNumber
+description: Cifras que cambian sin anunciar fotogramas ni ocultar el valor final en SSR.
+---
+
+<Preview preset="editorial"><AnimatedNumberDemo /></Preview>
+
+```tsx
+'use client'
+import { AnimatedNumber, MotionProvider } from '@betterlibs/motion'
+
+<MotionProvider mode="system">
+  <AnimatedNumber value={1250.5} startValue={0} locale="es-ES"
+    format={{ style: 'currency', currency: 'EUR' }} />
+</MotionProvider>
+```
+
+`value` debe ser finito; los valores inválidos producen un error de configuración claro.
+El componente renderiza un `span` y conserva atributos HTML y ref. SSR muestra el final.
+Una copia visual `aria-hidden` interpola la cifra; otra copia recortada expone solo el final a
+lectores de pantalla. No añade una región live ni estado React por fotograma. En un contenedor
+`aria-live`, el texto accesible cambia una vez por cambio de `value`.
+
+- `startValue`: primera entrada en vista. Sin él no anima al montar; solo anima cambios de valor.
+  Un inicio no finito se sustituye por el final.
+- `locale`: `es-ES` por defecto. Usa el mismo valor explícito en servidor y navegador.
+- `format`: opciones de `Intl.NumberFormat`, incluidos decimales, moneda, porcentaje y unidades.
+- `duration`: ms; por defecto lee `--bl-motion-navigation-duration` (240 ms). Se limita a
+  0–10 000 ms; `0` muestra el final inmediatamente. La interpolación frena sin rebote.
+- `replayKey`: al cambiar en vista, repite desde `startValue`, o desde el final si no hay inicio.
+  Los cambios rápidos de `value` continúan desde la cifra visible.
+
+Movimiento reducido/desactivado cancela el frame pendiente y muestra el final. Salir del viewport
+también detiene el contador; volver a entrar no repite una entrada ya iniciada. Sin
+IntersectionObserver funciona inmediatamente; sin requestAnimationFrame conserva el final.
+El desmontaje cancela el trabajo pendiente. Cambiar formato durante un efecto muestra el final
+con el nuevo formato.
+
+AnimatedNumber usa requestAnimationFrame y no descarga Motion. El peer sigue declarado para
+las otras primitivas; importar solo este componente no carga el motor. Anima valores reales o
+demostraciones explícitas, sin inventar métricas.
+
+```tsx
+const [value, setValue] = useState(8)
+<AnimatedNumber value={value} format={{ maximumFractionDigits: 0 }} />
+<Button onClick={() => setValue((number) => number + 1)}>Añadir una pieza</Button>
+```
+
+Consulta [MotionProvider](./movimiento-opcional). Para las transiciones CSS de los controles,
+aplica también `data-motion` a su zona y a sus portales.

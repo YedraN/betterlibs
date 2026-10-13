@@ -45,7 +45,13 @@ export function SectionHeader({
   ...props
 }: SectionHeaderProps) {
   return (
-    <div className={cx(styles.root, className)} data-align={align} {...props}>
+    <div
+      className={cx(styles.root, className)}
+      data-align={align}
+      data-heading-level={headingLevel}
+      data-custom-size={size ? '' : undefined}
+      {...props}
+    >
       {eyebrow && (
         <p className={styles.eyebrow} data-style={eyebrowStyle}>
           {eyebrow}

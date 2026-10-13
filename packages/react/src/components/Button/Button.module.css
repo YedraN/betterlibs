@@ -71,7 +71,7 @@
 
   .root:active:not(:disabled, [aria-disabled="true"]) {
     box-shadow: var(--_shadow);
-    transform: scale(0.99);
+    transform: scale(var(--bl-motion-feedback-scale, 0.98));
   }
 
   .root:focus-visible {
@@ -191,6 +191,42 @@
     font-size: 1.15em;
   }
 
+  :where([data-preset="editorial"]) .root {
+    --_border: var(--bl-color-border-input);
+    transition:
+      border-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing),
+      transform var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .root::before {
+    transition: opacity var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  .icon[data-position="end"] {
+    transition: translate var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    :where([data-preset="editorial"])
+      .root:hover:not(:disabled, [aria-disabled="true"])
+      .icon[data-position="end"] {
+      translate: var(--bl-motion-feedback-distance) 0;
+    }
+    :where([data-preset="editorial"])
+      .root:dir(rtl):hover:not(:disabled, [aria-disabled="true"])
+      .icon[data-position="end"] {
+      translate: calc(-1 * var(--bl-motion-feedback-distance)) 0;
+    }
+  }
+
+  :where([data-motion="reduced"], [data-motion="off"])
+    .root:active:not(:disabled, [aria-disabled="true"]),
+  :where([data-motion="reduced"], [data-motion="off"]) .root .icon[data-position="end"] {
+    transform: none;
+    /* biome-ignore lint/complexity/noImportantStyles: El modo restringido prevalece sobre hover y RTL. */
+    translate: none !important;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .root,
     .root::before {
@@ -198,6 +234,10 @@
     }
     .root:active:not(:disabled, [aria-disabled="true"]) {
       transform: none;
+    }
+    .root .icon[data-position="end"] {
+      /* biome-ignore lint/complexity/noImportantStyles: El sistema reducido prevalece sobre hover y RTL. */
+      translate: none !important;
     }
   }
 

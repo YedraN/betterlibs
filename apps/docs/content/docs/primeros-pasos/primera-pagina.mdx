@@ -1,114 +1,113 @@
 ---
-title: Tu primera página en 10 minutos
-description: Construye una sección de servicios completa, accesible y responsive.
+title: Tu primera página editorial
+description: Combina cuatro composiciones, contenido real y movimiento opcional.
 ---
 
-import { BarChartIcon, ShieldCheckIcon, UsersIcon, ArrowRightIcon } from '@betterlibs/icons'
-import { Box, Button, ButtonGroup, Container, Grid, Heading, Icon, Section, Stack, Text } from '@betterlibs/react'
+La portada del playground usa los mismos exports públicos que esta receta. Primero monta una
+página estática; añade movimiento en una frontera cliente pequeña cuando aporte información.
 
-Vamos a montar una sección típica de una web corporativa: antetítulo, titular, entradilla,
-tres ventajas y dos llamadas a la acción.
+<Preview preset="editorial" padded={false}><EditorialPageDemo /></Preview>
 
-<Preview padded={false}>
-  <Section aria-labelledby="demo-servicios" spacing="sm">
-    <Container>
-      <Stack gap="10">
-        <Stack gap="3" style={{ maxWidth: '40rem' }}>
-          <Text variant="eyebrow">Por qué elegirnos</Text>
-          <Heading id="demo-servicios" level={2} size="3xl">Crece con un equipo que conoce tu negocio</Heading>
-          <Text variant="lead">Tres compromisos que cumplimos con cada cliente desde el primer día.</Text>
-        </Stack>
-        <Grid columns={{ base: 1, md: 3 }}>
-          <Box padding="6" radius="lg" bordered>
-            <Stack gap="3">
-              <Icon contained size="lg"><UsersIcon /></Icon>
-              <Heading level={3} size="md">Equipo dedicado</Heading>
-              <Text tone="muted">Un interlocutor único que conoce tu empresa.</Text>
-            </Stack>
-          </Box>
-          <Box padding="6" radius="lg" bordered>
-            <Stack gap="3">
-              <Icon contained size="lg"><BarChartIcon /></Icon>
-              <Heading level={3} size="md">Resultados medibles</Heading>
-              <Text tone="muted">Informes mensuales con indicadores claros.</Text>
-            </Stack>
-          </Box>
-          <Box padding="6" radius="lg" bordered>
-            <Stack gap="3">
-              <Icon contained size="lg"><ShieldCheckIcon /></Icon>
-              <Heading level={3} size="md">Cumplimiento</Heading>
-              <Text tone="muted">Procesos alineados con el RGPD.</Text>
-            </Stack>
-          </Box>
-        </Grid>
-        <ButtonGroup stackBelow="sm" aria-label="Acciones">
-          <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
-          <Button variant="outline">Ver servicios</Button>
-        </ButtonGroup>
-      </Stack>
-    </Container>
-  </Section>
-</Preview>
+## 1. Instalar y cargar los estilos
 
-## 1. La sección y el contenedor
-
-`Section` da el ritmo vertical (fluido: menos espacio en móvil) y `Container` limita el ancho y
-añade margen lateral. Enlaza el título con `aria-labelledby` para que la sección aparezca como región
-navegable en lectores de pantalla.
-
-```tsx
-<Section aria-labelledby="servicios">
-  <Container>{/* … */}</Container>
-</Section>
+```bash
+pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+# Solo para movimiento:
+pnpm add @betterlibs/motion motion
 ```
 
-## 2. La cabecera de la sección
-
-Antetítulo, titular y entradilla. Fíjate en que el **nivel** del titular (`level={2}`) va separado
-de su **tamaño** (`size="3xl"`): puedes ajustar el aspecto sin romper la estructura del documento.
+Carga las fuentes en la aplicación, con archivos locales o el paquete de tu elección:
 
 ```tsx
-<Stack gap="3" style={{ maxWidth: '40rem' }}>
-  <Text variant="eyebrow">Por qué elegirnos</Text>
-  <Heading id="servicios" level={2} size="3xl">
-    Crece con un equipo que conoce tu negocio
-  </Heading>
-  <Text variant="lead">Tres compromisos que cumplimos con cada cliente.</Text>
-</Stack>
+import '@fontsource-variable/inter'
+import '@fontsource-variable/space-grotesk'
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/tokens/editorial.css'
+import '@betterlibs/react/styles.css'
 ```
 
-## 3. La rejilla de ventajas
+Los paquetes de fuentes son opcionales y deben instalarse si usas estos imports. La librería
+no descarga fuentes. Consulta la instalación para [Vite](./vite) o [Next](./nextjs).
 
-`Grid` es **mobile-first**: una columna en móvil y tres a partir de `md` (768px).
+## 2. Componer la página
+
+Este componente puede renderizarse en el servidor. FeatureShowcase concentra la selección
+cliente; sus contenidos pueden llegar del servidor como nodos React. No necesitas Motion
+para mostrar la página ni para manejar sus controles.
 
 ```tsx
-<Grid columns={{ base: 1, md: 3 }}>
-  <Box padding="6" radius="lg" bordered>
-    <Stack gap="3">
-      <Icon contained size="lg"><UsersIcon /></Icon>
-      <Heading level={3} size="md">Equipo dedicado</Heading>
-      <Text tone="muted">Un interlocutor único que conoce tu empresa.</Text>
-    </Stack>
-  </Box>
-  {/* … */}
-</Grid>
+import { BentoFeature, BentoFeatures, Button, Card, CTA, FeatureShowcase, Hero } from '@betterlibs/react'
+
+export function Page() {
+  return (
+    <main data-preset="editorial">
+      <Hero id="inicio" variant="editorial"
+        title="Una interfaz con voz propia"
+        description="Contenido claro, controles legibles y espacio para leer."
+        media={<Card><h2>Tu próxima colección</h2><p>Contenido de tu producto.</p></Card>}
+        actions={<Button asChild><a href="#ejemplos">Explorar ejemplos</a></Button>}
+      />
+      <BentoFeatures id="ventajas" title="Cuatro formas de crear">
+        <BentoFeature title="Identidad" tone="brand" description="Tipografía que organiza." />
+        <BentoFeature title="Ritmo" description="Cada gesto tiene una razón." />
+        <BentoFeature title="Interacción" description="Foco visible y estados claros." />
+        <BentoFeature title="Composición" description="De piezas a páginas." />
+      </BentoFeatures>
+      <FeatureShowcase id="ejemplos" title="Elige tu siguiente paso" selectorLabel="Ejemplos"
+        items={[
+          { value: 'leer', label: 'Leer', content: <Card><p>Tu historia, con espacio para leer.</p></Card> },
+          { value: 'crear', label: 'Crear', content: <Card><a href="/crear">Crear una colección</a></Card> },
+        ]}
+      />
+      <CTA id="empezar" panelTone="inverse" title="Dale forma a tu próxima idea"
+        actions={<Button asChild><a href="/crear">Crear colección</a></Button>} />
+    </main>
+  )
+}
 ```
 
-## 4. Las llamadas a la acción
+Hay un único h1; las secciones usan h2 y sus tarjetas h3. Los IDs nombran las regiones y sirven
+para anclas. En imágenes propias aporta alt y dimensiones. El contenido y las acciones son
+configurables: usa enlaces para navegar y botones para ejecutar acciones.
 
-Una acción principal y una secundaria. En móvil se apilan a ancho completo, más fáciles de pulsar.
+## 3. Añadir una frontera de movimiento
 
 ```tsx
-<ButtonGroup stackBelow="sm" aria-label="Acciones">
-  <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
-  <Button variant="outline">Ver servicios</Button>
-</ButtonGroup>
+'use client'
+import { AnimatedNumber, MotionProvider, Reveal, Stagger } from '@betterlibs/motion'
+import { BentoFeature, BentoFeatures } from '@betterlibs/react'
+
+export function AnimatedFeatures() {
+  return (
+    <MotionProvider mode="system">
+      <div data-motion="system">
+        <BentoFeatures title="Una página con ritmo">
+          <Stagger>
+            <Reveal><BentoFeature title="Tu colección"
+              media={<AnimatedNumber value={8} startValue={0} />} /></Reveal>
+            <Reveal><BentoFeature title="Tu contenido" description="Siempre visible en SSR." /></Reveal>
+          </Stagger>
+        </BentoFeatures>
+      </div>
+    </MotionProvider>
+  )
+}
 ```
 
-## Lo que ya tienes sin hacer nada
+Reveal no oculta el HTML inicial. AnimatedNumber expone el final a lectores de pantalla, sin
+anunciar cada fotograma. Para detalles condicionales, Presence conserva una salida inerte y
+puede restaurar el foco con returnFocusRef. Consulta la [guía de movimiento](/docs/guias/movimiento-opcional)
+para sus límites; no sustituye un Dialog ni administra el router.
 
-- Contraste AA en claro y oscuro.
-- Foco visible al navegar con teclado.
-- Tamaños de texto fluidos y botones de 44px.
-- Iconos decorativos ocultos a lectores de pantalla.
-- Sin JavaScript en el cliente: todo esto se renderiza en el servidor.
+## 4. Revisar estados
+
+Prueba tema claro/oscuro, móvil, texto al 200 %, teclado y tacto. Cambiar a reduced/off cancela
+los efectos y muestra el final; la preferencia del sistema siempre prevalece. Aplica la misma
+selección a MotionProvider y data-motion, también en los portales.
+
+En Storybook, **Bloques → Editorial → Primera página** permite comparar las composiciones y las
+cifras. La portada del playground combina la receta con guardar una colección, probar botones,
+editar un formulario y navegar a la plantilla corporativa. El menú y el router conservan título,
+foco, historial y scroll. Las transiciones entre rutas no se incorporan en esta fase.
+
+La [referencia de composiciones](/docs/bloques/editoriales) describe los contratos y las opciones.

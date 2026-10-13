@@ -36,6 +36,10 @@
     gap: var(--bl-space-4);
   }
 
+  :where([data-preset="editorial"]) .controls {
+    flex-wrap: wrap;
+  }
+
   .arrows {
     display: flex;
     gap: var(--bl-space-2);

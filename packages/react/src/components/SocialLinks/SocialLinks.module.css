@@ -44,4 +44,18 @@
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: 2px;
   }
+
+  :where([data-preset="editorial"]) .link {
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-sm);
+    background: var(--bl-color-surface);
+    box-shadow: none;
+    transition: color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .link:hover {
+    border-color: var(--bl-color-accent-text);
+    box-shadow: none;
+    transform: none;
+  }
 }

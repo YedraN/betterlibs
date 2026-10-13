@@ -48,6 +48,17 @@
     min-inline-size: 0;
   }
 
+  .root[data-variant="editorial"] .header {
+    max-inline-size: 100%;
+  }
+
+  .root[data-variant="editorial"] .header h1 {
+    max-inline-size: 14ch;
+    font-size: var(--bl-type-hero-size, var(--bl-font-size-5xl));
+    line-height: var(--bl-type-hero-leading, 1.05);
+    letter-spacing: var(--bl-type-display-tracking, -0.04em);
+  }
+
   .media :where(img, video, svg) {
     display: block;
     inline-size: 100%;
@@ -90,13 +101,19 @@
 
   /* Split: dos columnas a partir de 1024px. */
   @media (min-width: 1024px) {
-    .root[data-variant="split"] .inner {
+    .root:is([data-variant="split"], [data-variant="editorial"]) .inner {
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       gap: var(--bl-space-16);
     }
 
-    .root[data-variant="split"][data-media-position="start"] .media {
+    .root:is([data-variant="split"], [data-variant="editorial"])[data-media-position="start"]
+      .media {
       order: -1;
+    }
+
+    .root[data-variant="editorial"] .inner {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(2rem, 4vw, 4rem);
     }
   }
 

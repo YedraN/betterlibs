@@ -101,6 +101,16 @@
     background-color: color-mix(in oklch, currentColor 14%, transparent);
   }
 
+  :where([data-preset="editorial"]) .root {
+    background-image: none;
+    box-shadow: none;
+    overflow-wrap: anywhere;
+  }
+
+  :where([data-preset="editorial"]) .action {
+    white-space: normal;
+  }
+
   @media (max-width: 639px) {
     .root {
       justify-content: flex-start;

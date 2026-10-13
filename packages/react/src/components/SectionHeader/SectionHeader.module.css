@@ -5,6 +5,8 @@
     align-items: flex-start;
     gap: var(--bl-space-4);
     max-inline-size: 48rem;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
   }
 
   .root[data-align="center"] {
@@ -15,6 +17,7 @@
 
   .eyebrow {
     margin: 0;
+    max-inline-size: 100%;
     color: var(--bl-color-accent-text);
     font-size: var(--bl-font-size-sm);
     font-weight: var(--bl-font-weight-semibold);
@@ -62,7 +65,9 @@
 
   .title {
     margin: 0;
-    max-inline-size: 26ch;
+    min-inline-size: 0;
+    max-inline-size: min(100%, 26ch);
+    overflow-wrap: anywhere;
     text-wrap: balance;
   }
 
@@ -71,7 +76,7 @@
   }
 
   .description {
-    max-inline-size: 52ch;
+    max-inline-size: min(100%, 52ch);
     color: var(--bl-color-text-muted);
     font-size: var(--bl-font-size-lg);
     line-height: var(--bl-leading-relaxed);
@@ -91,9 +96,41 @@
     flex-wrap: wrap;
     gap: var(--bl-space-3);
     margin-block-start: var(--bl-space-3);
+    max-inline-size: 100%;
   }
 
   .root[data-align="center"] .actions {
     justify-content: center;
+  }
+
+  :where([data-preset="editorial"]) .eyebrow {
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  :where([data-preset="editorial"]) .root:not([data-custom-size]) .title {
+    font-size: var(--bl-type-heading-size);
+    line-height: var(--bl-type-heading-leading);
+    letter-spacing: var(--bl-type-display-tracking);
+  }
+
+  :where([data-preset="editorial"]) .root[data-heading-level="1"]:not([data-custom-size]) .title {
+    font-size: var(--bl-type-hero-size);
+    line-height: var(--bl-type-hero-leading);
+  }
+
+  :where([data-preset="editorial"]) .description {
+    font-size: var(--bl-type-lead-size);
+    max-inline-size: min(100%, 65ch);
+  }
+
+  :where([data-preset="editorial"]) .eyebrow[data-style="pill"] {
+    border: 1px solid var(--bl-color-border-input);
+    box-shadow: none;
+  }
+
+  :where([data-preset="editorial"]) .eyebrow[data-style="pill"]::before,
+  :where([data-preset="editorial"]) .eyebrow[data-style="pill"]::after {
+    content: none;
   }
 }

@@ -1,4 +1,13 @@
 {
   "title": "Bloques",
-  "pages": ["index", "hero-y-cta", "contenido", "confianza", "blog", "conversion", "cookies"]
+  "pages": [
+    "index",
+    "editoriales",
+    "hero-y-cta",
+    "contenido",
+    "confianza",
+    "blog",
+    "conversion",
+    "cookies"
+  ]
 }

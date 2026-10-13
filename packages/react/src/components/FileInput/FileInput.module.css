@@ -165,4 +165,29 @@
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: 0;
   }
+
+  :where([data-preset="editorial"]) .zone {
+    background: var(--bl-color-surface);
+    transition:
+      border-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing),
+      background-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+    overflow-wrap: anywhere;
+  }
+
+  :where([data-preset="editorial"]) .zone[data-dragging] {
+    border-color: var(--bl-color-accent-text);
+    background: var(--bl-color-accent-subtle);
+    box-shadow: none;
+    transform: none;
+  }
+
+  :where([data-preset="editorial"]) .file {
+    flex-wrap: wrap;
+  }
+
+  :where([data-preset="editorial"]) .fileName {
+    min-inline-size: min(100%, 8rem);
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
 }

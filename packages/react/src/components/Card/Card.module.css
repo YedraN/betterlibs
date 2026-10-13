@@ -109,6 +109,22 @@
     outline-offset: var(--bl-focus-ring-offset);
   }
 
+  :where([data-preset="editorial"]) .root:is([data-variant="outline"], [data-variant="elevated"]) {
+    --_bg: var(--bl-color-surface);
+    --_shadow: inset 0 0 0 1px var(--bl-color-border);
+    --_shadow-hover: inset 0 0 0 2px var(--bl-color-border-input);
+    transition: box-shadow var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  /* El borde comunica el enlace; el contenido no salta al pasar el puntero. */
+  :where([data-preset="editorial"]) .root[data-interactive]:hover {
+    transform: none;
+  }
+
+  :where([data-motion="reduced"], [data-motion="off"]) .root[data-interactive]:hover {
+    transform: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .root {
       transition: none;

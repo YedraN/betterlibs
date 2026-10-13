@@ -75,4 +75,27 @@
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: 1px;
   }
+
+  :where([data-preset="editorial"]) .root {
+    max-inline-size: 100%;
+    border-radius: var(--bl-radius-sm);
+    background: var(--bl-color-surface);
+    box-shadow: none;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  :where([data-preset="editorial"]) :is(a, button).root:hover {
+    border-color: var(--bl-color-accent-text);
+    box-shadow: none;
+    transform: none;
+  }
+
+  :where([data-preset="editorial"]) :is(a, button).root:active {
+    transform: none;
+  }
+
+  :where([data-preset="editorial"]) .root[data-selected] {
+    background: var(--bl-color-accent-subtle);
+  }
 }

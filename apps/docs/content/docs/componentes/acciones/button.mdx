@@ -6,7 +6,7 @@ description: Botón para acciones, con variantes, tamaños, iconos y estado de c
 import { ArrowRightIcon, DownloadIcon } from '@betterlibs/icons'
 import { Button, ButtonGroup } from '@betterlibs/react'
 
-<Preview align="center">
+<Preview preset="editorial" align="center">
   <Button iconEnd={<ArrowRightIcon />}>Solicitar propuesta</Button>
   <Button variant="secondary">Secundario</Button>
   <Button variant="soft">Suave</Button>
@@ -85,6 +85,15 @@ Tamaños: `sm`, `md` (44px, el mínimo recomendado para pantallas táctiles) y `
 - `type="button"` por defecto (no envía formularios por accidente); usa `type="submit"` en
   formularios.
 - Foco visible con anillo de contraste 3:1. Los botones con solo icono son `IconButton`.
+
+## Estilo editorial
+
+Con el preset `editorial`, el botón principal tiene contorno definido y presión breve. El icono
+final acompaña el hover solo con puntero fino; `loading` y `disabled` bloquean ese efecto. Usa
+`iconEnd` con una flecha para una acción direccional. Las variantes y `asChild` conservan su API.
+
+Las transiciones respetan el sistema y `data-motion="reduced"` / `data-motion="off"`.
+Consulta [Movimiento](/docs/fundamentos/movimiento) para configurar una zona y sus portales.
 
 ## Props
 

@@ -90,10 +90,11 @@ export function Carousel({
   const viewportRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
   const [perView, setPerView] = useState(1)
-  const reducedMotion = usePrefersReducedMotion()
+  const reducedMotion = usePrefersReducedMotion(viewportRef)
   const [playing, setPlaying] = useState(false)
   const [hovered, setHovered] = useState(false)
   const [announcement, setAnnouncement] = useState('')
+  const [visible, setVisible] = useState(false)
   const lastIndex = Math.max(0, total - perView)
   const perViewVars = responsiveVars('bl-carousel-per-view', slidesPerView, (v) => v)
 
@@ -101,6 +102,26 @@ export function Carousel({
   useEffect(() => {
     setPlaying(Boolean(autoplay) && !reducedMotion)
   }, [autoplay, reducedMotion])
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    if (typeof IntersectionObserver !== 'function') {
+      setVisible(true)
+      return
+    }
+    const observer = new IntersectionObserver(([entry]) =>
+      setVisible(Boolean(entry?.isIntersecting)),
+    )
+    observer.observe(viewport)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (reducedMotion && viewport)
+      viewport.scrollTo?.({ left: viewport.scrollLeft, behavior: 'instant' })
+  }, [reducedMotion])
 
   // Si las diapositivas no tienen nada enfocable, la zona desplazable se hace enfocable para
   // poder moverla con las flechas del teclado (WCAG 2.1.1).
@@ -176,10 +197,10 @@ export function Carousel({
   }
 
   useEffect(() => {
-    if (!autoplay || !playing || hovered) return
+    if (!autoplay || !playing || hovered || !visible || reducedMotion) return
     const timer = setInterval(() => goTo(index < lastIndex ? index + 1 : 0, false), autoplay)
     return () => clearInterval(timer)
-  }, [autoplay, playing, hovered, index, lastIndex, goTo])
+  }, [autoplay, playing, hovered, visible, reducedMotion, index, lastIndex, goTo])
 
   const positions = lastIndex + 1
 
@@ -216,6 +237,7 @@ export function Carousel({
               shape="circle"
               size="sm"
               data-bl-carousel-play=""
+              disabled={reducedMotion}
               onClick={() => setPlaying((value) => !value)}
             >
               {playing ? <PauseIcon /> : <PlayIcon />}

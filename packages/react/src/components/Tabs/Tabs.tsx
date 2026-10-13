@@ -70,11 +70,23 @@ export function TabsList({
       list.style.setProperty('--_ind-h', `${active.offsetHeight}px`)
       list.dataset.indicator = ''
     }
-    update()
-    const mutations = new MutationObserver(update)
-    mutations.observe(list, { attributes: true, attributeFilter: ['data-state'], subtree: true })
     const resize = typeof ResizeObserver === 'function' ? new ResizeObserver(update) : undefined
     resize?.observe(list)
+    const observeTabs = () => {
+      resize?.disconnect()
+      resize?.observe(list)
+      for (const tab of list.querySelectorAll('[role="tab"]')) resize?.observe(tab)
+      update()
+    }
+    observeTabs()
+    const mutations = new MutationObserver(observeTabs)
+    mutations.observe(list, {
+      attributes: true,
+      attributeFilter: ['data-state'],
+      childList: true,
+      characterData: true,
+      subtree: true,
+    })
     return () => {
       mutations.disconnect()
       resize?.disconnect()

@@ -111,6 +111,21 @@
     cursor: not-allowed;
   }
 
+  :where([data-preset="editorial"]) .thumb {
+    background: var(--bl-color-bg);
+    box-shadow: none;
+    transition: inset-inline-start var(--bl-motion-feedback-duration)
+      var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .input {
+    transition: background-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .body {
+    overflow-wrap: anywhere;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .thumb,
     .input {

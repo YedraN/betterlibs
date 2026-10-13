@@ -105,11 +105,30 @@ pre {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Preferencia de la aplicación para la UI CSS, sin depender del motor opcional. */
+:where([data-motion="reduced"], [data-motion="off"]) {
+  --bl-motion-feedback-scale: 1;
+  --bl-motion-feedback-distance: 0px;
+  /* biome-ignore lint/complexity/noImportantStyles: La preferencia explícita debe prevalecer sobre el scroll del consumidor. */
+  scroll-behavior: auto !important;
+}
+
+:where([data-motion="reduced"], [data-motion="off"]),
+:where([data-motion="reduced"], [data-motion="off"]) *,
+:where([data-motion="reduced"], [data-motion="off"]) *::before,
+:where([data-motion="reduced"], [data-motion="off"]) *::after {
+  /* biome-ignore lint/complexity/noImportantStyles: La preferencia explícita debe cancelar también estilos de mayor especificidad. */
+  animation: none !important;
+  /* biome-ignore lint/complexity/noImportantStyles: La preferencia explícita debe cancelar también estilos de mayor especificidad. */
+  transition: none !important;
+  /* biome-ignore lint/complexity/noImportantStyles: La preferencia explícita debe prevalecer sobre el scroll del consumidor. */
+  scroll-behavior: auto !important;
 }
 
 /* Deja espacio a las cabeceras fijas al saltar a un ancla. */

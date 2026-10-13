@@ -1,9 +1,9 @@
 # Betterlibs — Plan de UI y movimiento
 
-Fecha: 12 de octubre de 2026. Estado: en ejecución; fases 0, 1 y 2 completadas.
+Actualizado: 13 de octubre de 2026. Estado: en ejecución; fases 0, 1, 2, 3, 4 y 5 completadas.
 
-Punto de continuidad guardado el 13 de octubre de 2026: entorno Docker operativo y fases 0–2
-terminadas. Al retomar, comenzar la fase 3 descrita abajo.
+Punto de continuidad guardado el 13 de octubre de 2026: fases 0–5 terminadas y entorno Docker
+documentado. Al retomar, comenzar la fase 6 descrita abajo.
 
 Este documento define la nueva dirección. El historial de desarrollo permanece en `PLAN.md`. Las fases 10–12 de aquel documento pasan a ser un catálogo de ideas: la secuencia de trabajo propuesta es la de este plan.
 
@@ -122,11 +122,192 @@ existentes. [Demo de documentación](docs/previews/ui-motion/motion-demo.png), c
 Las pruebas de navegador cubren SSR sin JavaScript, cancelación, movimiento reducido en vivo,
 repetición, salida inerte, foco, reapertura y fallback sin WAAPI. La suite completa de axe y teclado pasa 288 pruebas en Chromium. Lint conserva los 25 avisos anteriores sin errores.
 
-**Siguiente fase:** fase 3, estados y microinteracciones editoriales de Button, Card, Input,
-Tabs, Accordion, Dialog, Header y SectionHeader. AnimatedNumber y las composiciones de la
-primera página continúan en fase 4. La capacidad avanzada necesita reducir coste antes de su
-incorporación. Siguen pendientes Firefox/WebKit, lectores de pantalla y las mediciones de
-rendimiento del plan completo.
+**Fase 3 — UI prioritaria completada (2026-10-13).**
+
+- Button incorpora contorno editorial, presión breve con el rol feedback y desplazamiento del
+  icono final solo con puntero fino. Carga y deshabilitado conservan bloqueo, ancho y foco.
+- Card outline/elevated usa superficie plana y borde; las tarjetas enlazadas responden al foco
+  y al puntero sin desplazar su contenido. Las variantes decorativas siguen siendo explícitas.
+- Input mantiene su marco geométrico y los estados nativos. Field presenta error/éxito después
+  del control; cambiar el mensaje durante la edición conserva nodo, valor, foco y descripción.
+- Tabs refuerza la selección con peso, subrayado o superficie de acento. Se reutiliza el indicador
+  CSS existente, con tokens compartidos, RTL y ajuste a etiquetas dinámicas. Los paneles inactivos
+  quedan ocultos incluso con forceMount; no se añade una adaptación con springs o motor.
+- Accordion usa filas editoriales, un chevron sencillo y altura natural de Radix. El panel sale
+  inerte y oculto al árbol accesible desde el cierre; conserva altura cero al cancelar la salida.
+  Se cubren reapertura, contenido variable y modos controlado, único y múltiple.
+- Dialog entra con 8 px de desplazamiento en 220 ms. El contenido se desmonta al cerrar para
+  restaurar el foco inmediatamente; solo el fondo conserva una salida de 180 ms, sin interceptar
+  clics. Las salidas coordinadas de contenido siguen reservadas a adaptaciones opcionales.
+- Header usa marca tipográfica y refuerzo del borde al desplazarse. El menú táctil conserva
+  foco, Escape y navegación; la cabecera oculta se muestra al recibir foco.
+- SectionHeader usa los roles heading/hero/lead sin cambiar los tamaños explícitos. Antetítulos,
+  títulos y acciones largos se ajustan al ancho disponible, también con texto al 200 %.
+- Los tokens CSS ofrecen data-motion="system", "reduced" y "off". Las restricciones de un
+  ancestro prevalecen y los cambios cancelan las animaciones CSS activas. El sistema reducido
+  también cancela animaciones y transiciones. MotionProvider sigue sin DOM: al combinar ambos
+  sistemas se configura la misma selección en proveedor y atributo, incluidos los portales.
+- Cuatro stories de UI prioritaria, selector global de movimiento sin remontaje y ejemplos
+  editoriales en las ocho páginas de documentación. Changeset de tokens y React preparado.
+- El selector del piloto usa el acento compartido para que su fondo y texto seleccionado
+  mantengan el contraste en oscuro al adoptar los nuevos estados de Tabs.
+
+**Validación:** build de los cuatro paquetes, playground (13 páginas prerenderizadas),
+Storybook y documentación; tipos; 127 pruebas unitarias y publint estricto superados. Se revisaron
+seis capturas en claro/oscuro, con escritorio y móvil, sin errores de JavaScript. La corrida completa
+de axe y teclado supera 306 pruebas en Chromium, incluidas 10 nuevas de estados editoriales:
+carga, validación, diálogos, pestañas, salida inerte, cancelación, RTL, teclado/tacto y texto al 200 %.
+Lint no tiene errores y presenta 27 avisos de estilos. La validación se realiza en Windows con
+Node 24; no se reejecutó Docker en esta sesión.
+
+**Tamaño (size-limit, minificado/Brotli):** Button 1,79 kB (límite 2,5 kB), formulario 4,47 kB
+(6 kB), CSS de componentes 17,03 kB (19 kB), tokens CSS 4,51 kB (5 kB) y preset 2,40 kB (3 kB).
+El paquete básico de movimiento sigue en 6,67 kB (8 kB); todos los presupuestos publicados pasan.
+
+Capturas de revisión: [estados claros](docs/previews/ui-motion/phase3-estados-light.png),
+[estados oscuros](docs/previews/ui-motion/phase3-estados-dark.png),
+[contenido claro](docs/previews/ui-motion/phase3-contenido-light.png),
+[contenido oscuro](docs/previews/ui-motion/phase3-contenido-dark.png),
+[cabecera móvil clara](docs/previews/ui-motion/phase3-cabecera-light.png) y
+[cabecera móvil oscura](docs/previews/ui-motion/phase3-cabecera-dark.png).
+No son referencias automatizadas de regresión visual. Se regeneran tras construir Storybook con
+`pnpm --filter @betterlibs/e2e exec node scripts/capture-editorial.mjs`.
+
+**Fase 4 — Movimiento y primera página completados (2026-10-13).**
+
+- AnimatedNumber completa las cinco primitivas públicas. El servidor muestra el final y los
+  lectores de pantalla reciben una única copia accesible; los fotogramas visuales están ocultos
+  al árbol accesible. No añade regiones live ni actualizaciones de estado React por frame.
+- Formato Intl y locale explícito (es-ES por defecto), inicio opcional al entrar en vista,
+  duración con el token navigation y repetición con replayKey. Los cambios rápidos parten de
+  la cifra visible. Salir de vista, cambiar preferencias o desmontar cancela el frame pendiente;
+  la preferencia restringida y la falta de RAF presentan el final. Las cifras no cargan el motor.
+- Hero incorpora variant="editorial", con retícula 7/5 y escala fluida. CTA incorpora
+  panelTone="inverse", con fondo y texto inversos del tema. Las variantes anteriores conservan
+  sus contratos; la nueva variante editorial de Hero utiliza la escala del preset en lugar de size.
+- BentoFeatures y BentoFeature son composiciones estáticas públicas: retícula 7/5 y 5/7 desde
+  768 px, una columna en móvil, contenido/media/acciones configurables y wrappers opcionales.
+  Los títulos internos se configuran explícitamente al cambiar la jerarquía de la sección.
+- FeatureShowcase usa Tabs para selección automática o manual, controlada o interna y estados
+  deshabilitados. La vista accesible cambia inmediatamente; no retiene salidas. Los borradores
+  que deban persistir se guardan en el padre. Los bloques no importan @betterlibs/motion.
+- La portada del playground consume los cuatro bloques públicos y añade una demostración
+  explícita de cifras, sin inventar métricas. Mantiene guardar una colección, botones, tarjetas,
+  formulario, preferencias, menú móvil y navegación a la plantilla corporativa con foco e historial.
+- Cuatro stories nuevas comparan composiciones y cifras normales/reducidas/desactivadas.
+  El selector global de Storybook configura tanto CSS como MotionProvider sin remontar por
+  cambios de movimiento. Guías de composiciones, AnimatedNumber y primera página editorial
+  disponibles con ejemplos interactivos Next y referencia de los nuevos props.
+- Changeset de React y motion preparado. Las capturas de la landing cubren escritorio/móvil
+  en claro/oscuro; el CTA y el hero tienen capturas de detalle. Se corrigió el color explícito
+  de una etiqueta decorativa del bento al trasladarla a su nueva superficie.
+
+**Validación:** build de los cuatro paquetes, playground (13 páginas prerenderizadas), Storybook
+y documentación; tipos; 137 pruebas unitarias; publint estricto de los cuatro paquetes; límites
+de tamaño publicados cumplidos. La suite completa supera 319 pruebas de axe y teclado en Chromium.
+Los nuevos casos cubren SSR sin JavaScript, formato, cambios rápidos, cancelación en vivo,
+preferencia del sistema, foco, selección y texto al 200 %. La prueba reproducible de Next verifica
+interacción, cierre, foco, ausencia de errores de hidratación, SSR y fallback sin WAAPI:
+`apps/e2e/scripts/verify-phase4-docs.mjs` (build Next arrancado en 3001 o BETTERLIBS_DOCS_TEST_URL).
+Lint no tiene errores y conserva 27 avisos; entorno Windows/Node 24, sin reejecutar Docker.
+
+**Coste:** con size-limit, AnimatedNumber aislado mide 1,53 kB (nuevo límite 2 kB) y las cinco
+primitivas con el motor peer 7,38 kB (nuevo fixture con límite 8 kB). El fixture básico existente
+mantiene 6,72 kB y su límite de 8 kB. Button sigue en 1,79 kB, formulario en 4,47 kB y CSS de
+componentes en 17,34 kB (límite 19 kB). No se elevan los presupuestos existentes.
+
+Con Vite/Rolldown y Brotli por chunk, excluyendo React/ReactDOM e incluyendo el peer Motion:
+cifras aisladas 1,56 kB iniciales sin chunks diferidos; cinco primitivas 3,46 kB iniciales +
+4,43 kB diferidos (7,89 kB total). UI estática 1,84 kB; Reveal/Presence 2,78 + 4,43 kB.
+La exploración avanzada sigue en 35,54 kB y no se incorpora a la API. Los métodos difieren en
+partición y optimización. Los fixtures JS no importan CSS ni fuentes: sus costes se mantienen
+en las comprobaciones separadas existentes. El registro actualizado es
+[bundle-cost.json](docs/previews/ui-motion/bundle-cost.json).
+
+Capturas de revisión: [escritorio claro](docs/previews/ui-motion/phase4-desktop-light.png),
+[escritorio oscuro](docs/previews/ui-motion/phase4-desktop-dark.png),
+[móvil claro](docs/previews/ui-motion/phase4-mobile-light.png) y
+[móvil oscuro](docs/previews/ui-motion/phase4-mobile-dark.png).
+Se regeneran con `pnpm --filter @betterlibs/e2e exec node scripts/capture-phase4.mjs` después
+de construir el playground. No sustituyen las referencias automatizadas Linux ni la revisión
+manual con lectores de pantalla.
+
+**Fase 5 — Interacciones y catálogo completados (2026-10-13).**
+
+- Formularios editoriales: Select y Textarea comparten el marco de Field/Input; Checkbox y
+  Radio conservan controles nativos y muestran sus marcas sin dibujo prolongado. Switch usa
+  feedback breve y un thumb distinguible de su pista también en oscuro. FileInput elimina
+  ampliación/brillos al arrastrar y ajusta nombres largos; quitar un archivo restaura el foco.
+- Menús, Popover y Tooltip adoptan superficies opacas, bordes y entradas disclosure. Se
+  mantienen acciones, radio/checkbox, submenús, elementos deshabilitados, flechas y Escape.
+  El contenido cerrado se desmonta inmediatamente; forceMount permanece visualmente oculto.
+- Drawer adopta superficie plana y una entrada de 8 px desde el lado elegido en editorial.
+  Conserva scroll bloqueado, foco atrapado, contenido desplazable, pie y overlays anidados.
+  Al cerrar se desmonta el contenido y vuelve el foco; solo el fondo mantiene su salida breve.
+- Toast usa un borde de estado e icono sin brillo. La salida queda inerte, aria-hidden y sin
+  interceptar puntero. Se mantienen F8, acciones, pausa y descarte táctil. Corregida la carrera
+  en el store: un temporizador anterior no elimina una actualización con el mismo id ni
+  acorta la salida de su reemplazo.
+- Alert, Badge, Tag, Avatar, IconTile, Pagination, SocialLinks y AnnouncementBar adoptan
+  superficies planas. Skeleton editorial y los puntos de Badge son estáticos. El resto de
+  componentes de tipografía, layout y medios mantiene contratos basados en tokens; los
+  bloques restantes y navegación de páginas corresponden a la fase 6.
+- Carousel respeta restricciones data-motion de cualquier ancestro además del sistema,
+  cancela scroll suave, detiene autoplay y conserva navegación directa. Suspende autoplay
+  fuera de vista y ajusta sus controles al ampliar el texto. La UI no importa el motor.
+- Nueva capacidad opcional acotada a posiciones: useLayoutTransition(ref, transitionKey,
+  { spring }) anima hijos directos data-bl-layout con claves estables, sin wrappers, escala de
+  tamaños, arrastre ni salidas retenidas. El orden DOM cambia inmediatamente y los borradores
+  permanecen en los mismos nodos. Los cambios rápidos parten de la posición visual actual.
+- useSpringTabsIndicator adapta el indicador existente de TabsList, sin importar la UI ni
+  sustituir Radix. Solo la posición usa spring; selección, paneles, tamaño y foco cambian
+  inmediatamente. Se verifican modo manual, vertical, RTL, resize y cancelación en vivo.
+- Ambos hooks descargan mini y el generador de spring únicamente al animar un cambio real.
+  SSR y primer montaje no cargan la capacidad. Restricciones, desmontaje, carga fallida y
+  ausencia de WAAPI restauran el estado final. Los presets físicos vienen de tokens; no se
+  incorpora domMax/drag ni se eleva el presupuesto de movimiento básico.
+- Cinco stories de catálogo, ocho capturas claro/oscuro y demos compartidas con Next. Guía
+  de interacciones y ejemplos editoriales en 19 páginas del catálogo; API, wrappers, propiedad
+  de transform y límites documentados. Changeset de React y motion preparado.
+
+**Validación:** build de los cuatro paquetes, playground (13 páginas prerenderizadas), Storybook
+y documentación; tipos; 145 pruebas unitarias (98 React, 22 motion, 25 tokens); publint estricto
+de los cuatro paquetes; presupuestos publicados cumplidos. La regresión completa pasa
+345 pruebas de axe y teclado en Chromium, incluidos 16 nuevos casos de formulario, menús,
+cuatro lados de Drawer, overlays anidados, Toast/F8, tacto, RTL, cancelación y fallback.
+Se revisan estados de error/éxito, borradores, contraste y texto al 200 %. La verificación de
+Next comprueba formularios, foco, Tabs, posiciones, SSR y fallback sin WAAPI, sin errores de
+hidratación: `apps/e2e/scripts/verify-phase5-docs.mjs` (build Next en 3001 o
+BETTERLIBS_DOCS_TEST_URL). Lint sin errores, con 30 avisos de estilos. Entorno Windows/Node 24;
+Docker, Firefox/WebKit y lectores de pantalla no se reejecutaron en esta entrega.
+
+**Coste:** size-limit mide posiciones con su motor en 5,72 kB (nuevo límite 10 kB) y Tabs con
+spring, UI y Radix en 13,51 kB (nuevo límite 30 kB). Button sigue en 1,79 kB, formulario básico
+en 4,47 kB, CSS de componentes en 17,81 kB (límite 19 kB) y tokens CSS en 4,51 kB (5 kB).
+Movimiento básico y cinco primitivas mantienen 6,67 kB y 7,38 kB, ambos bajo sus límites de 8 kB.
+
+Con Vite/Rolldown y Brotli por chunk, excluyendo React/ReactDOM e incluyendo el motor peer:
+posiciones 1,48 kB iniciales + 4,74 kB diferidos = 6,23 kB; Tabs con spring, UI y Radix
+9,22 + 4,74 = 13,96 kB. Ambos comparten la capacidad diferida en una aplicación. Los fixtures
+estático, básico, cifras y cinco primitivas conservan sus costes anteriores. La exploración
+completa domMax/layout/drag sigue en 35,54 kB y no se aprueba para la API; se reduce el alcance
+a continuidad de posiciones antes de incorporar capacidades avanzadas. CSS y fuentes siguen
+midiéndose por separado. Registro: [bundle-cost.json](docs/previews/ui-motion/bundle-cost.json).
+
+Capturas de revisión: [formulario claro](docs/previews/ui-motion/phase5-formularios-light.png),
+[formulario oscuro](docs/previews/ui-motion/phase5-formularios-dark.png),
+[Drawer móvil claro](docs/previews/ui-motion/phase5-menus-y-overlays-light.png),
+[Drawer móvil oscuro](docs/previews/ui-motion/phase5-menus-y-overlays-dark.png),
+[posiciones claras](docs/previews/ui-motion/phase5-posiciones-light.png),
+[posiciones oscuras](docs/previews/ui-motion/phase5-posiciones-dark.png),
+[contenido móvil claro](docs/previews/ui-motion/phase5-contenido-light.png) y
+[contenido móvil oscuro](docs/previews/ui-motion/phase5-contenido-dark.png).
+Se regeneran con `pnpm --filter @betterlibs/e2e exec node scripts/capture-phase5.mjs` después
+de construir Storybook. No son referencias automatizadas Linux.
+
+**Siguiente fase:** fase 6, tres plantillas completas, bloques restantes y recetas de navegación
+con foco, historial y scroll correctos. Siguen pendientes las comprobaciones entre motores,
+lectores de pantalla, referencias Linux y mediciones de rendimiento del plan completo.
 
 **Entorno de desarrollo Docker completado (2026-10-12).**
 
@@ -386,8 +567,8 @@ Estimaciones orientativas en días de trabajo efectivo para una persona familiar
 | 0. Piloto de dirección — completada | Pantalla de referencia con Header, Hero, Card, Button y una interacción, en escritorio y móvil | Comparación visual con la demo actual; identidad, lectura y movimiento evaluables en navegador | 1–2 días |
 | 1. Fundamentos — completada | Paleta semántica, escala tipográfica, superficies, radios y gramática de movimiento | Temas claro/oscuro, contraste validado y ejemplos de tokens; contenido largo y zoom comprobados | 2–3 días |
 | 2. Arquitectura y coste — completada | Paquete opcional, límites RSC, provider, piloto de distribución CSS y fixtures de consumo | UI básica sin Motion en su bundle; demo Vite y Next; coste inicial y diferido registrado | 2–4 días |
-| 3. UI prioritaria | Los ocho componentes del MVP y sus estados | Stories, documentación y comportamiento de teclado/tacto correctos; sin regresiones funcionales | 3–5 días |
-| 4. Movimiento y primera página | Cinco primitivas, cuatro composiciones y landing de Betterlibs | MVP utilizable con documentación; contenido visible en SSR, movimiento reducido y efectos interrumpibles | 3–5 días |
+| 3. UI prioritaria — completada | Los ocho componentes del MVP y sus estados | Stories, documentación y comportamiento de teclado/tacto correctos; sin regresiones funcionales | 3–5 días |
+| 4. Movimiento y primera página — completada | Cinco primitivas, cuatro composiciones y landing de Betterlibs | MVP utilizable con documentación; contenido visible en SSR, movimiento reducido y efectos interrumpibles | 3–5 días |
 | 5. Interacciones y catálogo | Adaptar los componentes restantes y añadir adaptaciones avanzadas con una API coherente | Formularios, menús, overlays y layout probados; capacidad avanzada cargada solo donde se utiliza | 3–5 días |
 | 6. Secciones y navegación | Tres plantillas, bloques restantes y recetas de navegación | Webs con contenido completo, imágenes coherentes y navegación con foco/historial/scroll correctos | 4–7 días |
 | 7. Documentación completa | Galería, controles de demos, guías, APIs y migración | Un desarrollador puede instalar, personalizar y montar una página siguiendo solo las docs | 3–5 días |

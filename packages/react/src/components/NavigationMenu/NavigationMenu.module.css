@@ -115,11 +115,12 @@
   }
 
   .content[data-state="open"] {
-    animation: enter var(--bl-duration-normal) var(--bl-ease-enter);
+    animation: enter var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .content[data-state="closed"] {
-    animation: exit var(--bl-duration-fast) var(--bl-ease-exit);
+    display: none;
+    animation: none;
   }
 
   .links {
@@ -259,11 +260,28 @@
     }
   }
 
-  @keyframes exit {
-    to {
-      opacity: 0;
-      transform: translateY(-0.25rem);
-    }
+  :where([data-preset="editorial"]) .content {
+    border: 1px solid var(--bl-color-border-input);
+    background: var(--bl-color-surface-raised);
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  :where([data-preset="editorial"]) .linkIcon {
+    border-radius: var(--bl-radius-sm);
+    background: var(--bl-color-accent-subtle);
+    box-shadow: none;
+    transform: none;
+    transition: none;
+  }
+
+  :where([data-preset="editorial"]) :is(.trigger, .panelLink, .chevron) {
+    transition-duration: var(--bl-motion-feedback-duration);
+    transition-timing-function: var(--bl-motion-feedback-easing);
+  }
+
+  :where([data-preset="editorial"]) .linkText {
+    overflow-wrap: anywhere;
   }
 
   @media (prefers-reduced-motion: reduce) {

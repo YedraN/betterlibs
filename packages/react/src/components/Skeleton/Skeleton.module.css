@@ -41,6 +41,11 @@
     inline-size: 70%;
   }
 
+  :where([data-preset="editorial"]) .root {
+    background: var(--bl-color-bg-muted);
+    animation: none;
+  }
+
   @keyframes bl-shimmer {
     from {
       background-position: 150% 0;

@@ -7,6 +7,8 @@
  *   import '@betterlibs/react/styles.css'
  */
 
+export type { BentoFeatureProps, BentoFeaturesProps } from './blocks/BentoFeatures/BentoFeatures'
+export { BentoFeature, BentoFeatures } from './blocks/BentoFeatures/BentoFeatures'
 export { BlogGrid, type BlogGridProps } from './blocks/Blog/BlogGrid'
 export { formatPostDate, type Post, PostCard, type PostCardProps } from './blocks/Blog/PostCard'
 export {
@@ -35,6 +37,11 @@ export {
 export { CTA, type CTAProps } from './blocks/CTA/CTA'
 export { FAQ, type FAQProps, type FaqItem } from './blocks/FAQ/FAQ'
 export { type Feature, FeatureGrid, type FeatureGridProps } from './blocks/FeatureGrid/FeatureGrid'
+export type {
+  FeatureShowcaseItem,
+  FeatureShowcaseProps,
+} from './blocks/FeatureShowcase/FeatureShowcase'
+export { FeatureShowcase } from './blocks/FeatureShowcase/FeatureShowcase'
 export { Hero, type HeroProps } from './blocks/Hero/Hero'
 export { HeroVideo, type HeroVideoProps } from './blocks/Hero/HeroVideo'
 export { LogoCloud, type LogoCloudProps, type LogoItem } from './blocks/LogoCloud/LogoCloud'

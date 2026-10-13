@@ -5,7 +5,7 @@ description: Silueta del contenido mientras carga, para evitar saltos y dar sens
 
 import { Skeleton, Stack } from '@betterlibs/react'
 
-<Preview>
+<Preview preset="editorial">
   <div aria-busy="true" style={{ maxWidth: '24rem' }}>
     <Stack gap="4">
       <Skeleton variant="rect" height="10rem" />
@@ -46,3 +46,11 @@ La animación se detiene con «reducir movimiento».
 ## Relacionados
 
 - [Spinner](/docs/componentes/feedback/spinner)
+
+
+## Preset editorial
+
+El placeholder editorial es estático: comunica carga sin shimmer continuo.
+
+Consulta la [guía de interacciones editoriales](/docs/guias/interacciones-editoriales)
+para combinar preferencias, formularios, portales y capacidades opcionales.

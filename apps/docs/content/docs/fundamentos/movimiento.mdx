@@ -78,6 +78,23 @@ Los springs son parámetros físicos para un motor compatible. Úsalos en indica
 necesiten continuidad; el movimiento de lectura usa curvas sin rebote. El paquete opcional `@betterlibs/motion` utiliza estos roles para entradas, secuencias y salidas.
 Consulta la [guía de movimiento opcional](/docs/guias/movimiento-opcional).
 
+## Preferencia de la aplicación para la UI CSS
+
+Aplica `data-motion="system"`, `reduced` u `off` a `<html>` o a una zona. Los dos últimos eliminan
+las animaciones y transiciones CSS, incluso si cambias el atributo durante una interacción.
+El sistema reducido se respeta siempre. Una zona hija no puede anular una restricción de su padre.
+
+```tsx
+<div data-preset="editorial" data-motion="off">
+  <Button iconEnd={<ArrowRightIcon />}>Guardar colección</Button>
+</div>
+```
+
+Los portales deben estar dentro de la zona con `PortalProvider`, o recibir la preferencia en
+`<html>`. `MotionProvider` no introduce DOM ni configura automáticamente este atributo: cuando
+combines CSS con las primitivas opcionales, pasa la misma selección al atributo y al proveedor.
+La preferencia de CSS no añade el motor Motion al bundle de `@betterlibs/react`.
+
 ## Integración con JavaScript
 
 Para WAAPI u otro motor, comprueba `matchMedia('(prefers-reduced-motion: reduce)')` y escucha

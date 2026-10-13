@@ -70,12 +70,18 @@
     cursor: pointer;
   }
 
+  :where([data-preset="editorial"]) .trigger {
+    font-family: var(--bl-font-family-display);
+  }
+
   .root:is([data-variant="bordered"], [data-variant="separated"]) .trigger {
     padding-inline: var(--bl-space-5);
   }
 
   .title {
     flex: 1;
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
   }
 
   .trigger:hover .title {
@@ -122,6 +128,14 @@
       color var(--bl-duration-normal) var(--bl-ease-standard);
   }
 
+  :where([data-preset="editorial"]) .chevron {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    transition: transform var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
+  }
+
   .trigger:hover .chevron {
     color: var(--bl-color-text);
   }
@@ -137,11 +151,13 @@
   }
 
   .content[data-state="open"] {
-    animation: open var(--bl-duration-slow) var(--bl-ease-out);
+    animation: open var(--bl-motion-disclosure-duration) var(--bl-motion-disclosure-easing);
   }
 
   .content[data-state="closed"] {
-    animation: close var(--bl-duration-normal) var(--bl-ease-standard);
+    block-size: 0;
+    animation: close var(--bl-motion-disclosure-exit-duration) var(--bl-motion-disclosure-easing);
+    pointer-events: none;
   }
 
   .body {
@@ -159,6 +175,19 @@
 
   .body > :where(* + *) {
     margin-block-start: var(--bl-space-3);
+  }
+
+  :where([data-preset="editorial"]) .trigger[data-state="open"] .chevron {
+    background: transparent;
+    color: inherit;
+  }
+
+  :where([data-preset="editorial"]) .root[data-variant="separated"] .item {
+    box-shadow: inset 0 0 0 1px var(--bl-color-border);
+  }
+
+  :where([data-preset="editorial"]) .root[data-variant="separated"] .item[data-state="open"] {
+    box-shadow: inset 0 0 0 2px var(--bl-color-border-input);
   }
 
   @keyframes open {

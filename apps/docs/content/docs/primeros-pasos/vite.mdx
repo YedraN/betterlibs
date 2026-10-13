@@ -66,3 +66,13 @@ document.head.append(style)
   Si tu tema no cambia en tiempo de ejecución, genera el CSS en un script de build y guárdalo como
   archivo `.css`: así llega con el primer render.
 </Callout>
+
+## Dirección editorial y movimiento
+
+Tras la instalación local, añade editorial.css y data-preset="editorial" a tu aplicación. Carga
+tus fuentes en main.tsx y configura MotionProvider/data-motion con la misma preferencia cuando
+uses el paquete opcional. El playground muestra este consumo con HTML prerenderizado.
+
+No sustituyas tu router por el adaptador de demostración. Conserva su historial y restauración
+de scroll; usa la [receta de navegación](/docs/guias/navegacion-de-paginas) como referencia y
+comprueba las diferencias con el router que ya utiliza tu producto.

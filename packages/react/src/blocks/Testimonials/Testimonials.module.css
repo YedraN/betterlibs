@@ -111,4 +111,22 @@
   .card[data-variant="featured"] .logo {
     margin-inline-start: 0;
   }
+
+  :where([data-preset="editorial"]) .card {
+    min-inline-size: 0;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+    box-shadow: none;
+    overflow-wrap: anywhere;
+  }
+  :where([data-preset="editorial"]) .card[data-variant="featured"] {
+    border: 0;
+  }
+  :where([data-preset="editorial"]) .card[data-variant="featured"] .quote {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    letter-spacing: var(--bl-tracking-tight);
+  }
+  :where([data-preset="editorial"]) .author {
+    flex-wrap: wrap;
+  }
 }

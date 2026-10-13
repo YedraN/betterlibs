@@ -198,12 +198,15 @@ test('la animación usa los overrides CSS de los tokens compartidos', async ({ p
     ;(element as HTMLElement).style.setProperty('--bl-motion-reveal-duration', '2s')
   })
   await page.getByRole('button', { name: 'Reproducir' }).click()
-  const durations = await page
-    .locator('[data-preview-card]')
-    .evaluate((element) =>
-      element.getAnimations().map((animation) => animation.effect?.getTiming().duration),
+  await expect
+    .poll(() =>
+      page
+        .locator('[data-preview-card]')
+        .evaluate((element) =>
+          element.getAnimations().map((animation) => animation.effect?.getTiming().duration),
+        ),
     )
-  expect(durations).toContain(2000)
+    .toContain(2000)
 })
 
 test('el contenido y los controles se adaptan a texto ampliado al 200 %', async ({ page }) => {

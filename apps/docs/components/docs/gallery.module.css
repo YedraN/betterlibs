@@ -1,0 +1,123 @@
+.gallery {
+  display: grid;
+  gap: 3rem;
+  min-inline-size: 0;
+}
+.filters {
+  display: grid;
+  gap: 1rem;
+  border-block-end: 1px solid var(--color-fd-border);
+  padding-block-end: 1.5rem;
+}
+.filters label {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.filters input {
+  max-inline-size: 32rem;
+  min-block-size: 2.75rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.375rem;
+  background: var(--color-fd-background);
+  color: var(--color-fd-foreground);
+  padding: 0.75rem;
+  font: inherit;
+}
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.categories button {
+  min-block-size: 2.75rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  color: var(--color-fd-foreground);
+  font: inherit;
+  font-size: 0.875rem;
+}
+.categories button[aria-pressed="true"] {
+  background: var(--color-fd-primary);
+  color: var(--color-fd-primary-foreground);
+}
+.filters p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.entry {
+  min-inline-size: 0;
+}
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+.heading h2,
+.gallery > section > h2 {
+  margin: 0.375rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.heading p {
+  color: var(--color-fd-muted-foreground);
+}
+.category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-fd-muted-foreground);
+}
+.gallery a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  font-size: 0.875rem;
+}
+.pages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+  margin-block: 1rem;
+}
+.pages article {
+  padding: 1rem;
+  border: 1px solid var(--color-fd-border);
+  border-radius: 0.5rem;
+}
+.pages h3 {
+  margin-block: 1rem 0.5rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.pages p {
+  margin-block-end: 1rem;
+  color: var(--color-fd-muted-foreground);
+}
+.cover {
+  display: grid;
+  gap: 0.75rem;
+  aspect-ratio: 4 / 3;
+  padding: 1.5rem;
+  color: #232621;
+}
+.cover span {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.cover div {
+  height: 0.5rem;
+  background: currentColor;
+  max-inline-size: 70%;
+}
+.cover div:last-child {
+  max-inline-size: 40%;
+}
+.gallery :is(input, button, a):focus-visible {
+  outline: 2px solid var(--color-fd-ring);
+  outline-offset: 3px;
+}

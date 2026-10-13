@@ -10,10 +10,12 @@ página estática; añade movimiento en una frontera cliente pequeña cuando apo
 
 ## 1. Instalar y cargar los estilos
 
+Sigue primero [instalación](./instalacion) para construir el checkout o preparar tarballs locales.
+La publicación pública está pendiente. En el monorepo, playground y docs ya declaran las
+ dependencias workspace de UI y movimiento.
+
 ```bash
-pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
-# Solo para movimiento:
-pnpm add @betterlibs/motion motion
+pnpm exec turbo run build --filter='./packages/*'
 ```
 
 Carga las fuentes en la aplicación, con archivos locales o el paquete de tu elección:
@@ -108,6 +110,6 @@ selección a MotionProvider y data-motion, también en los portales.
 En Storybook, **Bloques → Editorial → Primera página** permite comparar las composiciones y las
 cifras. La portada del playground combina la receta con guardar una colección, probar botones,
 editar un formulario y navegar a la plantilla corporativa. El menú y el router conservan título,
-foco, historial y scroll. Las transiciones entre rutas no se incorporan en esta fase.
+foco, historial y scroll. La [receta de navegación](/docs/guias/navegacion-de-paginas) añade entradas sin cambiar de router.
 
 La [referencia de composiciones](/docs/bloques/editoriales) describe los contratos y las opciones.

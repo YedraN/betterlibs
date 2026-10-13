@@ -37,13 +37,13 @@ if (!Object.hasOwn(commands, service ?? '')) {
 
 const children = new Set()
 let stopping = false
-let apiWatcher
+const apiWatchers = []
 let apiTimer
 
 function shutdown(code) {
   if (stopping) return
   stopping = true
-  apiWatcher?.close()
+  for (const watcher of apiWatchers) watcher.close()
   clearTimeout(apiTimer)
   for (const child of children) {
     try {
@@ -106,9 +106,17 @@ if (!stopping) {
   launch(commands[service], true)
   if (service === 'docs') {
     // The API reference is derived from source, not only the compiled packages.
-    apiWatcher = watch('packages/react/src', { recursive: true }, () => {
-      clearTimeout(apiTimer)
-      apiTimer = setTimeout(() => launch(['--filter', '@betterlibs/docs', 'generate']), 300)
-    })
+    for (const directory of [
+      'packages/react/src',
+      'packages/motion/src',
+      'apps/docs/components/docs/examples',
+    ]) {
+      apiWatchers.push(
+        watch(directory, { recursive: true }, () => {
+          clearTimeout(apiTimer)
+          apiTimer = setTimeout(() => launch(['--filter', '@betterlibs/docs', 'generate']), 300)
+        }),
+      )
+    }
   }
 }

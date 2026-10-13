@@ -397,6 +397,11 @@ function PilotContent({
               >
                 <RouterLink href="/plantillas/corporativa">Explorar plantilla</RouterLink>
               </Button>
+              <div className={styles.templateLinks} aria-label="Plantillas editoriales">
+                <RouterLink href="/plantillas/producto">Producto ↗</RouterLink>
+                <RouterLink href="/plantillas/estudio">Estudio ↗</RouterLink>
+                <RouterLink href="/plantillas/articulo">Artículo ↗</RouterLink>
+              </div>
             </Reveal>
           </section>
           <CTA

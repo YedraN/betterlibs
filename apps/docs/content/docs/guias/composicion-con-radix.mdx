@@ -1,0 +1,55 @@
+---
+title: Composición y foco
+description: asChild, refs, contenido condicional y contratos de los controles Radix.
+icon: Layers
+---
+
+## Un control, un elemento interactivo
+
+Button asChild reutiliza un único hijo enlazado. DialogTrigger y DialogClose permiten componer
+un Button; no crees button dentro de button ni enlaces dentro de una tarjeta con enlace extendido.
+Un componente propio debe transmitir props y ref al elemento real, como describe
+[la guía de Radix](https://www.radix-ui.com/primitives/docs/guides/composition).
+
+```tsx
+'use client'
+import { Button, Dialog, DialogContent, DialogTrigger } from '@betterlibs/react'
+
+export function Details() {
+  return <Dialog>
+    <DialogTrigger asChild><Button>Ver detalles</Button></DialogTrigger>
+    <DialogContent title="Detalles del proyecto" description="Contexto para tomar una decisión.">
+      <p>Contenido de tu proyecto.</p>
+    </DialogContent>
+  </Dialog>
+}
+```
+
+En React 19 una ref puede ser prop de tu componente. Pasa los handlers y atributos que recibe;
+no reemplaces onClick de un trigger sin encadenarlo. Button no admite loading junto a asChild:
+para un enlace conserva la navegación y presenta el estado de la acción en un control separado.
+
+## Presence y modal no son equivalentes
+
+Presence sirve para contenido condicional en la página. Durante la salida deja de ser interactivo
+antes de desaparecer y devuelve el foco solo si estaba dentro. Su returnFocusRef apunta a un
+control montado. No añade role=dialog, foco atrapado ni scroll bloqueado.
+
+Dialog y Drawer mantienen las reglas de Radix: título, descripción, Escape, trampa de foco y
+retorno al trigger. No envuelvas DialogContent en Presence para retrasar su cierre. La UI desmonta
+el contenido al cerrar; el fondo puede completar su salida sin interceptar interacción.
+
+## Pestañas y posiciones
+
+El indicador opcional usa la ref de TabsList. Mantén los triggers y paneles de la UI para conservar
+flechas, selección manual/automática, RTL y aria-controls. La animación no decide el panel activo.
+
+useLayoutTransition requiere hijos directos data-bl-layout y claves estables. El orden accesible
+cambia con React inmediatamente. Coloca otra transformación o un hover en un hijo del wrapper,
+no en el mismo nodo animado. No usa drag ni mantiene nodos salientes.
+
+## Revisión de una composición
+
+Prueba abrir con teclado, editar, cerrar con Escape, reabrir y comprobar el borrador. Cambia tema
+y movimiento durante el efecto. Repite con un overlay anidado y en táctil. La galería ofrece
+[un ejemplo con portal y otro con contenido condicional](/docs/galeria); sus códigos son copiables.

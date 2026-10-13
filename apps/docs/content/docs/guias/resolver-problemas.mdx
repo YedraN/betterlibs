@@ -1,0 +1,58 @@
+---
+title: Resolver problemas
+description: Instalación local, estilos, SSR, portales y capacidades que no se animan.
+icon: Wrench
+---
+
+## npm devuelve E404
+
+El checkout no demuestra que exista una versión pública. La comprobación del registro público
+el 13 de octubre de 2026 devolvió E404 para @betterlibs/react y @betterlibs/motion.
+Usa [el monorepo o tarballs locales](/docs/primeros-pasos/instalacion); no reemplaces los nombres
+por paquetes de terceros parecidos. Los comandos del registro se usarán cuando haya una versión
+pública que puedas comprobar.
+
+## No se encuentra dist/index.js o styles.css
+
+Construye los paquetes antes de consumir sus exports:
+
+```bash
+pnpm exec turbo run build --filter='./packages/*'
+```
+
+En el checkout, workspace:* enlaza los paquetes, pero sus exports siguen apuntando a dist.
+Un cambio de dependencias o configuración requiere reconstruir la imagen Docker; las fuentes
+habituales se recargan. Consulta docker/README.md del proyecto.
+
+## Los componentes se ven sin estilo
+
+Carga tokens/index.css y react/styles.css una vez. Para editorial, importa editorial.css y
+marca data-preset="editorial". Verifica que no has cargado solo CSS de Fumadocs o Tailwind:
+los estilos de la documentación y los de tu aplicación tienen ámbitos diferentes.
+
+## El diálogo no sigue el tema
+
+Un portal en body no hereda atributos de un contenedor dentro de main. Aplica los mismos atributos
+al contenedor de PortalProvider, fuera de zonas que recorten el overlay. La galería ofrece una
+comparación en vivo; [SSR y preferencias](/docs/guias/ssr-y-preferencias) explica la composición.
+
+## No hay animación
+
+Comprueba reduced/off, la preferencia del sistema, si el elemento está en vista y si una ref está
+montada. ScrollProgress indica posición y no interpola. AnimatedNumber necesita startValue para
+contar al montar; Reveal una nueva replayKey para repetir con once=true.
+
+La carga del motor y WAAPI son mejoras progresivas: si fallan, el contenido se conserva. No fuerces
+movimiento para ocultar ese fallback. En wrappers span usa display:block o inline-block.
+
+## Errores de hidratación o eventos desde el servidor
+
+Mantén estado inicial y locale iguales, y no leas APIs del navegador durante render compartido.
+Mueve callbacks a una frontera cliente; pasa contenido de servidor como children. Una ref o un
+handler no se transmite como dato serializable desde el servidor. [Guía](/docs/guias/ssr-y-preferencias).
+
+## El clic de envío parece no funcionar
+
+Revisa required, mensajes y foco del resumen. Tras corregir los campos, el envío debe funcionar
+con una única pulsación. La galería reproduce este recorrido; no simula una petición de backend.
+Para respuestas reales, controla loading, errores del servidor y confirmación en tu aplicación.

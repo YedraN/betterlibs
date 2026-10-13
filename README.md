@@ -1,11 +1,11 @@
 # Betterlibs UI
 
 Librería de componentes React para **construir webs con identidad**: UI accesible, componentes
-personalizables y bloques de página. La nueva dirección editorial y de movimiento está en desarrollo.
+personalizables y bloques de página. La dirección editorial y de movimiento tiene tres plantillas y una galería interactiva; el cierre de calidad está pendiente.
 
-```bash
-pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
-```
+El registro público todavía no ofrece esta edición. Para probar el proyecto, ejecuta
+`./docker.sh`; para consumirlo desde otra app, construye y empaqueta los workspaces siguiendo
+[la instalación local](apps/docs/content/docs/primeros-pasos/instalacion.mdx).
 
 ```tsx
 import '@betterlibs/tokens/index.css'
@@ -14,7 +14,7 @@ import '@betterlibs/react/styles.css'
 
 ## Principios
 
-- **Accesibilidad WCAG 2.2 AA** como mínimo: teclado, foco visible, contraste y ARIA correctos.
+- **Objetivo WCAG 2.2 AA**: teclado, foco visible, contraste y ARIA; la validación de cierre entre motores y con lectores de pantalla sigue pendiente.
 - **Tu marca, no la nuestra**: todo el estilo sale de design tokens (variables CSS).
 - **Sin runtime de estilos**: CSS Modules + variables CSS, compatible con SSR y React Server Components.
 - **Bloques listos para usar**: hero, testimonios, precios, FAQ, contacto, cookies (RGPD)…
@@ -26,7 +26,7 @@ import '@betterlibs/react/styles.css'
 | --- | --- |
 | [`@betterlibs/tokens`](packages/tokens) | Design tokens y temas como variables CSS |
 | [`@betterlibs/react`](packages/react) | Componentes, bloques y patrones |
-| [`@betterlibs/motion`](packages/motion) | Entradas, secuencias y salidas opcionales, con preferencias y carga diferida |
+| [`@betterlibs/motion`](packages/motion) | Entradas, secuencias, cifras, lectura y posiciones opcionales, con preferencias y carga diferida |
 | [`@betterlibs/icons`](packages/icons) | Iconos SVG como componentes React |
 
 ## Preset editorial
@@ -66,9 +66,21 @@ http://localhost:3000/docs y Storybook en http://localhost:6006. Los cambios de 
 recargan y los contenedores tienen reinicio automático al arrancar Docker.
 No necesitas instalar Node ni pnpm en el host. [Guía de Docker](docker/README.md).
 
+## Plantillas editoriales
+
+La portada enlaza tres composiciones completas, con temas y movimiento configurable:
+
+- Producto: `/plantillas/producto`, con tablero, precios y formulario.
+- Estudio: `/plantillas/estudio`, con casos de trabajo, proceso y equipo.
+- Artículo: `/plantillas/articulo`, con índice y progreso de lectura.
+
+En Docker comparten el origen `http://localhost:8080`. El código editable está en
+`apps/playground/src/templates/editorial`; las imágenes SVG son locales. Las recetas de navegación
+se prueban en el playground y en Next App Router. [Estado y siguiente fase](PLAN_UI_MOTION.md).
+
 ## Desarrollo
 
-Requisitos: Node ≥ 22 y pnpm (`corepack enable`).
+Entorno verificado: Node 24 y pnpm 12.4.1 (versión declarada en `packageManager`).
 
 ```bash
 pnpm install
@@ -81,17 +93,12 @@ pnpm lighthouse  # Lighthouse CI sobre las plantillas
 pnpm size        # presupuesto de tamaño
 ```
 
-## Roadmap
+## Estado del rediseño
 
-- [x] **Fase 0** — Monorepo, tooling y CI
-- [x] **Fase 1** — Tokens y theming
-- [x] **Fase 2** — Layout y componentes base
-- [x] **Fase 3** — Formularios
-- [x] **Fase 4** — Interactivos y overlays
-- [x] **Fase 5** — Navegación
-- [x] **Fase 6** — Bloques corporativos
-- [x] **Fase 7** — Plantillas y documentación completa
-- [x] **Fase 8** — Endurecimiento y release 1.0
+Las fases 0–7 del [plan de UI y movimiento](PLAN_UI_MOTION.md) están terminadas: fundamentos,
+UI editorial, movimiento opcional, catálogo, tres plantillas y documentación. La fase 8 cierra
+calidad y distribución: comprobaciones entre motores, referencias visuales, rendimiento y publicación.
+El historial anterior vive en [PLAN.md](PLAN.md); no acredita una versión publicada del rediseño.
 
 ## Contribuir
 
@@ -104,6 +111,12 @@ pnpm --filter @betterlibs/storybook dev   # http://localhost:6006
 ```
 
 ## Documentación
+
+En Docker: [portada](http://localhost:3000), [galería](http://localhost:3000/docs/galeria) y
+[referencia de movimiento](http://localhost:3000/docs/movimiento). La galería reúne componentes,
+movimiento, secciones y páginas con código copiable, tema, preset y preferencias por ejemplo.
+Las guías cubren instalación local, primera página, SSR, Radix, rendimiento, navegación y migración.
+
 
 ```bash
 pnpm --filter @betterlibs/docs dev   # http://localhost:3000
@@ -124,3 +137,7 @@ Para usar otro dominio, configura `VITE_DOCS_URL` siguiendo
 [`apps/playground/.env.example`](apps/playground/.env.example).
 
 El estado de esta nueva dirección está en [PLAN_UI_MOTION.md](PLAN_UI_MOTION.md).
+
+Para desarrollo fuera de Docker, configura `NEXT_PUBLIC_PLAYGROUND_URL=http://localhost:5173`
+en `apps/docs/.env.local`; la documentación enlaza 8080 por defecto. Puedes cambiar Storybook con
+`NEXT_PUBLIC_STORYBOOK_URL`. Docker calcula ambos enlaces a partir de los puertos de `.env`.

@@ -88,6 +88,7 @@ export function FAQ({
       actions,
       tone,
       spacing,
+      background,
       containerSize,
       id,
       className,
@@ -99,6 +100,7 @@ export function FAQ({
         id={id}
         tone={tone}
         spacing={spacing}
+        background={background}
         className={className}
         style={style}
         aria-labelledby={title ? titleId : undefined}

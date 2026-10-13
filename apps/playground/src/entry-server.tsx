@@ -9,6 +9,9 @@ import { consumePageTitle } from './site/SiteLayout'
 export const routes = [
   '/',
   '/plantillas/corporativa',
+  '/plantillas/producto',
+  '/plantillas/estudio',
+  '/plantillas/articulo',
   '/servicios',
   '/sobre-nosotros',
   '/contacto',

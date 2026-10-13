@@ -1,0 +1,20 @@
+---
+title: TextReveal
+description: Líneas editoriales explícitas, envoltura en móvil y una sola lectura accesible.
+---
+
+TextReveal compone Reveal y Stagger en un span block. lines contiene texto, no nodos React:
+no divide enlaces, palabras ni líneas medidas automáticamente. Cada línea puede envolver texto
+en pantallas estrechas. Usa un título o párrafo como padre; el wrapper acepta ref y atributos.
+
+```tsx
+<h1><TextReveal lines={['Ideas claras.', 'Diseño que deja huella.']} /></h1>
+```
+
+La copia accesible completa se lee una vez; las líneas visuales son aria-hidden. SSR mantiene
+el contenido visible. once=true, replayKey y interval siguen los contratos de Reveal/Stagger.
+No requiere CSS propio ni impone alturas o clipping. [Lectura](/docs/guias/lectura-y-texto).
+
+<Preview preset="editorial"><ReadingDemo /></Preview>
+<PropsTable name="TextRevealProps" />
+<FunctionTable name="TextReveal" />

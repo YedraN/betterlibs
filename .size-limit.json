@@ -1,5 +1,19 @@
 [
   {
+    "name": "Lectura y texto (incluye motor diferido)",
+    "path": "packages/motion/fixtures/reading.tsx",
+    "import": "{ ReadingFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "8 kB"
+  },
+  {
+    "name": "ScrollProgress (sin motor)",
+    "path": "packages/motion/fixtures/progress.tsx",
+    "import": "{ ProgressFixture }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "2 kB"
+  },
+  {
     "name": "Tabs con spring (UI, Radix y capacidad diferida)",
     "path": "packages/motion/fixtures/tabs-spring.tsx",
     "import": "{ SpringTabsFixture }",
@@ -107,7 +121,7 @@
     "limit": "3.2 kB"
   },
   {
-    "name": "@betterlibs/motion b\u00e1sico (incluye motor peer)",
+    "name": "@betterlibs/motion básico (incluye motor peer)",
     "path": "packages/motion/dist/index.js",
     "import": "{ MotionProvider, Reveal, Stagger, Presence }",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
@@ -120,7 +134,7 @@
     "limit": "4 kB"
   },
   {
-    "name": "Fixture UI est\u00e1tica (sin motor)",
+    "name": "Fixture UI estática (sin motor)",
     "path": "packages/motion/fixtures/static.tsx",
     "import": "{ StaticFixture }",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],

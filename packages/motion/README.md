@@ -4,9 +4,11 @@ Movimiento opcional para páginas React: `MotionProvider`, `Reveal`, `Stagger`, 
 `useMotionPreferences` y `useMotionAnimation`. React 19+, Motion 14.1+ y los tokens son peers
 explícitos. `@betterlibs/react` no depende de este paquete ni del motor.
 
-```bash
-pnpm add @betterlibs/motion @betterlibs/tokens motion
-```
+La publicación pública de esta edición está pendiente. Usa el checkout o los tarballs locales
+y añade el peer `motion@^14.1.0`, siguiendo la
+[guía de instalación](../../apps/docs/content/docs/primeros-pasos/instalacion.mdx).
+La referencia completa y las guías de SSR, preferencias y composición están en
+`apps/docs/content/docs/movimiento` y `apps/docs/content/docs/guias`.
 
 ```tsx
 'use client'
@@ -92,3 +94,19 @@ reducido/off o al fallar la carga. El primer render no descarga la capacidad.
 
 Para un wrapper `span` con `rise`, aplica `display: inline-block` (los elementos inline no
 reemplazados no admiten transforms).
+
+## Lectura y páginas
+
+`TextReveal` recibe `lines: string[]`, con `interval`, `once` y `replayKey` opcionales. Cada línea
+explícita puede envolver texto en móvil. El `span` exterior acepta ref y atributos; colócalo dentro
+de un título o párrafo. El servidor conserva el texto visible y una única copia accesible; no divide
+contenido interactivo ni mide saltos automáticos. Reutiliza Reveal y su capacidad diferida.
+
+`ScrollProgress` presenta un `<progress>` nativo sin motor, con `label` y `targetRef` opcionales.
+Sin referencia mide el documento; con referencia, el artículo montado. Su valor sigue el scroll
+directamente también en off/reducido, sin renders React por frame ni anuncios live. Admite ref,
+atributos y estilos; `max` y `value` los administra el componente. Limpia listeners y observadores.
+
+Las transiciones de página son recetas de la aplicación: History + View Transition en el playground
+y entrada tras un cambio confirmado de pathname en Next App Router. La librería no administra rutas,
+títulos, foco ni historial. Ejemplos y límites en las guías «Lectura y texto» y «Navegación de páginas».

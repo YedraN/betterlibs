@@ -1,0 +1,21 @@
+---
+title: Reveal
+description: Entrada en viewport con contenido inicial visible, ref y repetición.
+---
+
+Reveal añade un div por defecto y observa el viewport. preset="rise", once=true; fade es la
+alternativa sin desplazamiento. Su ref llega al wrapper. No aplica estilos ocultos al HTML inicial.
+Cambiar replayKey repite mientras está en vista; once=false permite entradas sucesivas.
+
+```tsx
+<ul><Stagger><Reveal as="li">Identidad</Reveal><Reveal as="li">Ritmo</Reveal></Stagger></ul>
+```
+
+No hay asChild. Usa li en listas y evita introducir elementos entre filas o celdas de tablas.
+En span con rise usa display: inline-block o block. El wrapper es dueño de opacity y transform;
+coloca hover y gestos en un hijo. Desmontar, salir de vista o restringir preferencias cancela.
+Sin observer, WAAPI o motor, conserva el contenido estático.
+
+<Preview preset="editorial"><MotionDemo /></Preview>
+<PropsTable name="RevealProps" />
+<FunctionTable name="Reveal" />

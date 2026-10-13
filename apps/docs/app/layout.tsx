@@ -1,15 +1,16 @@
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import type { Metadata } from 'next'
+import { spanishTranslations } from '@/lib/translations'
 import '@fontsource-variable/inter'
 import './global.css'
 
 export const metadata: Metadata = {
   title: {
     template: '%s · Betterlibs UI',
-    default: 'Betterlibs UI — Componentes React para webs corporativas',
+    default: 'Betterlibs UI — Páginas con identidad y movimiento',
   },
   description:
-    'Librería de componentes React accesible y adaptable a tu marca para webs corporativas y profesionales.',
+    'Componentes React, secciones editoriales y movimiento opcional para construir páginas con identidad.',
 }
 
 export default function Layout({ children }: LayoutProps<'/'>) {
@@ -19,17 +20,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
         <RootProvider
           i18n={{
             locale: 'es',
-            translations: {
-              search: 'Buscar',
-              searchNoResult: 'Sin resultados',
-              toc: 'En esta página',
-              tocNoHeadings: 'Sin apartados',
-              lastUpdate: 'Última actualización',
-              chooseTheme: 'Tema',
-              nextPage: 'Siguiente',
-              previousPage: 'Anterior',
-              editOnGithub: 'Editar en GitHub',
-            },
+            translations: spanishTranslations,
           }}
         >
           {children}

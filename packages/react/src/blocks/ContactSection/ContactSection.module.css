@@ -116,4 +116,11 @@
       padding: var(--bl-space-10);
     }
   }
+
+  :where([data-preset="editorial"]) .form,
+  :where([data-preset="editorial"]) .details[data-variant="stacked"] .detail {
+    border: 1px solid var(--bl-color-border);
+    background: var(--bl-color-surface);
+    box-shadow: none;
+  }
 }

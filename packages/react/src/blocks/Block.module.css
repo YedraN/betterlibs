@@ -69,4 +69,19 @@
       transition: none;
     }
   }
+
+  :where([data-preset="editorial"]) .stack {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    :where([data-preset="editorial"]) .linkedCard:hover .more :where(svg) {
+      transform: translateX(var(--bl-motion-feedback-distance));
+    }
+  }
+  @media (hover: none) {
+    :where([data-preset="editorial"]) .linkedCard:hover .more :where(svg) {
+      transform: none;
+    }
+  }
 }

@@ -1,20 +1,19 @@
 # @betterlibs/react
 
-Componentes y bloques React **accesibles (WCAG 2.2 AA)** para webs corporativas y profesionales:
-cabecera con mega menú, hero, servicios, testimonios, precios, FAQ, formularios de contacto con
-validación, aviso de cookies RGPD y mucho más.
+Componentes y secciones React para construir páginas con identidad: UI editorial, formularios,
+overlays y composiciones de producto, estudio y artículo. Objetivo WCAG 2.2 AA; las comprobaciones
+entre motores y con lectores de pantalla del rediseño están pendientes del cierre de calidad.
 
 - Sin runtime de estilos: CSS Modules + variables CSS, compatible con SSR y React Server Components.
 - Todo el estilo sale de los tokens de [`@betterlibs/tokens`](../tokens): adapta la marca con
-  `createTheme()` y el contraste se verifica solo.
+  `createTheme()`. Verifica también el contraste de la composición final.
 - Textos por defecto en español, todos sobrescribibles por props.
 - Tree-shakeable: importar `Button` añade menos de 2,5 kB (brotli) a tu bundle.
 
 ## Instalación
 
-```bash
-pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
-```
+La publicación pública de esta edición está pendiente. Puedes trabajar desde el monorepo o
+instalar sus tarballs locales siguiendo la [guía de instalación](../../apps/docs/content/docs/primeros-pasos/instalacion.mdx).
 
 Requiere React 19 o superior.
 
@@ -25,7 +24,11 @@ Importa los estilos una vez, en la raíz de tu app:
 ```tsx
 import '@betterlibs/tokens/index.css'
 import '@betterlibs/react/styles.css'
+import '@betterlibs/tokens/editorial.css'
 ```
+
+Activa el nuevo estilo con `data-preset="editorial"` en tu página o contenedor. Las fuentes las
+carga tu app. El preset anterior sigue disponible y los componentes conservan sus nombres.
 
 ```tsx
 import { Button, Container, Heading, Hero, Section } from '@betterlibs/react'
@@ -61,7 +64,10 @@ export default function Home() {
 | Navegación | `Header`, `NavigationMenu`, `MobileNav`, `Footer`, `Breadcrumb`, `Pagination`, `AnnouncementBar`, `SocialLinks` |
 | Bloques | `Hero`, `CTA`, `FeatureGrid`, `LogoCloud`, `Stats`, `Timeline`, `Testimonials`, `TeamGrid`, `CaseStudyCard`, `BlogGrid`, `Pricing`, `FAQ`, `ContactSection`, `Newsletter`, `CookieConsent` |
 
-La documentación completa (una página por componente, con props, accesibilidad y CSS) está en
+`BentoFeatures`, `BentoFeature` y `FeatureShowcase` completan las composiciones editoriales.
+El movimiento es opcional desde `@betterlibs/motion`; la UI no depende del motor.
+
+La documentación (galería, guías y referencias generadas de props y CSS) está en
 `apps/docs` del [repositorio](https://github.com/YedraN/betterlibs).
 
 ## Licencia

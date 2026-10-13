@@ -1,0 +1,64 @@
+---
+title: Rendimiento y costes
+description: JS inicial, capacidades diferidas, CSS y fuentes medidos por separado.
+icon: Gauge
+---
+
+## Elige la capacidad que necesitas
+
+Importar UI estática no importa Motion. Reveal/Presence/TextReveal usan mini bajo demanda;
+AnimatedNumber y ScrollProgress no descargan el motor. Posiciones e indicador con spring comparten
+una capacidad diferida. No se incluye domMax, drag o una librería de timelines.
+
+| Caso | Inicial Brotli | Diferido Brotli | Total |
+| --- | --- | --- | --- |
+| UI estática del fixture | 1,84 kB | 0 | 1,84 kB |
+| Reveal y Presence | 2,78 kB | 4,43 kB | 7,22 kB |
+| Cifra | 1,56 kB | 0 | 1,56 kB |
+| Texto y lectura | 3,02 kB | 4,43 kB | 7,46 kB |
+| Solo progreso | 502 B | 0 | 502 B |
+| Posiciones | 1,48 kB | 4,74 kB | 6,23 kB |
+| Tabs con spring, UI y Radix | 9,22 kB | 4,74 kB | 13,96 kB |
+
+Registro de fase 6, 13 de octubre de 2026: Vite 8/Rolldown, ES2022 minificado y Brotli por chunk,
+sin React/ReactDOM e incluyendo el motor peer. No incluye CSS ni fuentes. No sumes dos veces una
+capacidad compartida al combinar los casos. Diferir no reduce el total que termina descargándose.
+
+## Presupuestos de UI y estilos
+
+size-limit comprime su bundle de otro modo; sus cifras no son directamente intercambiables con
+las de chunks Vite. Incluye dependencias salvo React y cuenta el motor cuando participa.
+
+| Caso | Fase 6 | Límite |
+| --- | --- | --- |
+| Button | 1,79 kB | 2,5 kB |
+| Form, Field, Input | 4,51 kB | 6 kB |
+| styles.css completo | 18,17 kB | 19 kB |
+| tokens/index.css | 4,51 kB | 5 kB |
+| preset editorial.css | 2,40 kB | 3 kB |
+| Lectura y texto con motor | 6,96 kB | 8 kB |
+
+El import styles.css sigue siendo global: importar solo Button no selecciona automáticamente su
+CSS. No hay exports públicos de estilos por componente en esta entrega. Las fuentes las elige y
+carga la aplicación; los tokens no descargan archivos. Cuenta su coste aparte y evita cargar pesos
+que no utilizas. Aporta dimensiones de imágenes y usa loading=lazy fuera de la portada.
+
+## Medición reproducible
+
+Desde el checkout, tras construir paquetes:
+
+```bash
+pnpm --filter @betterlibs/motion measure
+pnpm size
+```
+
+El primer comando regenera docs/previews/ui-motion/bundle-cost.json. La exploración avanzada
+permanece en .size-limit.motion-experiments.json, supera el objetivo de 30 kB y no es API aprobada.
+La documentación interactiva no es un fixture mínimo: incluye controles, búsqueda, código y demos.
+
+## Rendimiento de una página
+
+Lighthouse, tareas largas y fluidez del rediseño requieren las mediciones de cierre de fase 8.
+Los resultados antiguos de la web corporativa no acreditan estas páginas. No presentes una cifra
+de biblioteca como una puntuación de una aplicación. Prueba móvil representativo y compara el mismo
+contenido con efectos activos, reducidos y desactivados. Consulta [calidad](/docs/recursos/calidad).

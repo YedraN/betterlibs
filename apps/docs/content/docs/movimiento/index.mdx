@@ -1,0 +1,31 @@
+---
+title: Referencia de movimiento
+description: Contratos, DOM, opciones y fallback de cada export público de @betterlibs/motion.
+icon: Wind
+---
+
+El paquete opcional mantiene la UI estática independiente del motor. Todos sus exports de React
+son fronteras cliente; su HTML inicial sigue visible. Configura los estilos y la frontera de
+servidor siguiendo [instalación](/docs/primeros-pasos/instalacion) y
+[SSR y preferencias](/docs/guias/ssr-y-preferencias).
+
+| Uso | API | Capacidad |
+| --- | --- | --- |
+| Configuración | [MotionProvider y useMotionPreferences](./preferencias) | Sin wrapper ni descarga de motor |
+| Entrada en vista | [Reveal](./reveal) | Mini diferido al necesitar un efecto |
+| Secuencia | [Stagger](./stagger) | Contexto, sin DOM adicional |
+| Contenido condicional | [Presence](./presence) | Salida inerte; destino de foco explícito |
+| Cifras | [AnimatedNumber](./animated-number) | RAF, sin motor |
+| Líneas de texto | [TextReveal](./text-reveal) | Reveal/Stagger, una copia accesible |
+| Lectura | [ScrollProgress](./scroll-progress) | progress nativo, sin motor |
+| Feedback de una acción | [useMotionAnimation](./animacion-de-acciones) | Promesa de resultado y cancelación |
+| Orden y retículas | [useLayoutTransition](./posiciones) | Posiciones y spring diferidos |
+| Indicador de pestañas | [useSpringTabsIndicator](./tabs-con-spring) | Adapta el indicador de la UI |
+
+Las tablas se generan desde los tipos y las firmas públicas del código. Se omiten las propiedades
+heredadas del HTML: siguen disponibles según el elemento descrito. Los nombres de parámetros
+inferidos de firmas no crean tipos exportados nuevos.
+
+Prueba [la galería](/docs/galeria) para comparar estilos, repetir y copiar una composición.
+La navegación de páginas es una [receta del router](/docs/guias/navegacion-de-paginas), no un
+export de este paquete. No se incluyen drag, tamaños animados ni salidas coordinadas entre rutas.

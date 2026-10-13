@@ -11,6 +11,8 @@ for (const fixture of [
   'basic',
   'number',
   'complete',
+  'reading',
+  'progress',
   'positions',
   'tabs-spring',
   'advanced',

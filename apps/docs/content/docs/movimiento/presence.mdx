@@ -1,0 +1,23 @@
+---
+title: Presence
+description: Entrada y salida condicional con inercia inmediata y foco explícito.
+---
+
+Presence añade un div por defecto. present decide el estado funcional; la salida visual puede
+conservar el nodo brevemente. Al cerrar queda inert y aria-hidden antes de terminar el efecto.
+Si el foco estaba dentro, vuelve a returnFocusRef; sin referencia, desenfoca el descendiente.
+El borrador que quieras conservar debe vivir fuera del contenido condicional.
+
+```tsx
+<Presence present={open} id="details" returnFocusRef={trigger}>
+  <Input value={draft} onChange={event => setDraft(event.target.value)} />
+</Presence>
+```
+
+No es un diálogo ni una trampa de foco. Para contenido modal usa Dialog/Drawer. Reabrir durante
+la salida cancela el efecto anterior; off/reduced, ausencia de API o fallo del motor desmontan
+sin esperar una animación. [Composición y foco](/docs/guias/composicion-con-radix).
+
+<Preview preset="editorial"><MotionDemo /></Preview>
+<PropsTable name="PresenceProps" />
+<FunctionTable name="Presence" />

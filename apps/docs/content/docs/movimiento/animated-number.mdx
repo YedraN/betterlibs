@@ -1,0 +1,21 @@
+---
+title: AnimatedNumber
+description: Cifra final accesible y fotogramas visuales sin regiones live.
+---
+
+El servidor presenta value. Solo los fotogramas visuales cambian; hay una copia accesible final
+y no se anuncia cada frame. startValue permite una primera entrada al llegar al viewport;
+sin él, el montaje no cuenta desde cero. replayKey repite. locale="es-ES" es determinista.
+Los valores no finitos producen un error explícito.
+
+```tsx
+<AnimatedNumber value={24} startValue={0} locale="es-ES" format={{ maximumFractionDigits: 0 }} />
+```
+
+Usa un span con ref y atributos nativos. La duración predeterminada lee navigation de tokens.
+Los cambios rápidos parten de la cifra visible. Cancela al salir de vista, desmontar o restringir
+preferencias; sin RAF muestra el final. No descarga el motor.
+
+<Preview preset="editorial"><AnimatedNumberDemo /></Preview>
+<PropsTable name="AnimatedNumberProps" />
+<FunctionTable name="AnimatedNumber" />

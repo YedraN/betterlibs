@@ -1,97 +1,106 @@
 ---
 title: Instalación
-description: Añade Betterlibs UI a tu proyecto en dos pasos.
+description: Usa el checkout o tarballs locales para UI estática; añade movimiento de forma explícita.
 icon: Download
 ---
 
-## Requisitos
+## Estado de distribución
 
-- React 19 o superior.
-- Un bundler que entienda importaciones de CSS (Next.js, Vite, Astro, Remix…).
+Esta edición se prueba desde el monorepo y paquetes locales. El registro público devolvió E404
+para @betterlibs/react y @betterlibs/motion el 13 de octubre de 2026. La publicación en npm está
+pendiente; los comandos de esta página no dependen de que ya exista una versión pública.
 
-## 1. Instala los paquetes
+## 1. Probar el proyecto
 
-```bash tab="pnpm"
-pnpm add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+Desde la raíz del checkout, con Docker Engine/Desktop y Compose:
+
+```bash
+./docker.sh
 ```
 
-```bash tab="npm"
-npm install @betterlibs/react @betterlibs/tokens @betterlibs/icons
+Web: http://localhost:8080; docs: http://localhost:3000/docs; Storybook: http://localhost:6006.
+No necesita Node ni pnpm en el host. El script puede pedir sudo en tu terminal si el socket lo
+requiere. Cambios en dependencias/configuración requieren volver a construir; las fuentes se recargan.
+
+Para desarrollo sin Docker, el entorno verificado usa Node 24 y pnpm 12.4.1 (packageManager del repo):
+
+```bash
+pnpm install --frozen-lockfile
+pnpm exec turbo run build --filter='./packages/*'
+pnpm --filter @betterlibs/playground dev
 ```
 
-```bash tab="yarn"
-yarn add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+Abre el puerto que imprime Vite. Cada aplicación se ejecuta desde su workspace; los exports de los
+paquetes apuntan a dist, por eso se construyen antes. Para docs usa pnpm --filter @betterlibs/docs dev.
+Si usas Vite en 5173, configura NEXT_PUBLIC_PLAYGROUND_URL=http://localhost:5173 en
+apps/docs/.env.local para los enlaces de las plantillas. La documentación usa 8080 por defecto,
+el puerto del entorno Docker; NEXT_PUBLIC_STORYBOOK_URL configura el enlace a Storybook.
+
+## 2. Consumir desde otra aplicación
+
+Construye los paquetes y empaquétalos, desde este checkout. Usa una carpeta absoluta de tu equipo:
+
+```bash
+pnpm exec turbo run build --filter='./packages/*'
+pnpm -r --filter './packages/*' pack --pack-destination /ruta/absoluta/paquetes
 ```
 
-```bash tab="bun"
-bun add @betterlibs/react @betterlibs/tokens @betterlibs/icons
+Los tarballs incluyen dist y sus manifiestos de publicación; pnpm transforma los enlaces workspace.
+En una aplicación React 19 que ya tenga React DOM, añade tokens, iconos y UI en la misma operación.
+La versión local actual es 0.0.0; sustituye nombres si tu checkout tiene otra versión:
+
+```bash
+pnpm add /ruta/absoluta/paquetes/betterlibs-tokens-0.0.0.tgz /ruta/absoluta/paquetes/betterlibs-icons-0.0.0.tgz /ruta/absoluta/paquetes/betterlibs-react-0.0.0.tgz
 ```
 
-`@betterlibs/icons` es opcional: los componentes funcionan con cualquier librería de iconos que use
-`1em` y `currentColor`.
+Iconos es una dependencia interna de la UI. No necesitas importar sus exports en tu aplicación
+si prefieres otra librería con tamaño 1em y currentColor. Tokens, React y React DOM son peers.
+Tu bundler debe entender imports de CSS.
 
-## 2. Importa los estilos una vez
+## 3. Estilos y primer componente
 
-En el punto de entrada de tu app (el layout raíz en Next.js, `main.tsx` en Vite):
+Carga una vez en main.tsx o el layout raíz:
 
 ```tsx
-import '@betterlibs/tokens/index.css' // tokens + reset + estilos base
-import '@betterlibs/react/styles.css' // estilos de los componentes
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
 ```
 
-## 3. Usa los componentes
+Para la dirección editorial, añade el CSS optativo y el atributo:
 
 ```tsx
-import { Button, Container, Heading, Section, Text } from '@betterlibs/react'
+import '@betterlibs/tokens/editorial.css'
+import { Button, Hero } from '@betterlibs/react'
 
-export function Hero() {
-  return (
-    <Section aria-labelledby="hero-title">
-      <Container>
-        <Heading id="hero-title" level={1}>Hacemos crecer tu empresa</Heading>
-        <Text variant="lead">Estrategia, tecnología y personas.</Text>
-        <Button>Solicitar propuesta</Button>
-      </Container>
-    </Section>
-  )
+export function Page() {
+  return <main data-preset="editorial">
+    <Hero id="inicio" variant="editorial" title="Una página con identidad"
+      description="Contenido claro y acciones que se entienden."
+      actions={<Button asChild><a href="#contenido">Explorar</a></Button>} />
+    <section id="contenido"><h2>Tu siguiente idea</h2><p>Contenido de tu proyecto.</p></section>
+  </main>
 }
 ```
 
-## Cómo conviven con tus estilos
+El atributo aplica el preset; cargar su CSS no lo activa por sí solo. Las fuentes las carga tu app.
+Si usas los imports de las recetas, instala @fontsource-variable/inter y @fontsource-variable/space-grotesk.
+Todo el CSS de la UI está en capas bl.tokens, bl.reset, bl.base y bl.components; las reglas sin
+capa tienen prioridad. [Personalización](/docs/guias/sobrescribir-estilos).
 
-Todo el CSS de Betterlibs vive en **capas CSS**:
+## 4. Movimiento, solo si lo necesitas
 
-```css
-@layer bl.tokens, bl.reset, bl.base, bl.components;
-```
-
-Cualquier estilo tuyo que no esté en una capa **gana siempre**, sin importar el orden de importación
-ni la especificidad. No necesitas `!important` para personalizar nada.
-
-<Callout type="info" title="¿Usas Tailwind CSS?">
-  Tailwind v4 también usa capas. Importa Betterlibs **antes** que Tailwind para que las utilidades
-  tengan prioridad sobre los estilos de los componentes.
-</Callout>
-
-## Modo oscuro
-
-Funciona solo según la preferencia del sistema. Para forzarlo, añade `data-theme` a `<html>` o a
-cualquier elemento:
-
-```html
-<html data-theme="dark">
-```
-
-Continúa con la guía de tu framework: [Next.js](/docs/primeros-pasos/nextjs),
-[Vite](/docs/primeros-pasos/vite) o [Astro](/docs/primeros-pasos/astro).
-
-## Añadir movimiento opcional
+Añade el tarball de movimiento junto a Motion 14.1 compatible. Tokens debe estar instalado:
 
 ```bash
-pnpm add @betterlibs/motion motion
+pnpm add /ruta/absoluta/paquetes/betterlibs-motion-0.0.0.tgz 'motion@^14.1.0'
 ```
 
-`MotionProvider`, `Reveal`, `Stagger` y `Presence` se importan desde `@betterlibs/motion`,
-con Motion 14.1+ como peer explícito. No añaden CSS global ni cambian el paquete de UI estática.
-Sigue la [guía de movimiento opcional](/docs/guias/movimiento-opcional) para preferencias,
-SSR, repetición y gestión de foco durante una salida.
+El paquete opcional no añade CSS ni cambia las dependencias de la UI estática. Crea una frontera
+cliente para sus controles y configura MotionProvider/data-motion de forma coherente.
+[Referencia](/docs/movimiento) y [SSR/preferencias](/docs/guias/ssr-y-preferencias).
+
+## 5. Tu framework
+
+Continúa con [Vite](./vite), [Next App Router](./nextjs), [Astro](./astro) o
+[la primera página editorial](./primera-pagina). Si fallan imports, estilo o animación,
+[resolver problemas](/docs/guias/resolver-problemas) explica los casos habituales.

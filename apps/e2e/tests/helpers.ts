@@ -9,6 +9,9 @@ export const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'
 export const ROUTES = [
   { name: 'betterlibs', path: '/' },
   { name: 'portada', path: '/plantillas/corporativa' },
+  { name: 'producto-editorial', path: '/plantillas/producto' },
+  { name: 'estudio-editorial', path: '/plantillas/estudio' },
+  { name: 'articulo-editorial', path: '/plantillas/articulo' },
   { name: 'servicios', path: '/servicios' },
   { name: 'sobre-nosotros', path: '/sobre-nosotros' },
   { name: 'contacto', path: '/contacto' },

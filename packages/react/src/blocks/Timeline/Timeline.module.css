@@ -135,4 +135,14 @@
       block-size: 2px;
     }
   }
+
+  :where([data-preset="editorial"]) .list[data-variant] .marker {
+    background: var(--bl-color-accent-subtle);
+    border: 1px solid var(--bl-color-accent-text);
+    box-shadow: none;
+  }
+  :where([data-preset="editorial"]) .list[data-variant] .item:not(:last-child)::before {
+    background: var(--bl-color-border-strong);
+    opacity: 1;
+  }
 }

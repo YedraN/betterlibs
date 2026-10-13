@@ -69,6 +69,38 @@
       ]
     },
     {
+      "fixture": "reading",
+      "initialBrotli": 3022,
+      "deferredBrotli": 4434,
+      "chunks": [
+        {
+          "file": "assets/reading-BXqQwuA8.js",
+          "initial": true,
+          "bytes": 7367,
+          "brotli": 3022
+        },
+        {
+          "file": "assets/mini-DZhX7r_6.js",
+          "initial": false,
+          "bytes": 11935,
+          "brotli": 4434
+        }
+      ]
+    },
+    {
+      "fixture": "progress",
+      "initialBrotli": 502,
+      "deferredBrotli": 0,
+      "chunks": [
+        {
+          "file": "assets/progress-DnZSu5LL.js",
+          "initial": true,
+          "bytes": 1137,
+          "brotli": 502
+        }
+      ]
+    },
+    {
       "fixture": "positions",
       "initialBrotli": 1484,
       "deferredBrotli": 4743,

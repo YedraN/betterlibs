@@ -48,4 +48,15 @@
   .answer > :where(* + *) {
     margin-block-start: var(--bl-space-3);
   }
+
+  :where([data-preset="editorial"]) .entry {
+    padding-block-start: var(--bl-space-5);
+    border-block-start: 1px solid var(--bl-color-border-strong);
+  }
+  :where([data-preset="editorial"]) .question {
+    font-size: var(--bl-type-heading-size);
+  }
+  .split > * {
+    min-inline-size: 0;
+  }
 }

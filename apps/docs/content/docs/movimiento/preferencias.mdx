@@ -1,0 +1,21 @@
+---
+title: Preferencias
+description: "MotionProvider y useMotionPreferences: sistema, reducido, off e intensidad."
+---
+
+MotionProvider no añade DOM. Por defecto usa mode="system" e intensity="subtle". reduced y off
+presentan el final sin efectos; el sistema reducido y las restricciones de un padre prevalecen.
+standard amplía el recorrido, no anula restricciones. Configura la misma selección en data-motion
+para los componentes CSS y en el contenedor de portales. El snapshot de servidor es estático.
+
+```tsx
+<MotionProvider mode="system" intensity="subtle">
+  <div data-motion="system">{children}</div>
+</MotionProvider>
+```
+
+No persiste preferencias en storage. Tu aplicación decide si las guarda; conserva un estado inicial
+igual en servidor y cliente. [Receta completa](/docs/guias/ssr-y-preferencias).
+
+<FunctionTable name="MotionProvider" />
+<FunctionTable name="useMotionPreferences" />

@@ -142,4 +142,15 @@
       transform: none;
     }
   }
+
+  :where([data-preset="editorial"]) .card {
+    box-shadow: none;
+    transition: border-color var(--bl-motion-feedback-duration) var(--bl-motion-feedback-easing);
+  }
+  :where([data-preset="editorial"]) .card:has(a[href]):hover,
+  :where([data-preset="editorial"]) .card:has(a:focus-visible) {
+    border-color: var(--bl-color-accent-text);
+    box-shadow: none;
+    transform: none;
+  }
 }

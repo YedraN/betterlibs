@@ -25,7 +25,8 @@ Los enlaces de la web apuntan al puerto de documentación configurado.
 
 Los directorios de fuentes se montan en solo lectura. Vite, Next y Storybook detectan cambios;
 Turbo recompila tokens, iconos, React y motion siguiendo las dependencias. La documentación
-también regenera su tabla de API cuando cambia el código React.
+también regenera las referencias de React y movimiento y el código copiable de la galería
+cuando cambian sus fuentes.
 
 Cada contenedor mantiene sus propios node_modules, dist, .next y archivos generados. No monta
 los node_modules del host ni escribe artefactos o archivos propiedad de root en el proyecto.
@@ -62,7 +63,7 @@ BETTERLIBS_DOCS_PORT=3001
 BETTERLIBS_STORYBOOK_PORT=6008
 ```
 
-Después ejecuta `./docker.sh`. Compose aplica estos puertos y el enlace de documentación; el
+Después ejecuta `./docker.sh`. Compose aplica estos puertos y los enlaces entre las tres apps; el
 script imprime las URLs reales de los contenedores. También puedes usar Compose directamente:
 
 ```bash

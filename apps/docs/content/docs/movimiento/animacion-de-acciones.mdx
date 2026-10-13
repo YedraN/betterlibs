@@ -1,0 +1,22 @@
+---
+title: useMotionAnimation
+description: Efectos sobre elementos reales, promesas de resultado y cancelación.
+---
+
+El hook devuelve play y cancel. play recibe elementos HTML, preset y opciones; resuelve true
+si termina y false si se cancela, restringe o falla la capacidad. preset acepta rise, fade,
+sequence y press. delay está en milisegundos y se acota al máximo de stagger; exit invierte
+las entradas compatibles. Respeta roles CSS, intensidad y transform base.
+
+```tsx
+const { play, cancel } = useMotionAnimation()
+// En el evento de un botón con una referencia montada:
+if (card.current) void play([card.current], 'press')
+```
+
+Cada nueva llamada interrumpe los efectos anteriores de esta instancia. Desmontar o cambiar
+preferencias cancela también las cargas pendientes. Los estilos inline originales se restauran;
+no combines otro dueño de transform/opacity en el mismo nodo. Carga mini al necesitar un efecto,
+no al importar el hook. [Guía](/docs/guias/movimiento-opcional).
+
+<FunctionTable name="useMotionAnimation" />

@@ -3,15 +3,17 @@
 > Documento de continuidad: léelo al empezar una nueva sesión para saber qué hay hecho,
 > qué decisiones se tomaron y por dónde seguir.
 >
-> **Última actualización:** 2026-10-13 · **Última fase completada:** Fase 9 — Lenguaje visual, con ajuste sobrio
+> **Última actualización:** 2026-10-13 · **Última fase completada del nuevo plan:** Fase 7 — Documentación completa
 > **Nueva dirección en ejecución (2026-10-12):** UI de páginas y animación, con un lenguaje editorial.
 > El plan completo y la nueva secuencia de trabajo están en [PLAN_UI_MOTION.md](./PLAN_UI_MOTION.md).
-> **Hito completado:** fases 0, 1 y 2 del nuevo plan: piloto editorial, fundamentos y paquete de movimiento opcional.
-> **Entorno Docker operativo:** web en http://localhost:8080, documentación en http://localhost:3000/docs
+> **Hito completado:** fases 0–7 del nuevo plan: UI editorial, movimiento opcional, tres plantillas y documentación interactiva.
+> **Entorno Docker configurado:** web en http://localhost:8080, documentación en http://localhost:3000/docs
 > y Storybook en http://localhost:6006; recarga automática de fuentes. Arranque y controles en [docker/README.md](./docker/README.md).
-> **Siguiente paso:** fase 3, estados y microinteracciones de los ocho componentes prioritarios. Siguen pendientes fuera del repo la
-> publicación en npm, el despliegue y las capturas visuales (ver «Pendiente fuera del repo» en la
-> Fase 8).
+> **Siguiente paso:** fase 8 del nuevo plan, calidad y distribución: motores de navegador,
+> lectores de pantalla, referencias visuales y rendimiento. La publicación y despliegue siguen
+> pendientes. La evidencia de la fase 7 está en [PLAN_UI_MOTION.md](./PLAN_UI_MOTION.md):
+> galería, controles, 116 páginas, referencias generadas, guías y migración. Docker requiere
+> `./docker.sh` para incorporar los cambios de launcher y enlaces de Compose.
 
 ---
 

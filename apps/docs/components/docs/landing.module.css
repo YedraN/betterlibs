@@ -1,0 +1,110 @@
+.root {
+  inline-size: 100%;
+  background: var(--bl-color-bg);
+  color: var(--bl-color-text);
+  font-family: var(--bl-font-family-sans);
+  overflow-wrap: anywhere;
+}
+.liveTitle {
+  font-family: var(--bl-font-family-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-block-end: 1rem;
+}
+.section {
+  max-inline-size: 80rem;
+  margin-inline: auto;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+}
+.section h2,
+.band h2 {
+  font-family: var(--bl-font-family-display);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  max-inline-size: 24ch;
+  margin-block: 0.5rem 1.5rem;
+}
+.eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--bl-color-accent-text);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+.grid article {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--bl-color-border);
+  border-radius: var(--bl-radius-lg);
+  background: var(--bl-color-surface);
+}
+.grid h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--bl-font-family-display);
+}
+.grid p,
+.steps p {
+  color: var(--bl-color-text-muted);
+  line-height: 1.7;
+}
+.root a {
+  text-underline-offset: 0.25em;
+}
+.grid a,
+.band a {
+  text-decoration: underline;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 2rem;
+  padding: 0;
+  margin-block: 2rem;
+  list-style: none;
+  counter-reset: step;
+}
+.steps li {
+  counter-increment: step;
+  border-block-start: 1px solid var(--bl-color-border-strong);
+  padding-block-start: 1.5rem;
+}
+.steps li::before {
+  content: "0" counter(step);
+  display: block;
+  font-size: 0.875rem;
+  color: var(--bl-color-accent-text);
+  margin-block-end: 1rem;
+}
+.steps strong {
+  display: block;
+  font-size: 1.125rem;
+  margin-block-end: 0.75rem;
+}
+.band {
+  padding: clamp(2rem, 6vw, 5rem) max(1rem, calc((100% - 76rem) / 2));
+  background: var(--bl-color-bg-subtle);
+  border-block: 1px solid var(--bl-color-border);
+}
+.band p {
+  max-inline-size: 65ch;
+  line-height: 1.7;
+  color: var(--bl-color-text-muted);
+}
+.band div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-block-start: 2rem;
+}
+.root a:focus-visible {
+  outline: 2px solid var(--bl-color-focus-ring);
+  outline-offset: 3px;
+}

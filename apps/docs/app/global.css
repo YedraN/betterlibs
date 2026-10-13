@@ -15,6 +15,10 @@
 html {
   scrollbar-gutter: stable;
 }
+/* Keep small navigation text readable on the neutral theme's tinted surfaces. */
+html:not(.dark) {
+  --color-fd-muted-foreground: #666;
+}
 
 html > body[data-scroll-locked] {
   margin-right: 0px !important;
@@ -22,3 +26,25 @@ html > body[data-scroll-locked] {
 }
 
 @source "../components";
+
+/* Preferences are scoped to demo canvases and their portal containers. */
+:where([data-docs-preview][data-motion="reduced"], [data-docs-preview][data-motion="off"]) {
+  --bl-motion-feedback-distance: 0px;
+  --bl-motion-feedback-scale: 1;
+}
+:where([data-docs-preview][data-motion="reduced"], [data-docs-preview][data-motion="off"]) *,
+:where([data-docs-preview][data-motion="reduced"], [data-docs-preview][data-motion="off"])
+  *::before,
+:where([data-docs-preview][data-motion="reduced"], [data-docs-preview][data-motion="off"])
+  *::after {
+  animation: none;
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-docs-preview] *,
+  [data-docs-preview] *::before,
+  [data-docs-preview] *::after {
+    animation: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,21 @@
+---
+title: useSpringTabsIndicator
+description: Posición del indicador existente, conservando selección y teclado de Radix.
+---
+
+Recibe la ref de TabsList y opciones spring (snappy por defecto, gentle opcional). Solo anima
+la posición del indicador; tamaño, selección, panel y foco cambian inmediatamente. Usa la clase
+pública .bl-tabs-indicator y no importa la UI ni sustituye Radix.
+
+```tsx
+const list = useRef<HTMLDivElement>(null)
+useSpringTabsIndicator(list, { spring: 'gentle' })
+<TabsList ref={list}>{/* triggers */}</TabsList>
+```
+
+Conserva el fallback CSS del servidor. Resize, orientación y RTL se miden en la posición final;
+la primera presentación no carga el motor. Se cancela en vivo y restaura estilos al desmontar.
+Evita otra transición sobre el transform del indicador.
+
+<Preview preset="editorial"><PositionDemo /></Preview>
+<FunctionTable name="useSpringTabsIndicator" />

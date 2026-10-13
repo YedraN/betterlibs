@@ -1,0 +1,16 @@
+{
+  "title": "Movimiento",
+  "pages": [
+    "index",
+    "preferencias",
+    "reveal",
+    "stagger",
+    "presence",
+    "animated-number",
+    "text-reveal",
+    "scroll-progress",
+    "animacion-de-acciones",
+    "posiciones",
+    "tabs-con-spring"
+  ]
+}

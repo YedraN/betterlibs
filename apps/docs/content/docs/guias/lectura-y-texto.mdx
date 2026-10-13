@@ -1,0 +1,71 @@
+---
+title: Lectura y texto
+description: Entradas por líneas explícitas y progreso de lectura sin interrumpir el contenido.
+icon: BookOpen
+---
+
+## Texto que llega con ritmo
+
+`TextReveal` compone `Reveal` y `Stagger`. Recibe líneas editoriales explícitas; cada línea puede
+volver a envolver texto cuando falta espacio. No mide líneas del navegador ni divide palabras,
+enlaces o nodos interactivos. Usa un título o párrafo como padre para conservar su semántica.
+
+<Preview preset="editorial">
+  <ReadingDemo />
+</Preview>
+
+```tsx
+<h1>
+  <TextReveal lines={['Ideas claras.', 'Diseño que deja huella.']} />
+</h1>
+```
+
+El HTML del servidor contiene el texto visible. Una copia accesible completa permite leer el
+título sin pausas artificiales; las líneas visuales llevan `aria-hidden`. No hay regiones live.
+`once` es `true` por defecto; `replayKey` repite la entrada. `interval` comparte el límite de espera
+acumulada de Stagger (240 ms). Cambiar la preferencia cancela la animación y deja el texto visible.
+Puedes pasar `ref`, `className` y `style` al `span` exterior; su presentación predeterminada es block.
+
+## Progreso de lectura
+
+`ScrollProgress` renderiza un `<progress max="1" value="0">`. Su nombre predeterminado es
+«Progreso de lectura»; puedes cambiarlo con `label` o `aria-label`. No recibe `value` ni `max`:
+la posición los determina. Sin `targetRef`, mide el documento. Con referencia, mide desde el
+comienzo del artículo hasta que su final llega al borde inferior del viewport.
+
+```tsx
+'use client'
+
+import { ScrollProgress } from '@betterlibs/motion'
+import { type ReactNode, useRef } from 'react'
+
+export function Article({ children }: { children: ReactNode }) {
+  const article = useRef<HTMLElement>(null)
+  return (
+    <article ref={article}>
+      <ScrollProgress targetRef={article} label="Lectura del artículo"
+        style={{ width: '100%', height: 6 }} />
+      {children}
+    </article>
+  )
+}
+```
+
+La referencia debe estar montada junto a la barra. Al cambiar de artículo, remonta este patrón
+con una clave estable de ruta o contenido. El valor se actualiza directamente en el nodo nativo,
+agrupando eventos en un frame; no provoca renders React por cada desplazamiento. ResizeObserver
+recalcula al variar el contenido, por ejemplo cuando carga una imagen. Un artículo más corto que
+el viewport se considera leído al alcanzar su comienzo.
+
+El indicador sigue funcionando en reducido/off: presenta información de posición sin suavizado,
+secuencias ni motor. No se añade `aria-live` para anunciar cada cambio. Puedes ocultarlo al árbol
+accesible con `aria-hidden` si tienes otro indicador equivalente. Los listeners, el observador y
+los frames pendientes se limpian al desmontar; sin RAF se actualiza directamente.
+
+## En una página completa
+
+La [plantilla de artículo](http://localhost:8080/plantillas/articulo) combina ambos patrones con un
+índice de anclas, imagen local y contenido largo. Tema y movimiento se pueden cambiar desde la
+cabecera. La URL corresponde al entorno Docker; ajusta el origen en tu despliegue.
+
+Las líneas reutilizan la capacidad mini diferida de Reveal. El progreso no descarga Motion.

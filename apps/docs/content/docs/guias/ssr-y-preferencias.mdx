@@ -1,0 +1,84 @@
+---
+title: SSR y preferencias
+description: Fronteras cliente pequeñas, HTML visible y temas coherentes en contenido y portales.
+icon: PanelsTopLeft
+---
+
+## Qué vive en el servidor
+
+Container, Section, Heading, Text y los bloques sin estado pueden componer el contenido desde
+Server Components. Los controles y las primitivas de movimiento llevan sus propias fronteras
+cliente. Button sin handlers ni prop loading puede permanecer estático; al usar loading, su
+control cliente conserva bloqueo y foco. No presupongas que una página deja de enviar JavaScript
+solo porque su módulo raíz sea de servidor.
+
+No pases callbacks de eventos desde un Server Component a un control cliente. Crea una frontera
+pequeña para la interacción, y pasa contenido del servidor como children. Es el patrón de
+[composición de Next](https://nextjs.org/docs/app/getting-started/server-and-client-components).
+
+```tsx title="app/animated-section.tsx"
+'use client'
+
+import { MotionProvider, Reveal } from '@betterlibs/motion'
+import type { ReactNode } from 'react'
+
+export function AnimatedSection({ children }: { children: ReactNode }) {
+  return <MotionProvider mode="system"><Reveal as="section">{children}</Reveal></MotionProvider>
+}
+```
+
+```tsx title="app/page.tsx"
+import { Card } from '@betterlibs/react'
+import { AnimatedSection } from './animated-section'
+
+export default function Page() {
+  return <main><h1>Una página con contexto</h1><AnimatedSection><Card><h2>Tu contenido</h2><p>Visible en el HTML inicial.</p></Card></AnimatedSection></main>
+}
+```
+
+## Estado inicial y formato
+
+Reveal y TextReveal no ocultan el HTML inicial. AnimatedNumber muestra el valor final en SSR y
+usa locale explícito; ScrollProgress empieza en cero y calcula la posición al montar. Mantén
+iguales el estado inicial, el orden de contenido y los IDs entre servidor y cliente. No leas
+window, matchMedia o localStorage durante el render de un componente compartido.
+
+[React exige coincidencia al hidratar](https://react.dev/reference/react-dom/client/hydrateRoot).
+La ausencia de un mensaje de hidratación no sustituye una comprobación del contenido sin JavaScript.
+
+## Una selección para ambos sistemas
+
+MotionProvider no añade DOM y controla el paquete opcional. data-motion controla CSS. Usa la
+misma selección en ambos, también en los portales; off no debe desactivar acciones ni ocultar datos.
+
+```tsx
+'use client'
+import { MotionProvider, type MotionMode } from '@betterlibs/motion'
+import { type ReactNode, useState } from 'react'
+
+export function Preferences({ children }: { children: ReactNode }) {
+  const [mode, setMode] = useState<MotionMode>('system')
+  return <MotionProvider mode={mode}>
+    <div data-motion={mode}>
+      <label>Movimiento <select value={mode} onChange={event => setMode(event.target.value as MotionMode)}>
+        <option value="system">Sistema</option><option value="reduced">Reducido</option><option value="off">Desactivado</option>
+      </select></label>
+      {children}
+    </div>
+  </MotionProvider>
+}
+```
+
+El sistema reducido siempre prevalece; un proveedor hijo no anula restricciones de su padre.
+useMotionPreferences devuelve la selección efectiva. Si guardas preferencias, empieza con un
+valor determinista e hidrata el guardado en un efecto. Este ejemplo no persiste datos.
+
+## Portales y temas
+
+Si el preset vive en html, los portales de body ya están dentro de su ámbito. Si aplicas el tema
+a una sección, crea un contenedor de portales con los mismos data-theme, data-preset y data-motion
+y pásalo a PortalProvider. El contenedor debe estar montado; colócalo fuera de zonas con overflow o
+transform que recorten overlays. [Referencia de PortalProvider](/docs/componentes/utilidades/portal-provider).
+
+La galería actualiza los atributos de su lienzo y del contenedor sin remontar los ejemplos: campos,
+selección y foco siguen en los mismos nodos. Comprueba Dialog abierto tanto en claro como en oscuro.

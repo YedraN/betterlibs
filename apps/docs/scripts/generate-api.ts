@@ -3,6 +3,8 @@
  * - props: las props PROPIAS de cada tipo `*Props` exportado (no las heredadas del HTML), con su
  *   tipo tal como está escrito, descripción y `@default` del JSDoc.
  * - css: por cada CSS Module, sus clases públicas (`bl-{módulo}-{clase}`) y los tokens que usa.
+ * - functions: firmas y parámetros de exports públicos de movimiento.
+ * - examples.json: código de los mismos archivos que renderiza la galería.
  *
  * Se ejecuta antes de `dev`, `build` y `typecheck` de la documentación.
  */
@@ -12,6 +14,7 @@ import ts from 'typescript'
 
 const reactRoot = resolve(import.meta.dirname, '../../../packages/react')
 const srcRoot = join(reactRoot, 'src')
+const motionRoot = resolve(import.meta.dirname, '../../../packages/motion/src')
 const outFile = resolve(import.meta.dirname, '../generated/api.json')
 
 type PropDoc = {
@@ -22,7 +25,7 @@ type PropDoc = {
   required: boolean
   description?: string
   default?: string
-  /** Archivo donde se declara, relativo a `packages/react/src`. */
+  /** Archivo relativo a React/src, o prefijado con motion/ para Motion/src. */
   source: string
 }
 
@@ -32,7 +35,7 @@ const configPath = join(reactRoot, 'tsconfig.json')
 const config = ts.readConfigFile(configPath, ts.sys.readFile)
 const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, reactRoot)
 const program = ts.createProgram({
-  rootNames: [join(srcRoot, 'index.ts')],
+  rootNames: [join(srcRoot, 'index.ts'), join(motionRoot, 'index.ts')],
   options: { ...parsed.options, noEmit: true },
 })
 const checker = program.getTypeChecker()
@@ -42,10 +45,12 @@ const moduleSymbol = checker.getSymbolAtLocation(indexFile)
 if (!moduleSymbol) throw new Error('No se pueden leer las exportaciones de la librería')
 
 const normalizePath = (path: string) => path.replaceAll('\\', '/')
-const ownSource = normalizePath(srcRoot)
+const ownSources = [srcRoot, motionRoot].map((root) => `${normalizePath(root)}/`)
 
 function isOwnDeclaration(declaration: ts.Declaration) {
-  return normalizePath(declaration.getSourceFile().fileName).startsWith(ownSource)
+  return ownSources.some((root) =>
+    normalizePath(declaration.getSourceFile().fileName).startsWith(root),
+  )
 }
 
 function typeText(symbol: ts.Symbol, declaration: ts.Declaration): string {
@@ -97,14 +102,24 @@ function propsOf(type: ts.Type): PropDoc[] {
       required: (property.flags & ts.SymbolFlags.Optional) === 0,
       description: ts.displayPartsToString(property.getDocumentationComment(checker)) || undefined,
       default: defaultTag?.text ? ts.displayPartsToString(defaultTag.text) : undefined,
-      source: normalizePath(relative(srcRoot, declaration.getSourceFile().fileName)),
+      source: normalizePath(declaration.getSourceFile().fileName).startsWith(
+        `${normalizePath(motionRoot)}/`,
+      )
+        ? `motion/${normalizePath(relative(motionRoot, declaration.getSourceFile().fileName))}`
+        : normalizePath(relative(srcRoot, declaration.getSourceFile().fileName)),
     })
   }
   return props.sort((a, b) => Number(b.required) - Number(a.required))
 }
 
 const props: Record<string, PropDoc[]> = {}
-for (const exported of checker.getExportsOfModule(moduleSymbol)) {
+const motionFile = program.getSourceFile(join(motionRoot, 'index.ts'))
+const motionSymbol = motionFile && checker.getSymbolAtLocation(motionFile)
+if (!motionSymbol) throw new Error('No se pueden leer las exportaciones de motion')
+for (const exported of [
+  ...checker.getExportsOfModule(moduleSymbol),
+  ...checker.getExportsOfModule(motionSymbol),
+]) {
   const name = exported.getName()
   if (!/(Props|OwnProps|Options)$/.test(name)) continue
   const symbol =
@@ -114,6 +129,49 @@ for (const exported of checker.getExportsOfModule(moduleSymbol)) {
   }
   const list = propsOf(checker.getDeclaredTypeOfSymbol(symbol))
   if (list.length > 0) props[name] = list
+}
+
+const functions: Record<
+  string,
+  {
+    description: string
+    signatures: {
+      signature: string
+      returns: string
+      parameters: { name: string; type: string; optional: boolean; properties: PropDoc[] }[]
+    }[]
+  }
+> = {}
+for (const exported of checker.getExportsOfModule(motionSymbol)) {
+  const symbol =
+    exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported
+  const declaration = symbol.getDeclarations()?.find(isOwnDeclaration)
+  if (!declaration || symbol.flags & (ts.SymbolFlags.TypeAlias | ts.SymbolFlags.Interface)) continue
+  const signatures = checker.getTypeOfSymbolAtLocation(symbol, declaration).getCallSignatures()
+  if (!signatures.length) continue
+  functions[exported.getName()] = {
+    description: ts.displayPartsToString(symbol.getDocumentationComment(checker)),
+    signatures: signatures.map((signature) => ({
+      signature: checker.signatureToString(signature, declaration, ts.TypeFormatFlags.NoTruncation),
+      returns: checker.typeToString(
+        checker.getReturnTypeOfSignature(signature),
+        declaration,
+        ts.TypeFormatFlags.NoTruncation,
+      ),
+      parameters: signature.getParameters().map((parameter) => {
+        const node = parameter.valueDeclaration ?? parameter.getDeclarations()?.[0] ?? declaration
+        const type = checker.getTypeOfSymbolAtLocation(parameter, node)
+        return {
+          name: parameter.getName().startsWith('__') ? 'props' : parameter.getName(),
+          type: checker.typeToString(type, node, ts.TypeFormatFlags.NoTruncation),
+          optional:
+            Boolean(parameter.flags & ts.SymbolFlags.Optional) ||
+            (ts.isParameter(node) && Boolean(node.questionToken || node.initializer)),
+          properties: propsOf(type),
+        }
+      }),
+    })),
+  }
 }
 
 // ── CSS ────────────────────────────────────────────────────────────────────────────────────
@@ -150,7 +208,15 @@ for (const file of walk(srcRoot).filter((path) => path.endsWith('.module.css')))
 }
 
 mkdirSync(dirname(outFile), { recursive: true })
-writeFileSync(outFile, `${JSON.stringify({ props, css }, null, 2)}\n`)
+const exampleRoot = resolve(import.meta.dirname, '../components/docs/examples')
+const examples = Object.fromEntries(
+  readdirSync(exampleRoot)
+    .filter((name) => name.endsWith('.tsx'))
+    .sort()
+    .map((name) => [name.replace(/\.tsx$/, ''), readFileSync(join(exampleRoot, name), 'utf8')]),
+)
+writeFileSync(join(dirname(outFile), 'examples.json'), `${JSON.stringify(examples, null, 2)}\n`)
+writeFileSync(outFile, `${JSON.stringify({ props, css, functions }, null, 2)}\n`)
 console.log(
-  `API de la librería: ${Object.keys(props).length} tipos de props y ${Object.keys(css).length} módulos CSS → ${normalizePath(outFile)}`,
+  `API de la librería: ${Object.keys(props).length} tipos de props, ${Object.keys(functions).length} funciones, ${Object.keys(css).length} módulos CSS y ${Object.keys(examples).length} ejemplos → ${normalizePath(outFile)}`,
 )

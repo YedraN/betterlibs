@@ -76,4 +76,13 @@
   .links {
     margin-block-start: var(--bl-space-2);
   }
+
+  :where([data-preset="editorial"]) .photo {
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+  }
+  :where([data-preset="editorial"]) .member {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
 }

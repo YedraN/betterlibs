@@ -1,36 +1,38 @@
 ---
 title: Roadmap
-description: Qué incluye la versión 1.0 y qué vendrá después.
+description: Estado del plan editorial y de movimiento, con publicación y calidad de cierre pendientes.
 icon: Map
 ---
 
-| Fase | Contenido | Estado |
+La secuencia actual es el plan de UI y movimiento de octubre de 2026. El historial corporativo
+anterior permanece en el repositorio; sus números de fase no son los de esta tabla.
+
+| Fase actual | Entregable | Estado |
 | --- | --- | --- |
-| 0 | Monorepo, tooling y CI | ✅ Hecho |
-| 1 | Tokens, temas y `createTheme` con contraste verificado | ✅ Hecho |
-| 2 | Layout, tipografía, acciones, contenido e iconos | ✅ Hecho |
-| 3 | Formularios con validación accesible | ✅ Hecho |
-| 4 | Overlays, pestañas, acordeón, notificaciones, carrusel | ✅ Hecho |
-| 5 | Cabecera, menú principal y móvil, pie, anuncios | ✅ Hecho |
-| 6 | Bloques corporativos y aviso de cookies RGPD | ✅ Hecho |
-| 7 | Plantillas, documentación completa, generador de tema y guías | ✅ Hecho |
-| 8 | Endurecimiento y **versión 1.0** | ✅ Hecho |
+| 0 | Piloto visual editorial | Completada |
+| 1 | Tokens, tipografía y gramática de movimiento | Completada |
+| 2 | Arquitectura opcional y coste | Completada |
+| 3 | Ocho componentes prioritarios y estados | Completada |
+| 4 | Primitivas, cuatro composiciones y primera página | Completada |
+| 5 | Catálogo restante y continuidad de posiciones | Completada |
+| 6 | Tres plantillas, bloques restantes y navegación | Completada |
+| 7 | Galería, controles, referencias, guías y migración | Completada |
+| 8 | Calidad entre motores, referencias, mediciones y distribución | Pendiente |
 
-## Fase 8: versión 1.0
+## Cierre de calidad
 
-- Auditoría de accesibilidad automatizada (axe) en todas las stories y plantillas, en claro y
-  oscuro, y recorridos de teclado de los patrones críticos. Ver [Calidad y accesibilidad](/docs/recursos/calidad).
-- Regresión visual de todas las stories y plantillas con Playwright.
-- Presupuesto de tamaño (`size-limit`) y validación de paquetes (`publint`) en la integración continua.
-- Lighthouse ≥ 95 en todas las plantillas, que ahora se prerenderizan como HTML estático.
-- Publicación en npm con Changesets y configuración de despliegue de la documentación, Storybook
-  y las plantillas.
+Quedan Firefox/WebKit, revisión manual con lectores de pantalla, referencias visuales verificadas
+y mediciones de rendimiento del rediseño. Una captura de revisión no equivale a una referencia
+automatizada y una suite Chromium no acredita todos los navegadores.
 
-## Después de la 1.0: identidad y valor añadido
+## Distribución
 
-| Fase | Contenido | Estado |
-| --- | --- | --- |
-| 9 | [Lenguaje visual](/docs/fundamentos/lenguaje-visual) «Profundidad suave»: tokens de efectos, `Card`, `IconTile`, fondos de sección, densidad y rediseño de todos los componentes | ✅ Hecho |
-| 10 | Movimiento: apariciones al hacer scroll, contadores animados, marquesina de logos, luz que sigue al cursor, botón carga → éxito | ⏳ Siguiente |
-| 11 | Componentes complejos: Combobox, formulario por pasos, selector de fecha, menú de comandos (⌘K), tabla comparativa, subida con progreso | Pendiente |
-| 12 | Bloques de marketing: bento, antes/después, muro de testimonios, hero con mockup de producto | Pendiente |
+Los paquetes se prueban desde el checkout y tarballs locales. La publicación pública, el hosting
+y la versión de lanzamiento se decidirán al cierre; 0.0.0 local no demuestra ausencia de consumidores.
+Sigue [instalación](/docs/primeros-pasos/instalacion) para una vía de uso reproducible hoy.
+
+## Exploración posterior
+
+Drag completo, comparadores, parallax, marquesinas y escenas de scroll requieren una necesidad y
+un presupuesto propios. No se incorporan automáticamente por ampliar el catálogo. La exploración
+domMax/layout/drag supera el objetivo de 30 kB y no forma parte de la API aprobada.

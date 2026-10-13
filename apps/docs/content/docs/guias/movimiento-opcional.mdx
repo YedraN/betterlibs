@@ -7,9 +7,8 @@ icon: Wind
 El paquete opcional añade movimiento a la UI sin cambiar la instalación de `@betterlibs/react`.
 Sus componentes son fronteras cliente, con contenido visible desde el HTML del servidor.
 
-```bash
-pnpm add @betterlibs/motion @betterlibs/tokens motion
-```
+Usa [la instalación local](/docs/primeros-pasos/instalacion) mientras se prepara una versión
+pública. El paquete necesita los peers Motion, React, React DOM y tokens.
 
 Motion 14.1+, React 19+ y React DOM 19+ son peers explícitos. Importa los tokens CSS una vez
 en la entrada de Vite o el layout de Next. El paquete de movimiento no añade CSS global.
@@ -98,8 +97,8 @@ Las [composiciones editoriales](/docs/bloques/editoriales) se pueden usar tambi�
 
 El motor `motion/mini` se importa dinámicamente al necesitar un efecto. Se han evaluado
 `m` + `LazyMotion` y sus paquetes `domAnimation`/`domMax`; esta entrega solo necesita opacity
-y transform completos mediante WAAPI. Layout, drag y navegación tendrán capacidades opcionales
-separadas. Consulta la [comparación oficial](https://motion.dev/docs/react-reduce-bundle-size).
+y transform completos mediante WAAPI. Las [posiciones](/docs/movimiento/posiciones) y el [indicador de Tabs](/docs/movimiento/tabs-con-spring)
+usan una capacidad acotada adicional. Drag no forma parte de la API; la navegación vive en recetas. Consulta la [comparación oficial](https://motion.dev/docs/react-reduce-bundle-size).
 
 Los límites de tamaño del repositorio incluyen el coste del peer Motion y miden también el
 motor por separado. La carga diferida no reduce el total transferido. Los valores CSS

@@ -1,0 +1,59 @@
+---
+title: Migrar al estilo editorial
+description: Adoptar el preset sin cambiar de router ni sustituir los contratos de los controles.
+icon: ArrowRightLeft
+---
+
+## Primero, conserva tu estructura
+
+La UI mantiene nombres y composición. El preset es optativo; cargar editorial.css no lo aplica
+hasta marcar data-preset="editorial". Puedes adoptarlo por una sección y conservar el estilo base
+alrededor. No se mantienen dos bibliotecas independientes.
+
+```tsx
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/tokens/editorial.css'
+import '@betterlibs/react/styles.css'
+
+<main data-preset="editorial">{/* tus componentes actuales */}</main>
+```
+
+Si quieres personalizar colores, usa `createTheme({ preset: editorial, brand, selector })` e importa
+editorial desde tokens. Carga Inter y Space Grotesk localmente, o sobrescribe las familias con las
+tuyas. Revisa [modo oscuro y marca](/docs/fundamentos/modo-oscuro-y-marca).
+
+## Qué cambia visualmente
+
+| Antes | Ahora | Para conservar una elección explícita |
+| --- | --- | --- |
+| Button principal con acabado decorativo | Sólido por defecto | appearance="gradient" cuando se necesite |
+| Sombras, brillos y radios amplios | Bordes, superficies planas y radios del preset | Mantén el estilo base sin data-preset; glass/glow/gradient siguen siendo variantes explícitas de Card |
+| Títulos ligados a tamaños generales | Roles hero/heading/lead del preset | size explícito conserva su escala de componente |
+| Hero centrado/dividido | variant="editorial" opcional | Usa tu variante actual; no es un reemplazo obligatorio |
+| Portada corporativa en / | Betterlibs en /, corporativa en /plantillas/corporativa | Actualiza enlaces y referencias de pruebas del playground |
+
+## Interacciones que permanecen
+
+Tabs conserva selección, flechas y paneles; Accordion sus modos; Dialog/Drawer cierre y foco.
+Form mantiene validación, mensajes y resumen. En el preset cambian los acabados, no el propósito
+de esos controles. Al cerrar, los paneles dejan de ser interactivos inmediatamente; no uses
+forceMount para conservar interacción de un estado cerrado.
+
+## Movimiento optativo
+
+No hace falta instalar Motion para adoptar el preset. Si lo añades, importa @betterlibs/motion y
+configura MotionProvider/data-motion con la misma selección. Reveal y Presence añaden wrappers;
+no admiten asChild. Escoge elementos válidos para listas y conserva claves estables al reordenar.
+No cambies de router para conseguir una entrada: aplica [la receta](/docs/guias/navegacion-de-paginas)
+a tu framework y conserva las decisiones de scroll.
+
+## Orden de adopción
+
+1. Guarda capturas y los recorridos importantes de tu aplicación.
+2. Aplica el preset a un bloque con contenido real, incluyendo títulos y errores largos.
+3. Ajusta fuentes, marca y espaciado con tokens; verifica claro/oscuro y los portales.
+4. Revisa teclado, táctil, texto al 200 % y estados de carga/error/cierre.
+5. Añade solo las capacidades de movimiento que expliquen una interacción.
+
+El contenido y el contraste final dependen de tus elecciones. La fase 8 completa las verificaciones
+entre motores, referencias y mediciones antes de preparar la publicación del rediseño.

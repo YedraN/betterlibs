@@ -63,4 +63,13 @@
     outline: var(--bl-focus-ring-width) solid var(--bl-color-focus-ring);
     outline-offset: 4px;
   }
+
+  :where([data-preset="editorial"]) .list[data-variant="grid"] {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  }
+  :where([data-preset="editorial"]) .list[data-variant="grid"] .item {
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-sm);
+    background: var(--bl-color-surface);
+  }
 }

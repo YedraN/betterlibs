@@ -4,8 +4,9 @@ description: Configura Betterlibs UI con el App Router de Next.js.
 ---
 
 Betterlibs UI es compatible con **React Server Components**: los componentes sin estado (layout,
-tipografía, botones, enlaces…) se renderizan en el servidor sin enviar JavaScript. Solo los
-interactivos llevan `'use client'`.
+tipografía y bloques sin estado) pueden componer HTML desde el servidor. Los controles llevan
+sus fronteras cliente; Button con loading utiliza una pieza cliente. Consulta
+[SSR y preferencias](/docs/guias/ssr-y-preferencias) antes de añadir eventos o movimiento.
 
 ## 1. Estilos globales
 
@@ -79,3 +80,13 @@ const theme = createTheme({ brand: '#0a5cff', radius: 'soft' })
 ```
 
 Más detalles en [Modo oscuro y tema de marca](/docs/fundamentos/modo-oscuro-y-marca).
+
+## Dirección editorial y navegación
+
+Carga editorial.css y aplica data-preset="editorial" al ámbito de tus componentes. Tus fuentes
+pueden llegar con next/font o archivos locales. El paquete opcional requiere una frontera cliente
+pequeña, pero sus hijos pueden provenir del servidor. Para temas de sección, configura también
+el contenedor de portales.
+
+La [receta de páginas](/docs/guias/navegacion-de-paginas) ofrece dos rutas Next reales: mantiene
+Link, metadata y scroll del framework, y añade una entrada tras confirmar pathname.

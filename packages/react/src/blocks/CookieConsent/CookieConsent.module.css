@@ -158,4 +158,27 @@
       animation: none;
     }
   }
+
+  :where([data-preset="editorial"]) .inner {
+    border: 1px solid var(--bl-color-border-input);
+    background: var(--bl-color-surface-raised);
+    box-shadow: none;
+    animation: editorialEnter var(--bl-motion-disclosure-duration)
+      var(--bl-motion-disclosure-easing);
+  }
+  :where([data-preset="editorial"]) .text {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+  @keyframes editorialEnter {
+    from {
+      opacity: 0;
+      transform: translateY(var(--bl-motion-disclosure-distance));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-preset="editorial"]) .inner {
+      animation: none;
+    }
+  }
 }

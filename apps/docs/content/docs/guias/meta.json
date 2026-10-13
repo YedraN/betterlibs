@@ -1,5 +1,5 @@
 {
-  "title": "Gu\u00edas",
+  "title": "Guías",
   "pages": [
     "formulario-de-contacto",
     "sobrescribir-estilos",
@@ -7,6 +7,13 @@
     "[Cookies y RGPD](/docs/bloques/cookies)",
     "movimiento-opcional",
     "animated-number",
-    "interacciones-editoriales"
+    "interacciones-editoriales",
+    "lectura-y-texto",
+    "navegacion-de-paginas",
+    "ssr-y-preferencias",
+    "composicion-con-radix",
+    "rendimiento",
+    "migracion-editorial",
+    "resolver-problemas"
   ]
 }

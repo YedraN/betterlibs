@@ -16,6 +16,68 @@ type CssDoc = { classes: string[]; tokens: string[] }
 
 const props = api.props as Record<string, PropDoc[]>
 const css = api.css as Record<string, CssDoc>
+type FunctionDoc = {
+  description: string
+  signatures: {
+    signature: string
+    returns: string
+    parameters: { name: string; type: string; optional: boolean; properties: PropDoc[] }[]
+  }[]
+}
+const functions = api.functions as Record<string, FunctionDoc>
+
+/** Signatures and object parameters read from the public motion exports. */
+export function FunctionTable({ name }: { name: string }) {
+  const doc = functions[name]
+  if (!doc) throw new Error(`FunctionTable: no existe el export público "${name}"`)
+  return (
+    <div className="my-6 space-y-4">
+      {doc.description && <p>{inline(doc.description)}</p>}
+      {doc.signatures.map((signature, index) => (
+        <div key={signature.signature}>
+          <pre
+            className="overflow-auto rounded-lg border p-4 text-sm"
+            tabIndex={0}
+            aria-label={`Firma de ${name} ${index + 1}`}
+          >
+            <code>
+              {name}
+              {signature.signature}
+            </code>
+          </pre>
+          {signature.parameters.map((parameter) => (
+            <div key={parameter.name}>
+              <p className="my-3 font-semibold">
+                {parameter.name}
+                {parameter.optional ? ' (opcional)' : ''}
+              </p>
+              {parameter.properties.length > 0 ? (
+                <TypeTable
+                  type={Object.fromEntries(
+                    parameter.properties.map((prop) => [
+                      prop.name,
+                      {
+                        type: <code>{prop.type}</code>,
+                        description: prop.description ? inline(prop.description) : undefined,
+                        default: prop.default ? <code>{prop.default}</code> : undefined,
+                        required: prop.required,
+                      },
+                    ]),
+                  )}
+                />
+              ) : (
+                <code>{parameter.type}</code>
+              )}
+            </div>
+          ))}
+          <p className="my-3">
+            <strong>Devuelve:</strong> <code>{signature.returns}</code>
+          </p>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 /** Convierte el `código` de los comentarios JSDoc en <code>. */
 function inline(text: string): ReactNode {

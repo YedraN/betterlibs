@@ -1,0 +1,21 @@
+---
+title: Stagger
+description: Secuencia acotada sin añadir un wrapper al DOM.
+---
+
+Stagger asigna el retraso a sus hijos inmediatos participantes, sin crear un elemento HTML.
+El intervalo predeterminado viene de motionStagger (48 ms) y la espera acumulada nunca supera
+240 ms. Un fragmento cuenta como un hijo; no lo uses para agrupar todas las entradas.
+
+```tsx
+<Stagger interval={48}>
+  <Reveal as="article">Primera idea</Reveal>
+  <Reveal as="article">Siguiente idea</Reveal>
+</Stagger>
+```
+
+Solo las primitivas que leen la secuencia reciben el retraso. No anima hijos arbitrarios ni
+retiene nodos. La duración del efecto se suma al retraso; 240 ms es el límite de espera, no de
+la animación completa. [Guía de movimiento](/docs/guias/movimiento-opcional).
+
+<FunctionTable name="Stagger" />

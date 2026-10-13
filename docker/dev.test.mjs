@@ -32,6 +32,8 @@ async function fixture(t, extra = {}) {
   const root = await mkdtemp(join(tmpdir(), 'betterlibs-docker-processes-'))
   await mkdir(join(root, 'bin'))
   await mkdir(join(root, 'packages/react/src'), { recursive: true })
+  await mkdir(join(root, 'packages/motion/src'), { recursive: true })
+  await mkdir(join(root, 'apps/docs/components/docs/examples'), { recursive: true })
   const fakePnpm = join(root, 'bin/pnpm')
   await writeFile(
     fakePnpm,

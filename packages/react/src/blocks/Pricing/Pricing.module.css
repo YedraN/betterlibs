@@ -175,4 +175,37 @@
   .feature[data-included="false"] .featureIcon {
     color: var(--bl-color-text-subtle);
   }
+
+  :where([data-preset="editorial"]) .toggle {
+    flex-wrap: wrap;
+    max-inline-size: 100%;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-sm);
+  }
+  :where([data-preset="editorial"]) .option {
+    min-inline-size: 0;
+    border-radius: var(--bl-radius-xs);
+    overflow-wrap: anywhere;
+  }
+  :where([data-preset="editorial"]) .option:has(.optionInput:checked) {
+    background: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    box-shadow: none;
+  }
+  :where([data-preset="editorial"]) .plan {
+    min-inline-size: 0;
+    border-radius: var(--bl-radius-lg);
+    overflow-wrap: anywhere;
+  }
+  :where([data-preset="editorial"]) .badge {
+    position: static;
+    align-self: flex-start;
+    max-inline-size: 100%;
+    border-radius: var(--bl-radius-xs);
+    white-space: normal;
+    translate: none;
+  }
+  :where([data-preset="editorial"]) .amount {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+  }
 }

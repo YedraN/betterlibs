@@ -62,4 +62,11 @@
   .inline {
     max-inline-size: 30rem;
   }
+
+  :where([data-preset="editorial"]) .field {
+    min-inline-size: 0;
+  }
+  :where([data-preset="editorial"]) .submit {
+    white-space: normal;
+  }
 }

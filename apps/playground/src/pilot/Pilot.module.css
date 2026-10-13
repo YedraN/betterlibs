@@ -1362,3 +1362,10 @@
   flex-wrap: wrap;
   gap: 0.75rem;
 }
+.templateLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bl-space-4);
+  margin-block-start: var(--bl-space-4);
+  font-weight: var(--bl-font-weight-medium);
+}

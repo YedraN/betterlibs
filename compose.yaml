@@ -10,6 +10,8 @@ x-development: &development
   stop_grace_period: 15s
   environment: &environment
     VITE_DOCS_URL: http://localhost:${BETTERLIBS_DOCS_PORT:-3000}/docs
+    NEXT_PUBLIC_PLAYGROUND_URL: http://localhost:${BETTERLIBS_WEB_PORT:-8080}
+    NEXT_PUBLIC_STORYBOOK_URL: http://localhost:${BETTERLIBS_STORYBOOK_PORT:-6006}
   # Only source is mounted. Dependencies, dist and Next caches stay inside each container.
   # Read-only mounts prevent generated files and container ownership from affecting the IDE.
   volumes:

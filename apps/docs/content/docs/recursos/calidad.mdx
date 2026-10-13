@@ -1,103 +1,68 @@
 ---
-title: Calidad y accesibilidad
-description: Cómo se comprueba cada versión y resultados de la auditoría de la 1.0.
+title: Calidad y límites
+description: Comprobaciones del rediseño, mediciones reproducibles y validaciones pendientes.
 icon: ShieldCheck
 ---
 
-Cada cambio pasa por las mismas comprobaciones automáticas en la integración continua. Si una
-falla, el cambio no se fusiona.
+La edición editorial distingue resultados comprobados, objetivos y trabajo pendiente. Las cifras
+siguientes son el cierre de fase 6, el 13 de octubre de 2026; no son una certificación de la
+accesibilidad de cualquier aplicación que componga estos componentes.
 
-| Comprobación | Herramienta | Qué cubre |
-| --- | --- | --- |
-| Tests unitarios y de accesibilidad | Vitest + Testing Library + axe | Comportamiento y ARIA de cada componente |
-| Contraste de los temas | Build de `@betterlibs/tokens` | 50 pares de color en claro y oscuro (el build falla si uno no cumple) |
-| Auditoría axe | Playwright + axe-core | Todas las stories y todas las plantillas, en claro y oscuro, WCAG 2.2 A/AA |
-| Teclado | Playwright | Enlace de salto, aviso de cookies, mega menú, menú móvil, formularios, cambio de página |
-| Regresión visual | Playwright | Capturas de todas las stories y plantillas (escritorio y móvil) |
-| Rendimiento y SEO | Lighthouse CI | Todas las plantillas ≥ 95 en las cuatro categorías |
-| Tamaño | size-limit | Presupuesto por paquete y por componente habitual |
-| Paquetes | publint | `exports`, tipos y archivos publicados correctos |
+## Comprobado en el rediseño
 
-## Resultados de la auditoría anterior
+| Comprobación | Entorno y resultado |
+| --- | --- |
+| Build | Cuatro paquetes, playground, Storybook y Next; 16 páginas prerenderizadas en el playground |
+| Tipos | Los workspaces pasan TypeScript |
+| Unitarias | 149 pruebas: tokens, UI y movimiento |
+| Navegador | 370 pruebas axe y teclado en Chromium, incluidas claro/oscuro, móvil y nuevos recorridos de páginas |
+| SSR e hidratación | Contenido visible sin JavaScript; demos de Next sin errores de hidratación |
+| Preferencias | Reducido/off, cambios durante efectos y fallback sin WAAPI |
+| Paquetes | Publint estricto de los cuatro paquetes |
+| Presupuestos | size-limit pasa; los valores y métodos están en [rendimiento](/docs/guias/rendimiento) |
+| Lint | Sin errores; permanecen 30 avisos de estilos del repositorio |
 
-Las cifras siguientes corresponden a la auditoría previa al ajuste visual de octubre de 2026.
-Cada cambio vuelve a comprobarse en CI; estos valores no son mediciones del nuevo acabado.
+Los tests cubren título y foco al navegar, scroll al volver, anclas, portales, formularios y
+cancelación. El generador de temas valida los pares declarados en los temas claro/oscuro; si
+cambias colores o introduces una combinación nueva, comprueba también su contraste real.
 
-- **axe:** 0 infracciones en las 101 stories y en las 8 plantillas (incluida la 404), en modo claro
-  y oscuro, y en móvil con el menú abierto.
-- **Teclado:** 7 recorridos críticos sin fallos.
-- **Lighthouse** (móvil, red lenta simulada):
+## Pendiente del cierre de fase 8
 
-| Plantilla | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
-| --- | --- | --- | --- | --- |
-| Portada | 95 | 100 | 100 | 100 |
-| Servicios | 96 | 100 | 100 | 100 |
-| Sobre nosotros | 99 | 100 | 100 | 100 |
-| Contacto | 99 | 100 | 100 | 100 |
-| Blog | 97 | 100 | 100 | 100 |
-| Artículo | 95 | 100 | 100 | 100 |
-| Aviso legal | 99 | 100 | 100 | 100 |
+La fase 7 añade una comprobación de documentación en Chromium: búsqueda por uso y búsqueda general,
+código copiable y fallo de permisos del portapapeles, borradores conservados, portales con tema,
+foco al cerrar, repetición y cancelación, 19 rutas, seis auditorías axe en claro/oscuro, SSR sin
+JavaScript y texto al 200 %. Las 116 páginas pasan la comprobación de enlaces internos y referencias
+API/CSS. Las recetas de Next de las fases 4–6 se han vuelto a comprobar; las cifras de la tabla
+anterior siguen correspondiendo a la suite de la fase 6.
 
-- **Tamaño** (minificado + brotli, sin React; CSS actualizado con el lenguaje visual de la Fase 9):
+- Firefox y WebKit para los recorridos prioritarios del rediseño.
+- Lectores de pantalla de escritorio y móvil, con registro manual de resultados.
+- Referencias visuales Linux verificadas. Las capturas de revisión no son esas referencias;
+  una prueba omitida porque falta una imagen no cuenta como validación superada.
+- Lighthouse y revisión de tareas largas/fluidez en páginas nuevas y móvil representativo.
+- Versión, changelog, publicación pública y despliegue.
 
-| Importación | Tamaño | Presupuesto |
-| --- | --- | --- |
-| `Button` | 1,75 kB | 2,5 kB |
-| `Form`, `Field`, `Input` | 4,5 kB | 6 kB |
-| `CookieConsent` | 14,5 kB | 17 kB |
-| `Header`, `Footer` | 20,3 kB | 24 kB |
-| Toda la librería | 60,3 kB | 70 kB |
-| `styles.css` | 16,6 kB | 19 kB |
-| `tokens/index.css` | 4,2 kB | 5 kB |
-| Un icono | 0,4 kB | 0,5 kB |
+## Auditoría corporativa anterior
 
-### Problemas encontrados y corregidos en la auditoría
+El historial del repositorio contiene mediciones Lighthouse y capturas de la web corporativa
+anterior. No se trasladan como resultados del preset, las tres plantillas nuevas o la galería.
+El objetivo ≥95 de Lighthouse permanece como criterio de cierre, no como dato ya alcanzado aquí.
 
-- El enlace de salto no era el primer elemento enfocable cuando el aviso de cookies iba delante.
-  Ahora la guía de [Cookies y RGPD](/docs/bloques/cookies) indica el orden correcto.
-- La zona desplazable del `Carousel` no se podía mover con el teclado si las diapositivas no
-  tenían enlaces ni botones (WCAG 2.1.1).
-- Al navegar desde el menú móvil, el foco volvía al botón del menú en lugar de a la página nueva.
-- «Anterior» y «Siguiente» desactivados en `Pagination` tenían un contraste insuficiente.
-- Importar un solo icono incluía todos (faltaba marcar las funciones como puras).
+## Reproducir
 
-## Revisión manual con lectores de pantalla
-
-Las herramientas automáticas detectan en torno a un tercio de los problemas de accesibilidad.
-Antes de cada versión mayor, repasa las plantillas con lectores de pantalla reales:
-
-| Lector | Navegador | Sistema |
-| --- | --- | --- |
-| NVDA | Firefox y Chrome | Windows |
-| VoiceOver | Safari | macOS e iOS |
-| TalkBack | Chrome | Android |
-
-Lista de comprobación:
-
-- [ ] La página se anuncia con su título al cargar y al cambiar de ruta.
-- [ ] La lista de encabezados (tecla H en NVDA, rotor en VoiceOver) resume la página sin saltos de nivel.
-- [ ] Las regiones (cabecera, navegación, principal, pie, aviso de cookies) aparecen con nombre.
-- [ ] El menú principal anuncia si cada desplegable está abierto o cerrado y la página actual.
-- [ ] Los diálogos (menú móvil, cookies) anuncian su título al abrirse y devuelven el foco al cerrarse.
-- [ ] Los errores del formulario se anuncian en el resumen y en cada campo.
-- [ ] Las notificaciones (toast) se leen sin mover el foco.
-- [ ] El carrusel anuncia «diapositiva N de M» y no cambia solo mientras se lee.
-- [ ] Las imágenes decorativas se ignoran y las informativas tienen texto alternativo útil.
-- [ ] Con zoom al 200 % y a 320 px de ancho no hay desplazamiento horizontal ni contenido tapado.
-
-Si encuentras un problema, abre una incidencia indicando lector, navegador y pasos para
-reproducirlo.
-
-## Ejecutarlo en local
+Tras instalar dependencias y construir, desde la raíz:
 
 ```bash
-pnpm build                                          # paquetes, Storybook y plantillas
-pnpm --filter @betterlibs/e2e exec playwright install chromium
-pnpm test:e2e                                       # axe + teclado
-pnpm lighthouse                                     # Lighthouse CI (se ejecuta mejor en Linux o macOS)
-pnpm size                                           # presupuesto de tamaño
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm lint:packages
+pnpm size
+pnpm test:e2e
 ```
 
-Las capturas de regresión visual se generan en Linux para que sean estables: en GitHub, ejecuta
-el workflow **Visual** con la opción «update» para crearlas o actualizarlas tras un cambio
-visual intencionado.
+Playwright necesita su navegador instalado. Las comprobaciones de Next usan scripts como
+apps/e2e/scripts/verify-phase6-docs.mjs y verify-phase7-docs.mjs, con la documentación construida
+servida en 3001 o BETTERLIBS_DOCS_TEST_URL. La galería también se comprueba en temas claro/oscuro,
+con borradores, portales, copia, preferencias y HTML de servidor.

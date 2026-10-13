@@ -1,0 +1,21 @@
+---
+title: useLayoutTransition
+description: Continuidad de posiciones de hijos directos con claves estables.
+---
+
+Marca hijos directos con data-bl-layout y conserva sus claves React. transitionKey señala un
+cambio de orden o retícula ya confirmado. El orden DOM y accesible cambia inmediatamente;
+solo la posición visual usa spring. No anima tamaños, retiene salidas ni ofrece drag.
+
+```tsx
+useLayoutTransition(listRef, order.join(','), { spring: 'snappy' })
+<div ref={listRef}>{items.map(item => <div key={item.id} data-bl-layout>{item.content}</div>)}</div>
+```
+
+El wrapper animado debe ser dueño de transform. Interrumpir parte de la posición visible; off,
+reduced, desmontaje o fallos restauran el final. SSR y primer montaje no descargan la capacidad.
+Opciones: snappy o gentle; devuelve cancel. La ref debe apuntar al contenedor montado.
+
+<Preview preset="editorial"><PositionDemo /></Preview>
+<PropsTable name="LayoutTransitionOptions" />
+<FunctionTable name="useLayoutTransition" />

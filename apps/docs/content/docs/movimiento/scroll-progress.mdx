@@ -1,0 +1,21 @@
+---
+title: ScrollProgress
+description: Indicador nativo de lectura, sin interpolación ni motor.
+---
+
+Renderiza progress con max=1 y value administrado por el componente. Sin targetRef mide el
+ documento; con referencia, desde el comienzo del artículo hasta que su final llega al borde
+inferior del viewport. La referencia debe existir al montar. Un artículo corto se considera leído
+al llegar a su comienzo. label predeterminado: «Progreso de lectura».
+
+```tsx
+<ScrollProgress targetRef={article} label="Lectura del artículo" style={{ width: '100%', height: 6 }} />
+```
+
+Actualiza el nodo directamente y agrupa eventos con RAF; ResizeObserver sigue cambios de tamaño.
+Sin RAF actualiza directamente. Limpia listeners, observer y frames pendientes. Sigue funcionando
+en off/reduced porque indica posición sin suavizado. No añade aria-live ni descarga Motion.
+Para otro artículo con una referencia distinta, remonta con una clave de contenido estable.
+
+<PropsTable name="ScrollProgressProps" />
+<FunctionTable name="ScrollProgress" />

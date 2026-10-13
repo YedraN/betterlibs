@@ -238,6 +238,16 @@ export function Form({
 
   const handleBlur = (event: FocusEvent<HTMLFormElement>) => {
     onBlur?.(event)
+    const destination = event.relatedTarget
+    // Removing the error summary during a pointer press moves the submit button before click.
+    // Submission validates all fields; ordinary keyboard/field blur still validates immediately.
+    if (
+      (destination instanceof HTMLButtonElement || destination instanceof HTMLInputElement) &&
+      destination.type === 'submit' &&
+      destination.form === formRef.current &&
+      destination.matches(':active')
+    )
+      return
     revalidate(event.target)
   }
 

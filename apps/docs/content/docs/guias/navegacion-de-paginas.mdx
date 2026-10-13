@@ -1,0 +1,73 @@
+---
+title: Navegación de páginas
+description: Entradas progresivas con foco, títulos, historial y restauración de scroll.
+icon: ArrowRightLeft
+---
+
+La librería no controla tu router. Usa los enlaces del framework y añade movimiento alrededor
+de sus cambios ya confirmados. El destino, el foco y la posición deben funcionar también sin
+motor, sin JavaScript y con movimiento reducido.
+
+## Playground: History y View Transition
+
+Las tres [plantillas editoriales](http://localhost:8080/plantillas/producto) demuestran un adaptador
+pequeño en `apps/playground/src/site/router.tsx`. Es código editable de ejemplo, no un export de
+`@betterlibs/motion`.
+
+- Un cambio de ruta actualiza el DOM, título y foco. El nuevo `h1` recibe foco sin desplazar la
+  página; una ancla válida tiene prioridad sobre el título.
+- Cada entrada del historial tiene una clave y una posición de scroll. Atrás/adelante restaura
+  la posición de esa entrada; seguir un enlace a otra página comienza arriba o en su ancla.
+- El snapshot de ruta incluye búsqueda y fragmento. Los saltos en la misma página actualizan
+  el destino sin desmontar el contenido. Un fragmento mal formado no rompe la navegación.
+- Enlaces externos, descargas, `target` y clics modificados mantienen su comportamiento nativo.
+  Un `onClick` que cancela el evento también se respeta.
+
+Cuando existe `document.startViewTransition` y no se ha restringido el movimiento, el adaptador
+captura el cambio confirmado con `flushSync`. Solo ofrece un fundido breve entre rutas. No retiene
+páginas interactivas salientes ni promete elementos compartidos. Las navegaciones sucesivas
+omiten el efecto anterior; sus callbacks de actualización siguen ejecutándose. El sistema reducido
+y los modos off/reduced omiten la animación. Sin soporte se ejecuta la misma actualización directa.
+
+Los estilos `::view-transition-old(root)` y `::view-transition-new(root)` viven en la aplicación,
+no en los estilos de la UI. [MDN describe el contrato de startViewTransition](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition)
+y cómo [skipTransition conserva la actualización](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition/skipTransition).
+
+## Next App Router: entrada del contenido
+
+[Abre el ejemplo Next](/ejemplos/navegacion). Hay dos rutas reales, un enlace con ancla y contenido
+suficiente para comprobar el historial y el scroll. El HTML de ambas páginas proviene del servidor;
+sus títulos se declaran con `metadata`.
+
+La receta `apps/docs/components/docs/page-entry.tsx` se monta en un layout estable. Usa
+`usePathname` para detectar un cambio confirmado, orienta el foco al ancla o al `h1` y reproduce
+una entrada `fade` con `useMotionAnimation`. No remonta el árbol mediante una clave, no intercepta
+el router ni conserva una vista antigua. El primer montaje permanece estático.
+
+```tsx
+// Layout de servidor. PageEntry es la frontera cliente de la receta.
+<MotionProvider mode="system">
+  <header>
+    <Link href="/primera">Primera página</Link>
+    <Link href="/segunda#destino">Apartado de la segunda</Link>
+  </header>
+  <PageEntry>{children}</PageEntry>
+</MotionProvider>
+```
+
+El framework mantiene su scroll, atrás/adelante y enlaces. El foco usa `preventScroll` para
+no interferir con esa restauración. Los cambios rápidos cancelan la entrada anterior; reducido,
+off, carga fallida o ausencia de WAAPI presentan el contenido directamente. No se requiere
+View Transition para esta receta y no se intenta envolver `router.push` en una captura antes de
+que los Server Components estén disponibles.
+
+Consulta el comportamiento de [Link y su propiedad scroll](https://nextjs.org/docs/app/api-reference/components/link)
+y la [navegación del App Router](https://nextjs.org/docs/app/getting-started/linking-and-navigating).
+Mantén `scroll={false}` solo cuando el producto necesite conservar la posición al seguir un enlace.
+
+## Qué revisar en tu integración
+
+Comprueba seguir un enlace, volver atrás, avanzar, abrir otra pestaña, descargar un recurso y saltar
+a una sección. Revisa también título, foco visible, cabecera fija, clics rápidos y el cambio de
+preferencia durante un efecto. Las salidas coordinadas entre rutas quedan fuera de esta receta;
+requieren un adaptador que pueda preservar ambas vistas sin duplicar contenido accesible.

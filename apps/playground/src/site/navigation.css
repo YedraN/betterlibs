@@ -1,0 +1,21 @@
+/* The browser snapshots committed DOM. No delayed route updates or retained interactive pages. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--bl-motion-navigation-duration, 240ms);
+  animation-timing-function: var(--bl-motion-navigation-easing, ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+html[data-motion="off"]::view-transition-old(root),
+html[data-motion="off"]::view-transition-new(root),
+html[data-motion="reduced"]::view-transition-old(root),
+html[data-motion="reduced"]::view-transition-new(root) {
+  animation: none;
+}
+[id] {
+  scroll-margin-block-start: 6rem;
+}

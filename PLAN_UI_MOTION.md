@@ -1,9 +1,9 @@
 # Betterlibs — Plan de UI y movimiento
 
-Actualizado: 13 de octubre de 2026. Estado: en ejecución; fases 0, 1, 2, 3, 4 y 5 completadas.
+Actualizado: 13 de octubre de 2026. Estado: en ejecución; fases 0–7 completadas.
 
-Punto de continuidad guardado el 13 de octubre de 2026: fases 0–5 terminadas y entorno Docker
-documentado. Al retomar, comenzar la fase 6 descrita abajo.
+Punto de continuidad guardado el 13 de octubre de 2026: fases 0–7 terminadas y entorno Docker
+documentado. Al retomar, comenzar la fase 8 de calidad y distribución.
 
 Este documento define la nueva dirección. El historial de desarrollo permanece en `PLAN.md`. Las fases 10–12 de aquel documento pasan a ser un catálogo de ideas: la secuencia de trabajo propuesta es la de este plan.
 
@@ -305,9 +305,120 @@ Capturas de revisión: [formulario claro](docs/previews/ui-motion/phase5-formula
 Se regeneran con `pnpm --filter @betterlibs/e2e exec node scripts/capture-phase5.mjs` después
 de construir Storybook. No son referencias automatizadas Linux.
 
-**Siguiente fase:** fase 6, tres plantillas completas, bloques restantes y recetas de navegación
-con foco, historial y scroll correctos. Siguen pendientes las comprobaciones entre motores,
-lectores de pantalla, referencias Linux y mediciones de rendimiento del plan completo.
+**Fase 6 — Secciones y navegación completada (2026-10-13).**
+
+- Tres plantillas completas y prerenderizadas: producto (`/plantillas/producto`), portfolio de
+  estudio (`/plantillas/estudio`) y artículo (`/plantillas/articulo`). Comparten Header, Footer,
+  temas, preferencias y portales. Se puede llegar desde la portada de Betterlibs.
+- Producto incluye tablero con tareas reales en estado local, planes mensual/anual con importe,
+  periodo y nota coherentes, testimonio, FAQ y formulario validado. El formulario de demostración
+  prepara una solicitud; no envía ni almacena datos. Estudio incluye dos casos desarrollados,
+  proceso, equipo y contacto de ejemplo. Artículo incluye autor, fecha, índice y lectura larga.
+- Tres ilustraciones SVG locales, con dimensiones y alternativas, sin peticiones a servicios de
+  imágenes. El contenido ficticio y los contactos de ejemplo se identifican antes de publicar.
+- Bloques restantes adaptados al preset: Pricing, Testimonials, FAQ, LogoCloud, Timeline,
+  TeamGrid, Stats, Blog/PostCard, CaseStudyCard, ContactSection, Newsletter y CookieConsent.
+  Superficies planas, bordes, foco y contenido largo; las tarjetas editoriales no se elevan al
+  pasar el puntero. El FAQ dividido también conserva la prop background.
+- TextReveal compone Reveal/Stagger con líneas explícitas que pueden envolver texto en móvil.
+  SSR conserva el contenido visible y una única copia accesible; no divide enlaces ni mide
+  saltos automáticos. Admite ref, repetición y preferencias compartidas.
+- ScrollProgress es un progress nativo, con documento o referencia de artículo como objetivo.
+  Sigue directamente el scroll también en reducido/off, sin motor ni regiones live. Actualiza
+  el nodo sin renders React por frame y limpia listeners, ResizeObserver y frames pendientes.
+- El adaptador History del playground incluye búsquedas y fragmentos en su snapshot; mantiene
+  posiciones por entrada y orienta el foco al destino o al h1. Enlaces externos, target,
+  descargas y clics modificados conservan su comportamiento. Los hashes mal formados no rompen
+  la navegación. View Transition ofrece un fundido progresivo con tokens; sin soporte o con
+  restricciones se navega directamente. Las preferencias y cambios sucesivos cancelan el efecto.
+- Receta real de Next App Router, en dos rutas `/ejemplos/navegacion`: entrada tras confirmar el
+  pathname, metadata en servidor y foco con preventScroll. Link conserva historial, anclas y
+  restauración; no se remonta el árbol ni se administra el router desde la librería.
+- Corregido un fallo de Form: retirar el resumen al perder foco durante una pulsación movía el
+  botón antes de completarse el clic. Se valida al enviar en ese caso; la salida con teclado
+  conserva revalidación inmediata. La prueba de navegador reproduce el envío tras corregir errores.
+- Cuatro stories de secciones, demos compartidas, guías de lectura y navegación, catálogo de
+  plantillas actualizado y changesets de React/motion. La comprobación de overrides del piloto
+  espera la capacidad diferida, evitando asumir que una animación ya existe al terminar el clic.
+
+**Validación:** build completo de siete tareas, 16 páginas prerenderizadas, tipos, 149 pruebas
+unitarias y publint estricto de los cuatro paquetes. Lint sin errores, con los 30 avisos previos.
+La regresión completa pasa 370 pruebas de axe y teclado en Chromium. Los once recorridos nuevos
+cubren SSR sin JavaScript, texto al 200 %, precios, formulario, anclas, historial, foco, preferencias,
+menú táctil, descargas, target, clic modificado y fallback. Las tres páginas caben a 320, 390,
+768, 1024 y 1440 px; se revisaron capturas en claro/oscuro con escritorio y móvil.
+
+La prueba de Next comprueba lectura, SSR, hidratación, anclas, foco, scroll al volver, movimiento
+reducido y fallback sin WAAPI, sin errores: `apps/e2e/scripts/verify-phase6-docs.mjs` (build en 3001,
+o BETTERLIBS_DOCS_TEST_URL). Esta entrega se valida en Linux/Node 24. Docker está configurado,
+pero no se arrancaron sus servicios en esta sesión: el socket requiere sudo interactivo.
+Firefox/WebKit, lectores de pantalla y referencias de regresión siguen pendientes de fase 8.
+
+**Coste:** size-limit mide lectura y texto, incluyendo motor, en 6,96 kB (límite 8 kB),
+y ScrollProgress en 476 B (2 kB), sin motor. Con Vite/Rolldown y Brotli por chunk, lectura tiene
+3,02 kB iniciales + 4,43 kB diferidos = 7,46 kB; progreso, 502 B iniciales y ninguno diferido.
+Button conserva 1,79 kB; formulario 4,51 kB (6 kB), CSS de UI 18,17 kB (19 kB), tokens 4,51 kB
+(5 kB) y preset 2,40 kB (3 kB). Los presupuestos publicados siguen pasando sin elevar los anteriores.
+Registro: [bundle-cost.json](docs/previews/ui-motion/bundle-cost.json).
+
+Capturas de revisión: [producto claro](docs/previews/ui-motion/phase6-producto-light-desktop.png),
+[estudio claro](docs/previews/ui-motion/phase6-estudio-light-desktop.png),
+[artículo claro](docs/previews/ui-motion/phase6-articulo-light-desktop.png) y
+[artículo móvil oscuro](docs/previews/ui-motion/phase6-articulo-dark-mobile.png).
+Hay doce capturas en total. Se regeneran con `pnpm --filter @betterlibs/e2e exec node
+scripts/capture-phase6.mjs`, con el playground construido y servido en 4173. Son material de
+revisión, no referencias automatizadas de regresión visual.
+
+**Continuidad al cerrar la fase 6:** fase 7, completada a continuación.
+Siguen pendientes las comprobaciones entre motores, lectores de pantalla, referencias Linux
+verificadas y mediciones de rendimiento del plan completo.
+
+**Fase 7 — Documentación completa (2026-10-13).**
+
+- Portada editorial con composición real manipulable, rutas por uso y acceso a primera página.
+  Galería `/docs/galeria` con seis ejemplos compilados y tres plantillas, filtros, búsqueda que
+  tolera acentos, estado vacío, código desplegable y copia con alternativa ante fallo de permisos.
+- Preview añade tema, preset, movimiento y repetición optativos. Los cambios conservan nodos,
+  borradores y foco; repetición participa mediante replayKey. El lienzo y su contenedor de portales
+  comparten atributos. El sistema reducido prevalece y cancelar no oculta contenido funcional.
+- El generador lee los exports públicos de React y movimiento: 105 tipos propios, 11 firmas de
+  funciones/hooks y 72 módulos CSS. El código copiable procede de los seis archivos que Next
+  compila para las demos. Build y typecheck validan enlaces internos y referencias de 116 MDX.
+- Nueva referencia de movimiento y guías de SSR/preferencias, composición Radix, rendimiento,
+  migración y resolución de problemas. Instalación diferenciada para UI y movimiento mediante
+  checkout/tarballs; fuentes, CSS global, portales, wrappers y costes se explican explícitamente.
+- Corregidos contraste de navegación, jerarquía de títulos, main anidado y nombre del icono
+  de GitHub. La interfaz de Fumadocs usa las claves contextualizadas de traducción al español.
+  README, calidad, novedades y roadmap reflejan el nuevo plan sin trasladar resultados históricos.
+- Docker calcula los enlaces de docs al playground y Storybook con los puertos configurados.
+  El watcher regenera referencias React/motion y código de ejemplos; cierra todos sus observadores.
+  La actualización de launcher/Compose requiere reconstruir con `./docker.sh`.
+
+**Validación:** build y tipos de documentación, 116 páginas con enlaces/referencias válidos y lint
+sin errores (30 avisos existentes). La prueba `apps/e2e/scripts/verify-phase7-docs.mjs` pasa en
+Chromium: filtros, búsqueda general y navegación al resultado, copia y permiso denegado,
+formularios, borradores, portal oscuro/off, Escape y foco, repetición/cancelación, preferencia
+cambiada en vivo, 19 rutas, seis auditorías axe en claro/oscuro, API móvil, texto al 200 %, HTML
+sin JavaScript y ausencia de errores de hidratación. Los scripts Next de fases 4, 5 y 6 se vuelven
+a ejecutar y pasan. No se reejecutó la suite completa de UI de 370 casos: no cambia su código.
+
+Se empaquetaron cuatro tarballs, verificando exports y conversión de dependencias workspace.
+Un consumidor fuera del monorepo renderiza UI y movimiento en SSR desde ellos; reutiliza peers
+instalados del checkout, por lo que no equivale a una instalación desde cero con descarga online.
+El registro público respondió E404 para React/motion; publicación y despliegue siguen pendientes.
+Compose valida puertos alternativos y las tres pruebas de ciclo de vida del lanzador pasan.
+No se reconstruyeron contenedores: el socket requiere sudo interactivo. Entorno Linux/Node 24.
+
+Ocho capturas de revisión, en claro/oscuro y escritorio/móvil, generadas con
+`pnpm --filter @betterlibs/e2e exec node scripts/capture-phase7.mjs` (docs en 3001 o
+BETTERLIBS_DOCS_TEST_URL): [portada clara](docs/previews/ui-motion/phase7-portada-light-desktop.png),
+[portada móvil oscura](docs/previews/ui-motion/phase7-portada-dark-mobile.png),
+[galería clara](docs/previews/ui-motion/phase7-galeria-light-desktop.png) y
+[galería móvil oscura](docs/previews/ui-motion/phase7-galeria-dark-mobile.png).
+No son referencias automatizadas de regresión visual.
+
+**Siguiente fase:** fase 8, calidad y distribución: Firefox/WebKit, lectores de pantalla,
+referencias visuales Linux verificadas, rendimiento del rediseño y preparación de lanzamiento.
 
 **Entorno de desarrollo Docker completado (2026-10-12).**
 
@@ -569,9 +680,9 @@ Estimaciones orientativas en días de trabajo efectivo para una persona familiar
 | 2. Arquitectura y coste — completada | Paquete opcional, límites RSC, provider, piloto de distribución CSS y fixtures de consumo | UI básica sin Motion en su bundle; demo Vite y Next; coste inicial y diferido registrado | 2–4 días |
 | 3. UI prioritaria — completada | Los ocho componentes del MVP y sus estados | Stories, documentación y comportamiento de teclado/tacto correctos; sin regresiones funcionales | 3–5 días |
 | 4. Movimiento y primera página — completada | Cinco primitivas, cuatro composiciones y landing de Betterlibs | MVP utilizable con documentación; contenido visible en SSR, movimiento reducido y efectos interrumpibles | 3–5 días |
-| 5. Interacciones y catálogo | Adaptar los componentes restantes y añadir adaptaciones avanzadas con una API coherente | Formularios, menús, overlays y layout probados; capacidad avanzada cargada solo donde se utiliza | 3–5 días |
-| 6. Secciones y navegación | Tres plantillas, bloques restantes y recetas de navegación | Webs con contenido completo, imágenes coherentes y navegación con foco/historial/scroll correctos | 4–7 días |
-| 7. Documentación completa | Galería, controles de demos, guías, APIs y migración | Un desarrollador puede instalar, personalizar y montar una página siguiendo solo las docs | 3–5 días |
+| 5. Interacciones y catálogo — completada | Adaptar los componentes restantes y añadir adaptaciones avanzadas con una API coherente | Formularios, menús, overlays y layout probados; capacidad avanzada cargada solo donde se utiliza | 3–5 días |
+| 6. Secciones y navegación — completada | Tres plantillas, bloques restantes y recetas de navegación | Webs con contenido completo, imágenes coherentes y navegación con foco/historial/scroll correctos | 4–7 días |
+| 7. Documentación completa — completada | Galería, controles de demos, guías, APIs y migración | Un desarrollador puede instalar, personalizar y montar una página siguiendo solo las docs | 3–5 días |
 | 8. Calidad y distribución | Referencias visuales, pruebas entre motores, mediciones y empaquetado | Checks de cierre, registro de limitaciones, changelog y paquetes preparados para publicar | 2–4 días |
 
 La cadena principal es 0 → 1 → 2 → 3 → 4. Las pruebas y la documentación acompañan a cada fase; las fases finales completan la cobertura del conjunto.

@@ -94,31 +94,54 @@ export function Toaster({
             onOpenChange={(open) => {
               if (!open) toast.dismiss(record.id)
             }}
-            duration={record.duration ?? (record.action ? Number.POSITIVE_INFINITY : undefined)}
+            duration={
+              record.persistent
+                ? Number.POSITIVE_INFINITY
+                : (record.duration ??
+                  (record.action ||
+                  record.actions?.length ||
+                  (record.progress !== undefined && record.progress < 100)
+                    ? Number.POSITIVE_INFINITY
+                    : undefined))
+            }
             type={record.tone === 'danger' ? 'foreground' : 'background'}
           >
             <Icon className={styles.icon} aria-hidden="true" />
             <div className={styles.body}>
               <ToastPrimitive.Title className={styles.title}>{record.title}</ToastPrimitive.Title>
-              {record.description && (
+              {(record.description || (record.count && record.count > 1)) && (
                 <ToastPrimitive.Description className={styles.description}>
                   {record.description}
+                  {record.count && record.count > 1 && (
+                    <span> {record.count} actualizaciones agrupadas.</span>
+                  )}
                 </ToastPrimitive.Description>
               )}
-              {record.action && (
-                <ToastPrimitive.Action
-                  altText={record.action.altText ?? record.action.label}
-                  asChild
-                >
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className={styles.action}
-                    onClick={record.action.onClick}
+              {record.progress !== undefined && (
+                <progress
+                  className={styles.progress}
+                  aria-label="Progreso de la operación"
+                  max={100}
+                  value={Math.max(0, Math.min(100, record.progress))}
+                />
+              )}
+              {[...(record.action ? [record.action] : []), ...(record.actions ?? [])].map(
+                (action) => (
+                  <ToastPrimitive.Action
+                    key={action.label}
+                    altText={action.altText ?? action.label}
+                    asChild
                   >
-                    {record.action.label}
-                  </Button>
-                </ToastPrimitive.Action>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className={styles.action}
+                      onClick={action.onClick}
+                    >
+                      {action.label}
+                    </Button>
+                  </ToastPrimitive.Action>
+                ),
               )}
             </div>
             <ToastPrimitive.Close asChild>

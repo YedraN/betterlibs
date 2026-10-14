@@ -319,6 +319,27 @@ describe('Form', () => {
 })
 
 describe('Alert y ErrorSummary', () => {
+  it('preserves errors during a submit pointer press with null relatedTarget, and clears on cancellation', async () => {
+    render(
+      <Form>
+        <Field label="Nombre" name="name" required>
+          <Input />
+        </Field>
+        <button type="submit">Enviar</button>
+      </Form>,
+    )
+    const submit = screen.getByRole('button', { name: 'Enviar' })
+    await userEvent.click(submit)
+    const input = screen.getByLabelText(/Nombre/)
+    fireEvent.change(input, { target: { value: 'Atlas' } })
+    input.focus()
+    fireEvent.pointerDown(submit, { button: 0 })
+    fireEvent.blur(input, { relatedTarget: null })
+    expect(document.querySelector('[data-bl-error-summary]')).not.toBeNull()
+    fireEvent.pointerCancel(document)
+    fireEvent.blur(input, { relatedTarget: null })
+    expect(document.querySelector('[data-bl-error-summary]')).toBeNull()
+  })
   it('Alert muestra icono, título y botón de cerrar', async () => {
     const onDismiss = vi.fn()
     render(

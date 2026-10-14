@@ -41,8 +41,13 @@ apps/e2e         Playwright: axe, teclado, regresión visual y Lighthouse CI
 
 ## Publicar
 
-Al fusionar en `main`, la acción **Release** abre el PR «versión de los paquetes» con los
-changesets pendientes. Al fusionar ese PR se publica en npm (requiere el secreto `NPM_TOKEN`).
+`pnpm prepare:release` crea una candidata RC con changelogs y tarballs e instala los paquetes
+en un consumidor independiente. No cambia las versiones del checkout.
+
+La acción **Release** se ejecuta manualmente tras completar los checks de calidad, la revisión
+de lectores de pantalla y las referencias visuales Linux. Abre el PR «versión de los paquetes»
+con los changesets pendientes. Tras integrarlo, otra ejecución manual publica en npm (requiere
+el secreto `NPM_TOKEN`). Consulta [el recorrido y registro de calidad](docs/quality/README.md).
 
 ## Commits
 

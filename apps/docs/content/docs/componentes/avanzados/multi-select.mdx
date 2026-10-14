@@ -1,0 +1,31 @@
+---
+title: MultiSelect
+description: Busca, añade y quita etiquetas con un límite opcional.
+---
+
+import { MultiSelectExample } from '@/components/docs/examples/multi-select'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['multi-select']}><MultiSelectExample /></Preview>
+
+## Uso y comportamiento
+
+value es una lista de identificadores. name genera un valor por selección. maxSelected bloquea nuevas opciones, pero permite retirar las elegidas. Las etiquetas tienen botones con nombres completos.
+
+Importa `MultiSelect` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="MultiSelectProps" />
+
+## CSS
+
+<CssReference module="Advanced" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

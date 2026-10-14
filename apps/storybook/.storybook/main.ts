@@ -2,6 +2,7 @@ import type { StorybookConfig } from '@storybook/react-vite'
 import { generateScopedName } from '../../../packages/react/css-modules.js'
 
 const config: StorybookConfig = {
+  staticDirs: ['../../docs/public'],
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(ts|tsx)',

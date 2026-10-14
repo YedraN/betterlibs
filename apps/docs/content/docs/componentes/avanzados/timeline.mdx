@@ -1,0 +1,31 @@
+---
+title: Timeline
+description: Fechas, estados y detalles de cada cambio.
+---
+
+import { TimelineExample } from '@/components/docs/examples/timeline'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['timeline']}><TimelineExample /></Preview>
+
+## Uso y comportamiento
+
+Lista ordenada y time con una fecha válida. dateLabel permite formato legible sin variar dateTime. El estado tiene texto además de color. Los detalles funcionan sin JavaScript.
+
+Importa `Timeline` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="TimelineProps" />
+
+## CSS
+
+<CssReference module="ActivityTimeline" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

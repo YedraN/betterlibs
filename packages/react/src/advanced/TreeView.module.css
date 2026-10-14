@@ -1,0 +1,52 @@
+@layer bl.components {
+  .root,
+  .root ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .root {
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-md);
+    background: var(--bl-color-surface);
+  }
+  .root li {
+    border-radius: var(--bl-radius-sm);
+    outline: none;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-2);
+    min-block-size: 44px;
+    padding-inline-end: var(--bl-space-3);
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+  .row button,
+  .spacer {
+    flex: 0 0 44px;
+    inline-size: 44px;
+    block-size: 44px;
+  }
+  .row button {
+    display: grid;
+    place-items: center;
+    padding: var(--bl-space-3);
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .root li[aria-selected="true"] > .row {
+    background: var(--bl-color-accent-subtle);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+  .root li:focus-visible > .row {
+    outline: 2px solid var(--bl-color-focus-ring);
+    outline-offset: -2px;
+  }
+  .root li[aria-disabled] > .row {
+    color: var(--bl-color-text-disabled);
+  }
+}

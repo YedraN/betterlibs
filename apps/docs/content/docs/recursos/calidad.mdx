@@ -5,7 +5,8 @@ icon: ShieldCheck
 ---
 
 La edición editorial distingue resultados comprobados, objetivos y trabajo pendiente. Las cifras
-siguientes son el cierre de fase 6, el 13 de octubre de 2026; no son una certificación de la
+siguientes corresponden a la medición de fase 8 del 14 de octubre de 2026, anterior a la ampliación
+con Command; no son una certificación de la
 accesibilidad de cualquier aplicación que componga estos componentes.
 
 ## Comprobado en el rediseño
@@ -14,39 +15,61 @@ accesibilidad de cualquier aplicación que componga estos componentes.
 | --- | --- |
 | Build | Cuatro paquetes, playground, Storybook y Next; 16 páginas prerenderizadas en el playground |
 | Tipos | Los workspaces pasan TypeScript |
-| Unitarias | 149 pruebas: tokens, UI y movimiento |
-| Navegador | 370 pruebas axe y teclado en Chromium, incluidas claro/oscuro, móvil y nuevos recorridos de páginas |
+| Unitarias | 155 pruebas: tokens, UI y movimiento, incluidas regresiones de Form, Presence y aviso de cookies SSR |
+| Navegador | 1.111 pruebas axe y teclado aprobadas en Chromium, Firefox y WebKit; dos casos táctiles omitidos en Firefox |
+| Lighthouse | Once páginas, tres ejecuciones por página; medianas 95–98 en rendimiento y 100 en accesibilidad, buenas prácticas y SEO, con simulación móvil en Chromium/Windows |
 | SSR e hidratación | Contenido visible sin JavaScript; demos de Next sin errores de hidratación |
 | Preferencias | Reducido/off, cambios durante efectos y fallback sin WAAPI |
 | Paquetes | Publint estricto de los cuatro paquetes |
 | Presupuestos | size-limit pasa; los valores y métodos están en [rendimiento](/docs/guias/rendimiento) |
 | Lint | Sin errores; permanecen 30 avisos de estilos del repositorio |
+| Distribución | Cuatro tarballs RC con changelogs y licencias; exports, peers y SSR verificados en un consumidor aislado |
 
 Los tests cubren título y foco al navegar, scroll al volver, anclas, portales, formularios y
 cancelación. El generador de temas valida los pares declarados en los temas claro/oscuro; si
 cambias colores o introduces una combinación nueva, comprueba también su contraste real.
 
+## Comprobaciones de la ampliación
+
+Las veinte entregas aprobadas tienen 19 nuevas demos y 27 stories, incluidos carga, error,
+vacío e intervalos. Se comprueban teclado y foco, operaciones asíncronas y cancelación,
+selección y formularios, texto al 200 % a 320/768/1440 px y axe en Chromium, Firefox y WebKit.
+Las demos de Next se revisan por separado para comprobar SSR, hidratación, copia, portales
+y ambos estilos y temas. Los resultados de esta ampliación se registran en
+`docs/quality/catalogue.json`; no sustituyen las mediciones Lighthouse anteriores.
+
+El catálogo avanzado tiene presupuestos separados de JavaScript y CSS. Consulta
+[rendimiento](/docs/guias/rendimiento) para distinguir el coste adicional y el de la UI básica.
+
 ## Pendiente del cierre de fase 8
 
-La fase 7 añade una comprobación de documentación en Chromium: búsqueda por uso y búsqueda general,
+La ampliación [Command](/docs/componentes/interactivos/command) tiene comprobaciones propias de
+teclado, carga, filtrado, SSR y contraste. Los registros Lighthouse y de cobertura de fase 8 se
+conservan con su alcance original; una ampliación no acredita la revisión manual pendiente.
+
+La comprobación de documentación en Chromium cubre búsqueda por uso y búsqueda general,
 código copiable y fallo de permisos del portapapeles, borradores conservados, portales con tema,
 foco al cerrar, repetición y cancelación, 19 rutas, seis auditorías axe en claro/oscuro, SSR sin
 JavaScript y texto al 200 %. Las 116 páginas pasan la comprobación de enlaces internos y referencias
-API/CSS. Las recetas de Next de las fases 4–6 se han vuelto a comprobar; las cifras de la tabla
-anterior siguen correspondiendo a la suite de la fase 6.
+API/CSS. Las recetas de Next de las fases 4–6 y la galería se han vuelto a comprobar en el build
+de producción, con SSR e hidratación, preferencias y fallback sin WAAPI.
 
-- Firefox y WebKit para los recorridos prioritarios del rediseño.
-- Lectores de pantalla de escritorio y móvil, con registro manual de resultados.
+- Lectores de pantalla de escritorio y móvil: recorrido, registro y comprobador preparados;
+  ejecución manual pendiente.
 - Referencias visuales Linux verificadas. Las capturas de revisión no son esas referencias;
   una prueba omitida porque falta una imagen no cuenta como validación superada.
-- Lighthouse y revisión de tareas largas/fluidez en páginas nuevas y móvil representativo.
-- Versión, changelog, publicación pública y despliegue.
+- Contraste de tareas largas/fluidez en un móvil físico representativo; el perfil automatizado
+  usa CPU ×4 y viewport móvil en un equipo de escritorio.
+- Publicación pública y despliegue. La candidata lleva React/tokens/icons 1.0.0-rc.0 y motion
+  0.1.0-rc.0; el checkout conserva 0.0.0. El workflow Release requiere el registro manual y las
+  referencias Linux antes de ejecutar Changesets.
 
 ## Auditoría corporativa anterior
 
 El historial del repositorio contiene mediciones Lighthouse y capturas de la web corporativa
 anterior. No se trasladan como resultados del preset, las tres plantillas nuevas o la galería.
-El objetivo ≥95 de Lighthouse permanece como criterio de cierre, no como dato ya alcanzado aquí.
+La medición actual del rediseño supera el criterio de mediana ≥95 en las cuatro categorías.
+El entorno y las métricas de las 33 ejecuciones están registrados en docs/quality/lighthouse.json.
 
 ## Reproducir
 
@@ -62,7 +85,13 @@ pnpm size
 pnpm test:e2e
 ```
 
-Playwright necesita su navegador instalado. Las comprobaciones de Next usan scripts como
+Playwright necesita Chromium, Firefox y WebKit instalados. Firefox omite dos casos táctiles porque
+su contexto no admite esa emulación; esos casos se ejecutan en Chromium y WebKit. El swipe nativo
+CDP solo se verifica en Chromium. WebKit en Windows no acredita las preferencias nativas de
+tabulación de Safari en un equipo Apple real. El registro por motor se guarda en
+docs/quality/browsers.json, y el recorrido manual y la candidata en docs/quality/.
+
+Las comprobaciones de Next usan scripts como
 apps/e2e/scripts/verify-phase6-docs.mjs y verify-phase7-docs.mjs, con la documentación construida
 servida en 3001 o BETTERLIBS_DOCS_TEST_URL. La galería también se comprueba en temas claro/oscuro,
 con borradores, portales, copia, preferencias y HTML de servidor.

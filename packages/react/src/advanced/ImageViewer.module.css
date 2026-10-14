@@ -1,0 +1,53 @@
+@layer bl.components {
+  .root {
+    min-inline-size: 0;
+  }
+  .thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+    gap: var(--bl-space-3);
+  }
+  .thumbnails button {
+    padding: 0;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-md);
+    overflow: hidden;
+    background: var(--bl-color-surface);
+    cursor: zoom-in;
+  }
+  .thumbnails button:focus-visible {
+    outline: 2px solid var(--bl-color-focus-ring);
+    outline-offset: 4px;
+  }
+  .thumbnails img {
+    display: block;
+    inline-size: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--bl-space-2);
+    margin-block-end: var(--bl-space-3);
+  }
+  .viewport {
+    max-block-size: 60dvh;
+    overflow: auto;
+    border-radius: var(--bl-radius-md);
+    background: var(--bl-color-bg-muted);
+  }
+  .viewport:focus-visible {
+    outline: 2px solid var(--bl-color-focus-ring);
+    outline-offset: 2px;
+  }
+  .viewport img {
+    display: block;
+    max-inline-size: none;
+    block-size: auto;
+  }
+  .caption {
+    color: var(--bl-color-text-muted);
+  }
+}

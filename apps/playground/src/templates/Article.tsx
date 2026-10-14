@@ -120,16 +120,23 @@ export function ArticlePage({ slug }: { slug: string }) {
             </div>
           </Stack>
           {article.image && (
-            <Image
-              src={article.image.src}
-              srcSet={article.image.srcSet}
-              sizes="(min-width: 75em) 72rem, 100vw"
-              alt=""
-              ratio={16 / 9}
-              radius="2xl"
-              priority
-              className={styles.cover}
-            />
+            <picture>
+              <source
+                type="image/avif"
+                srcSet={article.image.srcSet?.replaceAll('.webp', '.avif')}
+                sizes="(min-width: 75em) 72rem, calc(100vw - 2rem)"
+              />
+              <Image
+                src={article.image.src}
+                srcSet={article.image.srcSet}
+                sizes="(min-width: 75em) 72rem, calc(100vw - 2rem)"
+                alt=""
+                ratio={16 / 9}
+                radius="2xl"
+                priority
+                className={styles.cover}
+              />
+            </picture>
           )}
           <div className={styles.layout}>
             {article.toc && article.toc.length > 0 ? (

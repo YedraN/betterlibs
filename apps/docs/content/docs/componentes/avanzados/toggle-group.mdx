@@ -1,0 +1,31 @@
+---
+title: ToggleGroup
+description: Alterna opciones con selección única o múltiple.
+---
+
+import { ToggleGroupExample } from '@/components/docs/examples/toggle-group'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['toggle-group']}><ToggleGroupExample /></Preview>
+
+## Uso y comportamiento
+
+Usa type="single" o "multiple"; value es una lista. Flechas y Home/End recorren botones habilitados sin modificar la selección. Enter o Espacio confirman. No sustituye radios obligatorios de un formulario.
+
+Importa `ToggleGroup` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="ToggleGroupProps" />
+
+## CSS
+
+<CssReference module="Advanced" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

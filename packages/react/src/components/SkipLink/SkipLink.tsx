@@ -10,7 +10,7 @@ export type SkipLinkProps = ComponentPropsWithRef<'a'> & {
 /**
  * Primer elemento enfocable de la página: permite a usuarios de teclado saltarse
  * la navegación. Solo es visible al recibir el foco. Colócalo al principio del `<body>`
- * y asegúrate de que el destino exista (`<main id="main">`).
+ * y asegúrate de que el destino admita foco programático (`<main id="main" tabIndex={-1}>`).
  */
 export function SkipLink({
   href = '#main',
@@ -19,7 +19,7 @@ export function SkipLink({
   ...props
 }: SkipLinkProps) {
   return (
-    <a href={href} className={cx(styles.root, className)} {...props}>
+    <a href={href} tabIndex={0} className={cx(styles.root, className)} {...props}>
       {children}
     </a>
   )

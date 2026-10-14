@@ -11,6 +11,7 @@
 @import "@betterlibs/tokens/editorial.css";
 @import "@fontsource-variable/space-grotesk";
 @import "@betterlibs/react/styles.css";
+@import "@betterlibs/react/advanced/styles.css";
 
 html {
   scrollbar-gutter: stable;

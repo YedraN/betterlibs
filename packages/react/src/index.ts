@@ -112,6 +112,8 @@ export {
   type CheckboxProps,
   type ChoiceVariant,
 } from './components/Checkbox/Checkbox'
+export type { CommandItem, CommandProps } from './components/Command/Command'
+export { Command } from './components/Command/Command'
 export {
   Container,
   type ContainerOwnProps,

@@ -4,7 +4,8 @@
     "rootDir": "src",
     "outDir": "dist",
     "emitDeclarationOnly": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": { "@betterlibs/react": ["./src/index.ts"] }
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.tsx", "src/**/*.stories.tsx", "src/test"]

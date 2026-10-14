@@ -1,0 +1,31 @@
+---
+title: Stepper
+description: Valida cada paso y conserva los borradores al volver.
+---
+
+import { StepperExample } from '@/components/docs/examples/stepper'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['stepper']}><StepperExample /></Preview>
+
+## Uso y comportamiento
+
+steps define id, title y content. Los paneles siguen montados. validate devuelve un mensaje para detener el avance. validate y onComplete reciben AbortSignal; respétala en operaciones remotas. No se completa después de desmontar durante una validación pendiente.
+
+Importa `Stepper` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="StepperProps" />
+
+## CSS
+
+<CssReference module="Stepper" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

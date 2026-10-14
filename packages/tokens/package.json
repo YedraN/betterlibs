@@ -23,6 +23,8 @@
   ],
   "files": [
     "dist",
+    "LICENSE",
+    "CHANGELOG.md",
     "README.md"
   ],
   "main": "./dist/index.js",

@@ -1,0 +1,31 @@
+---
+title: InlineEdit
+description: Guarda, cancela y recupera el borrador ante errores.
+---
+
+import { InlineEditExample } from '@/components/docs/examples/inline-edit'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['inline-edit']}><InlineEditExample /></Preview>
+
+## Uso y comportamiento
+
+`value` es controlado. `validate` devuelve un error antes de `onSave`. Enter guarda y Escape cancela cuando no hay una operación en curso. IME no dispara guardados. Un fallo conserva el borrador y el foco. `onSave(value, signal)` debe finalizar antes de reflejar el valor persistido; la señal se cancela al desmontar el componente. Pásala a `fetch` para cancelar también la petición.
+
+Importa `InlineEdit` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="InlineEditProps" />
+
+## CSS
+
+<CssReference module="Advanced" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

@@ -79,6 +79,12 @@ export type CookieConsentProps = Partial<ConsentConfig> & {
   alwaysActiveLabel?: string
   /** Nombre de la región del aviso. @default 'Aviso de cookies' */
   label?: string
+  /**
+   * Muestra el aviso en el HTML inicial, antes de leer localStorage. Se retira si hay una decisión
+   * guardada; puede verse brevemente en visitas repetidas. No concede consentimiento.
+   * @default false
+   */
+  initialBanner?: boolean
   /** Se llama con cada decisión. Úsalo para cargar o retirar scripts. */
   onChange?: (consent: ConsentCategories) => void
 }
@@ -108,6 +114,7 @@ export function CookieConsent({
   preferencesDescription = 'Elige qué cookies aceptas. Puedes cambiarlo cuando quieras desde el pie de la web.',
   alwaysActiveLabel = 'Siempre activas',
   label = 'Aviso de cookies',
+  initialBanner = false,
   storageKey,
   version,
   maxAgeDays,
@@ -137,7 +144,7 @@ export function CookieConsent({
     if (preferencesOpen) setDraft({ ...all(false), ...(consent ?? {}) })
   }, [preferencesOpen])
 
-  const showBanner = ready && consent === null
+  const showBanner = ready ? consent === null : initialBanner
 
   // El aviso fijo no debe tapar el elemento enfocado (WCAG 2.4.11): se reserva su alto.
   useEffect(() => {
@@ -167,6 +174,7 @@ export function CookieConsent({
         <div
           ref={bannerRef}
           className={styles.banner}
+          data-initial-banner={initialBanner ? '' : undefined}
           role="region"
           aria-label={label}
           aria-describedby={titleId}

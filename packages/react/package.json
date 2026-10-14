@@ -1,7 +1,7 @@
 {
   "name": "@betterlibs/react",
   "version": "0.0.0",
-  "description": "Componentes React accesibles para webs corporativas y profesionales.",
+  "description": "Componentes y bloques React accesibles para interfaces y páginas web con identidad.",
   "license": "MIT",
   "author": "YedraN",
   "keywords": [
@@ -12,7 +12,7 @@
     "accessibility",
     "a11y",
     "wcag",
-    "corporate",
+    "web-ui",
     "css-modules",
     "rsc"
   ],
@@ -26,6 +26,8 @@
   ],
   "files": [
     "dist",
+    "LICENSE",
+    "CHANGELOG.md",
     "README.md"
   ],
   "main": "./dist/index.js",
@@ -36,6 +38,11 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./advanced": {
+      "types": "./dist/advanced/index.d.ts",
+      "import": "./dist/advanced/index.js"
+    },
+    "./advanced/styles.css": "./dist/advanced/styles.css",
     "./package.json": "./package.json"
   },
   "repository": {
@@ -47,7 +54,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && vite build --config vite.advanced.config.ts && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },

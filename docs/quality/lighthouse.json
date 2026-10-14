@@ -1,0 +1,234 @@
+{
+  "measuredAt": "2026-10-14T09:05:26.679Z",
+  "environment": {
+    "os": "win32 10.0.26200",
+    "cpu": "13th Gen Intel(R) Core(TM) i7-13620H",
+    "node": "v24.17.0",
+    "browserLaunch": "Playwright Chromium via CDP; Lighthouse mobile simulation and cache resets",
+    "lighthouse": "12.6.1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "throttlingMethod": "simulate"
+  },
+  "threshold": 95,
+  "aggregation": "median of three or more runs; raw scores used for acceptance",
+  "rows": [
+    {
+      "path": "/",
+      "runs": 3,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1808.29,
+        "largest-contentful-paint": 2357.0460000000003,
+        "total-blocking-time": 107,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1808.29
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/plantillas/producto",
+      "runs": 3,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1879.19875,
+        "largest-contentful-paint": 2405.0385,
+        "total-blocking-time": 22,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1879.19875
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/plantillas/estudio",
+      "runs": 3,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1879.6012500000002,
+        "largest-contentful-paint": 2555.5215,
+        "total-blocking-time": 27,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1879.6012500000002
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/plantillas/articulo",
+      "runs": 3,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1879.3400000000001,
+        "largest-contentful-paint": 2555.2079999999996,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1879.3400000000001
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/plantillas/corporativa",
+      "runs": 3,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1809.4,
+        "largest-contentful-paint": 2706.5280000000002,
+        "total-blocking-time": 31.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1809.4
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/servicios",
+      "runs": 3,
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1809.0273,
+        "largest-contentful-paint": 2371.1398,
+        "total-blocking-time": 25,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1809.0273
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/sobre-nosotros",
+      "runs": 3,
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1807.404,
+        "largest-contentful-paint": 2364.659,
+        "total-blocking-time": 10.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1807.404
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/contacto",
+      "runs": 3,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1807.856,
+        "largest-contentful-paint": 2136.661,
+        "total-blocking-time": 20,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1807.856
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/blog",
+      "runs": 3,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1809.945,
+        "largest-contentful-paint": 2708.648,
+        "total-blocking-time": 15.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1809.945
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/blog/iva-autonomos-2026",
+      "runs": 3,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1809.77,
+        "largest-contentful-paint": 2525.8426,
+        "total-blocking-time": 29,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1809.77
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    },
+    {
+      "path": "/aviso-legal",
+      "runs": 3,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": 1808.1282,
+        "largest-contentful-paint": 2142.6282,
+        "total-blocking-time": 26,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1808.1282
+      },
+      "passes": true,
+      "failures": ["valid-source-maps"]
+    }
+  ]
+}

@@ -17,21 +17,32 @@ anterior permanece en el repositorio; sus números de fase no son los de esta ta
 | 5 | Catálogo restante y continuidad de posiciones | Completada |
 | 6 | Tres plantillas, bloques restantes y navegación | Completada |
 | 7 | Galería, controles, referencias, guías y migración | Completada |
-| 8 | Calidad entre motores, referencias, mediciones y distribución | Pendiente |
+| 8 | Calidad entre motores, referencias, mediciones y distribución | En curso |
 
 ## Cierre de calidad
 
-Quedan Firefox/WebKit, revisión manual con lectores de pantalla, referencias visuales verificadas
-y mediciones de rendimiento del rediseño. Una captura de revisión no equivale a una referencia
-automatizada y una suite Chromium no acredita todos los navegadores.
+La batería automatizada incluye Chromium, Firefox y WebKit. El recorrido manual con lectores de
+pantalla de escritorio y móvil está preparado y pendiente de ejecución. Las referencias visuales
+deben generarse y compararse en la imagen Linux fijada; faltar una imagen hace fallar la prueba.
+Los resultados y límites actuales se registran en [calidad](/docs/recursos/calidad).
 
 ## Distribución
 
-Los paquetes se prueban desde el checkout y tarballs locales. La publicación pública, el hosting
-y la versión de lanzamiento se decidirán al cierre; 0.0.0 local no demuestra ausencia de consumidores.
+`pnpm prepare:release` genera tarballs RC y changelogs en un directorio aislado y comprueba un
+consumidor independiente. La publicación pública y el hosting quedan pendientes del cierre;
+el workflow de publicación requiere el registro manual y las referencias visuales Linux.
 Sigue [instalación](/docs/primeros-pasos/instalacion) para una vía de uso reproducible hoy.
 
-## Exploración posterior
+## Ampliación autorizada del catálogo
+
+El usuario ha autorizado continuar con nuevos componentes e interacciones mientras se aplaza
+la revisión manual de la fase 8. La ampliación cubre las veinte entregas aprobadas: mejoras de
+[Command](/docs/componentes/interactivos/command) y notificaciones y el
+[catálogo avanzado](/docs/componentes/avanzados). Incluye selectores, fechas, tabla, navegación,
+pasos, archivos, controles, árbol, paneles, tablero, historial, estados vacíos, copia, visor,
+edición y filtros. Cada entrega tiene demo y contrato; los resultados se registran en
+[calidad](/docs/recursos/calidad). La ampliación no da por validada la revisión de lectores
+de pantalla ni convierte la candidata en una versión estable.
 
 Drag completo, comparadores, parallax, marquesinas y escenas de scroll requieren una necesidad y
 un presupuesto propios. No se incorporan automáticamente por ampliar el catálogo. La exploración

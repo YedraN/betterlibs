@@ -2,6 +2,8 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/space-grotesk'
 import '@betterlibs/tokens/index.css'
 import '@betterlibs/tokens/editorial.css'
+import '@betterlibs/react/styles.css'
+import '@betterlibs/react/advanced/styles.css'
 import { type MotionMode, MotionProvider } from '@betterlibs/motion'
 import { createTheme, editorial } from '@betterlibs/tokens'
 import type { Decorator, Preview } from '@storybook/react-vite'
@@ -35,11 +37,23 @@ const withTheme: Decorator = (Story, context) => {
   }
   const color = brands[brand]
   style.textContent = color
-    ? createTheme({ brand: color, preset: preset === 'editorial' ? editorial : undefined }).css
+    ? [
+        createTheme({ brand: color, preset: preset === 'editorial' ? editorial : undefined }).css,
+        createTheme({
+          brand: color,
+          preset: preset === 'editorial' ? editorial : undefined,
+          selector: '[data-bl-story-theme]',
+        }).css,
+      ].join('\n')
     : ''
 
   return (
-    <div key={`${theme}-${brand}-${preset}`}>
+    <div
+      key={`${theme}-${brand}-${preset}`}
+      data-bl-story-theme=""
+      data-theme={theme === 'auto' ? undefined : theme}
+      data-preset={preset}
+    >
       <MotionProvider mode={motion as MotionMode}>
         <Story />
       </MotionProvider>

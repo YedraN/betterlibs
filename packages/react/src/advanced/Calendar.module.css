@@ -1,0 +1,59 @@
+@layer bl.components {
+  .root {
+    min-inline-size: 0;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--bl-space-2);
+    font-weight: var(--bl-font-weight-semibold);
+    padding-block-end: var(--bl-space-3);
+  }
+  .grid {
+    inline-size: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    table-layout: fixed;
+  }
+  .grid th {
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+    font-weight: var(--bl-font-weight-medium);
+    text-align: center;
+  }
+  .grid td {
+    padding: 0;
+    text-align: center;
+  }
+  .grid button {
+    inline-size: 100%;
+    min-block-size: 40px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--bl-radius-sm);
+    background: transparent;
+    color: var(--bl-color-text);
+    font: inherit;
+    cursor: pointer;
+  }
+  .grid button[data-outside] {
+    color: var(--bl-color-text-muted);
+  }
+  .grid button:disabled {
+    color: var(--bl-color-text-disabled);
+    cursor: not-allowed;
+  }
+  .grid td[aria-selected="true"] button {
+    background: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    border-color: var(--bl-color-accent);
+  }
+  .grid button[data-range] {
+    background: var(--bl-color-accent-subtle);
+  }
+  .grid button:focus-visible {
+    outline: 2px solid var(--bl-color-focus-ring);
+    outline-offset: -2px;
+  }
+}

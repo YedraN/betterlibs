@@ -19,14 +19,14 @@
     },
     {
       "fixture": "basic",
-      "initialBrotli": 2782,
+      "initialBrotli": 2914,
       "deferredBrotli": 4434,
       "chunks": [
         {
-          "file": "assets/basic-BqivWueO.js",
+          "file": "assets/basic-k6aDKc7e.js",
           "initial": true,
-          "bytes": 6724,
-          "brotli": 2782
+          "bytes": 7117,
+          "brotli": 2914
         },
         {
           "file": "assets/mini-DZhX7r_6.js",
@@ -51,14 +51,14 @@
     },
     {
       "fixture": "complete",
-      "initialBrotli": 3457,
+      "initialBrotli": 3586,
       "deferredBrotli": 4434,
       "chunks": [
         {
-          "file": "assets/complete-CGNC-vZZ.js",
+          "file": "assets/complete-CfUiEwni.js",
           "initial": true,
-          "bytes": 8660,
-          "brotli": 3457
+          "bytes": 9053,
+          "brotli": 3586
         },
         {
           "file": "assets/mini-DZhX7r_6.js",

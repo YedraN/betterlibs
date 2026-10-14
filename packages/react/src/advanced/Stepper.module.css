@@ -1,0 +1,38 @@
+@layer bl.components {
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bl-space-4);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .steps li {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-2);
+    color: var(--bl-color-text-muted);
+  }
+  .number {
+    display: grid;
+    place-items: center;
+    min-inline-size: 2rem;
+    min-block-size: 2rem;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-full);
+  }
+  .steps li[aria-current] {
+    color: var(--bl-color-text);
+    font-weight: var(--bl-font-weight-semibold);
+  }
+  .steps li[aria-current] .number,
+  .steps li[data-complete] .number {
+    background: var(--bl-color-accent);
+    color: var(--bl-color-on-accent);
+    border-color: var(--bl-color-accent);
+  }
+  .heading {
+    margin: 0;
+    outline-offset: 4px;
+  }
+}

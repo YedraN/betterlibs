@@ -1,7 +1,7 @@
 {
   "name": "betterlibs",
   "private": true,
-  "description": "Librería de componentes React para webs corporativas y profesionales.",
+  "description": "Componentes, bloques y movimiento opcional para interfaces y páginas React con identidad.",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@12.4.1",
@@ -24,6 +24,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=\"./packages/*\" && changeset publish",
+    "prepare:release": "node scripts/prepare-release.mjs",
     "prepare": "husky"
   },
   "devDependencies": {

@@ -1,0 +1,43 @@
+@layer bl.components {
+  .root {
+    display: grid;
+    justify-items: center;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-8) var(--bl-space-4);
+    border: 1px dashed var(--bl-color-border-input);
+    border-radius: var(--bl-radius-lg);
+    background: var(--bl-color-surface);
+    text-align: center;
+  }
+  .root[data-compact] {
+    padding-block: var(--bl-space-4);
+  }
+  .root h3,
+  .root p {
+    margin: 0;
+    overflow-wrap: anywhere;
+    max-inline-size: 45ch;
+  }
+  .root p {
+    color: var(--bl-color-text-muted);
+  }
+  .icon {
+    display: grid;
+    place-items: center;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+    color: var(--bl-color-accent-text);
+  }
+  .icon svg {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--bl-space-3);
+  }
+}

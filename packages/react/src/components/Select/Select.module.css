@@ -9,6 +9,8 @@
     padding-inline: var(--_px) calc(var(--_px) + 1.5em);
     cursor: inherit;
     text-overflow: ellipsis;
+    /* WebKit puede propagar el ancho del texto nativo aunque el control ya se haya encogido. */
+    overflow: hidden;
   }
 
   /* Las opciones heredan colores del sistema; se fuerzan para el modo oscuro. */

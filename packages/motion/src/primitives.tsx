@@ -112,6 +112,7 @@ export function Presence({
   ...props
 }: PresenceProps): ReactElement | null {
   const node = useRef<HTMLElement>(null)
+  const focusedWithin = useRef(false)
   const [retained, setRetained] = useState(present)
   const { enabled } = useMotionPreferences()
   const { play, cancel } = useMotionAnimation()
@@ -124,10 +125,12 @@ export function Presence({
       setRetained(true)
       if (enabled) void play([element], preset)
     } else {
-      if (element.contains(document.activeElement)) {
+      // WebKit can blur the descendant as soon as React applies inert, before this effect.
+      if (focusedWithin.current || element.contains(document.activeElement)) {
         if (returnFocusRef?.current) returnFocusRef.current.focus()
         else (document.activeElement as HTMLElement | null)?.blur()
       }
+      focusedWithin.current = false
       if (!enabled) setRetained(false)
       else
         void play([element], preset, { exit: true }).then(() => {
@@ -142,6 +145,25 @@ export function Presence({
   if (!mounted) return null
   return createElement(as, {
     ...props,
+    onPointerDownCapture: (event) => {
+      props.onPointerDownCapture?.(event)
+      // Safari activates buttons without moving focus to them. Closing from inside still returns focus.
+      if (
+        !event.defaultPrevented &&
+        event.target instanceof Element &&
+        event.target.closest('button, a[href], input, select, textarea, [tabindex]')
+      )
+        focusedWithin.current = true
+    },
+    onFocusCapture: (event) => {
+      focusedWithin.current = true
+      props.onFocusCapture?.(event)
+    },
+    onBlurCapture: (event) => {
+      if (event.relatedTarget)
+        focusedWithin.current = event.currentTarget.contains(event.relatedTarget)
+      props.onBlurCapture?.(event)
+    },
     inert: !present || props.inert,
     'aria-hidden': !present ? true : props['aria-hidden'],
     'data-bl-presence': present ? 'present' : 'exiting',

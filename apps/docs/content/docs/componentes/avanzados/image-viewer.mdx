@@ -1,0 +1,31 @@
+---
+title: ImageViewer
+description: Amplía imágenes, cambia de vista y restablece el zoom.
+---
+
+import { ImageViewerExample } from '@/components/docs/examples/image-viewer'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['image-viewer']}><ImageViewerExample /></Preview>
+
+## Uso y comportamiento
+
+Cada imagen necesita id, src y alt útil. Las miniaturas reciben de nuevo el foco al cerrar. Flechas navegan entre imágenes. El área ampliada permite desplazamiento con teclado. El fallo de carga conserva los controles.
+
+Importa `ImageViewer` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="ImageViewerProps" />
+
+## CSS
+
+<CssReference module="ImageViewer" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

@@ -172,6 +172,15 @@ test('Toast: F8, acción, salida inerte y actualización durante el cierre', asy
 })
 
 test('posiciones y Tabs: carga diferida, cambios rápidos, modos y borradores', async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = Element.prototype.animate
+    Element.prototype.animate = function (...args) {
+      if (this instanceof HTMLElement && this.classList.contains('bl-tabs-indicator')) {
+        this.dataset.testAnimations = String(Number(this.dataset.testAnimations ?? 0) + 1)
+      }
+      return original.apply(this, args)
+    }
+  })
   const engines: string[] = []
   page.on('request', (request) => {
     if (request.url().includes('position-engine-')) engines.push(request.url())
@@ -203,7 +212,9 @@ test('posiciones y Tabs: carga diferida, cambios rápidos, modos y borradores', 
   )
   await expect
     .poll(() =>
-      page.locator('.bl-tabs-indicator').evaluate((element) => element.getAnimations().length),
+      page
+        .locator('.bl-tabs-indicator')
+        .evaluate((element) => Number((element as HTMLElement).dataset.testAnimations ?? 0)),
     )
     .toBeGreaterThan(0)
   await page.keyboard.press('ArrowRight')
@@ -323,8 +334,12 @@ test('Carousel cancela autoplay al cambiar data-motion y mantiene navegación di
 })
 
 test.describe('interacciones táctiles', () => {
+  test.skip(
+    ({ browserName }) => browserName === 'firefox',
+    'La emulación táctil no está disponible en Firefox; las mismas acciones se comprueban con teclado.',
+  )
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true })
-  test('menú, panel y descarte de una notificación en móvil', async ({ page }) => {
+  test('menú, panel y descarte de una notificación en móvil', async ({ page, browserName }) => {
     await page.goto(url('menus-y-overlays', 'dark'))
     await waitForStory(page)
     await page.getByRole('button', { name: 'Opciones de colección' }).tap()
@@ -336,6 +351,12 @@ test.describe('interacciones táctiles', () => {
     await page.getByRole('button', { name: 'Mostrar notificación' }).tap()
     const toast = page.locator('.bl-toast-toast[data-state="open"]')
     await expect(toast).toBeVisible()
+    if (browserName !== 'chromium') {
+      // WebKit cubre taps y descarte accesible; el swipe nativo usa CDP exclusivo de Chromium.
+      await toast.getByRole('button', { name: 'Cerrar notificación', exact: true }).tap()
+      await expect(toast).toHaveCount(0)
+      return
+    }
     const box = await toast.boundingBox()
     if (!box) throw new Error('No hay una notificación visible')
     const touch = await page.context().newCDPSession(page)

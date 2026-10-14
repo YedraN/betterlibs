@@ -1,0 +1,57 @@
+@layer bl.components {
+  .root {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .root li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    gap: var(--bl-space-3);
+    padding-block-end: var(--bl-space-6);
+  }
+  .root li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0.7rem;
+    inset-block: 1.5rem 0;
+    border-inline-start: 1px solid var(--bl-color-border);
+  }
+  .marker {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    border: 2px solid var(--bl-color-border-input);
+    border-radius: var(--bl-radius-full);
+    background: var(--bl-color-surface);
+  }
+  .root li[data-status="current"] .marker,
+  .root li[data-status="complete"] .marker {
+    border-color: var(--bl-color-accent-text);
+    background: var(--bl-color-accent-subtle);
+  }
+  .content {
+    display: grid;
+    gap: var(--bl-space-2);
+    overflow-wrap: anywhere;
+  }
+  .content h3,
+  .content p {
+    margin: 0;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bl-space-3);
+    color: var(--bl-color-text-muted);
+    font-size: var(--bl-font-size-sm);
+  }
+  .content summary {
+    min-block-size: 44px;
+    cursor: pointer;
+    padding-block: var(--bl-space-2);
+  }
+  .content summary:focus-visible {
+    outline: 2px solid var(--bl-color-focus-ring);
+  }
+}

@@ -24,6 +24,16 @@ export type ToastOptions = {
    */
   duration?: number
   action?: ToastAction
+  /** Acciones adicionales. Se conservan mientras la notificación está visible. */
+  actions?: ToastAction[]
+  /** Mantiene la notificación hasta que el usuario la cierre. @default false */
+  persistent?: boolean
+  /** Progreso real de una operación, entre 0 y 100. */
+  progress?: number
+  /** Agrupa nuevas notificaciones de la misma operación, sin llenar la pantalla. */
+  group?: string
+  /** Número de actualizaciones agrupadas, gestionado por toast(). */
+  count?: number
   /** Identificador propio para actualizar o cerrar una notificación concreta. */
   id?: string
 }
@@ -73,8 +83,18 @@ function dismiss(id?: string) {
 
 function show(options: ToastOptions | string): string {
   const normalized = typeof options === 'string' ? { title: options } : options
-  const id = normalized.id ?? `bl-toast-${++counter}`
-  const record: ToastRecord = { tone: 'info', ...normalized, id, open: true }
+  const grouped =
+    normalized.group && !normalized.id
+      ? records.find((item) => item.open && item.group === normalized.group)
+      : undefined
+  const id = normalized.id ?? grouped?.id ?? `bl-toast-${++counter}`
+  const record: ToastRecord = {
+    tone: 'info',
+    ...normalized,
+    ...(grouped ? { count: (grouped.count ?? 1) + 1 } : {}),
+    id,
+    open: true,
+  }
   const exists = records.some((item) => item.id === id)
   records = exists ? records.map((item) => (item.id === id ? record : item)) : [...records, record]
   emit()
@@ -103,4 +123,10 @@ export const toast = Object.assign(show, {
     show({ ...options, title, tone: 'danger' }),
   /** Cierra una notificación por su `id`, o todas si no se indica. */
   dismiss,
+  /** Actualiza una operación existente sin crear otra notificación ni incrementar su grupo. */
+  update: (id: string, options: Partial<Omit<ToastOptions, 'id'>>) => {
+    const current = records.find((record) => record.id === id && record.open)
+    if (!current) return
+    return show({ ...current, ...options, id })
+  },
 })

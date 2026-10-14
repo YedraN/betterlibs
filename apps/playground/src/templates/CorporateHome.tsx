@@ -39,8 +39,8 @@ export function CorporateHomePage() {
           <img
             src={photo('hero')}
             srcSet={photoSrcSet('hero')}
-            sizes="(min-width: 64em) 50vw, 100vw"
-            alt="Dos consultoras de Norte revisan un informe con un cliente"
+            sizes="(min-width: 64em) 50vw, calc(100vw - 2rem)"
+            alt=""
             width={1200}
             height={800}
             // Es la imagen principal (LCP): se pide cuanto antes.

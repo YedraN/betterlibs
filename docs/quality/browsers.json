@@ -1,0 +1,66 @@
+{
+  "measuredAt": "2026-10-14T08:55:24.064Z",
+  "environment": "win32 10.0.26200",
+  "playwright": "1.63.0",
+  "durationMs": 740151.172,
+  "rows": [
+    {
+      "project": "a11y",
+      "passed": 306,
+      "skipped": 0,
+      "failed": 0,
+      "flaky": 0,
+      "limitations": []
+    },
+    {
+      "project": "a11y-firefox",
+      "passed": 306,
+      "skipped": 0,
+      "failed": 0,
+      "flaky": 0,
+      "limitations": []
+    },
+    {
+      "project": "a11y-webkit",
+      "passed": 306,
+      "skipped": 0,
+      "failed": 0,
+      "flaky": 0,
+      "limitations": []
+    },
+    {
+      "project": "keyboard",
+      "passed": 65,
+      "skipped": 0,
+      "failed": 0,
+      "flaky": 0,
+      "limitations": []
+    },
+    {
+      "project": "keyboard-firefox",
+      "passed": 63,
+      "skipped": 2,
+      "failed": 0,
+      "flaky": 0,
+      "limitations": [
+        {
+          "test": "abre, atrapa el foco, cierra y navega",
+          "reason": "Firefox no admite isMobile/hasTouch en Playwright; su recorrido móvil con teclado sigue cubierto."
+        },
+        {
+          "test": "menú, panel y descarte de una notificación en móvil",
+          "reason": "La emulación táctil no está disponible en Firefox; las mismas acciones se comprueban con teclado."
+        }
+      ]
+    },
+    {
+      "project": "keyboard-webkit",
+      "passed": 65,
+      "skipped": 0,
+      "failed": 0,
+      "flaky": 0,
+      "limitations": []
+    }
+  ],
+  "errors": []
+}

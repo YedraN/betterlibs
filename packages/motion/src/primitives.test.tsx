@@ -60,6 +60,59 @@ beforeEach(() => {
 })
 
 describe('motion policy and HTML', () => {
+  it('returns focus after pointer activation inside when the browser leaves focus outside', () => {
+    const trigger = createRef<HTMLButtonElement>()
+    const sample = (present: boolean) => (
+      <MotionProvider mode="off">
+        <button ref={trigger}>Abrir</button>
+        <Presence present={present} returnFocusRef={trigger}>
+          <button>Cerrar</button>
+        </Presence>
+      </MotionProvider>
+    )
+    const { rerender } = render(sample(true))
+    trigger.current?.focus()
+    fireEvent.pointerDown(screen.getByRole('button', { name: 'Cerrar' }))
+    rerender(sample(false))
+    expect(document.activeElement).toBe(trigger.current)
+  })
+  it('restores focus if applying inert has already blurred the focused descendant', () => {
+    const trigger = createRef<HTMLButtonElement>()
+    const sample = (present: boolean) => (
+      <MotionProvider mode="off">
+        <button ref={trigger}>Abrir</button>
+        <Presence present={present} returnFocusRef={trigger}>
+          <input aria-label="Borrador" />
+        </Presence>
+      </MotionProvider>
+    )
+    const { rerender } = render(sample(true))
+    const input = screen.getByRole('textbox')
+    input.focus()
+    input.blur()
+    expect(document.activeElement).toBe(document.body)
+    rerender(sample(false))
+    expect(document.activeElement).toBe(trigger.current)
+  })
+
+  it('does not steal focus after the user has moved to an external control', () => {
+    const trigger = createRef<HTMLButtonElement>()
+    const sample = (present: boolean) => (
+      <MotionProvider mode="off">
+        <button ref={trigger}>Abrir</button>
+        <input aria-label="Fuera" />
+        <Presence present={present} returnFocusRef={trigger}>
+          <input aria-label="Dentro" />
+        </Presence>
+      </MotionProvider>
+    )
+    const { rerender } = render(sample(true))
+    screen.getByRole('textbox', { name: 'Dentro' }).focus()
+    const outside = screen.getByRole('textbox', { name: 'Fuera' })
+    outside.focus()
+    rerender(sample(false))
+    expect(document.activeElement).toBe(outside)
+  })
   it('renders visible semantic HTML without a provider or engine on the server', () => {
     const html = renderToString(
       <ul>

@@ -7,6 +7,11 @@ const external = [/^react($|\/)/, /^react-dom($|\/)/, /^@radix-ui\//, /^@betterl
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: [
+      { find: /^@betterlibs\/react$/, replacement: resolve(import.meta.dirname, 'src/index.ts') },
+    ],
+  },
   css: {
     modules: { generateScopedName },
   },

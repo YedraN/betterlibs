@@ -29,7 +29,7 @@ export interface StoryEntry {
 
 /**
  * Stories del build estático de Storybook (`index.json`). Se leen del disco al cargar el archivo
- * de pruebas para generar un test por story; si no hay build, devuelve una lista vacía.
+ * de pruebas para generar un test por story. Un catálogo ausente o vacío hace fallar la suite.
  */
 export function readStories(): StoryEntry[] {
   try {
@@ -37,11 +37,16 @@ export function readStories(): StoryEntry[] {
     const index = JSON.parse(readFileSync(url, 'utf8')) as {
       entries: Record<string, StoryEntry & { type: string }>
     }
-    return Object.values(index.entries)
+    const stories = Object.values(index.entries)
       .filter((entry) => entry.type === 'story')
       .map(({ id, title, name }) => ({ id, title, name }))
-  } catch {
-    return []
+    if (!stories.length) throw new Error('El catálogo está vacío')
+    return stories
+  } catch (cause) {
+    throw new Error(
+      'No hay un catálogo válido de Storybook. Ejecuta pnpm build antes de las pruebas.',
+      { cause },
+    )
   }
 }
 

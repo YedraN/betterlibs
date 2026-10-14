@@ -5,6 +5,7 @@ dist-server/
 .next/
 storybook-static/
 coverage/
+.release/
 *.tsbuildinfo
 *.log
 .env

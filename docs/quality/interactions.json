@@ -1,0 +1,413 @@
+{
+  "measuredAt": "2026-10-14T08:57:41.733Z",
+  "environment": {
+    "os": "win32 10.0.26200",
+    "cpu": "13th Gen Intel(R) Core(TM) i7-13620H",
+    "node": "v24.17.0",
+    "browser": "153.0.8010.12",
+    "viewport": "390x844",
+    "cpuThrottle": 4,
+    "network": "local server, no throttling",
+    "cache": "First route cold; shared browser context/cache reused for subsequent routes",
+    "device": "desktop emulation; not a physical mobile device"
+  },
+  "frameReferenceMs": 16.7,
+  "caveat": "Diagnostic samples; frame timing is not a universal refresh-rate guarantee. Resource bytes are encoded HTTP bodies, including separately loaded engine chunks.",
+  "rows": [
+    {
+      "path": "/",
+      "assets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 151070
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 31637
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 48556
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 22588
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 0,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 0
+      },
+      "afterInteractionsAssets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 151070
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 31637
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 48556
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 22588
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 4976
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 0
+      },
+      "loadLongTasks": [
+        {
+          "phase": "load",
+          "start": 73.29999999888241,
+          "duration": 440
+        },
+        {
+          "phase": "load",
+          "start": 524.5999999996275,
+          "duration": 150
+        }
+      ],
+      "scroll": {
+        "frames": 39,
+        "medianFrameMs": 16.699999999999932,
+        "p95FrameMs": 16.799999999999955,
+        "longTasks": []
+      },
+      "overlay": {
+        "frames": 24,
+        "medianFrameMs": 16.700000000000045,
+        "p95FrameMs": 33.399999999999864,
+        "longTasks": [
+          {
+            "phase": "overlay",
+            "start": 1495.699999999255,
+            "duration": 63
+          }
+        ]
+      }
+    },
+    {
+      "path": "/plantillas/producto",
+      "assets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 0
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 0
+      },
+      "afterInteractionsAssets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 0
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 0
+      },
+      "loadLongTasks": [
+        {
+          "phase": "load",
+          "start": 31.09999999962747,
+          "duration": 96
+        },
+        {
+          "phase": "load",
+          "start": 148.19999999925494,
+          "duration": 77
+        }
+      ],
+      "scroll": {
+        "frames": 39,
+        "medianFrameMs": 16.700000000000045,
+        "p95FrameMs": 16.800000000000068,
+        "longTasks": []
+      },
+      "overlay": {
+        "frames": 25,
+        "medianFrameMs": 16.700000000000045,
+        "p95FrameMs": 16.799999999999955,
+        "longTasks": []
+      }
+    },
+    {
+      "path": "/plantillas/estudio",
+      "assets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 0
+          },
+          {
+            "url": "/editorial/luma-project.svg",
+            "bodyBytes": 286,
+            "transferBytes": 586
+          },
+          {
+            "url": "/editorial/forma-project.svg",
+            "bodyBytes": 210,
+            "transferBytes": 510
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 0
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 496
+      },
+      "afterInteractionsAssets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 0
+          },
+          {
+            "url": "/editorial/luma-project.svg",
+            "bodyBytes": 286,
+            "transferBytes": 586
+          },
+          {
+            "url": "/editorial/forma-project.svg",
+            "bodyBytes": 210,
+            "transferBytes": 510
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 0
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 496
+      },
+      "loadLongTasks": [
+        {
+          "phase": "load",
+          "start": 34,
+          "duration": 50
+        }
+      ],
+      "scroll": {
+        "frames": 40,
+        "medianFrameMs": 16.699999999999932,
+        "p95FrameMs": 16.799999999999955,
+        "longTasks": []
+      },
+      "overlay": {
+        "frames": 24,
+        "medianFrameMs": 16.700000000000045,
+        "p95FrameMs": 16.799999999999955,
+        "longTasks": []
+      }
+    },
+    {
+      "path": "/plantillas/articulo",
+      "assets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 0
+          },
+          {
+            "url": "/editorial/reading-cover.svg",
+            "bodyBytes": 241,
+            "transferBytes": 541
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 0
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 241
+      },
+      "afterInteractionsAssets": {
+        "resources": [
+          {
+            "url": "/assets/index-Cus9mAFJ.js",
+            "bodyBytes": 150770,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/index-P6uNAHM9.css",
+            "bodyBytes": 31337,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+            "bodyBytes": 48256,
+            "transferBytes": 0
+          },
+          {
+            "url": "/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2",
+            "bodyBytes": 22288,
+            "transferBytes": 0
+          },
+          {
+            "url": "/editorial/reading-cover.svg",
+            "bodyBytes": 241,
+            "transferBytes": 541
+          },
+          {
+            "url": "/assets/mini-DZhX7r_6.js",
+            "bodyBytes": 4676,
+            "transferBytes": 0
+          }
+        ],
+        "initialJS": 150770,
+        "deferredJS": 4676,
+        "css": 31337,
+        "fonts": 70544,
+        "images": 241
+      },
+      "loadLongTasks": [],
+      "scroll": {
+        "frames": 40,
+        "medianFrameMs": 16.699999999999932,
+        "p95FrameMs": 16.700000000000045,
+        "longTasks": []
+      },
+      "overlay": {
+        "frames": 24,
+        "medianFrameMs": 16.700000000000045,
+        "p95FrameMs": 16.700000000000045,
+        "longTasks": []
+      }
+    }
+  ]
+}

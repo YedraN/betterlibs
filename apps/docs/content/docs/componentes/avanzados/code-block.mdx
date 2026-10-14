@@ -1,0 +1,31 @@
+---
+title: CodeBlock
+description: Variantes de código con copia y confirmación.
+---
+
+import { CodeBlockExample } from '@/components/docs/examples/code-block'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['code-block']}><CodeBlockExample /></Preview>
+
+## Uso y comportamiento
+
+snippets contiene id único, label y code literal. El texto se escapa mediante React; no se ejecuta. Los radios son independientes. lineNumbers no se copia. CopyButton se exporta también y comunica permisos denegados sin ocultar el código.
+
+Importa `CodeBlock` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="CodeBlockProps" />
+
+## CSS
+
+<CssReference module="CodeBlock" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

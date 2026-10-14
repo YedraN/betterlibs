@@ -41,9 +41,34 @@ test('el primer Tab lleva al enlace de salto y este al contenido principal', asy
   await expect(skip).toBeVisible()
   await page.keyboard.press('Enter')
   await expect(page).toHaveURL(/#main$/)
-  await page.keyboard.press('Tab')
-  const focusedInMain = await page.evaluate(() => Boolean(document.activeElement?.closest('#main')))
-  expect(focusedInMain).toBe(true)
+  // Verifica el destino del salto directamente. Safari puede omitir enlaces implícitos en
+  // el Tab siguiente según su preferencia nativa; eso no cambia el foco programático del salto.
+  await expect(page.locator('main#main')).toBeFocused()
+})
+
+test('el salto al contenido funciona sin JavaScript en las páginas editoriales', async ({
+  browser,
+  baseURL,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  try {
+    const page = await context.newPage()
+    for (const path of [
+      '/',
+      '/plantillas/producto',
+      '/plantillas/estudio',
+      '/plantillas/articulo',
+    ]) {
+      await page.goto(`${baseURL}${path}`)
+      await page.locator('main h1').waitFor()
+      await page.keyboard.press('Tab')
+      await expect(page.getByRole('link', { name: 'Saltar al contenido principal' })).toBeFocused()
+      await page.keyboard.press('Enter')
+      await expect(page.locator('main#main')).toBeFocused()
+    }
+  } finally {
+    await context.close()
+  }
 })
 
 test('el mega menú se abre con Enter, se recorre con Tab y se cierra con Escape', async ({

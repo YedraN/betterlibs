@@ -29,6 +29,33 @@ try {
     .getByRole('button', { name: 'Componentes', exact: true })
     .click()
   const form = page.getByRole('group', { name: 'Formulario y borrador', exact: true })
+  const commands = page.getByRole('group', { name: 'Buscar y ejecutar acciones', exact: true })
+  await commands.getByRole('combobox', { name: 'Tema', exact: true }).selectOption('dark')
+  await commands.getByRole('combobox', { name: 'Movimiento', exact: true }).selectOption('off')
+  await commands.getByRole('button', { name: 'Buscar acciones', exact: true }).click()
+  const palette = page.getByRole('dialog', { name: '¿Qué quieres hacer?' })
+  await expect(palette.getByRole('combobox')).toBeFocused()
+  expect(
+    await palette.evaluate((element) => {
+      const portal = element.closest('[data-docs-preview]')
+      return {
+        theme: portal?.getAttribute('data-theme'),
+        mode: portal?.getAttribute('data-motion'),
+      }
+    }),
+  ).toEqual({ theme: 'dark', mode: 'off' })
+  await palette.getByRole('combobox').fill('crear coleccion')
+  await expect(palette.getByRole('option')).toHaveCount(1)
+  await palette.getByRole('combobox').press('Enter')
+  await expect(commands.getByRole('button', { name: 'Buscar acciones', exact: true })).toBeFocused()
+  await expect(commands.getByRole('status').filter({ hasText: 'Acción elegida:' })).toContainText(
+    'Acción elegida: Nueva colección.',
+  )
+  await commands.getByText('Ver código', { exact: true }).click()
+  await commands.getByRole('button', { name: 'Copiar código', exact: true }).click()
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
+    'export function CommandExample',
+  )
   await form.getByRole('textbox', { name: 'Nombre del proyecto' }).fill('Atlas doc')
   await form
     .getByRole('textbox', { name: 'Descripción', exact: true })
@@ -116,6 +143,7 @@ try {
   )
   await presence.getByRole('button', { name: 'Cerrar detalle' }).click()
   const routes = [
+    '/docs/componentes/interactivos/command',
     '/',
     '/docs/galeria',
     '/docs/movimiento',
@@ -183,8 +211,11 @@ try {
     page.getByRole('link', { name: 'Explorar artículo →', exact: true }),
   ).toHaveAttribute('href', /\/plantillas\/articulo$/)
   await page.goto(`${origin}/docs/movimiento`)
-  await expect(page.getByRole('button', { name: 'Abrir búsqueda', exact: true })).toBeVisible()
-  await page.getByRole('button', { name: 'Abrir búsqueda', exact: true }).click()
+  const mobileSearch = page
+    .locator('#nd-subnav')
+    .getByRole('button', { name: 'Abrir búsqueda', exact: true })
+  await expect(mobileSearch).toBeVisible()
+  await mobileSearch.click()
   await expect(page.getByRole('dialog', { name: 'Buscar', exact: true })).toBeVisible()
   await page.getByRole('combobox', { name: 'Buscar', exact: true }).fill('ScrollProgress')
   const result = page.getByRole('option', {

@@ -23,6 +23,7 @@ const types: Record<string, string> = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.webp': 'image/webp',
+  '.avif': 'image/avif',
   '.woff2': 'font/woff2',
   '.txt': 'text/plain; charset=utf-8',
   '.ico': 'image/x-icon',

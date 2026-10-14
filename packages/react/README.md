@@ -2,7 +2,8 @@
 
 Componentes y secciones React para construir páginas con identidad: UI editorial, formularios,
 overlays y composiciones de producto, estudio y artículo. Objetivo WCAG 2.2 AA; las comprobaciones
-entre motores y con lectores de pantalla del rediseño están pendientes del cierre de calidad.
+automatizadas cubren Chromium, Firefox y WebKit. La revisión manual con lectores de pantalla
+del rediseño sigue pendiente del cierre de calidad.
 
 - Sin runtime de estilos: CSS Modules + variables CSS, compatible con SSR y React Server Components.
 - Todo el estilo sale de los tokens de [`@betterlibs/tokens`](../tokens): adapta la marca con
@@ -66,6 +67,25 @@ export default function Home() {
 
 `BentoFeatures`, `BentoFeature` y `FeatureShowcase` completan las composiciones editoriales.
 El movimiento es opcional desde `@betterlibs/motion`; la UI no depende del motor.
+
+## Componentes avanzados
+
+La entrada optativa incluye Combobox, MultiSelect, DatePicker, DataTable, Sidebar, Stepper,
+Dropzone, Slider, ToggleGroup, TreeView, SplitPane, Kanban, Timeline de actividad, EmptyState,
+CopyButton, CodeBlock, ImageViewer, InlineEdit y FilterToolbar. Importa su CSS además del básico:
+
+```tsx
+import '@betterlibs/react/advanced/styles.css'
+import { Combobox, DataTable, DatePicker } from '@betterlibs/react/advanced'
+```
+
+Los controles admiten teclado, temas y pantallas pequeñas. Las tablas y el código conservan
+desplazamiento horizontal local; los paneles y el tablero se apilan en móvil. Las operaciones
+remotas quedan a cargo de la aplicación. Stepper, Dropzone e InlineEdit proporcionan AbortSignal.
+
+Command y las notificaciones siguen en la entrada básica. Command añade recientes y reintento;
+`toast.update(id, patch)` actualiza progreso y los avisos admiten acciones, agrupación y persistencia.
+Las demos y contratos de cada componente están en [la guía avanzada](../../apps/docs/content/docs/componentes/avanzados/index.mdx).
 
 La documentación (galería, guías y referencias generadas de props y CSS) está en
 `apps/docs` del [repositorio](https://github.com/YedraN/betterlibs).

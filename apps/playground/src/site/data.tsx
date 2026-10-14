@@ -42,8 +42,9 @@ export const company = {
 export const photo = (seed: string, width = 1200, height = 800) =>
   `/images/${seed}-${width}x${height}.webp`
 
-/** `srcset` de las fotos 3:2: 640 px para móvil y 1200 px para pantallas grandes. */
-export const photoSrcSet = (seed: string) => `${photo(seed, 640, 427)} 640w, ${photo(seed)} 1200w`
+/** Fotos 3:2 con un tamaño intermedio para móvil de alta densidad. */
+export const photoSrcSet = (seed: string) =>
+  `${photo(seed, 640, 427)} 640w, ${photo(seed, 800, 533)} 800w, ${photo(seed)} 1200w`
 
 export type Service = {
   slug: string

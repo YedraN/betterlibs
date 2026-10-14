@@ -25,6 +25,18 @@ cumple sus requisitos de diseño; lo que dependa de tu web (qué cookies usas, t
 | Caducidad y cambios | La decisión caduca (`maxAgeDays`, 365 por defecto) y se vuelve a preguntar si cambias `version` |
 | No bloquear la navegación | El aviso no es modal ni roba el foco, y deja espacio para que no tape el elemento enfocado |
 
+## HTML inicial
+
+Por defecto el aviso espera a leer localStorage. En páginas prerenderizadas puedes activar
+`initialBanner` para incluirlo en el HTML inicial, sin animación de entrada, y evitar una aparición
+tardía del contenido.
+Al hidratar, se retira si hay una decisión guardada y no se concede ningún permiso nuevo. Puede
+verse brevemente en visitas repetidas, porque el servidor estático no conoce localStorage.
+
+```tsx
+<CookieConsent policyHref="/politica-de-cookies" initialBanner />
+```
+
 ## Uso
 
 Móntalo al principio del `<body>`, justo después del enlace de salto, para que sea lo primero al

@@ -1,0 +1,48 @@
+{
+  "verifiedOn": "2026-10-14",
+  "scope": "Command catalogue extension; phase 8 manual and Linux visual acceptance remain pending",
+  "status": "implemented-and-automated-checks-passed",
+  "environment": {
+    "os": "Windows",
+    "node": "24.17.0",
+    "playwright": "1.63.0",
+    "browsers": ["Chromium", "Firefox", "WebKit"],
+    "physicalMobile": false
+  },
+  "unit": { "reactPassed": 109, "newCommandTests": 8 },
+  "browser": {
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "storyAudits": 24,
+    "interactionTests": 12,
+    "scope": "Four stories, light/dark axe, keyboard, filtering, execution, focus return, inline list scroll, loading/empty and 320px viewport at 200% text size"
+  },
+  "next": {
+    "build": "passed",
+    "contentPages": 117,
+    "galleryVerification": "passed; theme/motion portal, action execution, copied source code, existing demos, SSR and enlarged text"
+  },
+  "distribution": {
+    "candidate": ".release/candidate-4dFPli",
+    "commandExportAndSSR": "passed",
+    "published": false
+  },
+  "checks": {
+    "types": "passed",
+    "lint": "passed with 30 existing warnings",
+    "publint": "passed",
+    "sizeLimit": "passed"
+  },
+  "brotliKB": {
+    "command": 2.91,
+    "commandLimit": 5,
+    "fullUI": 62.65,
+    "fullUILimit": 70,
+    "globalCSS": 18.39,
+    "globalCSSLimit": 19
+  },
+  "manualA11y": "deferred by user until NVDA installation is possible at home",
+  "linuxVisualBaselines": "pending"
+}

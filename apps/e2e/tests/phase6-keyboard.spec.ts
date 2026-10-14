@@ -28,15 +28,15 @@ for (const route of templates) {
       .poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
       .toBe(true)
     await expectNoViolations(page)
-    const images = await page
-      .locator('main img')
-      .evaluateAll((nodes) =>
-        nodes.every(
-          (node) =>
-            (node as HTMLImageElement).complete && (node as HTMLImageElement).naturalWidth > 0,
-        ),
-      )
-    expect(images).toBe(true)
+    // Los motores usan distintos márgenes para lazy loading: solicita cada imagen al entrar en vista.
+    for (const image of await page.locator('main img').all()) {
+      await image.scrollIntoViewIfNeeded()
+      await expect
+        .poll(() =>
+          image.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0),
+        )
+        .toBe(true)
+    }
   })
 }
 

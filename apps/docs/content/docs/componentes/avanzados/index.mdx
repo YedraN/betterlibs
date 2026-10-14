@@ -1,0 +1,39 @@
+---
+title: Componentes avanzados
+description: Selección, datos, edición y herramientas optativas.
+---
+
+Importa solo los componentes que uses y carga sus estilos junto a los básicos:
+
+```tsx
+import '@betterlibs/tokens/index.css'
+import '@betterlibs/react/styles.css'
+import '@betterlibs/react/advanced/styles.css'
+import { Combobox, DataTable } from '@betterlibs/react/advanced'
+```
+
+Para el preset editorial, añade `@betterlibs/tokens/editorial.css` y `data-preset="editorial"`.
+La entrada avanzada no añade un motor de arrastre ni cambia consumidores que no importen su CSS.
+Todas las demos son locales y no envían datos a un servidor.
+
+- [Selector con búsqueda](/docs/componentes/avanzados/combobox): Busca opciones sin perder el valor elegido.
+- [Selección múltiple](/docs/componentes/avanzados/multi-select): Busca, añade y quita etiquetas con un límite opcional.
+- [Fechas y calendario](/docs/componentes/avanzados/date-picker): Entrada manual y calendario para fechas e intervalos.
+- [Tabla de colecciones](/docs/componentes/avanzados/data-table): Ordenación, búsqueda, selección y paginación.
+- [Navegación lateral](/docs/componentes/avanzados/sidebar): Menú plegable en escritorio y panel en móvil.
+- [Proceso por pasos](/docs/componentes/avanzados/stepper): Valida cada paso y conserva los borradores al volver.
+- [Archivos con vista previa](/docs/componentes/avanzados/dropzone): Valida formatos y tamaño antes de subir archivos.
+- [Valor e intervalo](/docs/componentes/avanzados/slider): Ajusta un valor o dos extremos con controles nativos.
+- [Opciones de vista](/docs/componentes/avanzados/toggle-group): Alterna opciones con selección única o múltiple.
+- [Árbol de archivos](/docs/componentes/avanzados/tree-view): Explora carpetas, expande ramas y elige un elemento.
+- [Paneles ajustables](/docs/componentes/avanzados/split-pane): Cambia el reparto entre editor y vista previa.
+- [Tablero de trabajo](/docs/componentes/avanzados/kanban): Mueve y reordena tarjetas con controles o arrastre.
+- [Historial de actividad](/docs/componentes/avanzados/timeline): Fechas, estados y detalles de cada cambio.
+- [Estado vacío con salida](/docs/componentes/avanzados/empty-state): Explica qué falta y cómo dar el siguiente paso.
+- [Código y copia](/docs/componentes/avanzados/code-block): Variantes de código con copia y confirmación.
+- [Visor de imágenes](/docs/componentes/avanzados/image-viewer): Amplía imágenes, cambia de vista y restablece el zoom.
+- [Edición directa](/docs/componentes/avanzados/inline-edit): Guarda, cancela y recupera el borrador ante errores.
+- [Notificaciones de operaciones](/docs/componentes/avanzados/notifications): Agrupa avisos y comunica progreso con acciones.
+- [Búsqueda y filtros](/docs/componentes/avanzados/filter-toolbar): Combina filtros, muestra los activos y restablécelos.
+
+La revisión manual sigue pendiente. Consulta [calidad](/docs/recursos/calidad).

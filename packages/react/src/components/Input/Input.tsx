@@ -15,6 +15,8 @@ import { useFieldControl } from '../Field/use-field-control'
 import styles from './Input.module.css'
 
 export type InputProps = Omit<ComponentPropsWithRef<'input'>, 'size' | 'prefix'> & {
+  /** Buscador auxiliar: no hereda nombre, id, required ni errores del Field exterior. */
+  standalone?: boolean
   /** `md` mide 44px de alto, el mínimo recomendado para pantallas táctiles. @default 'md' */
   size?: 'sm' | 'md' | 'lg'
   /** Marca el campo con error. Dentro de un `Field` se deduce de su `error`. */
@@ -46,6 +48,7 @@ export type InputProps = Omit<ComponentPropsWithRef<'input'>, 'size' | 'prefix'>
  * adecuado en móvil y permiten autocompletar.
  */
 export function Input({
+  standalone,
   size = 'md',
   invalid: invalidProp,
   prefix,
@@ -71,6 +74,7 @@ export function Input({
   const inputRef = useRef<HTMLInputElement>(null)
   const [passwordVisible, setPasswordVisible] = useState(false)
   const { invalid, success, controlProps } = useFieldControl({
+    standalone,
     id,
     name,
     required,

@@ -1,0 +1,31 @@
+---
+title: DataTable
+description: Ordenación, búsqueda, selección y paginación.
+---
+
+import { DataTableExample } from '@/components/docs/examples/data-table'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['data-table']}><DataTableExample /></Preview>
+
+## Uso y comportamiento
+
+columns define id, header, value y render opcional. rowId debe ser único y estable. value permite ordenar números como números. La casilla general selecciona solo la página visible. La región horizontal permite recorrer tablas anchas en móvil sin mover toda la página.
+
+Importa `DataTable` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="DataTableProps" />
+
+## CSS
+
+<CssReference module="DataTable" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

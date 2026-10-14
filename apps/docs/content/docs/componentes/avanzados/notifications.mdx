@@ -1,0 +1,31 @@
+---
+title: Notificaciones avanzadas
+description: Agrupa avisos y comunica progreso con acciones.
+---
+
+import { NotificationsExample } from '@/components/docs/examples/notifications'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['notifications']}><NotificationsExample /></Preview>
+
+## Uso y comportamiento
+
+Importa toast y Toaster desde la entrada básica. group agrupa avisos; toast.update(id, patch) no reabre un aviso cerrado. progress es 0–100 real. persistent conserva el aviso. Las acciones necesitan etiquetas distintas y deben existir también en la interfaz principal.
+
+Importa desde `@betterlibs/react`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="ToastOptions" />
+
+## CSS
+
+<CssReference module="Toast" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

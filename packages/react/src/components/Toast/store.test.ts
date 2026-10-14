@@ -27,3 +27,18 @@ it('una salida anterior no acorta el cierre de la notificación reemplazada', ()
   vi.advanceTimersByTime(200)
   expect(getSnapshot().some((record) => record.id === 'upload')).toBe(false)
 })
+
+it('agrupa operaciones sin crear otra notificación y update conserva el recuento', () => {
+  const id = toast({ title: 'Guardado', group: 'save' })
+  expect(toast({ title: 'Segundo guardado', group: 'save' })).toBe(id)
+  expect(getSnapshot().find((record) => record.id === id)?.count).toBe(2)
+  toast.update(id, { progress: 50, persistent: true })
+  expect(getSnapshot().find((record) => record.id === id)).toMatchObject({
+    count: 2,
+    progress: 50,
+    persistent: true,
+  })
+  toast.dismiss(id)
+  toast.update(id, { title: 'No debe reabrirse' })
+  expect(getSnapshot().find((record) => record.id === id)?.open).toBe(false)
+})

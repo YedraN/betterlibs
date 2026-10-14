@@ -5,15 +5,195 @@ import { useRef, useState } from 'react'
 import examples from '@/generated/examples.json'
 import { playgroundUrl } from '@/lib/shared'
 import { ButtonsExample } from './examples/buttons'
+import { CodeBlockExample } from './examples/code-block'
+import { ComboboxExample } from './examples/combobox'
+import { CommandExample } from './examples/command'
+import { DataTableExample } from './examples/data-table'
+import { DatePickerExample } from './examples/date-picker'
 import { DialogExample } from './examples/dialog'
+import { DropzoneExample } from './examples/dropzone'
+import { EmptyStateExample } from './examples/empty-state'
+import { FilterToolbarExample } from './examples/filter-toolbar'
 import { FormExample } from './examples/form'
+import { ImageViewerExample } from './examples/image-viewer'
+import { InlineEditExample } from './examples/inline-edit'
+import { KanbanExample } from './examples/kanban'
+import { MultiSelectExample } from './examples/multi-select'
+import { NotificationsExample } from './examples/notifications'
 import { PresenceExample } from './examples/presence'
 import { RevealExample } from './examples/reveal'
 import { SectionsExample } from './examples/sections'
+import { SidebarExample } from './examples/sidebar'
+import { SliderExample } from './examples/slider'
+import { SplitPaneExample } from './examples/split-pane'
+import { StepperExample } from './examples/stepper'
+import { TimelineExample } from './examples/timeline'
+import { ToggleGroupExample } from './examples/toggle-group'
+import { TreeViewExample } from './examples/tree-view'
 import styles from './gallery.module.css'
 import { Preview, usePreviewReplay } from './preview'
 
 const catalog = [
+  {
+    id: 'combobox',
+    title: 'Selector con búsqueda',
+    category: 'Componentes',
+    description: 'Busca opciones sin perder el valor elegido.',
+    href: '/docs/componentes/avanzados/combobox',
+    render: () => <ComboboxExample />,
+  },
+  {
+    id: 'multi-select',
+    title: 'Selección múltiple',
+    category: 'Componentes',
+    description: 'Busca, añade y quita etiquetas con un límite opcional.',
+    href: '/docs/componentes/avanzados/multi-select',
+    render: () => <MultiSelectExample />,
+  },
+  {
+    id: 'date-picker',
+    title: 'Fechas y calendario',
+    category: 'Componentes',
+    description: 'Entrada manual y calendario para fechas e intervalos.',
+    href: '/docs/componentes/avanzados/date-picker',
+    render: () => <DatePickerExample />,
+  },
+  {
+    id: 'data-table',
+    title: 'Tabla de colecciones',
+    category: 'Componentes',
+    description: 'Ordenación, búsqueda, selección y paginación.',
+    href: '/docs/componentes/avanzados/data-table',
+    render: () => <DataTableExample />,
+  },
+  {
+    id: 'sidebar',
+    title: 'Navegación lateral',
+    category: 'Componentes',
+    description: 'Menú plegable en escritorio y panel en móvil.',
+    href: '/docs/componentes/avanzados/sidebar',
+    render: () => <SidebarExample />,
+  },
+  {
+    id: 'stepper',
+    title: 'Proceso por pasos',
+    category: 'Componentes',
+    description: 'Valida cada paso y conserva los borradores al volver.',
+    href: '/docs/componentes/avanzados/stepper',
+    render: () => <StepperExample />,
+  },
+  {
+    id: 'dropzone',
+    title: 'Archivos con vista previa',
+    category: 'Componentes',
+    description: 'Valida formatos y tamaño antes de subir archivos.',
+    href: '/docs/componentes/avanzados/dropzone',
+    render: () => <DropzoneExample />,
+  },
+  {
+    id: 'slider',
+    title: 'Valor e intervalo',
+    category: 'Componentes',
+    description: 'Ajusta un valor o dos extremos con controles nativos.',
+    href: '/docs/componentes/avanzados/slider',
+    render: () => <SliderExample />,
+  },
+  {
+    id: 'toggle-group',
+    title: 'Opciones de vista',
+    category: 'Componentes',
+    description: 'Alterna opciones con selección única o múltiple.',
+    href: '/docs/componentes/avanzados/toggle-group',
+    render: () => <ToggleGroupExample />,
+  },
+  {
+    id: 'tree-view',
+    title: 'Árbol de archivos',
+    category: 'Componentes',
+    description: 'Explora carpetas, expande ramas y elige un elemento.',
+    href: '/docs/componentes/avanzados/tree-view',
+    render: () => <TreeViewExample />,
+  },
+  {
+    id: 'split-pane',
+    title: 'Paneles ajustables',
+    category: 'Componentes',
+    description: 'Cambia el reparto entre editor y vista previa.',
+    href: '/docs/componentes/avanzados/split-pane',
+    render: () => <SplitPaneExample />,
+  },
+  {
+    id: 'kanban',
+    title: 'Tablero de trabajo',
+    category: 'Componentes',
+    description: 'Mueve y reordena tarjetas con controles o arrastre.',
+    href: '/docs/componentes/avanzados/kanban',
+    render: () => <KanbanExample />,
+  },
+  {
+    id: 'timeline',
+    title: 'Historial de actividad',
+    category: 'Componentes',
+    description: 'Fechas, estados y detalles de cada cambio.',
+    href: '/docs/componentes/avanzados/timeline',
+    render: () => <TimelineExample />,
+  },
+  {
+    id: 'empty-state',
+    title: 'Estado vacío con salida',
+    category: 'Componentes',
+    description: 'Explica qué falta y cómo dar el siguiente paso.',
+    href: '/docs/componentes/avanzados/empty-state',
+    render: () => <EmptyStateExample />,
+  },
+  {
+    id: 'code-block',
+    title: 'Código y copia',
+    category: 'Componentes',
+    description: 'Variantes de código con copia y confirmación.',
+    href: '/docs/componentes/avanzados/code-block',
+    render: () => <CodeBlockExample />,
+  },
+  {
+    id: 'image-viewer',
+    title: 'Visor de imágenes',
+    category: 'Componentes',
+    description: 'Amplía imágenes, cambia de vista y restablece el zoom.',
+    href: '/docs/componentes/avanzados/image-viewer',
+    render: () => <ImageViewerExample />,
+  },
+  {
+    id: 'inline-edit',
+    title: 'Edición directa',
+    category: 'Componentes',
+    description: 'Guarda, cancela y recupera el borrador ante errores.',
+    href: '/docs/componentes/avanzados/inline-edit',
+    render: () => <InlineEditExample />,
+  },
+  {
+    id: 'notifications',
+    title: 'Notificaciones de operaciones',
+    category: 'Componentes',
+    description: 'Agrupa avisos y comunica progreso con acciones.',
+    href: '/docs/componentes/avanzados/notifications',
+    render: () => <NotificationsExample />,
+  },
+  {
+    id: 'filter-toolbar',
+    title: 'Búsqueda y filtros',
+    category: 'Componentes',
+    description: 'Combina filtros, muestra los activos y restablécelos.',
+    href: '/docs/componentes/avanzados/filter-toolbar',
+    render: () => <FilterToolbarExample />,
+  },
+  {
+    id: 'command',
+    title: 'Buscar y ejecutar acciones',
+    category: 'Componentes',
+    description: 'Paleta de comandos, búsqueda y selección con teclado.',
+    href: '/docs/componentes/interactivos/command',
+    render: () => <CommandExample />,
+  },
   {
     id: 'buttons',
     title: 'Acciones y estados',

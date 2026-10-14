@@ -1,0 +1,13 @@
+{
+  "verifiedOn": "2026-10-14",
+  "status": "pending-linux-baselines",
+  "requiredEnvironment": "mcr.microsoft.com/playwright:v1.63.0-noble",
+  "baselineComparison": "not-run; references must be generated, reviewed and compared in Linux",
+  "missingBaselineGuard": {
+    "verified": true,
+    "platform": "win32",
+    "localOverride": "VISUAL_ANY_OS=1",
+    "case": "betterlibs (escritorio, light)",
+    "expectedResult": "failure: Falta la referencia betterlibs-escritorio-light.png"
+  }
+}

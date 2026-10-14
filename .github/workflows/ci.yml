@@ -29,6 +29,18 @@ jobs:
         run: pnpm size
       - name: Paquetes publicables (publint)
         run: pnpm lint:packages
+      - name: Candidata instalada desde tarballs en un consumidor aislado
+        run: pnpm prepare:release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: candidata-distribucion
+          path: |
+            .release/**/tarballs/*.tgz
+            .release/**/manifest.json
+            .release/**/packages/*/CHANGELOG.md
+            docs/quality/release-candidate.json
+          include-hidden-files: true
+          retention-days: 14
 
   e2e:
     name: Accesibilidad, teclado y Lighthouse
@@ -42,16 +54,25 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm turbo run build --filter=@betterlibs/playground --filter=@betterlibs/storybook
-      - run: pnpm --filter @betterlibs/e2e exec playwright install --with-deps chromium
-      - name: axe (WCAG 2.2 AA) en plantillas y stories + recorridos de teclado
+      - run: pnpm --filter @betterlibs/e2e exec playwright install --with-deps chromium firefox webkit
+      - name: axe y teclado en Chromium, Firefox y WebKit
         run: pnpm --filter @betterlibs/e2e test:e2e
+      - name: Registrar cobertura y omisiones por motor
+        if: ${{ !cancelled() }}
+        run: pnpm --filter @betterlibs/e2e exec node scripts/summarize-browsers.mjs
       - name: Lighthouse ≥ 95 en las plantillas
         run: pnpm lighthouse
+      - name: Registrar medianas y entorno
+        if: ${{ !cancelled() }}
+        run: pnpm --filter @betterlibs/e2e exec node scripts/summarize-lighthouse.mjs
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: informes-e2e
           path: |
             apps/e2e/playwright-report
+            apps/e2e/test-results
             apps/e2e/.lighthouseci
+            docs/quality/lighthouse.json
+            docs/quality/browsers.json
           retention-days: 14

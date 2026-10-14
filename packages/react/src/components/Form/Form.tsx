@@ -135,9 +135,11 @@ export function Form({
   onChange,
   onBlur,
   onReset,
+  onPointerDownCapture,
   ...props
 }: FormProps) {
   const formRef = useRef<HTMLFormElement>(null)
+  const pressingSubmit = useRef(false)
   const summaryRef = useRef<HTMLDivElement>(null)
   const messages = { ...defaultValidationMessages, ...messagesProp }
   const [clientErrors, setClientErrors] = useState<FormErrors>({})
@@ -149,6 +151,17 @@ export function Form({
   const [summary, setSummary] = useState<SummaryState>({ source: null, items: [] })
   const [focusToken, setFocusToken] = useState(0)
   const handledFocus = useRef(0)
+  useEffect(() => {
+    const clear = () => {
+      pressingSubmit.current = false
+    }
+    document.addEventListener('pointerup', clear, true)
+    document.addEventListener('pointercancel', clear, true)
+    return () => {
+      document.removeEventListener('pointerup', clear, true)
+      document.removeEventListener('pointercancel', clear, true)
+    }
+  }, [])
   const [hasRequired, setHasRequired] = useState(false)
 
   const visibleErrors = useMemo(() => {
@@ -242,10 +255,11 @@ export function Form({
     // Removing the error summary during a pointer press moves the submit button before click.
     // Submission validates all fields; ordinary keyboard/field blur still validates immediately.
     if (
-      (destination instanceof HTMLButtonElement || destination instanceof HTMLInputElement) &&
-      destination.type === 'submit' &&
-      destination.form === formRef.current &&
-      destination.matches(':active')
+      pressingSubmit.current ||
+      ((destination instanceof HTMLButtonElement || destination instanceof HTMLInputElement) &&
+        destination.type === 'submit' &&
+        destination.form === formRef.current &&
+        destination.matches(':active'))
     )
       return
     revalidate(event.target)
@@ -273,6 +287,17 @@ export function Form({
       onChange={handleChange}
       onBlur={handleBlur}
       onReset={handleReset}
+      onPointerDownCapture={(event) => {
+        onPointerDownCapture?.(event)
+        const control =
+          event.target instanceof Element ? event.target.closest('button, input') : null
+        pressingSubmit.current =
+          !event.defaultPrevented &&
+          event.button === 0 &&
+          (control instanceof HTMLButtonElement || control instanceof HTMLInputElement) &&
+          control.type === 'submit' &&
+          control.form === formRef.current
+      }}
       {...props}
     >
       {errorSummary && (

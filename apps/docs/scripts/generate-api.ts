@@ -35,7 +35,11 @@ const configPath = join(reactRoot, 'tsconfig.json')
 const config = ts.readConfigFile(configPath, ts.sys.readFile)
 const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, reactRoot)
 const program = ts.createProgram({
-  rootNames: [join(srcRoot, 'index.ts'), join(motionRoot, 'index.ts')],
+  rootNames: [
+    join(srcRoot, 'index.ts'),
+    join(srcRoot, 'advanced/index.ts'),
+    join(motionRoot, 'index.ts'),
+  ],
   options: { ...parsed.options, noEmit: true },
 })
 const checker = program.getTypeChecker()
@@ -43,6 +47,9 @@ const indexFile = program.getSourceFile(join(srcRoot, 'index.ts'))
 if (!indexFile) throw new Error('No se encuentra packages/react/src/index.ts')
 const moduleSymbol = checker.getSymbolAtLocation(indexFile)
 if (!moduleSymbol) throw new Error('No se pueden leer las exportaciones de la librería')
+const advancedFile = program.getSourceFile(join(srcRoot, 'advanced/index.ts'))
+const advancedSymbol = advancedFile && checker.getSymbolAtLocation(advancedFile)
+if (!advancedSymbol) throw new Error('No se pueden leer las exportaciones avanzadas')
 
 const normalizePath = (path: string) => path.replaceAll('\\', '/')
 const ownSources = [srcRoot, motionRoot].map((root) => `${normalizePath(root)}/`)
@@ -118,6 +125,7 @@ const motionSymbol = motionFile && checker.getSymbolAtLocation(motionFile)
 if (!motionSymbol) throw new Error('No se pueden leer las exportaciones de motion')
 for (const exported of [
   ...checker.getExportsOfModule(moduleSymbol),
+  ...checker.getExportsOfModule(advancedSymbol),
   ...checker.getExportsOfModule(motionSymbol),
 ]) {
   const name = exported.getName()

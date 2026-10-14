@@ -1,0 +1,57 @@
+@layer bl.components {
+  .root {
+    display: grid;
+    min-inline-size: 0;
+    min-block-size: 12rem;
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-lg);
+    overflow: hidden;
+  }
+  .pane {
+    overflow-wrap: anywhere;
+    min-inline-size: 0;
+    min-block-size: 0;
+    padding: var(--bl-space-4);
+    overflow: auto;
+    background: var(--bl-color-surface);
+  }
+  .handle {
+    position: relative;
+    min-inline-size: 12px;
+    min-block-size: 44px;
+    background: var(--bl-color-bg-muted);
+    border-inline: 1px solid var(--bl-color-border);
+    cursor: col-resize;
+    touch-action: none;
+  }
+  .handle::after {
+    content: "";
+    position: absolute;
+    inset: 40% 4px;
+    border-inline-start: 2px solid var(--bl-color-text-muted);
+  }
+  .handle:focus-visible {
+    outline: 2px solid var(--bl-color-focus-ring);
+    outline-offset: -2px;
+  }
+  .root[data-orientation="vertical"] .handle {
+    cursor: row-resize;
+    min-block-size: 12px;
+    border-inline: 0;
+    border-block: 1px solid var(--bl-color-border);
+  }
+  .root[data-orientation="vertical"] .handle::after {
+    inset: 4px 40%;
+    border-inline: 0;
+    border-block-start: 2px solid var(--bl-color-text-muted);
+  }
+  @media (max-width: 40em) {
+    .root {
+      display: flex;
+      flex-direction: column;
+    }
+    .handle {
+      display: none;
+    }
+  }
+}

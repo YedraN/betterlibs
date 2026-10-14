@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync } from 'node:fs'
-import { relative, resolve } from 'node:path'
+import { basename, relative, resolve } from 'node:path'
 
 const root = resolve(import.meta.dirname, '../content/docs')
 function walk(dir: string): string[] {
@@ -26,7 +26,7 @@ for (const file of files) {
     if (!target || target.startsWith('#') || /^[a-z]+:/i.test(target)) continue
     const url = new URL(
       target,
-      `https://local.test${pathFor(file)}${file.endsWith('/index.mdx') ? '/' : ''}`,
+      `https://local.test${pathFor(file)}${basename(file) === 'index.mdx' ? '/' : ''}`,
     )
     if (!url.pathname.startsWith('/docs')) continue
     const path = url.pathname.replace(/\/$/, '')

@@ -14,6 +14,10 @@ import '@betterlibs/react/styles.css'
 
 ## Principios
 
+La ampliación de componentes e interacciones está en [PLAN_COMPONENTES.md](PLAN_COMPONENTES.md).
+Selectores, calendario, tablas, paneles y el resto del catálogo avanzado se importan desde
+`@betterlibs/react/advanced` con `@betterlibs/react/advanced/styles.css`, además de los estilos básicos.
+
 - **Objetivo WCAG 2.2 AA**: teclado, foco visible, contraste y ARIA; la validación de cierre entre motores y con lectores de pantalla sigue pendiente.
 - **Tu marca, no la nuestra**: todo el estilo sale de design tokens (variables CSS).
 - **Sin runtime de estilos**: CSS Modules + variables CSS, compatible con SSR y React Server Components.
@@ -137,6 +141,9 @@ Para usar otro dominio, configura `VITE_DOCS_URL` siguiendo
 [`apps/playground/.env.example`](apps/playground/.env.example).
 
 El estado de esta nueva dirección está en [PLAN_UI_MOTION.md](PLAN_UI_MOTION.md).
+La fase 8 está en curso. El [recorrido de revisión manual y evidencias](docs/quality/README.md)
+incluye lectores de pantalla y los pasos para cerrar las referencias visuales Linux.
+`pnpm prepare:release` prepara una candidata RC con changelog, tarballs y consumo aislado.
 
 Para desarrollo fuera de Docker, configura `NEXT_PUBLIC_PLAYGROUND_URL=http://localhost:5173`
 en `apps/docs/.env.local`; la documentación enlaza 8080 por defecto. Puedes cambiar Storybook con

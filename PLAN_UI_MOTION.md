@@ -1,9 +1,10 @@
 # Betterlibs — Plan de UI y movimiento
 
-Actualizado: 13 de octubre de 2026. Estado: en ejecución; fases 0–7 completadas.
+Actualizado: 14 de octubre de 2026. Estado: en ejecución; fases 0–7 completadas, fase 8 en curso.
 
-Punto de continuidad guardado el 13 de octubre de 2026: fases 0–7 terminadas y entorno Docker
-documentado. Al retomar, comenzar la fase 8 de calidad y distribución.
+Punto de continuidad: veinte entregas de catálogo recogidas en [PLAN_COMPONENTES.md](PLAN_COMPONENTES.md), autorizadas por el usuario tras aplazar
+la instalación de NVDA hasta llegar a casa. La aceptación de fase 8 continúa pendiente. La revisión manual con lectores de
+pantalla queda preparada por petición del usuario; las referencias visuales requieren Linux.
 
 Este documento define la nueva dirección. El historial de desarrollo permanece en `PLAN.md`. Las fases 10–12 de aquel documento pasan a ser un catálogo de ideas: la secuencia de trabajo propuesta es la de este plan.
 
@@ -417,8 +418,69 @@ BETTERLIBS_DOCS_TEST_URL): [portada clara](docs/previews/ui-motion/phase7-portad
 [galería móvil oscura](docs/previews/ui-motion/phase7-galeria-dark-mobile.png).
 No son referencias automatizadas de regresión visual.
 
-**Siguiente fase:** fase 8, calidad y distribución: Firefox/WebKit, lectores de pantalla,
-referencias visuales Linux verificadas, rendimiento del rediseño y preparación de lanzamiento.
+**Fase 8 — Calidad y distribución en curso (2026-10-14).**
+
+- La suite repite axe y recorridos completos en Chromium, Firefox y WebKit. Firefox no soporta
+  el contexto móvil/táctil de Playwright: dos casos se ejecutan en Chromium y WebKit. El swipe
+  nativo CDP solo se prueba en Chromium; WebKit comprueba cierre táctil mediante botón.
+- Corregidos el envío por puntero de Form cuando WebKit no enfoca el botón, la restauración de
+  foco de Presence después del blur provocado por inert y la activación del enlace de salto.
+  La navegación por anclas del menú móvil respeta el foco del destino tras el cierre en Firefox.
+- Referencias visuales estrictas: faltar una imagen hace fallar la prueba. Plantillas en móvil y
+  escritorio, ambos temas; stories en ambos temas. Actualización y segunda comparación en la
+  imagen oficial Linux `mcr.microsoft.com/playwright:v1.63.0-noble`.
+- Recorrido de lectores de pantalla de escritorio y móvil, registro y comprobador preparados en
+  [docs/quality/README.md](docs/quality/README.md). La revisión queda pendiente, como pidió el usuario.
+- Distribución RC preparada con Changesets en un directorio aislado. React/tokens/icons
+  `1.0.0-rc.0` y motion `0.1.0-rc.0`: changelogs, licencias, tarballs, hashes, exports y peers
+  verificados desde un consumidor nuevo, con SSR visible. Sin cambiar versiones del checkout
+  ni publicar. `pnpm prepare:release` reproduce la candidata; CI guarda sus artefactos.
+- Release manual: requiere el registro de lectores de pantalla del commit del producto, la
+  comparación visual Linux y los checks automatizados antes de ejecutar Changesets.
+
+**Validación ya completada:** 155 pruebas unitarias, tipos, lint sin errores (30 avisos existentes),
+1.111 pruebas axe/teclado aprobadas entre Chromium, Firefox y WebKit, con dos omisiones táctiles
+de Firefox registradas y cero fallos o pruebas inestables;
+publint estricto y size-limit. Button 1,79 kB, formulario básico 4,63 kB, CSS global 18,18 kB,
+tokens CSS 4,51 kB; cinco primitivas con motor 7,52 kB según size-limit. Los fixtures Vite separan
+inicial y diferido en [bundle-cost.json](docs/previews/ui-motion/bundle-cost.json); cinco primitivas
+3.586 + 4.434 B, distinto método de compresión del límite. No se aumentaron presupuestos.
+
+Lighthouse completado en las once páginas controladas, con tres ejecuciones por página:
+medianas de rendimiento 95–98 y 100 en accesibilidad, buenas prácticas y SEO. Chromium en
+Windows, simulación móvil y CPU ×4; las 33 ejecuciones pasan el criterio de mediana ≥95.
+Entorno, métricas y resultados en [lighthouse.json](docs/quality/lighthouse.json). El perfil de
+interacciones se conserva por separado en `docs/quality/interactions.json`; no sustituye la
+comprobación en un móvil físico.
+
+La recompilación final de documentación, inicialmente detenida por cuota de la revisión automática
+de permisos, ya se ha completado al ampliar el catálogo con Command: 117 páginas y build de Next
+aprobados. El lint final pasa.
+
+Comprobación adicional en el navegador integrado sobre las tres aplicaciones iniciadas por el
+usuario: web 5173, Storybook 6006 y docs 3000 responden. Verificados salto a main, navegación y
+foco de ancla del artículo, movimiento off, validación del formulario y retorno de foco de
+diálogos. Corregido y comprobado el enlace local de docs al playground: el fallback ahora usa
+5173; Docker conserva su URL configurada. Esta revisión no acredita lectores de pantalla ni
+un móvil físico y no cambia su estado pendiente.
+
+La precarga de las dos fuentes críticas en el HTML prerenderizado evita desplazamientos de texto.
+Las páginas del preset base precargan solo Inter. Las fotos corporativas incorporan una variante
+WebP de 800 px para móvil de alta densidad y `sizes` ajustados al contenedor, sin cambiar los
+originales. `pnpm --filter @betterlibs/playground images:prepare` reproduce esos archivos y su
+registro en `docs/quality/responsive-images.json`.
+Las portadas del blog usan AVIF responsive con fallback WebP para reducir el peso de su imagen
+principal sin perder soporte en navegadores que no decodifiquen AVIF.
+`CookieConsent.initialBanner` permite incluir el aviso en SSR antes de leer localStorage; es
+optativo y respeta la decisión guardada al hidratar. Las plantillas corporativas lo activan para
+evitar la aparición tardía del mayor bloque visible. Incluye regresiones de SSR y persistencia y
+su changeset. La candidata se ha regenerado y comprueba también ese aviso desde el tarball.
+
+**Pendiente de cierre:** revisión manual preparada, referencias Linux generadas/revisadas y
+comparadas y contraste del perfil con un móvil físico representativo. En este equipo Windows no
+hay WSL ni daemon Linux Docker disponible. La publicación
+pública y el hosting requieren configurar sus destinos al terminar la aceptación; no se presentan
+como efectuados. La evidencia reproducible se conserva en `docs/quality/`.
 
 **Entorno de desarrollo Docker completado (2026-10-12).**
 
@@ -671,6 +733,18 @@ La modalidad inicial sigue siendo un paquete instalable. Las plantillas aportan 
 
 ## 8. Fases, dependencias y entregables
 
+**Ampliación posterior autorizada (2026-10-14): Command.** El usuario aplaza la revisión con NVDA
+por falta de permisos en este equipo y elige continuar con nuevos componentes e interacciones.
+Se incorpora un buscador de acciones con grupos, keywords, tildes, carga/lista vacía, selección
+por teclado y puntero y composición con Dialog. Conserva el foco en el campo y desplaza solo la
+lista interna. Incluye cuatro stories, ejemplo en galería, referencia de API/CSS y changeset minor.
+Validación: 109 pruebas React (ocho nuevas), 36 comprobaciones de la ampliación en tres motores,
+tipos, build de UI/Storybook/Next, lint y size-limit. CSS global 18,39 kB (límite 19); UI completa
+62,65 kB (límite 70); Command aislado 2,91 kB (límite propio 5). La candidata se regenera y
+comprueba también Command desde tarballs. La verificación de galería Next incluye Command,
+portal con tema, copia de código, SSR y texto ampliado y vuelve a pasar sus recetas existentes.
+La aceptación manual y visual Linux de la fase 8 sigue pendiente; esta ampliación no la cierra.
+
 Estimaciones orientativas en días de trabajo efectivo para una persona familiarizada con el proyecto. Se recalibran después del piloto; no representan fechas de entrega comprometidas.
 
 | Fase | Trabajo | Entregable y criterio para avanzar | Estimación |
@@ -683,7 +757,7 @@ Estimaciones orientativas en días de trabajo efectivo para una persona familiar
 | 5. Interacciones y catálogo — completada | Adaptar los componentes restantes y añadir adaptaciones avanzadas con una API coherente | Formularios, menús, overlays y layout probados; capacidad avanzada cargada solo donde se utiliza | 3–5 días |
 | 6. Secciones y navegación — completada | Tres plantillas, bloques restantes y recetas de navegación | Webs con contenido completo, imágenes coherentes y navegación con foco/historial/scroll correctos | 4–7 días |
 | 7. Documentación completa — completada | Galería, controles de demos, guías, APIs y migración | Un desarrollador puede instalar, personalizar y montar una página siguiendo solo las docs | 3–5 días |
-| 8. Calidad y distribución | Referencias visuales, pruebas entre motores, mediciones y empaquetado | Checks de cierre, registro de limitaciones, changelog y paquetes preparados para publicar | 2–4 días |
+| 8. Calidad y distribución — en curso | Referencias visuales, pruebas entre motores, mediciones y empaquetado | Checks de cierre, registro de limitaciones, changelog y paquetes preparados para publicar | 2–4 días |
 
 La cadena principal es 0 → 1 → 2 → 3 → 4. Las pruebas y la documentación acompañan a cada fase; las fases finales completan la cobertura del conjunto.
 

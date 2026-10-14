@@ -185,12 +185,18 @@ test('la cabecera oculta vuelve al recibir foco', async ({ page }) => {
   const header = page.locator('header')
   await page.evaluate(() => window.scrollTo(0, 600))
   await expect(header).toHaveAttribute('data-hidden', 'true')
-  await page.getByRole('link', { name: 'Betterlibs', exact: true }).focus()
+  await page
+    .getByRole('link', { name: 'Betterlibs', exact: true })
+    .evaluate((element: HTMLElement) => element.focus({ preventScroll: true }))
   await expect(header).not.toHaveAttribute('data-hidden')
   await expect(header).toHaveAttribute('data-scrolled', 'true')
 })
 
 test.describe('menú editorial táctil', () => {
+  test.skip(
+    ({ browserName }) => browserName === 'firefox',
+    'Firefox no admite isMobile/hasTouch en Playwright; su recorrido móvil con teclado sigue cubierto.',
+  )
   test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true })
   test('abre, atrapa el foco, cierra y navega', async ({ page }) => {
     await openStory(page, 'cabecera')

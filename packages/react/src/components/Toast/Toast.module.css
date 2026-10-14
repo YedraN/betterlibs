@@ -1,4 +1,9 @@
 @layer bl.components {
+  .progress {
+    inline-size: 100%;
+    max-inline-size: 100%;
+    accent-color: var(--bl-color-accent-text);
+  }
   .viewport {
     position: fixed;
     z-index: var(--bl-z-toast);

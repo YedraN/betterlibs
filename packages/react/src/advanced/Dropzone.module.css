@@ -1,0 +1,54 @@
+@layer bl.components {
+  .zone {
+    display: grid;
+    justify-items: center;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-6);
+    border: 2px dashed var(--bl-color-border-input);
+    border-radius: var(--bl-radius-lg);
+    background: var(--bl-color-surface);
+    text-align: center;
+  }
+  .zone > svg {
+    inline-size: 2rem;
+    block-size: 2rem;
+    color: var(--bl-color-text-muted);
+  }
+  .zone[data-dragging] {
+    background: var(--bl-color-accent-subtle);
+    border-color: var(--bl-color-focus-ring);
+  }
+  .zone[data-disabled] {
+    opacity: 0.7;
+  }
+  .files {
+    display: grid;
+    gap: var(--bl-space-2);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .files li {
+    display: flex;
+    align-items: center;
+    gap: var(--bl-space-3);
+    padding: var(--bl-space-3);
+    border: 1px solid var(--bl-color-border);
+    border-radius: var(--bl-radius-md);
+  }
+  .files strong,
+  .files span {
+    display: block;
+    overflow-wrap: anywhere;
+  }
+  .files progress {
+    inline-size: 100%;
+    accent-color: var(--bl-color-accent);
+  }
+  .preview {
+    inline-size: 3rem;
+    block-size: 3rem;
+    object-fit: cover;
+    border-radius: var(--bl-radius-sm);
+  }
+}

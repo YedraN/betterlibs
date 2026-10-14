@@ -137,7 +137,10 @@ function PilotContent({
                   if (!target) return
                   event.preventDefault()
                   target.tabIndex = -1
-                  target.focus({ preventScroll: true })
+                  // El destino nativo del hash puede cambiar el foco después de la limpieza de Radix.
+                  requestAnimationFrame(() => {
+                    if (target.isConnected) target.focus({ preventScroll: true })
+                  })
                 }}
               >
                 <nav aria-label="Navegación móvil" className={styles.mobileNav}>
@@ -174,7 +177,7 @@ function PilotContent({
             </Dialog>
           </div>
         </header>
-        <main id="main">
+        <main id="main" tabIndex={-1}>
           <Hero
             id="hero"
             variant="editorial"

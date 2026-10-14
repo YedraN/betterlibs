@@ -56,6 +56,13 @@
     "limit": "2.5 kB"
   },
   {
+    "name": "@betterlibs/react { Command }",
+    "path": "packages/react/dist/index.js",
+    "import": "{ Command }",
+    "ignore": ["react", "react-dom", "react/jsx-runtime"],
+    "limit": "5 kB"
+  },
+  {
     "name": "@betterlibs/react { Header, Footer }",
     "path": "packages/react/dist/index.js",
     "import": "{ Header, Footer }",
@@ -75,6 +82,19 @@
     "import": "{ CookieConsent }",
     "ignore": ["react", "react-dom", "react/jsx-runtime"],
     "limit": "17 kB"
+  },
+  {
+    "name": "@betterlibs/react/advanced (adicional a UI básica)",
+    "path": "packages/react/dist/advanced/index.js",
+    "import": "*",
+    "ignore": ["react", "react-dom", "react/jsx-runtime", "@betterlibs/react", "@betterlibs/icons"],
+    "limit": "15 kB"
+  },
+  {
+    "name": "@betterlibs/react/advanced/styles.css",
+    "path": "packages/react/dist/advanced/styles.css",
+    "rolldown": false,
+    "limit": "3 kB"
   },
   {
     "name": "@betterlibs/react/styles.css",

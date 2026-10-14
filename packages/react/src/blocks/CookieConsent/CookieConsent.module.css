@@ -181,4 +181,9 @@
       animation: none;
     }
   }
+
+  /* An SSR notice is readable at first paint; its content must not wait for an entrance. */
+  .banner[data-initial-banner] .inner {
+    animation: none;
+  }
 }

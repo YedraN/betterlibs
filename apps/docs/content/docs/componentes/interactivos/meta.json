@@ -1,4 +1,4 @@
 {
   "title": "Contenido interactivo",
-  "pages": ["tabs", "accordion", "carousel"]
+  "pages": ["tabs", "accordion", "carousel", "command"]
 }

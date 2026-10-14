@@ -5,26 +5,28 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5173",
+    "images:prepare": "node scripts/prepare-responsive-images.mjs",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-server && node scripts/prerender.ts",
     "preview": "vite preview --port 5173",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@betterlibs/icons": "workspace:*",
+    "@betterlibs/motion": "workspace:*",
     "@betterlibs/react": "workspace:*",
     "@betterlibs/tokens": "workspace:*",
     "@fontsource-variable/inter": "5.3.0",
     "@fontsource-variable/space-grotesk": "5.3.0",
+    "motion": "14.1.0",
     "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "@betterlibs/motion": "workspace:*",
-    "motion": "14.1.0"
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@types/node": "26.6.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.1",
+    "sharp": "0.35.4",
     "vite": "8.3.0"
   }
 }

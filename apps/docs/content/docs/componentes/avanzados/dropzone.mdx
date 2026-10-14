@@ -1,0 +1,31 @@
+---
+title: Dropzone
+description: Valida formatos y tamaño antes de subir archivos.
+---
+
+import { DropzoneExample } from '@/components/docs/examples/dropzone'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['dropzone']}><DropzoneExample /></Preview>
+
+## Uso y comportamiento
+
+onFilesChange recibe los File aceptados. La zona no sube datos por sí sola ni añade un campo al formulario. onUpload recibe AbortSignal y debe respetarla. progress usa fileKey(file) como clave. Las URLs de vista previa se revocan al dejar de usarse. Valida también en el servidor.
+
+Importa `Dropzone` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="DropzoneProps" />
+
+## CSS
+
+<CssReference module="Dropzone" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

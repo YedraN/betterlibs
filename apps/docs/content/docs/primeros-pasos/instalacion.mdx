@@ -46,6 +46,26 @@ pnpm -r --filter './packages/*' pack --pack-destination /ruta/absoluta/paquetes
 ```
 
 Los tarballs incluyen dist y sus manifiestos de publicación; pnpm transforma los enlaces workspace.
+En pnpm 12, un consumidor de tarballs aún no publicados necesita resolver también las dependencias
+internas a esos archivos: declara overrides en su propio pnpm-workspace.yaml. La preparación
+reproducible `pnpm prepare:release` crea candidatos rc, changelogs y un consumidor aislado que
+comprueba esta instalación; conserva las versiones del checkout. El manifiesto de la ejecución
+está en docs/quality/release-candidate.json y los archivos en la carpeta .release indicada.
+
+```yaml
+packages: []
+overrides:
+  '@betterlibs/tokens': 'file:/ruta/absoluta/paquetes/betterlibs-tokens-0.0.0.tgz'
+  '@betterlibs/icons': 'file:/ruta/absoluta/paquetes/betterlibs-icons-0.0.0.tgz'
+  '@betterlibs/react': 'file:/ruta/absoluta/paquetes/betterlibs-react-0.0.0.tgz'
+  '@betterlibs/motion': 'file:/ruta/absoluta/paquetes/betterlibs-motion-0.0.0.tgz'
+```
+
+Sustituye rutas y versiones por los archivos empaquetados; omite motion si solo consumes UI.
+Los overrides se configuran en [pnpm-workspace.yaml](https://pnpm.io/settings), no en el campo
+pnpm de package.json. Cuando las versiones estén publicadas, la resolución normal del registro
+reemplazará este paso de instalación local.
+
 En una aplicación React 19 que ya tenga React DOM, añade tokens, iconos y UI en la misma operación.
 La versión local actual es 0.0.0; sustituye nombres si tu checkout tiene otra versión:
 
@@ -86,6 +106,19 @@ El atributo aplica el preset; cargar su CSS no lo activa por sí solo. Las fuent
 Si usas los imports de las recetas, instala @fontsource-variable/inter y @fontsource-variable/space-grotesk.
 Todo el CSS de la UI está en capas bl.tokens, bl.reset, bl.base y bl.components; las reglas sin
 capa tienen prioridad. [Personalización](/docs/guias/sobrescribir-estilos).
+
+## Catálogo avanzado opcional
+
+Para selectores con búsqueda, tablas, calendario y el resto del catálogo avanzado, añade
+su entrada y CSS optativos. Los estilos básicos anteriores siguen siendo necesarios:
+
+```tsx
+import '@betterlibs/react/advanced/styles.css'
+import { Combobox, DataTable, DatePicker } from '@betterlibs/react/advanced'
+```
+
+Consulta [componentes avanzados](/docs/componentes/avanzados) para contratos, estados y demos.
+Esta entrada reutiliza la UI básica y no añade un motor de arrastre.
 
 ## 4. Movimiento, solo si lo necesitas
 

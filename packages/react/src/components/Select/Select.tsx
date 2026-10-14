@@ -15,6 +15,8 @@ export type SelectProps = Omit<ComponentPropsWithRef<'select'>, 'size'> & {
   size?: 'sm' | 'md' | 'lg'
   /** Marca el campo con error. Dentro de un `Field` se deduce de su `error`. */
   invalid?: boolean
+  /** No hereda el Field exterior; útil para controles internos de componentes compuestos. */
+  standalone?: boolean
   /**
    * Primera opción vacía («Selecciona una opción»). En campos obligatorios no se puede volver
    * a elegir y hace que la validación exija una opción real.
@@ -34,6 +36,7 @@ export type SelectProps = Omit<ComponentPropsWithRef<'select'>, 'size'> & {
 export function Select({
   size = 'md',
   invalid: invalidProp,
+  standalone,
   placeholder,
   options,
   htmlSize,
@@ -52,6 +55,7 @@ export function Select({
   ...props
 }: SelectProps) {
   const { invalid, success, controlProps } = useFieldControl({
+    standalone,
     id,
     name,
     required,

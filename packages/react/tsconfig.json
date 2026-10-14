@@ -3,7 +3,8 @@
   "compilerOptions": {
     "noEmit": true,
     "allowJs": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "paths": { "@betterlibs/react": ["./src/index.ts"] }
   },
   "include": ["src", "vite.config.ts", "css-modules.js"],
   "exclude": ["src/**/*.stories.tsx"]

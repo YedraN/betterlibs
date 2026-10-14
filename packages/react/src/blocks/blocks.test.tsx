@@ -1,5 +1,6 @@
 import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { renderToString } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Button } from '../components/Button/Button'
 import { expectNoA11yViolations } from '../test/axe'
@@ -230,6 +231,34 @@ describe('CookieConsent', () => {
   beforeEach(() => {
     window.localStorage.clear()
     act(() => cookieConsent.reset())
+  })
+
+  it('el aviso inicial es optativo en SSR y no concede permisos', () => {
+    expect(renderToString(<CookieConsent policyHref="/cookies" />)).not.toContain(
+      'Aviso de cookies',
+    )
+    const html = renderToString(<CookieConsent policyHref="/cookies" initialBanner />)
+    expect(html).toContain('Aviso de cookies')
+    expect(html).toContain('Rechazar todas')
+    expect(html).toContain('Aceptar todas')
+    expect(cookieConsent.get()).toBeNull()
+    expect(window.localStorage.getItem('bl-cookie-consent')).toBeNull()
+  })
+
+  it('retira el aviso inicial si existe una decisión guardada sin volver a anunciarla', () => {
+    const onChange = vi.fn()
+    window.localStorage.setItem(
+      'bl-cookie-consent',
+      JSON.stringify({
+        categories: { necessary: true, analytics: false },
+        version: '1',
+        date: new Date().toISOString(),
+      }),
+    )
+    render(<CookieConsent policyHref="/cookies" initialBanner onChange={onChange} />)
+    expect(screen.queryByRole('region', { name: 'Aviso de cookies' })).toBeNull()
+    expect(cookieConsent.get()).toEqual({ necessary: true, analytics: false })
+    expect(onChange).not.toHaveBeenCalled()
   })
 
   it('rechazar y aceptar tienen el mismo peso y la decisión se guarda', async () => {

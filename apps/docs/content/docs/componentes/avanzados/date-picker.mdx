@@ -1,0 +1,31 @@
+---
+title: DatePicker
+description: Entrada manual y calendario para fechas e intervalos.
+---
+
+import { DatePickerExample } from '@/components/docs/examples/date-picker'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['date-picker']}><DatePickerExample /></Preview>
+
+## Uso y comportamiento
+
+`value` usa `{ start, end? }` con fechas civiles `YYYY-MM-DD`, sin conversión UTC. `mode="range"` ordena los extremos. `min` y `max` limitan el calendario y las entradas nativas. Flechas recorren días/semanas; Home/End, la semana; PageUp/PageDown, meses; con Shift, años.
+
+Importa `DatePicker` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="DatePickerProps" />
+
+## CSS
+
+<CssReference module="Calendar" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

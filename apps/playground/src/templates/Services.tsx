@@ -69,7 +69,7 @@ export function ServicesPage() {
               <Image
                 src={photo(service.slug)}
                 srcSet={photoSrcSet(service.slug)}
-                sizes="(min-width: 48em) 50vw, 100vw"
+                sizes="(min-width: 64em) 50vw, calc(100vw - 2rem)"
                 alt=""
                 ratio={4 / 3}
                 radius="2xl"

@@ -1,0 +1,31 @@
+---
+title: SplitPane
+description: Cambia el reparto entre editor y vista previa.
+---
+
+import { SplitPaneExample } from '@/components/docs/examples/split-pane'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['split-pane']}><SplitPaneExample /></Preview>
+
+## Uso y comportamiento
+
+value es el porcentaje del primer panel, limitado por min/max. Flechas ajustan dos puntos; Shift acelera; Home/End alcanzan límites. El puntero usa captura. En móvil los paneles se apilan y el valor de escritorio se conserva.
+
+Importa `SplitPane` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="SplitPaneProps" />
+
+## CSS
+
+<CssReference module="SplitPane" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

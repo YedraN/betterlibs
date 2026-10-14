@@ -1,0 +1,25 @@
+{
+  "title": "Componentes avanzados",
+  "pages": [
+    "index",
+    "combobox",
+    "multi-select",
+    "date-picker",
+    "data-table",
+    "sidebar",
+    "stepper",
+    "dropzone",
+    "slider",
+    "toggle-group",
+    "tree-view",
+    "split-pane",
+    "kanban",
+    "timeline",
+    "empty-state",
+    "code-block",
+    "image-viewer",
+    "inline-edit",
+    "notifications",
+    "filter-toolbar"
+  ]
+}

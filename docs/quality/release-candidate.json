@@ -1,0 +1,78 @@
+{
+  "preparedAt": "2026-10-14T11:34:43.702Z",
+  "node": "v24.17.0",
+  "stage": ".release/candidate-z6o67u",
+  "status": "candidate-only; publication and stable acceptance pending",
+  "install": "fresh isolated node_modules, cached registry dependencies",
+  "consumerRoot": ".release/candidate-z6o67u/consumer",
+  "archives": [
+    {
+      "name": "@betterlibs/icons",
+      "version": "1.0.0-rc.0",
+      "file": "betterlibs-icons-1.0.0-rc.0.tgz",
+      "bytes": 9366,
+      "sha256": "10f0c3709778db3b624b4a2df2eca3574445e418911850f7219b0636cf20fd09",
+      "exports": {
+        ".": {
+          "types": "./dist/index.d.ts",
+          "import": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+      }
+    },
+    {
+      "name": "@betterlibs/motion",
+      "version": "0.1.0-rc.0",
+      "file": "betterlibs-motion-0.1.0-rc.0.tgz",
+      "bytes": 28906,
+      "sha256": "14b8a473ce1213dcdc78aa21523a61a9ff4fb5150d5346b86914785743e587a9",
+      "exports": {
+        ".": {
+          "types": "./dist/index.d.ts",
+          "import": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+      }
+    },
+    {
+      "name": "@betterlibs/react",
+      "version": "1.0.0-rc.0",
+      "file": "betterlibs-react-1.0.0-rc.0.tgz",
+      "bytes": 375480,
+      "sha256": "6307b8143296ed9ff25358feed2201d66d608936683703a5559ec6860eb075cb",
+      "exports": {
+        ".": {
+          "types": "./dist/index.d.ts",
+          "import": "./dist/index.js"
+        },
+        "./styles.css": "./dist/styles.css",
+        "./advanced": {
+          "types": "./dist/advanced/index.d.ts",
+          "import": "./dist/advanced/index.js"
+        },
+        "./advanced/styles.css": "./dist/advanced/styles.css",
+        "./package.json": "./package.json"
+      }
+    },
+    {
+      "name": "@betterlibs/tokens",
+      "version": "1.0.0-rc.0",
+      "file": "betterlibs-tokens-1.0.0-rc.0.tgz",
+      "bytes": 48603,
+      "sha256": "873f2ffc19172d5c22a592de108f14632725d6c2d460635a4118d4890adf647a",
+      "exports": {
+        ".": {
+          "types": "./dist/index.d.ts",
+          "import": "./dist/index.js"
+        },
+        "./index.css": "./dist/index.css",
+        "./editorial.css": "./dist/editorial.css",
+        "./tokens.css": "./dist/tokens.css",
+        "./reset.css": "./dist/reset.css",
+        "./base.css": "./dist/base.css",
+        "./tokens.json": "./dist/tokens.json",
+        "./package.json": "./package.json"
+      }
+    }
+  ]
+}

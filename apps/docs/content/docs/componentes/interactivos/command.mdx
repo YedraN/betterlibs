@@ -1,0 +1,83 @@
+---
+title: Command
+description: Búsqueda de acciones, grupos y navegación por teclado, combinable con Dialog.
+---
+
+import { CommandExample } from '@/components/docs/examples/command'
+
+<Preview preset="editorial"><CommandExample /></Preview>
+
+Busca «coleccion», «crear» u «oscuro». El ejemplo muestra la acción elegida y cierra la paleta;
+las acciones son locales y no crean colecciones ni cambian el tema de la documentación.
+
+## Componer una paleta
+
+```tsx
+'use client'
+
+import { useState } from 'react'
+import { Button, Command, Dialog, DialogContent, DialogTrigger } from '@betterlibs/react'
+
+export function Acciones() {
+  const [open, setOpen] = useState(false)
+  const [result, setResult] = useState('')
+  return (
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild><Button>Buscar acciones</Button></DialogTrigger>
+        <DialogContent title="Acciones" description="Elige qué quieres hacer.">
+          <Command
+            items={[
+              { id: 'new', label: 'Nueva colección', keywords: ['crear'], group: 'Colecciones' },
+              { id: 'open', label: 'Abrir colección', group: 'Colecciones' },
+            ]}
+            onSelect={(item) => {
+              setResult(`Acción elegida: ${item.label}`)
+              setOpen(false)
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+      <p role="status">{result}</p>
+    </>
+  )
+}
+```
+
+`Command` funciona también dentro de una página. El consumidor decide qué hace cada acción,
+si cierra el panel y cómo comunica éxito o error. Utiliza identificadores únicos y estables.
+Los iconos son decorativos; el nombre y la descripción explican la acción.
+
+## Teclado y tacto
+
+- Flechas arriba/abajo: recorren los resultados habilitados, manteniendo el foco en el buscador.
+- Enter: ejecuta la acción marcada. No envía un formulario que contenga el componente.
+- Escribir: filtra por todos los términos, sin distinguir mayúsculas ni tildes.
+- Escape: lo gestiona el contenedor; en un `Dialog`, cierra y devuelve el foco al activador.
+- Tab: continúa hacia los siguientes controles. Las opciones no añaden paradas a la tabulación.
+- Tocar un resultado habilitado: ejecuta la misma acción que Enter.
+
+`shortcut` es una ayuda visual, no un registro de atajos. La aplicación puede añadir un atajo
+global para abrir su diálogo, teniendo en cuenta campos editables y conflictos del navegador.
+No anides enlaces, botones u otros controles dentro de una opción.
+
+## Carga y resultados remotos
+
+Con `loading`, el componente anuncia la carga y suspende la ejecución de resultados anteriores.
+`loadingText` y `emptyText` permiten explicar el estado y cómo continuar. Para búsquedas remotas,
+controla `query` con `onQueryChange` y usa `filter={false}` si el servidor ya filtra los resultados.
+La aplicación debe cancelar consultas obsoletas y mostrar sus errores o una acción de reintento.
+
+## Props
+
+<PropsTable name="CommandProps" />
+
+## Anatomía y CSS
+
+<CssReference module="Command" />
+
+## Relacionados
+
+- [Dialog](/docs/componentes/overlays/dialog)
+- [DropdownMenu](/docs/componentes/overlays/dropdown-menu)
+- [Patrón de combobox de WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)

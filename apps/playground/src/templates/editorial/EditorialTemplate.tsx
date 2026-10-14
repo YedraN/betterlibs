@@ -67,7 +67,9 @@ export function EditorialTemplate({
               </select>
             </label>
           </section>
-          <main id="main">{children}</main>
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
           <Footer
             logo={<RouterLink href="/">betterlibs.</RouterLink>}
             description="Tres maneras de componer una web con identidad, usando los mismos fundamentos."

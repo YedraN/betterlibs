@@ -1,0 +1,60 @@
+{
+  "status": "pending",
+  "reviewedProductCommit": null,
+  "deferral": {
+    "requestedOn": "2026-10-14",
+    "reason": "El usuario no tiene permisos para instalar NVDA en este equipo; realizará la revisión en casa.",
+    "scope": "Se avanza con nuevos componentes; no se acredita la revisión manual ni se publica una versión estable."
+  },
+  "desktop": {
+    "reviewer": "",
+    "reader": "",
+    "version": "",
+    "os": "",
+    "device": "",
+    "date": "",
+    "notes": [],
+    "cases": {
+      "landmarks": "pending",
+      "reading-order": "pending",
+      "forms-errors": "pending",
+      "dialog-focus": "pending",
+      "announcements": "pending",
+      "navigation": "pending",
+      "reduced-motion": "pending",
+      "text-reveal": "pending",
+      "scroll-progress": "pending"
+    }
+  },
+  "mobile": {
+    "reviewer": "",
+    "reader": "",
+    "version": "",
+    "os": "",
+    "device": "",
+    "date": "",
+    "notes": [],
+    "cases": {
+      "landmarks": "pending",
+      "reading-order": "pending",
+      "forms-errors": "pending",
+      "dialog-focus": "pending",
+      "announcements": "pending",
+      "navigation": "pending",
+      "reduced-motion": "pending",
+      "text-reveal": "pending",
+      "scroll-progress": "pending"
+    }
+  },
+  "requiredCases": [
+    "landmarks",
+    "reading-order",
+    "forms-errors",
+    "dialog-focus",
+    "announcements",
+    "navigation",
+    "reduced-motion",
+    "text-reveal",
+    "scroll-progress"
+  ]
+}

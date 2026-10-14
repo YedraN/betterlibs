@@ -5,6 +5,8 @@ import { FieldContext, FormContext } from './context'
 import { joinIds } from './parts'
 
 export type FieldControlOptions = {
+  /** Aísla buscadores auxiliares del Field exterior, sin registrar un segundo valor. */
+  standalone?: boolean
   id?: string
   name?: string
   required?: boolean
@@ -30,7 +32,8 @@ export type FieldControlOptions = {
  * }
  */
 export function useFieldControl(options: FieldControlOptions) {
-  const field = useContext(FieldContext)
+  const inheritedField = useContext(FieldContext)
+  const field = options.standalone ? null : inheritedField
   const form = useContext(FormContext)
   const fallbackId = useId()
   const name = options.name ?? field?.name

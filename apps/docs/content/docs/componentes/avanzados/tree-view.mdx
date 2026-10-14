@@ -1,0 +1,31 @@
+---
+title: TreeView
+description: Explora carpetas, expande ramas y elige un elemento.
+---
+
+import { TreeViewExample } from '@/components/docs/examples/tree-view'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['tree-view']}><TreeViewExample /></Preview>
+
+## Uso y comportamiento
+
+Los nodos necesitan id único y label. Derecha/izquierda entran en ramas o vuelven al padre; arriba/abajo recorren nodos visibles. Home/End y búsqueda por letras agilizan recorridos. Enter o Espacio seleccionan; expandedIds permite controlar la expansión.
+
+Importa `TreeView` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="TreeViewProps" />
+
+## CSS
+
+<CssReference module="TreeView" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

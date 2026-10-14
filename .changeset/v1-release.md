@@ -4,8 +4,9 @@
 '@betterlibs/icons': major
 ---
 
-Primera versión estable (1.0.0) de Betterlibs UI: tokens y temas con contraste verificado,
-más de 60 componentes, bloques corporativos, aviso de cookies RGPD e iconos.
+Preparación de la primera versión de Betterlibs UI: tokens, preset editorial, componentes,
+bloques, aviso de cookies e iconos. La aceptación estable requiere el cierre de calidad del
+plan UI/motion, incluidas referencias Linux revisadas y lectores de pantalla.
 
 - Auditoría de accesibilidad automatizada: axe (WCAG 2.2 AA) en todas las stories y plantillas,
   en modo claro y oscuro, y recorridos de teclado de los patrones críticos.

@@ -1,0 +1,31 @@
+---
+title: FilterToolbar
+description: Combina filtros, muestra los activos y restablécelos.
+---
+
+import { FilterToolbarExample } from '@/components/docs/examples/filter-toolbar'
+import examples from '@/generated/examples.json'
+
+<Preview preset="editorial" controls code={examples['filter-toolbar']}><FilterToolbarExample /></Preview>
+
+## Uso y comportamiento
+
+value contiene query y filters, mapa de id a valor. onValueChange permite filtrar datos o consultar el servidor. La barra no realiza peticiones. Conserva filtros durante carga y cancela consultas obsoletas en la aplicación. resultCount anuncia resultados.
+
+Importa `FilterToolbar` desde `@betterlibs/react/advanced` y carga `advanced/styles.css`.
+Los temas claro/oscuro y el preset editorial usan los tokens. Las acciones remotas deben comunicar
+error y permitir reintento sin perder lo escrito. No dependas solo de iconos o color.
+
+## Props
+
+<PropsTable name="FilterToolbarProps" />
+
+## CSS
+
+<CssReference module="Advanced" />
+
+## Relacionados
+
+- [Galería](/docs/galeria)
+- [Instalación avanzada](/docs/componentes/avanzados)
+- [Accesibilidad](/docs/fundamentos/accesibilidad)

@@ -1,0 +1,265 @@
+{
+  "tool": "sharp 0.35.4; WebP q70/e6 + AVIF q50/e4; responsive 640/800/1200",
+  "rows": [
+    {
+      "source": "analitica-1200x800.webp",
+      "sourceBytes": 80096,
+      "variant": "analitica-800x533.webp",
+      "variantBytes": 31282,
+      "avif": [
+        {
+          "file": "analitica-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 18577
+        },
+        {
+          "file": "analitica-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 27917
+        },
+        {
+          "file": "analitica-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 63155
+        }
+      ]
+    },
+    {
+      "source": "audit-1200x800.webp",
+      "sourceBytes": 130706,
+      "variant": "audit-800x533.webp",
+      "variantBytes": 55426,
+      "avif": [
+        {
+          "file": "audit-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 27047
+        },
+        {
+          "file": "audit-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 40046
+        },
+        {
+          "file": "audit-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 90853
+        }
+      ]
+    },
+    {
+      "source": "auditoria-1200x800.webp",
+      "sourceBytes": 161518,
+      "variant": "auditoria-800x533.webp",
+      "variantBytes": 68604,
+      "avif": [
+        {
+          "file": "auditoria-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 29461
+        },
+        {
+          "file": "auditoria-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 42820
+        },
+        {
+          "file": "auditoria-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 99414
+        }
+      ]
+    },
+    {
+      "source": "close-1200x800.webp",
+      "sourceBytes": 46230,
+      "variant": "close-800x533.webp",
+      "variantBytes": 24558,
+      "avif": [
+        {
+          "file": "close-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 14227
+        },
+        {
+          "file": "close-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 20250
+        },
+        {
+          "file": "close-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 36681
+        }
+      ]
+    },
+    {
+      "source": "consultoria-1200x800.webp",
+      "sourceBytes": 70794,
+      "variant": "consultoria-800x533.webp",
+      "variantBytes": 25708,
+      "avif": [
+        {
+          "file": "consultoria-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 15180
+        },
+        {
+          "file": "consultoria-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 23068
+        },
+        {
+          "file": "consultoria-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 55324
+        }
+      ]
+    },
+    {
+      "source": "family-1200x800.webp",
+      "sourceBytes": 132524,
+      "variant": "family-800x533.webp",
+      "variantBytes": 54310,
+      "avif": [
+        {
+          "file": "family-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 25350
+        },
+        {
+          "file": "family-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 38130
+        },
+        {
+          "file": "family-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 86938
+        }
+      ]
+    },
+    {
+      "source": "fiscal-1200x800.webp",
+      "sourceBytes": 69532,
+      "variant": "fiscal-800x533.webp",
+      "variantBytes": 27960,
+      "avif": [
+        {
+          "file": "fiscal-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 14035
+        },
+        {
+          "file": "fiscal-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 20920
+        },
+        {
+          "file": "fiscal-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 46188
+        }
+      ]
+    },
+    {
+      "source": "hero-1200x800.webp",
+      "sourceBytes": 213158,
+      "variant": "hero-800x533.webp",
+      "variantBytes": 87922,
+      "avif": [
+        {
+          "file": "hero-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 38684
+        },
+        {
+          "file": "hero-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 57116
+        },
+        {
+          "file": "hero-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 132916
+        }
+      ]
+    },
+    {
+      "source": "iva-1200x800.webp",
+      "sourceBytes": 115102,
+      "variant": "iva-800x533.webp",
+      "variantBytes": 48406,
+      "avif": [
+        {
+          "file": "iva-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 23252
+        },
+        {
+          "file": "iva-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 34454
+        },
+        {
+          "file": "iva-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 77090
+        }
+      ]
+    },
+    {
+      "source": "kpi-1200x800.webp",
+      "sourceBytes": 26266,
+      "variant": "kpi-800x533.webp",
+      "variantBytes": 13980,
+      "avif": [
+        {
+          "file": "kpi-640x427.avif",
+          "width": 640,
+          "height": 427,
+          "bytes": 9165
+        },
+        {
+          "file": "kpi-800x533.avif",
+          "width": 800,
+          "height": 533,
+          "bytes": 12931
+        },
+        {
+          "file": "kpi-1200x800.avif",
+          "width": 1200,
+          "height": 800,
+          "bytes": 21663
+        }
+      ]
+    }
+  ]
+}

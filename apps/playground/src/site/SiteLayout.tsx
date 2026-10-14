@@ -47,7 +47,12 @@ export function SiteLayout({ pathname, children }: { pathname: string; children:
     <>
       {/* El enlace de salto va antes que el aviso de cookies: debe ser lo primero enfocable. */}
       <SkipLink />
-      <CookieConsent policyHref="/aviso-legal#cookies" version="2026-09" />
+      <CookieConsent
+        policyHref="/aviso-legal#cookies"
+        version="2026-09"
+        initialBanner
+        description="Usamos cookies necesarias. Con tu permiso, guardamos preferencias, analizamos visitas y personalizamos publicidad."
+      />
       <AnnouncementBar
         dismissible
         storageKey="norte-aviso-jornada-2026"
@@ -69,7 +74,9 @@ export function SiteLayout({ pathname, children }: { pathname: string; children:
           </Button>
         }
       />
-      <main id="main">{children}</main>
+      <main id="main" tabIndex={-1}>
+        {children}
+      </main>
       <Footer
         logo={logo}
         description="Consultoría financiera para empresas que quieren crecer con orden desde 2006."
